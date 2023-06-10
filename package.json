@@ -51,7 +51,10 @@
     "prettier": "2.8.8"
   },
   "lint-staged": {
-    "*.js": ["eslint . --fix", "prettier --write"]
+    "*.js": [
+      "eslint . --fix",
+      "prettier --write"
+    ]
   },
   "husky": {
     "hooks": {
