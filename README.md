@@ -15,6 +15,8 @@
 10. [](#issues)
 </details>
 
+<br/>
+
 ## <span id="intro">1. 서비스 소개</span>
 <img src="https://github.com/withLeche/sample/assets/106927728/9cf31c8d-8d7f-4e4c-b150-88619713e976"><br>
 > 함께 달리는 즐거움을 나눌 수 있는 공간<br>
@@ -24,9 +26,13 @@
 - 자유롭게 날짜와 장소만 게시한다면 누구든 함께 달릴 수 있습니다!<br>
 - 내가 달린 기록과 사람들을 이웃들에게 자유롭게 공유할 수 있습니다!
 
+<br/>
+
 ## <span id="period">2. 프로젝트 개발 기간</span>
 
 2023.06.12 ~ 2023.06.27
+
+<br/>
 
 ## <span id="members">3. 멤버</span>
 <img src="https://github.com/withLeche/sample/assets/106927728/6be14e7d-a3f9-4486-80c3-4be9ab3786aa">
@@ -41,6 +47,8 @@
 | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
 | <img src="https://avatars.githubusercontent.com/yongdeok97" height=180 width=180> | <img src="https://avatars.githubusercontent.com/parkyeonjux" height=180 width=180> | <img src="https://avatars.githubusercontent.com/sypaik-dev" height=180 width=180> | <img src="https://avatars.githubusercontent.com/withLeche" height=180 width=180> |
 | <a href="https://github.com/yongdeok97"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/parkyeonjux"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |           <a href="https://github.com/sypaik-dev"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/withLeche"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |
+
+<br/>
 
 ## <span id="dev">4. 개발 환경</span>
 <table>
@@ -73,13 +81,19 @@
         </tr>
       </tbody>
 </table>
+
+<br/>
+
 ## <span id="tree">5. 프로젝트 구조</span>
+
+<br/>
+
 ## <span id="convention">6. 컨벤션</span>
 ### 커밋
 
 ### 코드
 
-### ✍ 개발 규칙 관리
+<br/>
 
 ## <span id="culture">7. 협업 문화</span>
 
@@ -87,7 +101,6 @@
 #### - Daily Scrum
 #### - 정기 회의
 
-<br/>
 
 ### 📌 업무 공유
 #### - 데일리 스크럼
@@ -110,6 +123,7 @@
 
 ### 📆 작업 진행 상황 관리
 
+<br/>
 
 ## <span id="bug">9. 버그 관리</span>
 <br/>
