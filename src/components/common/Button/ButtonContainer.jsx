@@ -2,23 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Theme from '../../../styles/Theme';
 
-const Container = styled.button`
-  width: ${(props) => props.typeStyle.width};
-  height: ${(props) => props.typeStyle.height};
-  border-radius: ${(props) => props.typeStyle.radius};
-  padding: ${(props) => props.typeStyle.padding};
-  font-size: ${(props) => props.typeStyle.textSize};
-  background-color: ${(props) =>
-    props.disabled ? Theme.colors.disabledColor : Theme.colors.mainColor};
-  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
-  font-weight: 500;
-  color: white;
-  &:active {
-    background-color: #3f1780;
-  }
-`;
-
-export default function ButtonContainer({ text, type }) {
+const ButtonContainer = ({ text, type }) => {
   const [isDisabled, setIsDisabled] = useState(true);
 
   let typeDeco = {
@@ -61,4 +45,21 @@ export default function ButtonContainer({ text, type }) {
       {text}
     </Container>
   );
-}
+};
+export default ButtonContainer;
+
+const Container = styled.button`
+  width: ${(props) => props.typeStyle.width};
+  height: ${(props) => props.typeStyle.height};
+  border-radius: ${(props) => props.typeStyle.radius};
+  padding: ${(props) => props.typeStyle.padding};
+  font-size: ${(props) => props.typeStyle.textSize};
+  background-color: ${(props) =>
+    props.disabled ? Theme.colors.disabledColor : Theme.colors.mainColor};
+  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
+  font-weight: 500;
+  color: white;
+  &:active {
+    background-color: #3f1780;
+  }
+`;
