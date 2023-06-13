@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-	color: inherit;
+  color: inherit;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 
@@ -24,7 +24,7 @@ a {
 }
 
 ol, ul, li {
-	list-style: none;
+  list-style: none;
 }
 
 button {
