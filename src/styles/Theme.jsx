@@ -6,7 +6,6 @@ const fontSize = {
   xlarge: '1.8rem',
   xxlarge: '2.4rem',
 };
-
 const colors = {
   mainColor: '#6521D3',
   textColor: '#767676',
