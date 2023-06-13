@@ -1,22 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Alert = ({ message }) => {
+const LogOut = ({ message }) => {
   const handleClick = () => {
-    alert(`게시글이 삭제되었습니다.`);
+    alert(`로그아웃 하셨습니다.`);
   };
   return (
-    <AlertWrap>
-      <ButtonText>게시글을 삭제할까요?</ButtonText>
-      <ButtonWrap>
-        <CancelButton>취소</CancelButton>
-        <DeleteButton onClick={handleClick}>삭제</DeleteButton>
-      </ButtonWrap>
-    </AlertWrap>
+      <AlertWrap>
+        <ButtonText>로그아웃 하시겠습니까?</ButtonText>
+        <ButtonWrap>
+          <CancelButton>취소</CancelButton>
+          <LogOutButton onClick={handleClick}>로그아웃</LogOutButton>
+        </ButtonWrap>
+      </AlertWrap>
   );
 };
 
-export default Alert;
+export default LogOut;
 
 const AlertWrap = styled.div`
 
@@ -41,17 +41,16 @@ const ButtonText = styled.p`
 `;
 
 const ButtonWrap = styled.div`
-border-top: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
-font-size: ${({ theme }) => theme.fontSize.medium};
+  border-top: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
+  font-size: ${({ theme }) => theme.fontSize.medium};
+`;
 
-  button {
-    padding: 1.3rem 5rem;
-  }
-`;
 const CancelButton = styled.button`
-   
+  padding: 1.3rem 5rem;
 `;
-const DeleteButton = styled.button`
+
+const LogOutButton = styled.button`
+  padding: 1.3rem 3.7rem;
   border-left: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
   color: ${({ theme }) => theme.colors.mainColor};
 `;
