@@ -4,12 +4,12 @@ import BackButton from './BackButton';
 import ButtonContainer from '../common/Button/ButtonContainer';
 import styled from 'styled-components';
 
-const TopUploadHeader = () => {
+const TopUploadHeader = ({text, handleClick}) => {
   return (
     <HeaderContainer>
       <BackButton />
       <Storage>
-        <ButtonContainer type={'MS'} text={'저장'} />
+        <ButtonContainer type={'MS'} text={text} handleClick={handleClick} />
       </Storage>
     </HeaderContainer>
   );
