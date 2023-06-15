@@ -11,7 +11,7 @@ import ChatListPage from '../pages/ChatPage/ChatListPage';
 import ChatRoomPage from '../pages/ChatPage/ChatRoomPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
-function AppRouter() {
+const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -32,24 +32,3 @@ function AppRouter() {
 
 export default AppRouter;
 
-// import React from 'react';
-// import { Route, Routes } from 'react-router-dom';
-
-// import SplashPage from "../pages/SplashPage/SplashPage"
-
-// const AppRouter = () => {
-//   return (
-//     <Routes>
-//       <Route path="/" element={<SplashPage/>} />
-//       <Route path="/login" element={<LoginPage/>} />
-//       <Route path="/signup" element={<SignupPage />} />
-//       <Route path="/home" element={<FeedPage/>} />
-//       <Route path="/profile/:account" element={<ProfilePage/>} />
-//       <Route path="/post" element={<PostPage/>} />
-//       <Route path="/post/upload" element={<UploadPage/>} />
-//       <Route path="/chat" element={<ChatListPage/>} />
-//       <Route path="/chat/:account" element={<ChatRoomPage/>} />
-//       <Route path="*" element={<NotFoundPage/>} />
-//       </Routes>
-//   )
-// }
