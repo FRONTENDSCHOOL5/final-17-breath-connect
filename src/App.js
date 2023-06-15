@@ -1,6 +1,21 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle from './styles/GlobalStyle';
+import BasicLayout from './styles/BasicLayout';
+import AppRouter from './routes/AppRouter';
+import Theme from './styles/Theme';
 
-function App() {
-  return <div>괜찮은거죠?</div>;
-}
+const App = () => {
+  return (
+    <>
+      <ThemeProvider theme={Theme}>
+        <GlobalStyle />
+        <BasicLayout>
+          <AppRouter />
+        </BasicLayout>
+      </ThemeProvider>
+    </>
+  );
+};
+
 export default App;
