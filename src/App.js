@@ -10,8 +10,9 @@ const App = () => {
     <>
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
-        <BasicLayout />
-        <AppRouter />
+        <BasicLayout>
+          <AppRouter />
+        </BasicLayout>
       </ThemeProvider>
     </>
   );
