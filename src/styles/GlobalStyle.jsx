@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-	color: inherit;
+  color: inherit;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 
@@ -24,7 +24,7 @@ a {
 }
 
 ol, ul, li {
-	list-style: none;
+  list-style: none;
 }
 
 button {
@@ -50,7 +50,8 @@ button, input, textarea {
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
-  margin: 0
+  margin: 0;
+  border: none;
 }
 
 img {
@@ -68,7 +69,6 @@ img {
   clip: rect(0, 0, 0, 0); 
   border: 0;
 }
-
 `;
 
 export default GlobalStyle;
