@@ -20,7 +20,7 @@ const TopMainNavHeader = () => {
 export default TopMainNavHeader;
 
 const MainButton = styled.div`
-  padding: 18px;
-  font-size: 18px;
+  padding: 1.8rem;
+  font-size: 1.8rem;
   font-weight: 500;
 `;
