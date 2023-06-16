@@ -1,37 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
-import Theme from '../../../styles/Theme';
 
-const Input = ({ label, inputType, id }) => {
-  // label, inputType, id를 전달받음
-
-  const [userInput, setUserInput] = useState('');
-  const [showSuccess, setShowSuccess] = useState(false);
-  const inputRef = useRef();
-
-  const handleChange = (e) => {
-    setUserInput(e.target.value);
-  };
-
-  const handleFocus = () => {
-    inputRef.current.style.borderBottom = `1px solid ${Theme.colors.mainColor}`;
-    inputRef.current.style.outline = `none`;
-  };
+const Input = ({ label, type, id, placeholder, onChange, name }) => { 
 
   return (
     <InputWrapper>
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <InputText
-        ref={inputRef}
-        type={inputType}
+        type={type}
         id={id}
-        value={userInput}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        showSuccess={showSuccess}
+        name={name}
+        placeholder={placeholder}
+        onChange={onChange}
         autoComplete='off'
       />
-      {!showSuccess ? <ErrorMessage>이미 가입된 이메일 주소입니다.</ErrorMessage> : <></>}
     </InputWrapper>
   );
 };
@@ -42,33 +24,40 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 32.2rem;
+  margin: 1.6rem 0;
 `;
 
 const InputLabel = styled.label`
   ${({ theme }) => css`
     font-size: ${theme.fontSize.small};
     color: ${theme.colors.textColor};
-    margin-bottom: 2px;
+    margin-bottom: 0.2rem;
   `}
 `;
 
 const InputText = styled.input`
-  ${({ theme }) => css`
-    border: none;
-    padding: 0.8rem 0;
-    border-bottom: 0.1rem solid ${theme.colors.borderColor};
-    font-size: ${theme.fontSize.medium};
-    color: ${theme.colors.blackText};
-    margin-bottom: 0.6rem;
-  `}
+  outline: none;
+  padding: 0.8rem 0;
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.borderColor};
+  font-size: ${({ theme }) => theme.fontSize.medium};
+  color: ${({ theme }) => theme.colors.blackText};
+  &:focus {
+    border-bottom: 0.1rem solid ${({ theme }) => theme.colors.mainColor};
+  }
+  &::placeholder {
+    font-size: ${({theme}) => theme.fontSize.medium};
+    color: ${({theme}) => theme.colors.borderColor};
+  }
 `;
 
-const ErrorMessage = styled.p`
-  ${({ theme }) => css`
-    color: ${theme.colors.errorColor};
-    font-size: ${theme.fontSize.small};
-    &::before {
-    content: "*";
-  }
-  `}
-`;
+// const ErrorMessage = styled.p`
+//   ${({ theme }) => css`
+//     color: ${theme.colors.errorText};
+//     font-size: ${theme.fontSize.small};
+//     margin-top: 0.4rem;
+//     &::before {
+//     content: "*";
+//   }
+//   `}
+// `;
+
