@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import HeaderContainer from './HeaderContainer';
 import styled from 'styled-components';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
@@ -8,7 +9,9 @@ const TopMainNavHeader = () => {
     <HeaderContainer>
       <MainButton>들숨날숨 피드</MainButton>
       <button>
-        <GlovalSprite id={'icon-search'} color={'white'} />
+        <Link to="/Search">
+          <GlovalSprite id={'icon-search'} color={'white'} />
+        </Link>
       </button>
     </HeaderContainer>
   );
@@ -16,7 +19,8 @@ const TopMainNavHeader = () => {
 
 export default TopMainNavHeader;
 
-const MainButton = styled.button`
+const MainButton = styled.div`
+  padding: 18px;
   font-size: 18px;
   font-weight: 500;
 `;
