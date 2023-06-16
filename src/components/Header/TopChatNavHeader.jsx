@@ -23,12 +23,12 @@ export default TopChatNavHeader;
 
 const BackAndUserText = styled.div`
   display: flex;
-  padding: 13px;
+  padding: 1.3rem;
 `;
 
 const User = styled.span`
   text-align: center;
-  font-size: 14px;
-  margin: 5px 0 0px 10px;
+  font-size: 1.4rem;
+  margin: 0.5rem 0 0 0.1rem;
   font-weight: 500;
 `;

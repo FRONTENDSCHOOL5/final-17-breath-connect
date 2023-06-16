@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Theme from '../../styles/Theme';
 
 const HeaderContainer = ({ children }) => {
   return <Container>{children}</Container>;
@@ -12,11 +13,12 @@ const Container = styled.div`
   position: sticky;
   top: 0;
   justify-content: space-between;
-  border: 0.5px solid #dbdbdb;
-  height: 48px;
+  border: ${() => `0.5 solid ${Theme.colors.borderColor}`};
+  font-size: 1.4rem;
+  height: 4.8rem;
   background-color: white;
 
   > button {
-    padding: 13px;
+    padding: 1.3rem;
   }
 `;
