@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postEmailDuplicate } from '../../utils/Apis';
+import { SignupAtom } from '../../atoms/SignupAtom'
 
 const SignupPage = () => {
 
@@ -15,6 +18,7 @@ const SignupPage = () => {
   const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+  const [signupUser, setSignupUser] = useRecoilState(SignupAtom);
 
   /* 이메일 유효성 검사 */
   const handleInputEmail = (e) => {
@@ -47,9 +51,9 @@ const SignupPage = () => {
   const handleInputPassword = (e) => {
     const userPassword = e.target.value;
     const passwordRegex = 
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/;
     if(!passwordRegex.test(userPassword)) {
-    setPasswordErrorMsg('* 영문+숫자+특수기호 조합으로 8자리 이상 입력해주세요');
+    setPasswordErrorMsg('* 영문+숫자+특수기호 조합으로 6자리 이상 입력해주세요');
   } else {
     setPasswordValid(true);
     setPasswordErrorMsg('');
@@ -60,7 +64,10 @@ const SignupPage = () => {
   const handleSignup = async (e) => {
   e.preventDefault();
   if(emailValid && passwordValid) {
-    navigate("/signup/profile")
+    setSignupUser({ userEmail, userPassword});
+    navigate("/signup/profile");
+    } else {
+      setSignupUser(false);
     }
   };
 

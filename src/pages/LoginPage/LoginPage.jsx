@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { useNavigate, Link } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postUserLogin } from '../../utils/Apis';
-import { useRecoilState } from 'recoil';
 import { UserAtom } from '../../atoms/UserAtom';
 
 const LoginPage = () => {
@@ -15,8 +16,7 @@ const LoginPage = () => {
   const [userPassword, setUserPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('')
   const [isLogin, setIsLogin] = useState(false);
-
-  const [userInfo, setUserInfo] = useRecoilState(UserAtom);
+  const setUser = useSetRecoilState(UserAtom);
 
 
   const handleInputEmail = (e) => {
@@ -37,7 +37,7 @@ const LoginPage = () => {
     setIsLogin(false);
   } else {
     setIsLogin(!isLogin);
-    setUserInfo(loginData.user); // 로그인한 사용자의 정보 저장
+    setUser(loginData.user); // 로그인한 사용자의 정보 저장
     navigate("/home");
    }
  }
