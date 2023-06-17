@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postEmailDuplicate } from '../../utils/Apis';
-import { SignupAtom } from '../../atoms/SignupAtom'
 
 const SignupPage = () => {
 
@@ -18,7 +16,7 @@ const SignupPage = () => {
   const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
-  const [signupUser, setSignupUser] = useRecoilState(SignupAtom);
+  const [isComplete, setIsComplete] = useState(false);
 
   /* 이메일 유효성 검사 */
   const handleInputEmail = (e) => {
@@ -64,10 +62,12 @@ const SignupPage = () => {
   const handleSignup = async (e) => {
   e.preventDefault();
   if(emailValid && passwordValid) {
-    setSignupUser({ userEmail, userPassword});
-    navigate("/signup/profile");
+    setIsComplete(true);
+    navigate('/signup/profile', {
+      state: userEmail, userPassword
+    });
     } else {
-      setSignupUser(false);
+      setIsComplete(false);
     }
   };
 
@@ -80,23 +80,23 @@ const SignupPage = () => {
      <SignupSection>
       <SignupTitle>회원가입</SignupTitle>
       <SignupForm onSubmit={handleSignup}>
-        <div className="input-wrapper">
+        <div className='input-wrapper'>
         <Input
-          label="이메일"
-          placeholder="이메일 주소를 입력해주세요"
-          id="email"
-          type="email"
-          name="email"
+          label='이메일'
+          placeholder='이메일 주소를 입력해주세요'
+          id='email'
+          type='email'
+          name='email'
           onChange={handleInputEmail}
           onBlur={handleEmailDuplicate}
           required
         />
         {emailErrorMsg && <ErrorMsg>{emailErrorMsg}</ErrorMsg>}
         <Input
-          label="비밀번호"
-          placeholder="비밀번호를 입력해주세요"
-          id="password"
-          type="password"
+          label='비밀번호'
+          placeholder='비밀번호를 입력해주세요'
+          id='password'
+          type='password'
           name='password'
           onChange={handleInputPassword}
           required

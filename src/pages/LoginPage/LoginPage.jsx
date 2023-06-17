@@ -6,7 +6,8 @@ import { useSetRecoilState } from 'recoil';
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postUserLogin } from '../../utils/Apis';
-import { UserAtom } from '../../atoms/UserAtom';
+import { ProfileImageAtom, AccountNameAtom } from '../../atoms/UserAtom';
+import { LoginStateAtom } from '../../atoms/LoginAtom';
 
 const LoginPage = () => {
 
@@ -15,9 +16,10 @@ const LoginPage = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('')
-  const [isLogin, setIsLogin] = useState(false);
-  const setUser = useSetRecoilState(UserAtom);
-
+  const [isComplete, setIsComplete] = useState(false);
+  const setAccountNameAtom = useSetRecoilState(AccountNameAtom);
+  const setProfileImageAtom = useSetRecoilState(ProfileImageAtom);
+  const setLoginStateAtom = useSetRecoilState(LoginStateAtom);
 
   const handleInputEmail = (e) => {
     setUserEmail(e.target.value);
@@ -34,11 +36,16 @@ const LoginPage = () => {
    console.log(loginData);
    if (loginData.message === '이메일 또는 비밀번호가 일치하지 않습니다.') {
     setErrorMsg('*이메일 또는 비밀번호가 일치하지 않습니다 🥲');
-    setIsLogin(false);
+    setIsComplete(false);
   } else {
-    setIsLogin(!isLogin);
-    setUser(loginData.user); // 로그인한 사용자의 정보 저장
-    navigate("/home");
+    setIsComplete(!isComplete);
+    /* 로컬스토리지에 토큰 저장 */ 
+    localStorage.setItem('token',loginData.user.token);
+    /* accountname, profileImage , 로그인 상태 저장 */
+    setAccountNameAtom(loginData.user.accountname);
+    setProfileImageAtom(loginData.user.image);
+    setLoginStateAtom(true); // 로그인 상태 true
+    navigate('/home');
    }
  }
 
@@ -51,21 +58,21 @@ const LoginPage = () => {
     <LoginSection>
       <LoginTitle>로그인</LoginTitle>
       <LoginForm onSubmit={handleLogin}>
-        <div className="input-wrapper">
+        <div className='input-wrapper'>
         <Input
-          label="이메일"
-          placeholder="이메일 주소를 입력해주세요"
-          id="email"
-          type="email"
-          name="email"
+          label='이메일'
+          placeholder='이메일 주소를 입력해주세요'
+          id='email'
+          type='email'
+          name='email'
           onChange={handleInputEmail}
           required
         />
         <Input
-          label="비밀번호"
-          placeholder="비밀번호를 입력해주세요"
-          id="password"
-          type="password"
+          label='비밀번호'
+          placeholder='비밀번호를 입력해주세요'
+          id='password'
+          type='password'
           name='password'
           onChange={handleInputPassword}
           required

@@ -3,8 +3,8 @@ import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
 
-export const SignupAtom = atom({
-  key: 'SignupAtom',
-  default: {},
+export const LoginStateAtom = atom({
+  key: 'LoginStateAtom',
+  default: false,
   effects_UNSTABLE: [persistAtom],
 });
