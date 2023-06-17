@@ -16,6 +16,7 @@ const colors = {
   blackText: '#000000',
   whiteText: '#ffffff',
   errorText: '#EB5757',
+  inputColor: '#f2f2f2',
   borderColor: '#DBDBDB',
   placeHolderColor: '#c4c4c4',
   uploadBoxColor: '#F6F5F6',
