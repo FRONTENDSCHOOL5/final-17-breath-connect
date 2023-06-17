@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
-import postUserLogin from '../../utils/Apis';
+import { postUserLogin } from '../../utils/Apis';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userAtom } from '../../recoil/LoginData';
 
