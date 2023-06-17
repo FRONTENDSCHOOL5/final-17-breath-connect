@@ -13,6 +13,7 @@ const colors = {
   kakaoColor: '#F2C94C',
   facebookColor: '#2D9CDB',
   textColor: '#767676',
+  blackText: '#000000',
   whiteText: '#ffffff',
   errorText: '#EB5757',
   borderColor: '#DBDBDB',
