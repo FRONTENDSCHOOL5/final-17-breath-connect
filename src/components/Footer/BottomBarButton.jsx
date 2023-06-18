@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
 import Theme from '../../styles/Theme';
 
-const BottomBarButton = ({ id, text, isSelected, onClick }) => {
+const BottomBarButton = ({ id, text, isSelected, onClick, textSize }) => {
   return (
     <Container>
       <Button onClick={onClick}>
@@ -11,7 +11,7 @@ const BottomBarButton = ({ id, text, isSelected, onClick }) => {
           id={id}
           color={id === 'icon-user' && isSelected ? '#654E92' : 'white'}
         />
-        <ButtonText isSelected={isSelected}>{text}</ButtonText>
+        <ButtonText isSelected={isSelected} textSize={textSize}>{text}</ButtonText>
       </Button>
     </Container>
   );
@@ -36,5 +36,6 @@ const Button = styled.button`
 const ButtonText = styled.div`
   color: ${(props) =>
     props.isSelected ? Theme.colors.mainColor : Theme.colors.textColor};
-  font-size: 14px;
+  font-size: ${(props) => props.textSize || '14px'};
+  padding-top: 0.4rem;
 `;
