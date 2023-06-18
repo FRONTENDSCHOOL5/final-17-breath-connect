@@ -8,6 +8,7 @@ import FeedPage from '../pages/FeedPage/FeedPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
 import PostPage from '../pages/PostPage/PostPage';
 import UploadPage from '../pages/UploadPage/UploadPage';
+import SearchPage from '../pages/SearchPage/SearchPage';
 import ChatListPage from '../pages/ChatPage/ChatListPage';
 import ChatRoomPage from '../pages/ChatPage/ChatRoomPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
@@ -24,6 +25,7 @@ const AppRouter = () => {
         <Route path="/profile/:account" element={<ProfilePage />} />
         <Route path="/post" element={<PostPage />} />
         <Route path="/post/upload" element={<UploadPage />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/chat" element={<ChatListPage />} />
         <Route path="/chat/:account" element={<ChatRoomPage />} />
         <Route path="*" element={<NotFoundPage />} />
