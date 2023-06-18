@@ -7,7 +7,7 @@ import profileImg from '../../assets/images/basic-profile-m.svg';
 const SearchPage = () => {
   localStorage.setItem(
     'token',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGRjNDE2YjJjYjIwNTY2MzM4NGJkOCIsImV4cCI6MTY5MjE5NjQwNywiaWF0IjoxNjg3MDEyNDA3fQ.Wf8w_Z1TkGnT_zS4pfwbH5vn3TlVM1uktTUJFg125jM'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGFhODA4YjJjYjIwNTY2MzM1NWI2NSIsImV4cCI6MTY5MjI1MjEwNiwiaWF0IjoxNjg3MDY4MTA2fQ.BCVUVFl95pAyRqBXR7MuxIwjwr1RZooa-gBv6C9rTDM'
   );
   const url = 'https://api.mandarin.weniv.co.kr'
   const token = localStorage.getItem('token');
@@ -23,7 +23,6 @@ const SearchPage = () => {
         "Content-type": "application/json"
     }
     })
-    
     const res = await req.json();
     console.log(res);
     setData(res.slice(0, 10))
@@ -88,8 +87,8 @@ const SearchResultItem = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   margin-right: 1rem;
 `;
@@ -107,6 +106,7 @@ const Username = styled.p`
 
 const HighlightedText = styled.span`
   color: ${({ theme }) => theme.colors.mainColor};
+  font-weight: bold;
 `;
 
 const Nickname = styled.p`
