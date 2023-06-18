@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const Input = ({ label, type, id, placeholder, onChange, name }) => { 
+const Input = ({ label, type, id, placeholder, onChange, onBlur, name }) => { 
 
   return (
     <InputWrapper>
@@ -12,6 +12,7 @@ const Input = ({ label, type, id, placeholder, onChange, name }) => {
         name={name}
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
         autoComplete='off'
       />
     </InputWrapper>
