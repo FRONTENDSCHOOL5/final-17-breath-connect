@@ -2,14 +2,13 @@ import React from 'react';
 import HeaderContainer from './HeaderContainer';
 import BackButton from './BackButton';
 import styled from 'styled-components';
-import Theme from '../../styles/Theme';
 
-const TopSearchNavHeader = () => {
+const TopSearchNavHeader = ({value, onChange}) => {
   return (
     <HeaderContainer>
       <BackButton />
       <SearchContainer>
-        <Input type="text" placeholder="계정 검색" />
+        <Input type="text" value={value} onChange={onChange} placeholder="계정 검색" />
       </SearchContainer>
     </HeaderContainer>
   );
@@ -25,10 +24,10 @@ const Input = styled.input`
   width: 31rem;
   height: 3.2rem;
   border: none;
-  background-color: #f2f2f2;
+  background-color: ${({ theme }) => theme.colors.inputColor};;
   border-radius: 3.2rem;
   padding-left: 1.6rem;
   &::placeholder {
-    color: #999999;
+    color: ${({ theme }) => theme.colors.uploadPlaceholderColor};;
   }
 `;
