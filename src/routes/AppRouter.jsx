@@ -33,6 +33,7 @@ const AppRouter = () => {
         <Route path="/follow" element={<FollowListPage />} />
         <Route path="/chat/:account" element={<ChatRoomPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/follow" element={<FollowListPage />} />
       </Routes>
     </BrowserRouter>
   );
