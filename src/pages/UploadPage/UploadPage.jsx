@@ -17,7 +17,7 @@ import TopUploadHeader from '../../components/Header/TopUploadHeader'
 // date-fns 설치
 // npm install date-fns
 
-const PostPage = () => {
+const UploadPage = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   return (
@@ -111,4 +111,4 @@ const MakeCourse = styled.div`
   padding: 2.3rem 9.8rem 3.3rem;
 `
 
-export default PostPage
+export default UploadPage
