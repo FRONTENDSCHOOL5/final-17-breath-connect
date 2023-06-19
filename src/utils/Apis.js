@@ -60,7 +60,7 @@ export const postUserSignup = async (
 };
 
 export const postUploadProfile = async (FormData) => {
-  const response = await instance.post('/image/uploadfiles', FormData);
+  const response = await imgInstance.post('/image/uploadfiles', FormData);
   return response.data;
 };
 
