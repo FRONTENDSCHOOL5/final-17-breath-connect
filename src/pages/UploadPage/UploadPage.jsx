@@ -9,17 +9,16 @@ import "react-datepicker/dist/react-datepicker.css"
 import TopUploadHeader from '../../components/Header/TopUploadHeader'
 import { Link } from 'react-router-dom';
 
-// date-picker 설치
-// npm install react-datepicker
-// time-picker 설치
-// npm install rc-time-picker
-// moment 설치
-// npm install moment
-// date-fns 설치
-// npm install date-fns
-
 const PostPage = () => {
   const [startDate, setStartDate] = useState(new Date());
+  const [text, setText] = useState('');
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setText(value);
+  };
+
+  const characterCount = text.length;
 
   return (
     <>
@@ -40,7 +39,13 @@ const PostPage = () => {
 
       <TextContainer>
         <p>참여 상세 글</p>
-        <textarea placeholder="참여 인원을 모집할 수 있는 홍보 문구를 작성해주세요."></textarea>
+        <textarea 
+        placeholder="참여 인원을 모집할 수 있는 홍보 문구를 작성해주세요." 
+        maxlength={100}
+        value={text}
+        onChange={handleChange}
+        ></textarea>
+        <SCount>({characterCount} / 100)</SCount>
       </TextContainer>
 
       <p>러닝 코스 만들기</p>
@@ -93,15 +98,25 @@ textarea{
   width: 32.6rem;
   height: 10rem;
   padding: 1rem 1rem;
+  position: relative;
 }
 textarea::placeholder {
   color: ${({ theme }) => theme.colors.uploadPlaceholderColor};
 }
 `
 
+const SCount = styled.span`
+  font-size: ${({ theme }) => theme.fontSize.small};
+  color: ${({ theme }) => theme.colors.mainColor};
+  position: absolute;
+  top: 33.9rem;
+  right: 3.7rem;
+
+`
+
 const MakeCourse = styled.div`
 p {
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.fontSize.small};
 }
   display: flex;
   flex-direction: column;
@@ -109,7 +124,6 @@ p {
   align-items: center;
   width: 32.6rem;
   background-color: ${({ theme }) => theme.colors.uploadBoxColor};
-  /* color: ${({ theme }) => theme.colors.uploadPlaceholderColor}; */
   padding: 2.3rem 8rem 3.3rem;
   border-radius: 0.5rem;
 `
