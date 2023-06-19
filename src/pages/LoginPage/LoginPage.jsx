@@ -122,6 +122,6 @@ const ErrorMsg = styled.p`
   ${({ theme }) => css`
     color: ${theme.colors.errorText};
     font-size: ${theme.fontSize.small};
-    margin-top: -0.rem;
+    margin-top: -0.9rem;
   `}
 `;
