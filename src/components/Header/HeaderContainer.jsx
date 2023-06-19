@@ -16,6 +16,7 @@ const Container = styled.div`
   font-size: 1.4rem;
   height: 4.8rem;
   background-color: white;
+  z-index: 999;
 
   > button {
     padding: 1.3rem;
