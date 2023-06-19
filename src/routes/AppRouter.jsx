@@ -13,6 +13,7 @@ import SearchPage from '../pages/SearchPage/SearchPage';
 import ChatListPage from '../pages/ChatPage/ChatListPage';
 import ChatRoomPage from '../pages/ChatPage/ChatRoomPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
+import FollowListPage from '../pages/FollowListPage/FollowListPage';
 
 const AppRouter = () => {
   return (
@@ -29,6 +30,7 @@ const AppRouter = () => {
         <Route path="/post/upload/map" element={<UploadMap />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/chat" element={<ChatListPage />} />
+        <Route path="/follow" element={<FollowListPage />} />
         <Route path="/chat/:account" element={<ChatRoomPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
