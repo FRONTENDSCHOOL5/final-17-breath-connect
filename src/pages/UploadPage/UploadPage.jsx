@@ -7,6 +7,7 @@ import { ko } from 'date-fns/esm/locale';
 import "rc-time-picker/assets/index.css"
 import "react-datepicker/dist/react-datepicker.css"
 import TopUploadHeader from '../../components/Header/TopUploadHeader'
+import { Link } from 'react-router-dom';
 
 // date-picker 설치
 // npm install react-datepicker
@@ -17,7 +18,7 @@ import TopUploadHeader from '../../components/Header/TopUploadHeader'
 // date-fns 설치
 // npm install date-fns
 
-const UploadPage = () => {
+const PostPage = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   return (
@@ -45,7 +46,7 @@ const UploadPage = () => {
       <p>러닝 코스 만들기</p>
       <MakeCourse>
         <p>나만의 러닝 코스를 그려보세요!</p>
-        <button>러닝 코스 그리기</button>
+        <MakeCourseLink to="/post/upload/map">러닝 코스 그리기</MakeCourseLink>
       </MakeCourse>
     </Container>
     </>
@@ -54,10 +55,11 @@ const UploadPage = () => {
 // styled-component 적용
 const Container = styled.div`
   h1 {
-    font-size: ${({ theme }) => theme.fontSize.xlarge};
+    font-size: ${({ theme }) => theme.fontSize.xxlarge};
     font-weight: bold;
   }
   p {
+    font-size: ${({ theme }) => theme.fontSize.medium};
     margin-bottom: 0.8rem;
   }
   section {
@@ -67,7 +69,7 @@ const Container = styled.div`
   width: 14.7rem;
   height: 2.8rem;
   padding-left: 1.2rem;
-  font-size: ${({ theme }) => theme.fontSize.xsmall};
+  font-size: ${({ theme }) => theme.fontSize.small};
   color: ${({ theme }) => theme.colors.textColor};
   border: none;
   }
@@ -87,20 +89,19 @@ const DateTime = styled.section`
 
 const TextContainer = styled.section`
 textarea{
+  font-size: 1.2rem;
   width: 32.6rem;
   height: 10rem;
-  padding: 1rem 1.2rem;
+  padding: 1rem 1rem;
+}
+textarea::placeholder {
+  color: ${({ theme }) => theme.colors.uploadPlaceholderColor};
 }
 `
 
 const MakeCourse = styled.div`
-  button {
-  width: 9rem;
-  height: 2rem;
-  color: ${({ theme }) => theme.colors.mainColor};
-  background-color: ${({ theme }) => theme.colors.whiteText};
-  border: 0.1rem solid ${({ theme }) => theme.colors.mainColor};
-  border-radius: 2.5rem;
+p {
+  font-size: 1.2rem;
 }
   display: flex;
   flex-direction: column;
@@ -108,7 +109,20 @@ const MakeCourse = styled.div`
   align-items: center;
   width: 32.6rem;
   background-color: ${({ theme }) => theme.colors.uploadBoxColor};
-  padding: 2.3rem 9.8rem 3.3rem;
+  /* color: ${({ theme }) => theme.colors.uploadPlaceholderColor}; */
+  padding: 2.3rem 8rem 3.3rem;
+  border-radius: 0.5rem;
 `
 
-export default UploadPage
+const MakeCourseLink = styled(Link)`
+  width: 9rem;
+  height: 2rem;
+  text-align: center;
+  padding-top: 0.4rem;
+  color: ${({ theme }) => theme.colors.mainColor};
+  background-color: ${({ theme }) => theme.colors.whiteText};
+  border: 0.1rem solid ${({ theme }) => theme.colors.mainColor};
+  border-radius: 2.5rem;
+`
+
+export default PostPage
