@@ -15,6 +15,7 @@ const TabMenu = () => {
       <BottomBarButton
         id={selectedButton === 'icon-home' ? 'icon-home-fill' : 'icon-home'}
         text="홈"
+        textSize="1rem"
         isSelected={selectedButton === 'icon-home'}
         onClick={() => handleButtonClick('icon-home')}
       />
@@ -25,18 +26,21 @@ const TabMenu = () => {
             : 'icon-message-circle'
         }
         text="메시지"
+        textSize= "1rem"
         isSelected={selectedButton === 'icon-message-circle'}
         onClick={() => handleButtonClick('icon-message-circle')}
       />
       <BottomBarButton
         id={selectedButton === 'icon-edit' ? 'icon-edit-fill' : 'icon-edit'}
         text="게시물 추가"
+        textSize="1rem"
         isSelected={selectedButton === 'icon-edit'}
         onClick={() => handleButtonClick('icon-edit')}
       />
       <BottomBarButton
         id={selectedButton === 'icon-user' ? 'icon-user-fill' : 'icon-user'}
         text="프로필"
+        textSize="1rem"
         isSelected={selectedButton === 'icon-user'}
         onClick={() => handleButtonClick('icon-user')}
       />
@@ -55,3 +59,4 @@ const Container = styled.div`
   margin-top: 28px;
   background-color: white;
 `;
+

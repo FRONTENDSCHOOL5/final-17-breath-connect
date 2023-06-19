@@ -3,16 +3,24 @@ import HeaderContainer from './HeaderContainer';
 import BackButton from './BackButton';
 import styled from 'styled-components';
 
-const TopSearchNavHeader = ({value, onChange}) => {
+
+
+const TopSearchNavHeader = ({ value, setValue }) => {
+  const handleChange = (event) => {
+    const newValue = event.target.value;
+    setValue(newValue);
+  };
+  
   return (
     <HeaderContainer>
       <BackButton />
       <SearchContainer>
-        <Input type="text" value={value} onChange={onChange} placeholder="계정 검색" />
+        <Input type="text" value={value} onChange={handleChange} placeholder="계정 검색" />
       </SearchContainer>
     </HeaderContainer>
   );
 };
+
 export default TopSearchNavHeader;
 
 const SearchContainer = styled.form`
@@ -24,10 +32,10 @@ const Input = styled.input`
   width: 31rem;
   height: 3.2rem;
   border: none;
-  background-color: ${({ theme }) => theme.colors.inputColor};;
+  background-color: ${({ theme }) => theme.colors.inputColor};
   border-radius: 3.2rem;
   padding-left: 1.6rem;
   &::placeholder {
-    color: ${({ theme }) => theme.colors.uploadPlaceholderColor};;
+    color: ${({ theme }) => theme.colors.uploadPlaceholderColor};
   }
 `;
