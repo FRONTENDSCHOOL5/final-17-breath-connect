@@ -9,6 +9,13 @@ export const instance = axios.create({
   },
 });
 
+export const imgInstance = axios.create({
+  baseURL: URL,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
+
 export const postUserLogin = async (email, password) => {
   const loginData = {
     user: {
