@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postUserLogin } from '../../utils/Apis';
-import { ProfileImageAtom, AccountNameAtom } from '../../atoms/UserAtom';
-import { LoginStateAtom } from '../../atoms/LoginAtom';
+import { tokenAtom } from '../../atoms/UserAtom';
+import { accountAtom } from '../../atoms/UserAtom';
 
 const LoginPage = () => {
 
@@ -17,17 +17,24 @@ const LoginPage = () => {
   const [userPassword, setUserPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('')
   const [isComplete, setIsComplete] = useState(false);
-  const setAccountNameAtom = useSetRecoilState(AccountNameAtom);
-  const setProfileImageAtom = useSetRecoilState(ProfileImageAtom);
-  const setLoginStateAtom = useSetRecoilState(LoginStateAtom);
+  const [userToken, setUserToken] = useRecoilState(tokenAtom);
+  const [userAccount, setUserAccount] = useRecoilState(accountAtom);
+
 
   const handleInputEmail = (e) => {
-    setUserEmail(e.target.value);
+    const userEmail = e.target.value;
+    setUserEmail(userEmail);
   }
 
   const handleInputPassword = (e) => {
-    setUserPassword(e.target.value);
+    const userPassword = e.target.value;
+    setUserPassword(userPassword);
   }
+
+  useEffect(() => {
+  setErrorMsg('');
+}, [userPassword]);
+
 
   /* 로그인 요청을 보내고 결과 반환 */
   const handleLogin = async (e) => {
@@ -38,13 +45,11 @@ const LoginPage = () => {
     setErrorMsg('*이메일 또는 비밀번호가 일치하지 않습니다 🥲');
     setIsComplete(false);
   } else {
+    const { token } = loginData.user;
+    const { account } = loginData.user;
+    setUserToken(token);
+    setUserAccount(account);
     setIsComplete(!isComplete);
-    /* 로컬스토리지에 토큰 저장 */ 
-    localStorage.setItem('token',loginData.user.token);
-    /* accountname, profileImage , 로그인 상태 저장 */
-    setAccountNameAtom(loginData.user.accountname);
-    setProfileImageAtom(loginData.user.image);
-    setLoginStateAtom(true); // 로그인 상태 true
     navigate('/home');
    }
  }
@@ -55,7 +60,7 @@ const LoginPage = () => {
   };
 
   return (
-    <LoginSection>
+    <LoginContainer>
       <LoginTitle>로그인</LoginTitle>
       <LoginForm onSubmit={handleLogin}>
         <div className='input-wrapper'>
@@ -82,13 +87,13 @@ const LoginPage = () => {
         <ButtonContainer type={'L'} text={'로그인'} isDisabled = {!handleActivateButton()}/>
       </LoginForm>
       <SignupLink to ='/signup'>이메일로 회원가입</SignupLink>
-    </LoginSection>
+    </LoginContainer>
   )
 }
 
 export default LoginPage;
 
-const LoginSection = styled.section`
+const LoginContainer = styled.section`
   margin: 0 auto;
 `;
 
@@ -97,7 +102,7 @@ const LoginTitle = styled.h1`
   color: ${({ theme }) => theme.colors.blackText};
   font-size: ${({ theme }) => theme.fontSize.xxlarge};
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 4.5rem;
 `;
 
 const LoginForm = styled.form`
@@ -117,6 +122,6 @@ const ErrorMsg = styled.p`
   ${({ theme }) => css`
     color: ${theme.colors.errorText};
     font-size: ${theme.fontSize.small};
-    /* margin-top: 0.4rem; */
+    margin-top: -0.9rem;
   `}
 `;
