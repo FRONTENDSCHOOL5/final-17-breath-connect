@@ -60,7 +60,16 @@ const SignupPage = () => {
     }
   }
 
-  
+  /* 에러 메시지 초기화 */
+  useEffect(() => {
+    setEmailErrorMsg('');
+    setPasswordErrorMsg('');
+  }, [userEmail]);
+
+  useEffect(() => {
+    setPasswordErrorMsg('');
+  }, [userPassword]);
+
   /* 아이디와 비밀번호 모두 유효 시, 프로필 설정 페이지로 이동 */
   const handleSignup = async (e) => {
   e.preventDefault();
