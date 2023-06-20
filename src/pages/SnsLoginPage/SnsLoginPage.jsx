@@ -12,7 +12,8 @@ const SnsLoginPage = () => {
       <SnsLoginMain>
             <button className='kakao-login'>
               <GlovalSprite id='message-circle'/>
-              카카오톡 계정으로 로그인</button>
+              카카오톡 계정으로 로그인
+              </button>
             <button className='google-login'>
               <GlovalSprite id='google-g-logo-1'/>
               구글 계정으로 로그인</button>
@@ -20,11 +21,10 @@ const SnsLoginPage = () => {
               <GlovalSprite id='facebook'/>
               페이스북 계정으로 로그인</button>
         <SnsLoginLink>
-        <LoginLink to='/login'>이메일로 로그인</LoginLink>
-        <SignupLink to='/signup'>회원가입</SignupLink>
+        <Link to='/login' className='login-link'>이메일로 로그인</Link>
+        <Link to='/signup'>회원가입</Link>
       </SnsLoginLink>
       </SnsLoginMain>
-      
       </SnsLoginContainer>
   )
 }
@@ -55,15 +55,29 @@ const SnsLoginMain = styled.section`
   padding: 5rem 3.4rem;
   background: ${({theme}) => theme.colors.whiteText};
   button {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 1rem;
     border-radius: 4.4rem;
     width: 100%;
     height: 24%;
-    text-align: center;
     font-size: ${({theme}) => theme.fontSize.medium};
+    color: ${({theme}) => theme.colors.textColor};
     margin-bottom: 1rem;
-  } 
+    justify-content: flex-start; /* 추가 */
+    svg{
+      margin-right: 5rem;
+    }
+  }
+
+  button:nth-child(2){
+    svg{
+      margin-right: 6rem;
+    }
+  }
+
+  
   .kakao-login {
     border: 0.1rem solid ${({theme}) => theme.colors.kakaoColor};
   }
@@ -80,15 +94,9 @@ const SnsLoginLink = styled.div`
 text-align: center;
 color: ${({theme}) => theme.colors.textColor};
 font-size: ${({theme}) => theme.fontSize.small};
-`
-
-const LoginLink = styled(Link)`
-&:after {
+.login-link::after {
   content: '|';
   padding: 1rem;
   color: ${({theme}) => theme.colors.placeHolderColor};
 }
-`
-
-const SignupLink = styled(Link)`
 `
