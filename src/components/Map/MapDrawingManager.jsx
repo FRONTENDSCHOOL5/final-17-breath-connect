@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+// import { useLocation } from 'react-router-dom';
 import { Map, CustomOverlayMap, Polyline } from 'react-kakao-maps-sdk';
 import DistanceInfo from './DistanceInfo';
 import GetLocation from './GetLocation';
 
-const MapDrawingManager = () => {
+const MapDrawingManager = ({ getpath, getdistance }) => {
   const { latitude = 0, longitude = 0 } = GetLocation() || {};
   const [isdrawing, setIsdrawing] = useState(false);
   const [clickLine, setClickLine] = useState();
@@ -20,7 +21,6 @@ const MapDrawingManager = () => {
       setDistances([]);
       setPaths([]);
     }
-    console.log(paths);
     setPaths((prev) => [
       ...prev,
       {
@@ -32,6 +32,7 @@ const MapDrawingManager = () => {
       ...prev,
       Math.round(clickLine.getLength() + moveLine.getLength()),
     ]);
+    console.log(distances);
     setIsdrawing(true);
   };
 
@@ -44,6 +45,20 @@ const MapDrawingManager = () => {
 
   const handleRightClick = (_map, _mouseEvent) => {
     setIsdrawing(false);
+
+    // getpath(JSON.stringify(paths) + `\,\[${distances[distances.length - 1]}\]`);
+    getpath(JSON.stringify(paths));
+    getdistance(distances);
+    // console.log(paths[0])
+    // console.log(paths[paths.length - 1])
+    //  /* 시작점 */
+    // const startPoint = paths[0];
+    // /* 끝점 */
+    // const endPoint  = paths[paths.length - 1]
+    // // paths 값의 첫번째가 시작점, 마지막이 끝점
+
+    // // 마지막 거리
+    // console.log(distances);
   };
 
   return (
