@@ -30,6 +30,7 @@ const SignupPage = () => {
     } else {
       setEmailValid(true);
       setEmailErrorMsg('');
+      setUserEmail(userEmail);
     }
   }
 
@@ -55,16 +56,21 @@ const SignupPage = () => {
   } else {
     setPasswordValid(true);
     setPasswordErrorMsg('');
+    setUserPassword(userPassword);
     }
   }
   
   /* 아이디와 비밀번호 모두 유효 시, 프로필 설정 페이지로 이동 */
   const handleSignup = async (e) => {
   e.preventDefault();
+  console.log(userEmail, userPassword);
   if(emailValid && passwordValid) {
     setIsComplete(true);
     navigate('/signup/profile', {
-      state: userEmail, userPassword
+      state: {
+      email: userEmail, 
+      password: userPassword
+      }
     });
     } else {
       setIsComplete(false);
@@ -103,8 +109,7 @@ const SignupPage = () => {
         />
         </div>
         {passwordErrorMsg && <ErrorMsg>{passwordErrorMsg}</ErrorMsg>}
-        <ButtonContainer type={'L'} text={'회원가입'} isDisabled = {!handleActivateButton()} 
-        handleClick={handleSignup}/>
+        <ButtonContainer type={'L'} text={'회원가입'} isDisabled = {!handleActivateButton()} />
       </SignupForm>
     </SignupSection>
   )

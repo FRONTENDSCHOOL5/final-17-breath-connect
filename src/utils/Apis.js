@@ -9,6 +9,13 @@ export const instance = axios.create({
   },
 });
 
+export const imgInstance = axios.create({
+  baseURL: URL,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
+
 export const postUserLogin = async (email, password) => {
   const loginData = {
     user: {
@@ -27,5 +34,45 @@ export const postEmailDuplicate = async (email) => {
     },
   };
   const response = await instance.post('/user/emailvalid', emailData);
+  return response.data;
+};
+
+export const postUserSignup = async (
+  username,
+  email,
+  password,
+  accountname,
+  intro,
+  image
+) => {
+  const userData = {
+    user: {
+      username,
+      email,
+      password,
+      accountname,
+      intro,
+      image,
+    },
+  };
+  const response = await instance.post('/user/', userData);
+  return response.data;
+};
+
+export const postUploadProfile = async (FormData) => {
+  const response = await imgInstance.post('/image/uploadfiles', FormData);
+  return response.data;
+};
+
+export const postAccountnameDuplicate = async (userId) => {
+  const userAccountname = {
+    user: {
+      accountname: userId,
+    },
+  };
+  const response = await instance.post(
+    '/user/accountnamevalid',
+    userAccountname
+  );
   return response.data;
 };

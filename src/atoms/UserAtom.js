@@ -1,17 +1,16 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import basicProfile from '../assets/images/basic-profile-l.svg';
 
 const { persistAtom } = recoilPersist();
 
-export const ProfileImageAtom = atom({
-  key: 'ProfileImageAtom',
-  default: basicProfile,
+export const tokenAtom = atom({
+  key: 'tokenAtom',
+  default: '',
   effects_UNSTABLE: [persistAtom],
 });
 
-export const AccountNameAtom = atom({
-  key: 'AccountNameAtom',
-  default: {},
+export const accountAtom = atom({
+  key: 'accountAtom',
+  default: '',
   effects_UNSTABLE: [persistAtom],
 });
