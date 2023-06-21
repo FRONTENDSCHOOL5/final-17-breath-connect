@@ -51,8 +51,9 @@ const TabMenu = () => {
 export default TabMenu;
 
 const Container = styled.div`
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  width: 39rem;
   display: flex;
   justify-content: space-around;
   border-top: 1px solid ${Theme.colors.borderColor};
