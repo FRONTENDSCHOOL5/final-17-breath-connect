@@ -4,7 +4,7 @@ import { Map, CustomOverlayMap, Polyline } from 'react-kakao-maps-sdk';
 import DistanceInfo from './DistanceInfo';
 import GetLocation from './GetLocation';
 
-const MapDrawingManager = ({ getpath, getdistance }) => {
+const MapDrawingManager = ({ getpath }) => {
   const { latitude = 0, longitude = 0 } = GetLocation() || {};
   const [isdrawing, setIsdrawing] = useState(false);
   const [clickLine, setClickLine] = useState();
@@ -45,10 +45,11 @@ const MapDrawingManager = ({ getpath, getdistance }) => {
 
   const handleRightClick = (_map, _mouseEvent) => {
     setIsdrawing(false);
-
+    const newObj = { dis: distances };
+    paths.push(newObj);
+    console.log(paths);
     // getpath(JSON.stringify(paths) + `\,\[${distances[distances.length - 1]}\]`);
     getpath(JSON.stringify(paths));
-    getdistance(distances);
     // console.log(paths[0])
     // console.log(paths[paths.length - 1])
     //  /* 시작점 */

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const URL = 'https://api.mandarin.weniv.co.kr/';
 
+/* 기본 인스턴스 */
 export const instance = axios.create({
   baseURL: URL,
   headers: {
@@ -9,6 +10,7 @@ export const instance = axios.create({
   },
 });
 
+/* 이미지 인스턴스 */
 export const imgInstance = axios.create({
   baseURL: URL,
   headers: {
@@ -16,6 +18,16 @@ export const imgInstance = axios.create({
   },
 });
 
+/* auth 인스턴스 */
+export const authInstance = axios.create({
+  baseURL: URL,
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json',
+  },
+});
+
+/* 로그인 */
 export const postUserLogin = async (email, password) => {
   const loginData = {
     user: {
@@ -27,6 +39,7 @@ export const postUserLogin = async (email, password) => {
   return response.data;
 };
 
+/* 이메일 중복 검사 */
 export const postEmailDuplicate = async (email) => {
   const emailData = {
     user: {
@@ -37,6 +50,7 @@ export const postEmailDuplicate = async (email) => {
   return response.data;
 };
 
+/* 회원가입 */
 export const postUserSignup = async (
   username,
   email,
@@ -59,11 +73,13 @@ export const postUserSignup = async (
   return response.data;
 };
 
+/* 이미지 업로드 */
 export const postUploadProfile = async (FormData) => {
   const response = await imgInstance.post('/image/uploadfiles', FormData);
   return response.data;
 };
 
+/* 사용자 이름 중복 검사 */
 export const postAccountnameDuplicate = async (userId) => {
   const userAccountname = {
     user: {
@@ -77,23 +93,9 @@ export const postAccountnameDuplicate = async (userId) => {
   return response.data;
 };
 
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGFhODA4YjJjYjIwNTY2MzM1NWI2NSIsImV4cCI6MTY5MjI1MjEwNiwiaWF0IjoxNjg3MDY4MTA2fQ.BCVUVFl95pAyRqBXR7MuxIwjwr1RZooa-gBv6C9rTDM';
-
-export const postInstance = axios.create({
-  baseURL: URL,
-  headers: {
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json',
-  },
-});
-
+/* content 업로드 */
 export const postContentUpload = async (post) => {
-  const postData = {
-    content: post.content,
-    image: post.image,
-  };
-  const response = await postInstance.post('/post/', postData);
+  const response = await authInstance.post('/post/', post);
   console.log(response);
   return response.data;
 };
