@@ -1,21 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-import profileImage  from '../../../../assets/images/basic-profile-m.svg';
 import ButtonContainer from '../../Button/ButtonContainer';
 
-const Follow = () => {
+const Follow = ({ user }) => {
+  const { username, userId, profileImage } = user;
+  const [isFollowing, setIsFollowing] = useState(true);
+
+  const handleClick = () => {
+    setIsFollowing(!isFollowing);
+  };
   return (
     <UserItem>
       <ProfileImage src={profileImage} alt='유저님의 프로필 사진' width='50' />
       <Wrapper>
-        <UserName>애월읍 위니브 감귤농장</UserName>
-        <UserId>weniv_Madarin</UserId>
+        <UserName>{username}</UserName>
+        <UserId>{userId}</UserId>
       </Wrapper>
       <ButtonWrapper>
-      <ButtonContainer type={'S'} text={'팔로우'}></ButtonContainer>
+        <ButtonContainer
+          type={'S'}
+          text={isFollowing ? '팔로우' : '취소'}
+          isClicked={!isFollowing}
+          handleClick={handleClick}
+        ></ButtonContainer>
       </ButtonWrapper>
-
-     </UserItem>
+    </UserItem>
   );
 };
 
@@ -24,6 +33,7 @@ export default Follow;
 const UserItem = styled.li`
   display: flex;
 `;
+
 const Wrapper = styled.div`
   flex: 1;
   display: flex;
@@ -35,14 +45,14 @@ const Wrapper = styled.div`
 const UserName = styled.strong`
   display: block;
   margin-bottom: 0.6rem;
-  font-size: ${({theme}) => theme.fontSize.medium};
+  font-size: ${({ theme }) => theme.fontSize.medium};
   font-weight: 500;
 `;
 
 const UserId = styled.strong`
   display: block;
-  font-size: ${({theme}) => theme.fontSize.small};
-  color: ${({theme}) => theme.colors.textColor};
+  font-size: ${({ theme }) => theme.fontSize.small};
+  color: ${({ theme }) => theme.colors.textColor};
   ::before {
     content: '@ ';
   }
@@ -50,10 +60,11 @@ const UserId = styled.strong`
 
 const ProfileImage = styled.img`
   width: 5rem;
-  height: auto;
+  height: 5rem;
   border-radius: 50%;
+  border: 1px solid #767676;
 `;
 
 const ButtonWrapper = styled.button`
-  margin-top: 1rem;
-`
+  margin-top: 0rem;
+`;
