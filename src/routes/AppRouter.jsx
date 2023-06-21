@@ -31,7 +31,7 @@ const AppRouter = () => {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/chat" element={<ChatListPage />} />
         <Route path="/follow" element={<FollowListPage />} />
-        <Route path="/chat/:account" element={<ChatRoomPage />} />
+        <Route path="/chat/:id" element={<ChatRoomPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

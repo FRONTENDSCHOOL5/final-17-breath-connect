@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled, {css} from 'styled-components';
 import profileImage  from '../../assets/images/basic-profile-s.svg';
 import TopBasicNavHeader from '../../components/Header/TopBasicNavHeader';
@@ -47,8 +48,10 @@ const ChatPage = () => {
       <ProfileImage src={profileImage} alt='유저의 프로필 사진' width='50' />
       </LeftDiv>
       <Wrapper>
+      <Link to={`/chat/${user.id}`}> 
         <UserName>{user.username}</UserName>
         <Message>{user.message}</Message>
+      </Link>  
       </Wrapper>
       <Date>{user.date}</Date>
      </UserItem>
