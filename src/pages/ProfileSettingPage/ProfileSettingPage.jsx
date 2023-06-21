@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import BasicProfileImg from '../../assets/images/basic-profile-l.svg'
-import GlovalSprite from '../../assets/sprite/GlovalSprite.jsx';
+import AddImg from '../../assets/sprite/img-btn.svg';
 
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
@@ -48,9 +48,9 @@ const ProfileSettingPage = () => {
     const username = e.target.value;
     const usernameRegex = /^[a-zA-Z0-9]{2,10}$/;
     if(username === '') {
-      setUsernameErrorMsg('* 입력해주세요');
+      setUsernameErrorMsg('*입력해주세요');
     } else if (!usernameRegex.test(username)) {
-      setUsernameErrorMsg('* 2~10자 이내로 입력해주세요');    
+      setUsernameErrorMsg('*영문 2~10자 이내로 입력해주세요');    
   } else {
     setUsernameErrorMsg('');
     setUsernameValid(true);
@@ -64,13 +64,13 @@ const handleInputAccountname = async (e) => {
   const accountnameRegex = /^[a-zA-Z0-9._]+$/;
   const checkAccountname = await postAccountnameDuplicate(accountname);
   if(accountname === '') {
-    setAccountnameErrorMsg('* 입력해주세요');
+    setAccountnameErrorMsg('*입력해주세요');
     setAccountnameValid(false);
   } else if (!accountnameRegex.test(accountname)) {
-    setAccountnameErrorMsg('* 영문, 숫자, 특수문자 ., _ 만 입력해주세요');
+    setAccountnameErrorMsg('*영문, 숫자, 특수문자 ., _ 만 입력해주세요');
     setAccountnameValid(false);
   } else if (checkAccountname.message === '이미 가입된 계정ID 입니다.') {
-    setAccountnameErrorMsg('* 이미 존재하는 계정ID 입니다.');
+    setAccountnameErrorMsg('*이미 존재하는 계정ID 입니다 😥');
     setAccountnameValid(false);
   } else {
     setAccountnameValid(true);
@@ -83,6 +83,15 @@ const handleInputAccountname = async (e) => {
   const handleActivateButton = () => {
     return usernameValid && accountnameValid;
   };
+
+  /* 에러 메시지 초기화 */
+  useEffect(() => {
+    setUsernameErrorMsg();
+  }, [username]);
+
+  useEffect(() => {
+    setAccountnameErrorMsg()
+  }, [accountname]);
 
 const handleProfileSignup = async (e) => {
   e.preventDefault();
@@ -119,7 +128,6 @@ const handleProfileSignup = async (e) => {
       id="upload-image"
       ref={fileInputRef}
       onChange={handleInputImage} />
-        {/* <GlovalSprite id="upload-file" size="3.6rem"/> */}
      </ImageWrap>
      <Input
           label='사용자 이름'
@@ -141,6 +149,7 @@ const handleProfileSignup = async (e) => {
           required
         />
         {accountnameErrorMsg && <ErrorMsg>{accountnameErrorMsg}</ErrorMsg>}
+        <div className='button-margin'>
      <Input
           label='소개'
           placeholder='자신에 대해 소개해 주세요!'
@@ -149,8 +158,10 @@ const handleProfileSignup = async (e) => {
           name='intro'
           required
         />
+        </div>
         <ButtonContainer type={'L'} text={'들숨날숨 시작하기'} isDisabled = {!handleActivateButton()} 
         handleClick={handleProfileSignup}/>
+       
         </UploadForm>
          </ProfileSettingSection>
         </>
@@ -185,28 +196,42 @@ text-align: center;
 `
 
 const ImageWrap = styled.div`
-width: 11rem;
-height: 11rem;
-margin: 2.9rem auto 10rem;
   label {
+    position: relative;
     display: block;
     width: 11rem;
     height: 11rem;
-    border-radius: 50%;
+    margin: 3.5rem auto 5.5rem;
     cursor: pointer;
-    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid ${({theme}) => theme.colors.placeHolderColor};
+    &::after {
+    content: '';
+    display: block;
+    background: url(${AddImg}) no-repeat center / 3.6rem 3.6rem;
+    width: 3.6em;
+    height: 3.6rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
   }
 `
 
 const UploadForm = styled.form`
+.button-margin {
+  margin-bottom: 3rem;
+}
 `
 
 const ProfileImage = styled.img`
 width: 100%;
 height: 100%;
-object-fit: cover;
-position: relative;
+object-fit: contain;
+border-radius: 50%;
 `
+
 const ProfileImageInput = styled.input`
 width: 0.1rem;
 height: 0.1rem;
@@ -218,6 +243,6 @@ const ErrorMsg = styled.p`
   ${({ theme }) => css`
     color: ${theme.colors.errorText};
     font-size: ${theme.fontSize.small};
-    /* margin-top: 0.4rem; */
+    margin-top: -0.9rem;
   `}
 `;
