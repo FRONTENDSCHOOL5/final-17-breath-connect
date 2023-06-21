@@ -33,7 +33,7 @@ const FeedPage = () => {
   return (
     <>
       <TopMainNavHeader />
-      {data.posts.length === 0 ? (
+      {data ? (
         <FeedNoUser />
       ) : (
         data.posts.map((post, index) => <Feed key={index} data={post} />)
