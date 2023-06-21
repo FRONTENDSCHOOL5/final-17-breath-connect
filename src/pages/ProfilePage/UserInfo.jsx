@@ -3,16 +3,24 @@ import styled from 'styled-components';
 import FollowCount from './FollowCount';
 import basicProfile from '../../assets/images/basic-profile-l.svg';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
+import { useRecoilValue } from 'recoil';
+import { accountAtom, tokenAtom } from '../../atoms/UserAtom';
+import { followProfile } from '../../utils/Apis';
 
-const UserInfo = ({ data }) => {
-  // 본인 개정인지 확인하는 방법이 필요함.
+const UserInfo = ({ data, myProfile }) => {
+  const userToken = useRecoilValue(tokenAtom);
+
+  const handleFollow = (e) => {
+    const follow = followProfile(data.accountname, userToken);
+  };
+
   return (
     <Container>
       <InfoHeader>
         <FollowCount follow={'Follower'} data={data} />
         <div>
           {data.image ? (
-            <img src={data.profile.image} alt="유저 이미지" />
+            <img src={data.image} alt="유저 이미지" />
           ) : (
             <img src={basicProfile} alt="유저 기본 이미지" />
           )}
@@ -20,15 +28,15 @@ const UserInfo = ({ data }) => {
         <FollowCount follow={'Following'} data={data} />
       </InfoHeader>
       <UserProfile>
-        <BoldText>{data.profile.username}</BoldText>
-        <UsetNcikName>@ {data.profile.accountname}</UsetNcikName>
-        <UserIntoroduce>{data.profile.intro}</UserIntoroduce>
+        <BoldText>{data.username}</BoldText>
+        <UsetNcikName>@ {data.accountname}</UsetNcikName>
+        <UserIntoroduce>{data.intro}</UserIntoroduce>
       </UserProfile>
       <UserInteraction>
-        {false ? (
+        {!myProfile ? (
           <ButtonContainer
             type={'M'}
-            text={data.profile.isfollow ? '언팔로우' : '팔로우'}
+            text={data.isfollow ? '언팔로우' : '팔로우'}
           />
         ) : (
           <>
@@ -41,7 +49,6 @@ const UserInfo = ({ data }) => {
           </>
         )}
       </UserInteraction>
-      {/* 본인 개정이면 내가 올린글 아니면 확인후 해당하는 author의 이름을 적는다. */}
       <SelectionBox>내가 올린 글</SelectionBox>
     </Container>
   );
@@ -59,6 +66,12 @@ const InfoHeader = styled.div`
   align-items: center;
   margin-top: 1.4rem;
   padding: 1.6rem;
+  div img {
+    width: 11rem;
+    height: 11rem;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 `;
 const UserProfile = styled.div`
   text-align: center;

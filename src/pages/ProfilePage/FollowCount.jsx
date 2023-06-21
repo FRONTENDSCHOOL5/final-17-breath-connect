@@ -7,12 +7,12 @@ const FollowCount = ({ follow, data }) => {
       {/* 추후 button -> Link로 변경 각각 해당 하는 페이지로 이동*/}
       {follow === 'Follower' ? (
         <button>
-          <BoldText>{data.profile.followerCount}</BoldText>
+          <BoldText>{data.followerCount}</BoldText>
           <FollowText>follwers</FollowText>
         </button>
       ) : (
         <button>
-          <BoldBlurText>{data.profile.followingCount}</BoldBlurText>
+          <BoldBlurText>{data.followingCount}</BoldBlurText>
           <FollowText>following</FollowText>
         </button>
       )}

@@ -6,8 +6,9 @@ import FeedMap from '../../components/Map/FeedMap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 
-
 const Feed = ({ data }) => {
+  console.log('Feed', data.author.username)
+
   const location = useLocation();
   const [detail, setDetail] = useState(
     location.pathname === '/post/postdetail' ? true : false
@@ -23,13 +24,21 @@ const Feed = ({ data }) => {
     }
   };
 
+  const handleProfileClick = (e) => {
+    navigate(`/profile/${data.author.username}`, {
+      state: { data: data.author },
+    });
+  };
+
   return (
     <Container>
       <FeedContents>
         <UserProfileImg src={data.image ? data.image : basicImg} />
         <div>
-          <UserName>{data.author.username}</UserName>
-          <FeedNickName>@ {data.author.accountname}</FeedNickName>
+          <button onClick={handleProfileClick}>
+            <UserName>{data.author.username}</UserName>
+            <FeedNickName>@ {data.author.accountname}</FeedNickName>
+          </button>
           <button onClick={handleFeedClick}>
             <div>
               <GlovalSprite id={'icon-calendal'} size={13} />
@@ -39,9 +48,9 @@ const Feed = ({ data }) => {
               <GlovalSprite id={'icon-location'} size={13} />
               <FeedInfo>여의나루역~선유도역 (3.5 km)</FeedInfo>
             </div>
-            <MapContents>
+            {/* <MapContents>
               <FeedMap data={data.updatedAt} detail={detail} />
-            </MapContents>
+            </MapContents> */}
             <UserFeedText>{data.content}</UserFeedText>
           </button>
           <AppendAndComment>
