@@ -14,6 +14,7 @@ const SearchPage = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]+$/;
 
   const getSearchResult = async () => {
     const req = await fetch(`${url}/user/searchuser/?keyword=${search}`, {
@@ -25,17 +26,17 @@ const SearchPage = () => {
     });
 
     const res = await req.json();
-    console.log(res);
-    setData(res.slice(0, 10));
+    setData(res.slice(0, 9));
     setIsLoading(false);
   };
 
-  console.log(data);
 
-  const handleProfileClick = (e) => {
-    navigate(`/profile/${data[0].accountname}`, {
-      state: { data: data[0] },
-    });
+  const handleProfileClick = (index) => {
+    if (data && data[index]) {
+      navigate(`/profile/${data[index].accountname}`, {
+        state: { data: data[index] },
+      });
+    }
   };
 
   useEffect(() => {
@@ -47,19 +48,17 @@ const SearchPage = () => {
     getSearchResult();
   }, [search]);
 
-  console.log(data);
-
   return (
     <>
       <TopSearchNavHeader value={search} setValue={setSearch} />
-
       <SearchContainer>
         {data.length === 0 ? (
           <NoResultsText>검색 결과가 없습니다.</NoResultsText>
         ) : (
-          data.map((item) => (
-            <SearchResultItem key={item.id} onClick={handleProfileClick}>
-              <ProfileImage src={profileImg} alt="프로필 이미지" />
+          data.map((item, index) => (
+            <SearchResultItem key={item.id} onClick={() => {handleProfileClick(index)}}>
+              <ProfileImage
+                src={(numberRegex.test(item.image) || item.image === "https://api.mandarin.weniv.co.kr/undefined") ? item.image : profileImg} alt="프로필 이미지"/>
               <UserInfo>
                 <Username>{highlightText(item.username, search)}</Username>
                 <Nickname>{'@' + item.accountname}</Nickname>
@@ -87,23 +86,24 @@ const NoResultsText = styled.p`
 const SearchResultItem = styled.button`
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 `;
 
 const ProfileImage = styled.img`
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
-  margin-right: 1rem;
+  margin-right: 1.2rem;
 `;
 
 const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
+  text-align: start;
 `;
 
 const Username = styled.p`
-  font-size: 1.4rem;
+  font-size: ${({ theme }) => theme.fontSize.medium};
   margin-bottom: 0.6rem;
   color: ${({ theme }) => theme.colors.blackText};
 `;
@@ -114,7 +114,7 @@ const HighlightedText = styled.span`
 `;
 
 const Nickname = styled.p`
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.fontSize.small};
 `;
 
 const highlightText = (text, search) => {
