@@ -39,27 +39,26 @@ const ChatPage = () => {
   
   return (
     <>
-     <TopBasicNavHeader/>
-    <ContentsWrapper>
-     <FollowList>
-    {UserData.map((user)=> (
-    <UserItem key={user.id}>
-       <LeftDiv unread={!user.read}>
-      <ProfileImage src={profileImage} alt='유저의 프로필 사진' width='50' />
-      </LeftDiv>
-      <Wrapper>
-      <Link to={`/chat/${user.id}`}> 
-        <UserName>{user.username}</UserName>
-        <Message>{user.message}</Message>
-      </Link>  
-      </Wrapper>
-      <Date>{user.date}</Date>
-     </UserItem>
-     
-    ))}
-     </FollowList> 
-    </ContentsWrapper>
-    <TabMenu/>
+      <TopBasicNavHeader/>
+      <ContentsWrapper>
+        <FollowList>
+          {UserData.map((user)=> (
+            <UserItem key={user.id}>
+              <LeftDiv unread={!user.read}>
+                <ProfileImage src={profileImage} alt='유저의 프로필 사진' width='50' />
+              </LeftDiv>
+              <Wrapper>
+                <Link to={`/chat/${user.id}`}> 
+                  <UserName>{user.username}</UserName>
+                  <Message>{user.message}</Message>
+                </Link>  
+              </Wrapper>
+              <Date>{user.date}</Date>
+            </UserItem> 
+          ))}
+        </FollowList> 
+      </ContentsWrapper>
+      <TabMenu/>
     </>
   );
 };
@@ -109,7 +108,7 @@ const ProfileImage = styled.img`
 const ContentsWrapper = styled.main`
   display: flex;
   flex-direction: column;
-  //margin-top: 4.8rem;
+  height: 100vh;
   margin-bottom: 41.5rem;
   padding: 2.4rem 1.6rem; 
 `;

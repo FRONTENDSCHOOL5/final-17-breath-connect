@@ -6,8 +6,7 @@ import ChatImg from '../../assets/images/chat-img.png';
 import ChatComment from '../../components/common/Comment/ChatComment';
 
 const ChatRoom = () => {
-  return (
-    
+  return (    
     <>
       <TopChatNavHeader/>
       <ChatSpace className="chat-space">
@@ -40,17 +39,19 @@ const ChatRoom = () => {
 export default ChatRoom;
 
 const ChatSpace = styled.section`
-  padding-top: 22.4rem;
+  padding: 1rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   position: relative;
+  height: 100vh;
   background-color: ${({ theme }) => theme.colors.uploadBoxColor};
    .chat-mine {
       display: flex;
-      justify-content: flex-end;
-      argin-right: 1.6rem;
-      padding-right: 1rem;
+      justify-content: flex-end;  
   }
    .chat-pratner {
-     display: flex;
+      display: flex;
   }
 `;
 
@@ -63,7 +64,6 @@ const ChatPartner = styled.li`
 `;
 
 const BasicProfile = styled.img`
-  margin-left: 1.6rem;
   width: 4.2rem;
   height: 4.2rem;
 `;
