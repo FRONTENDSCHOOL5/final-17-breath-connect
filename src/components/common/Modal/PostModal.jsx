@@ -1,21 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import Alert from '../Alert/Alert';
 
-const Modal = ({ text }) => {
+const PostModal = ({ text }) => {
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertDone, setAlertDone] = useState('');
+
+  const handleClick = () => {
+    if (text === '삭제') {
+      setAlertMessage('게시물을 삭제하시겠습니까?');
+      setShowAlert(true); // 알림(Alert) 띄우기
+      setAlertDone("게시물이 삭제되었습니다.")
+    } else if (text === '신고하기') {
+      setAlertMessage('게시물을 신고하시겠습니까?');
+      setShowAlert(true);
+      setAlertDone("게시물이 신고되었습니다.")
+    }
+  };
+
+  const handleAlertClose = () => {
+    setShowAlert(false); // 알림(Alert) 닫기
+  };
 
   return (
-    <ModalWrapper>
-      <ModalContent>
-        <Separator />
-        <ModalButtons>
-          <button>{text}</button>
-        </ModalButtons>
-      </ModalContent>
-    </ModalWrapper>
+    <>
+        <ModalWrapper>
+          <ModalContent>
+            <Separator />
+            <ModalButtons>
+              <button onClick={handleClick}>{text}</button>
+            </ModalButtons>
+          </ModalContent>
+        </ModalWrapper>
+      {showAlert && <Alert message={alertMessage} onClose={handleAlertClose} done={alertDone}/>}
+    </>
   );
 };
 
-export default Modal;
+export default PostModal;
 
 const ModalContent = styled.div`
   width: 39rem;
@@ -56,5 +79,5 @@ const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
   opacity: 1;
-  pointer-events: none;
+  pointer-events: auto;
 `;

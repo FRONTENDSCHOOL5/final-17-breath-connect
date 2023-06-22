@@ -1,31 +1,54 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
-const Alert = ({ message }) => {
-  const handleClick = () => {
-    alert(`게시글이 삭제되었습니다.`);
+const Alert = ({ message, onClose, done, text }) => {
+  const [showAlert, setShowAlert] = useState(true);
+
+  const handleClickCancel = () => {
+    setShowAlert(false);
+    onClose(false);
   };
+  const handleClick = () => {
+    alert(done);
+    setShowAlert(false);
+    onClose(true); // 삭제 완료를 알리기 위해 onClose(true) 호출
+  };
+
   return (
-    <AlertWrap>
-      <ButtonText>게시글을 삭제할까요?</ButtonText>
-      <ButtonWrap>
-        <CancelButton>취소</CancelButton>
-        <DeleteButton onClick={handleClick}>삭제</DeleteButton>
-      </ButtonWrap>
-    </AlertWrap>
+    <DeleteAlert>
+    <AlertContainer>
+      <ButtonText>{message}</ButtonText>
+      <ButtonContainer>
+        <button onClick={handleClickCancel}>취소</button>
+        <DeleteButton onClick={handleClick}>{text}</DeleteButton>
+      </ButtonContainer>
+    </AlertContainer>
+    </DeleteAlert>
   );
 };
 
 export default Alert;
 
-const AlertWrap = styled.div`
+const DeleteAlert = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 1;
+  pointer-events: auto;
+`
 
-  /* 중앙 정렬 */
+const AlertContainer = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   display: flex;
   flex-direction: column;
   width: 25.2rem;
@@ -40,17 +63,14 @@ const ButtonText = styled.p`
   font-size: ${({ theme }) => theme.fontSize.large};
 `;
 
-const ButtonWrap = styled.div`
+const ButtonContainer = styled.div`
 border-top: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
 font-size: ${({ theme }) => theme.fontSize.medium};
-
   button {
     padding: 1.3rem 5rem;
   }
 `;
-const CancelButton = styled.button`
-   
-`;
+
 const DeleteButton = styled.button`
   border-left: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
   color: ${({ theme }) => theme.colors.mainColor};
