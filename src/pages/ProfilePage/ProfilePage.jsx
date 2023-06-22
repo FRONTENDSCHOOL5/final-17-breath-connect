@@ -3,6 +3,7 @@ import UserInfo from './UserInfo';
 import TopBasicNavHeader from '../../components/Header/TopBasicNavHeader';
 import Feed from '../FeedPage/Feed';
 import { getUserProfile, getMyPost } from '../../utils/Apis';
+import { getUserPosts, getUserProfile } from '../../utils/Apis';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom, accountAtom } from '../../atoms/UserAtom';
 import { useLocation } from 'react-router-dom';
@@ -31,6 +32,20 @@ const ProfilePage = () => {
         }
       };
       fetchData();
+    if (!data) {
+      console.log(11);
+      const account = JSON.parse(localStorage.getItem('account'));
+      console.log(userToken, account);
+      getUserProfile(userToken, account)
+        .then((response) => {
+          data = response.data;
+          fetchUserPosts();
+        })
+        .catch((error) => {
+          console.error('Error fetching profile:', error);
+        });
+    } else {
+      fetchUserPosts();
     }
   }, [accountName]);
 

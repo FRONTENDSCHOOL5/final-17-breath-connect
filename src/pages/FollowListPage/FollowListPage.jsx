@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Follow from '../../components/common/User/Follow/followbutton';
+import Follow from '../../components/common/User/Follow/Follow';
 import TopListNavHeader from '../../components/Header/TopListNavHeader';
 import TabMenu from '../../components/Footer/TabMenu';
 
