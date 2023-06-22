@@ -1,31 +1,53 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
-const LogOut = ({ message }) => {
-  const handleClick = () => {
-    alert(`로그아웃 하셨습니다.`);
+const LogOut = ({ message, onClose, done }) => {
+  const [showLogOut, setShowLogOut] = useState(true);
+
+  const handleClickCancel = () => {
+    setShowLogOut(false);
+    onClose(false);
   };
+  const handleClick = () => {
+    alert(done);
+    setShowLogOut(false);
+    onClose(true); // 삭제 완료를 알리기 위해 onClose(true) 호출
+  };
+
   return (
-      <AlertWrap>
-        <ButtonText>로그아웃 하시겠습니까?</ButtonText>
-        <ButtonWrap>
-          <CancelButton>취소</CancelButton>
+    <LogOutAlert>
+      <AlertContainer>
+        <ButtonText>{message}</ButtonText>
+        <ButtonContainer>
+          <CancelButton onClick={handleClickCancel}>취소</CancelButton>
           <LogOutButton onClick={handleClick}>로그아웃</LogOutButton>
-        </ButtonWrap>
-      </AlertWrap>
+        </ButtonContainer>
+      </AlertContainer>
+    </LogOutAlert>
   );
 };
 
 export default LogOut;
 
-const AlertWrap = styled.div`
-
-  /* 중앙 정렬 */
+const LogOutAlert = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 1;
+  pointer-events: auto;
+`
+const AlertContainer = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   display: flex;
   flex-direction: column;
   width: 25.2rem;
@@ -40,7 +62,7 @@ const ButtonText = styled.p`
   font-size: ${({ theme }) => theme.fontSize.large};
 `;
 
-const ButtonWrap = styled.div`
+const ButtonContainer = styled.div`
   border-top: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
   font-size: ${({ theme }) => theme.fontSize.medium};
 `;
