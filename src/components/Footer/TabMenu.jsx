@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate} from 'react-router-dom';
 import BottomBarButton from './BottomBarButton';
 import styled from 'styled-components';
-import Theme from '../../styles/Theme';
 
-const TabMenu = () => {
-  const [selectedButton, setSelectedButton] = useState('icon-home');
+  const TabMenu = () => {
+    const navigate = useNavigate();
+    const [selectedButton, setSelectedButton] = useState('icon-home');
 
-  const handleButtonClick = (buttonId) => {
-    setSelectedButton(buttonId);
+    const handleButtonClick = (buttonId, path) => {
+      setSelectedButton(buttonId);
+      navigate(path);
   };
 
   return (
@@ -17,7 +19,7 @@ const TabMenu = () => {
         text="홈"
         textSize="1rem"
         isSelected={selectedButton === 'icon-home'}
-        onClick={() => handleButtonClick('icon-home')}
+        onClick={() => handleButtonClick('icon-home', '/home')}
       />
       <BottomBarButton
         id={
@@ -28,21 +30,21 @@ const TabMenu = () => {
         text="메시지"
         textSize= "1rem"
         isSelected={selectedButton === 'icon-message-circle'}
-        onClick={() => handleButtonClick('icon-message-circle')}
+        onClick={() => handleButtonClick('icon-message-circle', '/chat')}
       />
       <BottomBarButton
         id={selectedButton === 'icon-edit' ? 'icon-edit-fill' : 'icon-edit'}
         text="게시물 추가"
         textSize="1rem"
         isSelected={selectedButton === 'icon-edit'}
-        onClick={() => handleButtonClick('icon-edit')}
+        onClick={() => handleButtonClick('icon-edit','/post/upload')}
       />
       <BottomBarButton
         id={selectedButton === 'icon-user' ? 'icon-user-fill' : 'icon-user'}
         text="프로필"
         textSize="1rem"
         isSelected={selectedButton === 'icon-user'}
-        onClick={() => handleButtonClick('icon-user')}
+        onClick={() => handleButtonClick('icon-user', '/profile/:account')}
       />
     </Container>
   );
@@ -56,7 +58,7 @@ const Container = styled.div`
   width: 39rem;
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid ${Theme.colors.borderColor};
+  border-top: 1px solid ${({theme}) => theme.colors.borderColor};
   margin-top: 28px;
   background-color: white;
 `;
