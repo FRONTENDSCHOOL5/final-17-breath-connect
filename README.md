@@ -1,5 +1,5 @@
 # 🌬들숨날숨 🌬
-<a href='https://github.com/FRONTENDSCHOOL5/WeNeed'>들숨날숨 바로가기</a>
+### <a href='https://github.com/FRONTENDSCHOOL5/WeNeed'>들숨날숨 바로가기 🏃🏻‍♂️🏃🏻‍♀️</a>
 <details>
 <summary>목차</summary>
 
@@ -23,8 +23,8 @@
 > 들숨날숨 from 멋사
 
 - 같은 동네 혹은 서로 다른 동네에서 새로운 사람들과 함께 달리거나 소식을 공유하세요.<br>
-- 자유롭게 날짜와 장소만 게시한다면 누구든 함께 달릴 수 있습니다!<br>
-- 내가 달린 기록과 사람들을 이웃들에게 자유롭게 공유할 수 있습니다!
+- 자유롭게 뛰는 날짜와 장소만 게시한다면 누구든지 함께 달릴 수 있습니다!<br>
+- 내가 달린 기록과 사람들을 이웃들에게 공유할 수 있습니다!
 
 <br/>
 
@@ -39,7 +39,7 @@
 
 ### 위니드 WeNeed
 > "`우리는` 개발자로 성장이 `필요하다`"라는 의미로<br/>
-> 위니브라는 회사의 도움을 얻으면서 <br/>
+> 위니브라는 회사의 도움을 얻고 <br/>
 > `함께` 프로젝트를 진행하면서 서로가 `필요한` 부분을 채워주기 위해 <br/>
 > 다음과 같은 팀명을 짓게 되었습니다.
 
@@ -47,7 +47,9 @@
 | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
 | <img src="https://avatars.githubusercontent.com/yongdeok97" height=180 width=180> | <img src="https://avatars.githubusercontent.com/parkyeonjux" height=180 width=180> | <img src="https://avatars.githubusercontent.com/sypaik-dev" height=180 width=180> | <img src="https://avatars.githubusercontent.com/withLeche" height=180 width=180> |
 | <a href="https://github.com/yongdeok97"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/parkyeonjux"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |           <a href="https://github.com/sypaik-dev"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/withLeche"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |
+|<code>개발 리더</code> | <code>커뮤니케이션 리더</code> | <code>디자인 리더</code> | <code>팀 리더</code> |
 
+#### <p align="right"><a href="#top">TOP👆🏼</a></p>
 <br/>
 
 ## <span id="dev">4. 개발 환경</span>
@@ -81,7 +83,6 @@
         </tr>
       </tbody>
 </table>
-
 <br/>
 
 ## <span id="tree">5. 프로젝트 구조</span>
@@ -125,26 +126,27 @@ src
 ├── App.js
 └── index.js
 ```
+#### <p align="right"><a href="#top">TOP👆🏼</a></p>
 <br/>
 
 ## <span id="convention">6. 컨벤션</span>
 ### 커밋
-    ```
     1. 커밋 유형 지정
         - 커밋 유형은 영어로 작성, 첫 글자를 대문자
         - 커밋 유형
-        - Feat : 새로운 기능, 특징 추가
-        - Fix : 수정, 버그 수정
-        - Docs : 문서에 관련된 내용, 문서 수정
-        - Style : 스타일링
-        - Refactor : 리팩토링
-        - Test : 테스트 코드 수정, 누락된 테스트를 추가할 때, 리팩토링 테스트 추가
-        - Chore : 빌드 업무 수정, 패키지 매니저 수정
+        - 🎨 Style : 코드의 구조 / 형태 개선
+        - 🔥 Fire : 코드 / 파일 삭제
+        - 🐛 Fix : 버그 수정
+        - ✨ Feat : 새로운 기능 추가
+        - 📝 Docs : 문서 추가 / 수정
+        - ♻️ Refactor : 리팩토링
+        - ✅ Test : 테스트 추가 / 수정
+        - 🔨 Build : 개발 스크립트 추가 / 수정
+        - 🎉 Init : 프로젝트 시작
 
     2. 커밋 메시지는 "유형: 제목 (#이슈번호)"로 구성
 
         git commit -m "Feat: 로그인 기능 구현 (#13)"
-    ```
 
 ### 코드
 
@@ -154,15 +156,11 @@ src
 
 ### 💪 팀워크 강화
 #### - Daily Scrum
-#### - 정기 회의
-
 
 ### 📌 업무 공유
-#### - 데일리 스크럼
-
 
 ### 🎯 목표 관리
-
+#### <p align="right"><a href="#top">TOP👆🏼</a></p>
 <br/>
 
 ## <span id="issues">8. 이슈 관리</span>
