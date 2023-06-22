@@ -85,11 +85,66 @@
 <br/>
 
 ## <span id="tree">5. 프로젝트 구조</span>
-
+- assets/ :
+- atoms/ :
+- components/ :
+- hooks/ :
+- pages/ :
+- routes/ :
+- styles/ :
+- utils/ :
+```
+src
+├── assets
+│    ├── images
+│    ├── sprite
+├── atoms
+├── components
+│    ├── common
+│    ├── Footer
+│    ├── Header
+│    ├── Map
+├── hooks
+├── pages
+│    ├── ChatPage
+│    ├── FeedPage
+│    ├── FollowListPage
+│    ├── LoginPage
+│    ├── NotFoundPage
+│    ├── PostPage
+│    ├── ProfilePage
+│    ├── ProfileSettingPage
+│    ├── SearchPage
+│    ├── SignupPage
+│    ├── SnsLoginPage
+│    ├── SplashPage
+│    ├── UploadPage
+├── routes
+├── styles
+├── utils
+├── App.js
+└── index.js
+```
 <br/>
 
 ## <span id="convention">6. 컨벤션</span>
 ### 커밋
+    ```
+    1. 커밋 유형 지정
+        - 커밋 유형은 영어로 작성, 첫 글자를 대문자
+        - 커밋 유형
+        - Feat : 새로운 기능, 특징 추가
+        - Fix : 수정, 버그 수정
+        - Docs : 문서에 관련된 내용, 문서 수정
+        - Style : 스타일링
+        - Refactor : 리팩토링
+        - Test : 테스트 코드 수정, 누락된 테스트를 추가할 때, 리팩토링 테스트 추가
+        - Chore : 빌드 업무 수정, 패키지 매니저 수정
+
+    2. 커밋 메시지는 "유형: 제목 (#이슈번호)"로 구성
+
+        git commit -m "Feat: 로그인 기능 구현 (#13)"
+    ```
 
 ### 코드
 
