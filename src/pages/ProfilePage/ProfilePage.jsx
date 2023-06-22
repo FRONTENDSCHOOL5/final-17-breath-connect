@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import UserInfo from './UserInfo';
 import TopBasicNavHeader from '../../components/Header/TopBasicNavHeader';
 import Feed from '../FeedPage/Feed';
-import { getUserPosts, fetchProfile } from '../../utils/Apis';
+import { getUserPosts, getUserProfile } from '../../utils/Apis';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '../../atoms/UserAtom';
 import { useLocation } from 'react-router-dom';
@@ -18,7 +18,7 @@ const ProfilePage = () => {
       console.log(11);
       const account = JSON.parse(localStorage.getItem('account'));
       console.log(userToken, account);
-      fetchProfile(userToken, account)
+      getUserProfile(userToken, account)
         .then((response) => {
           data = response.data;
           fetchUserPosts();
