@@ -14,7 +14,7 @@ const SearchPage = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]+$/;
+  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
 
   const getSearchResult = async () => {
     const req = await fetch(`${url}/user/searchuser/?keyword=${search}`, {
@@ -29,7 +29,6 @@ const SearchPage = () => {
     setData(res.slice(0, 9));
     setIsLoading(false);
   };
-
 
   const handleProfileClick = (index) => {
     if (data && data[index]) {
@@ -56,9 +55,16 @@ const SearchPage = () => {
           <NoResultsText>검색 결과가 없습니다.</NoResultsText>
         ) : (
           data.map((item, index) => (
-            <SearchResultItem key={item.id} onClick={() => {handleProfileClick(index)}}>
+            <SearchResultItem
+              key={item.id}
+              onClick={() => {
+                handleProfileClick(index);
+              }}
+            >
               <ProfileImage
-                src={(numberRegex.test(item.image) || item.image === "https://api.mandarin.weniv.co.kr/undefined") ? item.image : profileImg} alt="프로필 이미지"/>
+                src={numberRegex.test(item.image) ? item.image : profileImg}
+                alt="프로필 이미지"
+              />
               <UserInfo>
                 <Username>{highlightText(item.username, search)}</Username>
                 <Nickname>{'@' + item.accountname}</Nickname>

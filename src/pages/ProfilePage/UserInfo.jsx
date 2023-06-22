@@ -1,42 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FollowCount from './FollowCount';
 import basicProfile from '../../assets/images/basic-profile-l.svg';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { useRecoilValue } from 'recoil';
 import { accountAtom, tokenAtom } from '../../atoms/UserAtom';
-import { followProfile } from '../../utils/Apis';
+import { postFollow, deleteFollow } from '../../utils/Apis';
 
 const UserInfo = ({ data, myProfile }) => {
-  const userToken = useRecoilValue(tokenAtom);
+  const [profile, setProfile] = useState(data);
 
-  const handleFollow = (e) => {
-    const follow = followProfile(data.accountname, userToken);
+  const handleFollow = async (e) => {
+    const followResult = await postFollow(profile.accountname);
+    console.log(followResult);
+    setProfile(followResult.profile);
   };
+
+  const handleUnFollow = async (e) => {
+    const followResult = await deleteFollow(profile.accountname);
+    console.log(followResult);
+    setProfile(followResult.profile);
+  };
+
+  useEffect(() => {
+    console.log('my', myProfile);
+  }, [profile]);
 
   return (
     <Container>
       <InfoHeader>
-        <FollowCount follow={'Follower'} data={data} />
+        {/* 팔로워 리스트 * */}
+        <FollowCount follow={'Follower'} data={profile} />
         <div>
-          {data.image ? (
-            <img src={data.image} alt="유저 이미지" />
+          {profile.image ? (
+            <img src={profile.image} alt="유저 이미지" />
           ) : (
             <img src={basicProfile} alt="유저 기본 이미지" />
           )}
         </div>
-        <FollowCount follow={'Following'} data={data} />
+        {/* 팔로잉 리스트 */}
+        <FollowCount follow={'Following'} data={profile} />
       </InfoHeader>
       <UserProfile>
-        <BoldText>{data.username}</BoldText>
-        <UsetNcikName>@ {data.accountname}</UsetNcikName>
-        <UserIntoroduce>{data.intro}</UserIntoroduce>
+        <BoldText>{profile.username}</BoldText>
+        <UsetNcikName>@ {profile.accountname}</UsetNcikName>
+        <UserIntoroduce>{profile.intro}</UserIntoroduce>
       </UserProfile>
       <UserInteraction>
         {!myProfile ? (
           <ButtonContainer
             type={'M'}
-            text={data.isfollow ? '언팔로우' : '팔로우'}
+            text={profile.isfollow ? '언팔로우' : '팔로우'}
+            handleClick={profile.isfollow ? handleUnFollow : handleFollow}
+            isClicked={profile.isfollow}
           />
         ) : (
           <>
@@ -49,7 +65,9 @@ const UserInfo = ({ data, myProfile }) => {
           </>
         )}
       </UserInteraction>
-      <SelectionBox>내가 올린 글</SelectionBox>
+      <SelectionBox>
+        <strong>{profile.username}</strong>가 올린 글
+      </SelectionBox>
     </Container>
   );
 };
@@ -102,10 +120,13 @@ const UserInteraction = styled.div`
 const SelectionBox = styled.div`
   background-color: #f6f5f6;
   box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.2);
-  color: #6521d3;
+  color: ${({ theme }) => theme.colors.textColor};
   height: 3.4rem;
   text-align: center;
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSize.xsmall};
   padding-top: 1.1rem;
+  strong {
+    color: #6521d3;
+  }
 `;

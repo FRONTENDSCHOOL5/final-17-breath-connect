@@ -7,13 +7,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 
 const Feed = ({ data }) => {
-  console.log('Feed', data.author.username)
-
   const location = useLocation();
+  const navigate = useNavigate();
   const [detail, setDetail] = useState(
     location.pathname === '/post/postdetail' ? true : false
   );
-  const navigate = useNavigate();
+  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
 
   const handleFeedClick = (e) => {
     if (location.pathname !== '/post/postdetail') {
@@ -30,10 +29,15 @@ const Feed = ({ data }) => {
     });
   };
 
+  console.log('data', data);
   return (
     <Container>
       <FeedContents>
-        <UserProfileImg src={data.image ? data.image : basicImg} />
+        <UserProfileImg
+          src={
+            numberRegex.test(data.author.image) ? data.author.image : basicImg
+          }
+        />
         <div>
           <button onClick={handleProfileClick}>
             <UserName>{data.author.username}</UserName>
@@ -48,9 +52,9 @@ const Feed = ({ data }) => {
               <GlovalSprite id={'icon-location'} size={13} />
               <FeedInfo>여의나루역~선유도역 (3.5 km)</FeedInfo>
             </div>
-            {/* <MapContents>
-              <FeedMap data={data.updatedAt} detail={detail} />
-            </MapContents> */}
+            <MapContents>
+              {/* <FeedMap data={data.updatedAt} detail={detail} /> */}
+            </MapContents>
             <UserFeedText>{data.content}</UserFeedText>
           </button>
           <AppendAndComment>
@@ -66,7 +70,7 @@ const Feed = ({ data }) => {
           </AppendAndComment>
         </div>
       </FeedContents>
-      <ButtonContainer type={'XL'} text={'참가하기'} />
+      {detail ? <ButtonContainer type={'XL'} text={'참가하기'} /> : <></>}
     </Container>
   );
 };
