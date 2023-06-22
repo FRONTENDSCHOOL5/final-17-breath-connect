@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import FollowCount from './FollowCount';
 import basicProfile from '../../assets/images/basic-profile-l.svg';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
-import { useRecoilValue } from 'recoil';
-import { accountAtom, tokenAtom } from '../../atoms/UserAtom';
 import { postFollow, deleteFollow } from '../../utils/Apis';
+
 
 const UserInfo = ({ data, myProfile }) => {
   const [profile, setProfile] = useState(data);
+    const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
+
 
   const handleFollow = async (e) => {
     const followResult = await postFollow(profile.accountname);
@@ -32,11 +33,7 @@ const UserInfo = ({ data, myProfile }) => {
         {/* 팔로워 리스트 * */}
         <FollowCount follow={'Follower'} data={profile} />
         <div>
-          {profile.image ? (
-            <img src={profile.image} alt="유저 이미지" />
-          ) : (
-            <img src={basicProfile} alt="유저 기본 이미지" />
-          )}
+            <img src={numberRegex.test(profile.image) ? profile.image : basicProfile} alt="유저 이미지" />
         </div>
         {/* 팔로잉 리스트 */}
         <FollowCount follow={'Following'} data={profile} />
