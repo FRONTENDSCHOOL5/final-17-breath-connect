@@ -4,7 +4,7 @@ import TopMainNavHeader from '../../components/Header/TopMainNavHeader';
 import FeedNoUser from './FeedNoUser';
 import TabMenu from '../../components/Footer/TabMenu';
 
-import { fetchPosts } from '../../utils/Apis';
+import { getFollowFeed } from '../../utils/Apis';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '../../atoms/UserAtom';
 
@@ -15,7 +15,7 @@ const FeedPage = () => {
   const userToken = useRecoilValue(tokenAtom);
 
   const fetchData = async () => {
-    const newData = await fetchPosts(userToken, loadedCount, loadCount);
+    const newData = await getFollowFeed(userToken, loadedCount, loadCount);
     data = [...data, ...newData];
     loadedCount += loadCount;
   };
