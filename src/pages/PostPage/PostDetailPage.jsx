@@ -5,23 +5,35 @@ import styled from 'styled-components';
 import { getPostDetail, getComment, postComment } from '../../utils/Apis';
 import TopListNavHeader from '../../components/Header/TopListNavHeader';
 import FeedComment from '../FeedPage/FeedComment';
-import Comment from '../../components/common/Comment/Comment.jsx';
+import BasicProfileImg from '../../assets/images/basic-profile-xs.svg';
 
 const PostPageDetail = () => {
   
   const postId = useParams().id;
   const [commentData, setCommentData] = useState();
-
+  const [inputComment, setInputComment] = useState('');
   const location = useLocation();
   const data = location.state?.data;
-
 
   const fetchCommentList = async () => {
       const response = await getComment(postId);
       setCommentData(response.comments); 
       // 배열 안에, id, content, createdAt, author
-    }
-  
+  }
+
+  const handleInput = (e) => {
+    const inputComment = e.target.value;
+    setInputComment(inputComment);
+  };
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await postComment(postId, inputComment);
+    fetchCommentList();
+  };
+
+
   useEffect(() => {
     if(postId) {
       fetchCommentList();
@@ -46,9 +58,18 @@ const PostPageDetail = () => {
     ) : (
       <p>댓글이 존재하지 않습니다 🥲</p>
     )}
-    <Comment 
-    data={data}
-    />
+    <CommentContainer onSubmit={handleCommentSubmit}>
+        <StyledComment>
+          <img src={BasicProfileImg} alt="프로필 비활성화" />
+          <CommentInput
+            placeholder="댓글을 입력하세요..."
+            onChange={handleInput}
+          />
+        </StyledComment>
+        <PostBtn active={inputComment.trim() !== ''} type="submit">
+          게시
+        </PostBtn>
+      </CommentContainer>
   </Container>
 );
     }
@@ -64,10 +85,53 @@ const Container = styled.div`
    }
 `;
 
- // onclick여기서 만들어서 매개변수로 넘겨줘야 될 것 같아여 그럼 그 버튼컨테이너 참가버튼에 onhandleclick에 넘겨 줘야 할 것 같습니다.
+const CommentContainer = styled.form`
+  padding: 0 1.6rem;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  height: 6.1rem;
+  background-color: ${({ theme }) => theme.colors.whiteText};
+  font-size: ${({ theme }) => theme.fontSize.medium};
+  border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
+`;
 
+const StyledComment = styled.div`
+  display: flex;
+  align-items: center;
+  img {
+    width: 3.6rem;
+    height: 3.6rem;
+    margin-right: 1.2rem;
+  }
+`;
 
-   {/* <PostPage data={data} setDetail={location.state?.setDetail} />
-      {commentData.map((comment, index) => (
-        <FeedComment key={index} postId={comment} />
-      ))} */}
+const CommentInput = styled.input`
+  border: none;
+  outline: none;
+  width: 100%;
+  padding-right: 11.7rem;
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.placeHolderColor};
+  }
+`;
+
+const PostBtn = styled.button`
+  color: ${({ theme }) => theme.colors.placeHolderColor};
+  ${({ theme }) =>
+    theme.colors.mainColor &&
+    `
+    &:not([disabled]) {
+      color: ${theme.colors.mainColor};
+      font-weight: 500;
+    }
+  `}
+
+  ${({ active }) =>
+    !active &&
+    `
+    pointer-events: none;
+    opacity: 0.5;
+  `}
+`;
