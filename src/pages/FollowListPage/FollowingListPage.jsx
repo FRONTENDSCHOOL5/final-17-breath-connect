@@ -7,6 +7,7 @@ import { getFollowingList } from '../../utils/Apis';
 import Follow from '../../components/common/User/Follow/Follow';
 import TopListNavHeader from '../../components/Header/TopListNavHeader';
 import TabMenu from '../../components/Footer/TabMenu';
+import Logo from '../../assets/images/home-logo.svg';
 
 const FollowListPage = () => {  
   const token = useRecoilValue(tokenAtom);
@@ -42,7 +43,10 @@ const FollowListPage = () => {
               />
             ))
           ) : (
-            <NoFollowersText>팔로우한 사용자가 없습니다.</NoFollowersText>
+              <>  
+                <Icon src={Logo} alt="NotFollow로고" className="icon" />
+                <NotFollowersText>팔로우한 사용자가 없습니다.</NotFollowersText>
+              </>
           )}
         </FollowList>
       </ContentsWrapper>
@@ -67,9 +71,15 @@ const FollowList = styled.ul`
   }
 `;
 
-const NoFollowersText = styled.p`
-  margin-top: 2rem;
+const Icon = styled.img`
+  width: 100%;
+  width: 14.8rem;
+  height: 20rem;
+  margin: 5rem 10rem 1rem;
+`;
+
+const NotFollowersText = styled.p`
+  color: ${({theme}) => theme.colors.textColor};
+  font-size: ${({theme}) => theme.fontSize.small};
   text-align: center;
-  font-size: 1.2rem;
-  color: #767676;
 `;
