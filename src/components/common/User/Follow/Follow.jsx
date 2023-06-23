@@ -1,6 +1,7 @@
 import React, { useState  } from 'react';
 import styled from 'styled-components';
 import ButtonContainer from '../../Button/ButtonContainer';
+import basicImg from '../../../../assets/images/basic-profile-s.svg';
 
   const Follow = ({ user }) => {
     const {
@@ -15,9 +16,11 @@ import ButtonContainer from '../../Button/ButtonContainer';
       setIsFollowing(!isFollowing);
     };
 
+    const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
+
   return (
     <UserItem>
-      <ProfileImage src={image} alt="유저님의 프로필 사진" width="50" />
+      <ProfileImage src={numberRegex.test(image) ? image : basicImg } alt = "프로필 이미지" width="50" />
       <Wrapper>
         <UserName>{username}</UserName>
         <Intro>{intro}</Intro>
@@ -70,4 +73,5 @@ const ProfileImage = styled.img`
 
 const ButtonWrapper = styled.button`
   margin-top: 0rem;
+  -webkit-tap-highlight-color : rgba(0,0,0,0);
 `;
