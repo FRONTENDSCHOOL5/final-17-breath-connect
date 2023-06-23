@@ -26,11 +26,11 @@ const AppRouter = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signup/profile" element={<ProfileSettingPage />} />
         <Route path="/home" element={<FeedPage />} />
-        <Route path="/home/feedetail/:account" element={<FeedDetail />} />
+        <Route path="/post/:account/detail" element={<FeedDetail />} />
         <Route path="/profile/:account" element={<ProfilePage />} />
          <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/:id/follower" element={<FollowerListPage />} />
-        <Route path="/profile/:id/follow" element={<FollowingListPage />} />
+        <Route path="/profile/:id/following" element={<FollowingListPage />} />
         <Route path="/post" element={<PostPage />} />
         <Route path="/post/upload" element={<UploadPage />} />
         <Route path="/post/upload/map" element={<UploadMap />} />
