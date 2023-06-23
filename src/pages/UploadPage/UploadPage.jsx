@@ -123,12 +123,12 @@ const UploadPage = () => {
                 </MakeCourseBtn>
               </MakeCourse>
             ) : (
-              <div>
+              <CompleteCourse>
                 <FeedMap data={pathProcess} />
                 <MakeCourseBtn onClick={handleTestClick}>
-                  러닝 코스 다시 그리기
+                  다시 그리기
                 </MakeCourseBtn>
-              </div>
+              </CompleteCourse>
             )}
           </Container>
         </>
@@ -213,11 +213,21 @@ const MakeCourse = styled.section`
   border-radius: 0.5rem;
 `;
 
+const CompleteCourse = styled.div`
+  div {
+    border-radius: 0.5rem;
+  }
+`
+
+
 const MakeCourseBtn = styled.button`
-  width: 9rem;
+  width: 8rem;
   height: 2rem;
+  float: right;
   text-align: center;
-  padding-top: 0.4rem;
+  margin-top: 0.4rem;
+  padding-top: 0.2rem;
+  /* font-weight: bold; */
   color: ${({ theme }) => theme.colors.mainColor};
   background-color: ${({ theme }) => theme.colors.whiteText};
   border: 0.1rem solid ${({ theme }) => theme.colors.mainColor};
