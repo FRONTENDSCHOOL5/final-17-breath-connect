@@ -5,7 +5,6 @@ import Theme from '../../styles/Theme';
 
 const BottomBarButton = ({ id, text, isSelected, onClick, textSize }) => {
   return (
-    <Container>
       <Button onClick={onClick}>
         <GlovalSprite
           id={id}
@@ -13,22 +12,17 @@ const BottomBarButton = ({ id, text, isSelected, onClick, textSize }) => {
         />
         <ButtonText isSelected={isSelected} textSize={textSize}>{text}</ButtonText>
       </Button>
-    </Container>
   );
 };
 export default BottomBarButton;
 
-const Container = styled.div`
+const Button = styled.button`
   width: 85px;
   height: 60px;
-  text-align: center;
-`;
-
-const Button = styled.button`
   background-color: inherit;
   border: none;
   margin: 0;
-  padding: 0;
+  padding: 10px;
   padding: 10px;
   box-sizing: border-box;
 `;
