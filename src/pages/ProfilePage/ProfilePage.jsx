@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import UserInfo from './UserInfo';
 import TopBasicNavHeader from '../../components/Header/TopBasicNavHeader';
-import Feed from '../FeedPage/Feed';
+import PostPage from '../PostPage/PostPage';
 import { getUserProfile, getMyPost, getUserPosts} from '../../utils/Apis';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom, accountAtom } from '../../atoms/UserAtom';
@@ -67,7 +67,7 @@ const ProfilePage = () => {
         />
       )}
       {posts.length > 0 &&
-        posts.map((post, index) => <Feed key={index} data={post} />)}
+        posts.map((post, index) => <PostPage key={index} data={post} />)}
       <TabMenu />
     </>
   );
