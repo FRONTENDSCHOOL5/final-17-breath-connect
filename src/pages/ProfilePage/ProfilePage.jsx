@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import UserInfo from './UserInfo';
 import TopBasicNavHeader from '../../components/Header/TopBasicNavHeader';
 import Feed from '../FeedPage/Feed';
-import { getUserProfile, getMyPost } from '../../utils/Apis';
-import { getUserPosts } from '../../utils/Apis';
+import { getUserProfile, getMyPost, getUserPosts} from '../../utils/Apis';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom, accountAtom } from '../../atoms/UserAtom';
 import { useLocation } from 'react-router-dom';
+import TabMenu from '../../components/Footer/TabMenu';
+
+
 
 const ProfilePage = () => {
   const location = useLocation();
@@ -15,13 +17,11 @@ const ProfilePage = () => {
   const [profile, setProfile] = useState();
   const [accountName, setAccountName] = useState('');
 
-
-  useEffect(() => {
+   useEffect(() => {
     setAccountName(
       location.pathname.substring(location.pathname.lastIndexOf('/') + 1)
     );
   }, []);
-
   useEffect(() => {
     if (accountName) {
       const fetchData = async () => {
@@ -34,9 +34,9 @@ const ProfilePage = () => {
       };
       fetchData();
     }
-  }, [accountName]);
+    }, [accountName]);
 
-  const getProfile = async () => {
+   const getProfile = async () => {
     try {
       const profileData = await getUserProfile(userToken, accountName);
       setProfile(profileData.profile);
@@ -44,7 +44,6 @@ const ProfilePage = () => {
       console.error('Error fetching user profile:', error);
     }
   };
-
   const getPost = async () => {
     try {
       const postData = await getMyPost(accountName, 10, 0);
@@ -53,9 +52,9 @@ const ProfilePage = () => {
       console.error('Error fetching user posts:', error);
     }
   };
-
   return (
     <>
+      {console.log(profile)}
       <TopBasicNavHeader />
       {profile && (
         <UserInfo
@@ -69,8 +68,8 @@ const ProfilePage = () => {
       )}
       {posts.length > 0 &&
         posts.map((post, index) => <Feed key={index} data={post} />)}
+      <TabMenu />
     </>
   );
 };
-
 export default ProfilePage;
