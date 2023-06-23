@@ -57,7 +57,16 @@ const ProfilePage = () => {
   return (
     <>
       <TopBasicNavHeader />
-      {profile && <UserInfo data={profile} />}
+      {profile && (
+        <UserInfo
+          data={profile}
+          myProfile={
+            JSON.parse(localStorage.getItem('recoil-persist'))[
+              'accountAtom'
+            ] === accountName
+          }
+        />
+      )}
       {posts.length > 0 &&
         posts.map((post, index) => <Feed key={index} data={post} />)}
     </>
