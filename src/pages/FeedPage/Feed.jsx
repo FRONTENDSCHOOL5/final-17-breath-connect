@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Map } from 'react-kakao-maps-sdk';
 import basicImg from '../../assets/images/basic-profile-m.svg';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
 import FeedMap from '../../components/Map/FeedMap';
@@ -7,6 +8,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 
 const Feed = ({ data }) => {
+  const [startPoint, setStartPoint] = useState(''); // startPoint 상태 추가
+  const [endPoint, setEndPoint] = useState(''); // endPoint 상태 추가
+
   const location = useLocation();
   const navigate = useNavigate();
   const [detail, setDetail] = useState(
@@ -29,7 +33,47 @@ const Feed = ({ data }) => {
     });
   };
 
-  console.log('data', data);
+   useEffect(() => {
+    if (data.image) {
+      try {
+        const parsing = JSON.parse(data.image);
+        const startLat = parsing[0].lat;
+        const startLng = parsing[0].lng;
+        const geocoder = new window.kakao.maps.services.Geocoder();
+        const startLatlng = new window.kakao.maps.LatLng(startLat, startLng);
+
+        geocoder.coord2Address(
+          startLatlng.getLng(),
+          startLatlng.getLat(),
+          (result, status) => {
+            if (status === window.kakao.maps.services.Status.OK) {
+              const startPoint = result[0].address.address_name;
+              setStartPoint(startPoint);
+            }
+          }
+        );
+
+        const endLat = parsing[parsing.length - 2].lat;
+        const endLng = parsing[parsing.length - 2].lng;
+        const endLatlng = new window.kakao.maps.LatLng(endLat, endLng);
+
+        geocoder.coord2Address(
+          endLatlng.getLng(),
+          endLatlng.getLat(),
+          (result, status) => {
+            if (status === window.kakao.maps.services.Status.OK) {
+              const endPoint = result[0].address.address_name;
+              setEndPoint(endPoint);
+            }
+          }
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [data.image]);
+
+
   return (
     <Container>
       <FeedContents>
@@ -46,16 +90,16 @@ const Feed = ({ data }) => {
           <button onClick={handleFeedClick}>
             <div>
               <GlovalSprite id={'icon-calendal'} size={13} />
-              <FeedInfo>화요일, 6/9 • 10:30 AM</FeedInfo>
+              <FeedInfo>{data.content[0] + '요일'+ data.content.slice(1,7)+' , '+data.content.slice(9, 14)}</FeedInfo>
             </div>
             <div>
               <GlovalSprite id={'icon-location'} size={13} />
-              <FeedInfo>여의나루역~선유도역 (3.5 km)</FeedInfo>
+              <FeedInfo>{startPoint}~{endPoint}</FeedInfo>
             </div>
             <MapContents>
               {/* <FeedMap data={data.updatedAt} detail={detail} /> */}
             </MapContents>
-            <UserFeedText>{data.content}</UserFeedText>
+            <UserFeedText>{data.content.slice(15)}</UserFeedText>
           </button>
           <AppendAndComment>
             <AppendButton>{data.heartCount}명 참여</AppendButton>
@@ -88,6 +132,7 @@ const UserProfileImg = styled.img`
   width: 4.2rem;
   height: 4.2rem;
   margin-right: 1.2rem;
+  border-radius: 50%;
 `;
 
 const FeedNickName = styled.div`
