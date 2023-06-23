@@ -40,9 +40,11 @@ const SnsLoginPage = () => {
 const SnsLoginContainer = styled.main`
   background-color: ${({ theme }) => theme.colors.mainColor};
   width: 39rem;
-  height: 70rem;
+  padding: 10.4rem;
+  height: 85rem;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
 `
 
 const ContentWrapper = styled.div`
@@ -50,29 +52,33 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 10%;
 `
 
 const ImgContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20rem;
-  margin-bottom: 15rem;
+  margin-top: 1rem;
 `
 
 const SnsMainLogo = styled.img`
-  width: 100%;
+  width: 20rem;
+  height: 21rem;
 `
 
 const MainTitle = styled.img`
+  width: 20rem;
+  height: 8rem;
   margin-top: 1.8rem;
 `
 
 const SnsLoginMain = styled.section`
+position: fixed;
+bottom: 0;
   width: 39rem;
   height: 30rem;
-  border-radius: 2rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
   padding: 5rem 3.4rem;
   background: ${({ theme }) => theme.colors.whiteText};
   display: flex;
