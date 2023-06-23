@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Feed from './Feed';
 import TopMainNavHeader from '../../components/Header/TopMainNavHeader';
 import FeedNoUser from './FeedNoUser';
@@ -9,34 +9,51 @@ import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '../../atoms/UserAtom';
 
 const FeedPage = () => {
-  let data = [];
-  let loadedCount = 0;
-  const loadCount = 10;
-  const userToken = useRecoilValue(tokenAtom);
+  const [data, setData] = useState([]);
+  const [skip, setSkip] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [isFetchingData, setIsFetchingData] = useState(false);
 
   const fetchData = async () => {
-    const newData = await getFollowFeed(userToken, loadedCount, loadCount);
-    data = [...data, ...newData];
-    loadedCount += loadCount;
+    if (isFetchingData) return;
+    setIsFetchingData(true);
+
+    console.log(limit, skip);
+    const newData = await getFollowFeed(limit, skip);
+    if (newData.length > 0) {
+      setData((prevData) => [...prevData, ...newData]);
+      setSkip((prevSkip) => prevSkip + limit);
+    }
+
+    setIsFetchingData(false);
   };
 
-  fetchData();
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  window.addEventListener('scroll', () => {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight - 10) {
-      // 스크롤이 페이지 하단에 도달한 경우
-      fetchData(); // 추가 데이터 가져오기
-    }
-  });
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        fetchData();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [skip]);
 
   return (
     <>
       <TopMainNavHeader />
-      {data ? (
+      {!data ? (
         <FeedNoUser />
       ) : (
-        data.posts.map((post, index) => <Feed key={index} data={post} />)
+        data.map((post, index) => <Feed key={index} data={post} />)
       )}
       <TabMenu />
     </>
