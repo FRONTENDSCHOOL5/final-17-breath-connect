@@ -296,13 +296,17 @@ export const deleteLike = async (postId) => {
 };
 
 /* 댓글 작성 */
-export const postComment = async (postId) => {
-  try {
-    const response = await authInstance.post(`/post/${postId}/comments`);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+export const postComment = async (postId, comment) => {
+  const commentData = {
+    comment: {
+      content: comment,
+    },
+  };
+  const response = await authInstance.post(
+    `/post/${postId}/comments`,
+    commentData
+  );
+  return response.data;
 };
 
 /* 댓글 리스트 */
