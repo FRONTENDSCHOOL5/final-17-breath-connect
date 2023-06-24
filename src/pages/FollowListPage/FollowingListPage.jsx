@@ -38,7 +38,7 @@ const FollowListPage = () => {
                   username: user.username,
                   intro: user.intro,
                   image: user.image,
-                  isfollow: user.isfollow,
+                  isfollow: true,
                 }}
               />
             ))
@@ -60,7 +60,7 @@ export default FollowListPage;
 const ContentsWrapper = styled.main`
   display: flex;
   flex-direction: column;
-  margin-bottom: 27.5rem;
+  margin-bottom: 20rem;
   padding: 2.4rem 1.6rem;
 `;
 

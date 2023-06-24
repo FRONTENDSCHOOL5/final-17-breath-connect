@@ -3,21 +3,21 @@ import styled from 'styled-components';
 import ButtonContainer from '../../Button/ButtonContainer';
 import basicImg from '../../../../assets/images/basic-profile-s.svg';
 
-  const Follow = ({ user }) => {
-    const {
-      username,
-      intro,
-      image,
-      isfollow,
-    } = user;
+const Follow = ({ user }) => {
+  const {
+    username,
+    intro,
+    image,
+    isfollow,
+  } = user;
   
-    const [isFollowing, setIsFollowing] = useState(isfollow);
-    const handleClick = () => {
-      setIsFollowing(!isFollowing);
-    };
+  const [isFollowing, setIsFollowing] = useState(isfollow);
+  const handleClick = () => {
+    setIsFollowing(!isFollowing);
+  };
 
-    const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
-
+  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/(?:(?!null|undefined)[\w.]*)$/;
+  
   return (
     <UserItem>
       <ProfileImage src={numberRegex.test(image) ? image : basicImg } alt = "프로필 이미지" width="50" />
@@ -28,8 +28,8 @@ import basicImg from '../../../../assets/images/basic-profile-s.svg';
       <ButtonWrapper>
         <ButtonContainer
           type={'S'}
-          text={isFollowing ? '팔로우' : '취소'}
-          isClicked={!isFollowing}
+          text={isFollowing ? '취소' : '팔로우'}
+          isClicked={isFollowing}
           handleClick={handleClick} />
       </ButtonWrapper>
     </UserItem>
@@ -68,7 +68,6 @@ const ProfileImage = styled.img`
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
-  //border: 1px solid #767676;
 `;
 
 const ButtonWrapper = styled.button`
