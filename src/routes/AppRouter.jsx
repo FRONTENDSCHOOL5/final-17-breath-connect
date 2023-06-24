@@ -34,7 +34,7 @@ const AppRouter = () => {
         {/* Profile */}
          <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/:id/follower" element={<FollowerListPage />} />
-        <Route path="/profile/:id/following" element={<FollowingListPage />} />
+        <Route path="/profile/:id/follow" element={<FollowingListPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/chat" element={<ChatListPage />} />
         <Route path="/chat/:id" element={<ChatRoomPage />} />
