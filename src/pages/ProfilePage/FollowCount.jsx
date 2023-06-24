@@ -13,7 +13,7 @@ const FollowCount = ({ follow, data }) => {
         </Link>
       ) : (
         // http://localhost:3000/sudo_charlie/follower
-        <Link to={`/profile/${data.accountname}/follow`}>
+        <Link to={`/profile/${data.accountname}/following`}>
           <BoldBlurText>{data.followingCount}</BoldBlurText>
           <FollowText>following</FollowText>
         </Link>
