@@ -50,33 +50,20 @@ const IconPostModal = ({ topText, btmText }) => {
 
   return (
     <>
-      <ModalWrapper>
-        <ModalContent>
+        <div>
           <Separator />
           <ModalButtons>
             <button onClick={deleteClick}>{topText}</button>
             <button onClick={modifyClick}>{btmText}</button>
           </ModalButtons>
-        </ModalContent>
-      </ModalWrapper>
-      {showAlert && <Alert message={alertMessage} onClose={handleAlertClose} done={alertDone} text={topText.replace("하기","")}/>}
-      {showLogOut && <LogOut message={alertMessage} onClose={handleLogOutClose} done={alertDone}/>}
+        </div>
+        {showAlert && <Alert message={alertMessage} onClose={handleAlertClose} done={alertDone} text={topText.replace("하기","")}/>}
+        {showLogOut && <LogOut message={alertMessage} onClose={handleLogOutClose} done={alertDone}/>}
     </>
   );
 };
 
 export default IconPostModal;
-
-// Remaining style code remains the same.
-
-
-const ModalContent = styled.div`
-  width: 39rem;
-  height: 13.8rem;
-  background-color: ${({ theme }) => theme.colors.whiteText};
-  border-top-left-radius: 0.8rem;
-  border-top-right-radius: 0.8rem;
-`;
 
 const Separator = styled.div`
   width: 5rem;
@@ -95,17 +82,4 @@ const ModalButtons = styled.div`
     font-size: 14px;
     padding: 1.3rem 0rem 1.4rem 2.6rem;
   }
-`;
-
-const ModalWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
 `;
