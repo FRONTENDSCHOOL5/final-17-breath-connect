@@ -9,7 +9,7 @@ const FeedNoUser = () => {
     <Container>
       <Image src={HomeLogo} alt="" />
       <FollowText>유저를 검색해 팔로우 해보세요!</FollowText>
-      <Link to={'/Search'}>
+      <Link to={'/search'}>
         <ButtonContainer type={'ML'} text={'검색하기'} />
       </Link>
     </Container>
