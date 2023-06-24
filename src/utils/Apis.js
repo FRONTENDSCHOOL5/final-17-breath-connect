@@ -93,6 +93,19 @@ export const postAccountnameDuplicate = async (userId) => {
   return response.data;
 };
 
+/* 검색 정보 가져오기 */
+export const getSearchResult = async (url, search, userToken) => {
+  const req = await fetch(`${url}/user/searchuser/?keyword=${search}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+      'Content-type': 'application/json',
+    },
+  });
+  const res = await req.json();
+  return res.slice(0, 9);
+};
+
 /* content 업로드 */
 export const postContentUpload = async (post) => {
   const response = await authInstance.post(`/post/`, post);

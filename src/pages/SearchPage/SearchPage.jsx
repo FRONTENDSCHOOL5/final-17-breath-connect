@@ -6,29 +6,32 @@ import profileImg from '../../assets/images/basic-profile-m.svg';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '../../atoms/UserAtom';
+import { getSearchResult } from '../../utils/Apis';
 
 const SearchPage = () => {
   const navigate = useNavigate();
-  const userToken = useRecoilValue(tokenAtom);
+  const token = useRecoilValue(tokenAtom);
   const url = 'https://api.mandarin.weniv.co.kr';
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
 
-  const getSearchResult = async () => {
-    const req = await fetch(`${url}/user/searchuser/?keyword=${search}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-        'Content-type': 'application/json',
-      },
-    });
+  useEffect(() => {
+    const fetchData = async () => {
+      if (search === '') {
+        setData([]);
+        return;
+      }
+      try {
+        const result = await getSearchResult(url, search, token);
+        setData(result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-    const res = await req.json();
-    setData(res.slice(0, 9));
-    setIsLoading(false);
-  };
+    fetchData();
+  }, [search, token]);
 
   const handleProfileClick = (index) => {
     if (data && data[index]) {
@@ -37,15 +40,6 @@ const SearchPage = () => {
       });
     }
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    if (search === '') {
-      setIsLoading(false);
-      return setData([]);
-    }
-    getSearchResult();
-  }, [search]);
 
   return (
     <>
@@ -56,7 +50,7 @@ const SearchPage = () => {
         ) : (
           data.map((item, index) => (
             <SearchResultItem
-              key={item.id}
+              key={item._id}
               onClick={() => {
                 handleProfileClick(index);
               }}
