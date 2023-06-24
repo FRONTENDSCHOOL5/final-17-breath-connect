@@ -6,8 +6,15 @@ import { useRecoilState } from 'recoil';
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postUserLogin } from '../../utils/Apis';
-import { tokenAtom } from '../../atoms/UserAtom';
-import { accountAtom } from '../../atoms/UserAtom';
+import { tokenAtom,
+        accountAtom,
+        profileImgAtom,
+        usernameAtom,
+        introAtom
+} from '../../atoms/UserAtom';
+
+import { loginAtom } from '../../atoms/LoginAtom';
+
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -16,8 +23,14 @@ const LoginPage = () => {
   const [userPassword, setUserPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isComplete, setIsComplete] = useState(false);
+
   const [userToken, setUserToken] = useRecoilState(tokenAtom);
   const [userAccount, setUserAccount] = useRecoilState(accountAtom);
+  const [userProfileImg, setUserProfileImg] = useRecoilState(profileImgAtom);
+  const [userName, setUserName] = useRecoilState(usernameAtom);
+  const [userLogin, setUserLogin] = useRecoilState(loginAtom);
+  const [userIntro, setUserIntro] = useRecoilState(introAtom);
+  
 
   const handleInputEmail = (e) => {
     const userEmail = e.target.value;
@@ -44,9 +57,16 @@ const LoginPage = () => {
     } else {
       const token = loginData.user.token;
       const account = loginData.user.accountname;
+      const profileImg = loginData.user.image;
+      const username = loginData.user.username;
+      const intro = loginData.user.intro;
       localStorage.setItem('token', loginData.user.token);
       setUserToken(token);
       setUserAccount(account);
+      setUserProfileImg(profileImg);
+      setUserName(username);
+      setUserIntro(intro);
+      setUserLogin(true);
       setIsComplete(!isComplete);
       navigate('/home');
     }
