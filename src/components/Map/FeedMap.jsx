@@ -1,32 +1,32 @@
 import React from 'react';
-import { Map, CustomOverlayMap, Polyline } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Polyline } from 'react-kakao-maps-sdk';
+import MapComponent from './MapComponent';
 
-const FeedMap = ({ data, distances, detail }) => {
+const FeedMap = ({ data, detail }) => {
   const arr = JSON.parse(data);
 
-  arr.pop();
+  const paths = arr.slice(0, arr.length - 1);
+  console.log(paths);
 
-  const latSum = arr.reduce((sum, el) => sum + el.lat, 0);
-  const lngSum = arr.reduce((sum, el) => sum + el.lng, 0);
-  const midLat = latSum / arr.length;
-  const midLng = lngSum / arr.length;
-
-  const paths = arr;
+  const latSum = paths.reduce((sum, el) => sum + el.lat, 0);
+  const lngSum = paths.reduce((sum, el) => sum + el.lng, 0);
+  const midLat = latSum / paths.length;
+  const midLng = lngSum / paths.length;
 
   return (
-    <Map
+    <MapComponent
       id="map"
       center={{
         lat: midLat,
         lng: midLng,
       }}
-      style={{
+      handleStyle={{
         width: '100%',
-        height: detail ? '192px' : '80px',
+        height: detail ? '19.2rem' : '8rem',
       }}
-      level={6}
-      draggable={detail}
-      zoomable={detail}
+      handleLevel={6}
+      handelDraggable={detail}
+      handelZoomable={detail}
     >
       <Polyline
         path={paths}
@@ -40,7 +40,7 @@ const FeedMap = ({ data, distances, detail }) => {
           <span />
         </CustomOverlayMap>
       ))}
-    </Map>
+    </MapComponent>
   );
 };
 

@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-// import { useLocation } from 'react-router-dom';
-import { Map, CustomOverlayMap, Polyline } from 'react-kakao-maps-sdk';
+import React, { useEffect, useState, useCallback } from 'react';
+import { CustomOverlayMap, Polyline } from 'react-kakao-maps-sdk';
 import DistanceInfo from './DistanceInfo';
 import GetLocation from './GetLocation';
+import MapComponent from './MapComponent';
+import ToolBox from './ToolBox';
+import Indicator from './Indecator';
 
 const MapDrawingManager = ({ getpath }) => {
-  const { latitude = 0, longitude = 0 } = GetLocation() || {};
-  const [isdrawing, setIsdrawing] = useState(false);
-  const [clickLine, setClickLine] = useState();
+  const location = GetLocation();
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
   const [paths, setPaths] = useState([]);
+  const [isdrawing, setIsdrawing] = useState(false);
   const [distances, setDistances] = useState([]);
-  const [mousePosition, setMousePosition] = useState({
-    lat: latitude,
-    lng: longitude,
-  });
-  const [moveLine, setMoveLine] = useState();
+  const [map, setMap] = useState(null);
+  const [clickLine, setClickLine] = useState(null);
+  const [moveLine, setMoveLine] = useState(null);
 
-  const handleClick = (_map, mouseEvent) => {
+  const handleClick = useCallback(() => {
     if (!isdrawing) {
       setDistances([]);
       setPaths([]);
@@ -24,115 +24,151 @@ const MapDrawingManager = ({ getpath }) => {
     setPaths((prev) => [
       ...prev,
       {
-        lat: mouseEvent.latLng.getLat(),
-        lng: mouseEvent.latLng.getLng(),
+        lat: map.getCenter().getLat(),
+        lng: map.getCenter().getLng(),
       },
     ]);
     setDistances((prev) => [
       ...prev,
       Math.round(clickLine.getLength() + moveLine.getLength()),
     ]);
-    console.log(distances);
     setIsdrawing(true);
-  };
+  }, [isdrawing, map, clickLine, moveLine]);
 
-  const handleMouseMove = (_map, mouseEvent) => {
-    setMousePosition({
-      lat: mouseEvent.latLng.getLat(),
-      lng: mouseEvent.latLng.getLng(),
-    });
-  };
-
-  const handleRightClick = (_map, _mouseEvent) => {
+  const handleRightClick = useCallback(() => {
     setIsdrawing(false);
     const newObj = { dis: distances };
-    paths.push(newObj);
-    console.log(paths);
-    // getpath(JSON.stringify(paths) + `\,\[${distances[distances.length - 1]}\]`);
-    getpath(JSON.stringify(paths));
-    // console.log(paths[0])
-    // console.log(paths[paths.length - 1])
-    //  /* 시작점 */
-    // const startPoint = paths[0];
-    // /* 끝점 */
-    // const endPoint  = paths[paths.length - 1]
-    // // paths 값의 첫번째가 시작점, 마지막이 끝점
+    if (paths.length > 0) {
+      paths.push(newObj);
+      getpath(JSON.stringify(paths));
+    }
+  }, [distances, paths]);
 
-    // // 마지막 거리
-    // console.log(distances);
-  };
+  const handleDragEnd = useCallback(
+    (map) => {
+      const center = map.getCenter();
+      setCenter({
+        lat: center.getLat(),
+        lng: center.getLng(),
+      });
+    },
+    [setCenter]
+  );
+
+  const handleClickUndo = useCallback(() => {
+    if (paths.length > 1) {
+      if (!isdrawing) {
+        setPaths((paths) => paths.slice(0, paths.length - 1));
+      }
+      setPaths((paths) => paths.slice(0, paths.length - 1));
+      setDistances((distances) => distances.slice(0, distances.length - 1));
+      setIsdrawing(true);
+    } else if (paths.length === 1) {
+      setPaths([]);
+      setDistances([]);
+      setIsdrawing(false);
+    }
+  });
+
+  const handleClickReset = useCallback(() => {
+    setPaths([]);
+    setDistances([]);
+    setIsdrawing(false);
+  });
+
+  useEffect(() => {
+    if (location.latitude !== 0 && location.longitude !== 0) {
+      setCenter({
+        lat: location.latitude,
+        lng: location.longitude,
+      });
+    }
+  }, [location.latitude, location.longitude]);
+
+  useEffect(() => {
+    if (paths.length > 0) {
+      setCenter(paths[paths.length - 1]);
+    }
+  }, [paths]);
 
   return (
     <>
-      <Map
-        id="map"
-        center={{
-          lat: latitude,
-          lng: longitude,
-        }}
-        style={{
-          width: '100%',
-          height: '450px',
-        }}
-        level={3}
-        onClick={handleClick}
-        onRightClick={handleRightClick}
-        onMouseMove={handleMouseMove}
-      >
-        <Polyline
-          path={paths}
-          strokeWeight={3}
-          strokeColor="#80327e"
-          strokeOpacity={1}
-          strokeStyle="solid"
-          onCreate={setClickLine}
-        />
-        {paths.map((path) => (
-          <CustomOverlayMap
-            key={`dot-${path.lat},${path.lng}`}
-            position={path}
-            zIndex={1}
+      {center.lat !== undefined ? (
+        <>
+          <MapComponent
+            center={center}
+            handleClick={handleClick}
+            handleRightClick={handleRightClick}
+            handleDragEnd={handleDragEnd}
+            handleOnCreate={setMap}
+            handleStyle={{
+              width: '100%',
+              height: '600px',
+            }}
           >
-            <span />
-          </CustomOverlayMap>
-        ))}
-        {paths.length > 1 &&
-          distances.slice(1, distances.length).map((distance, index) => (
-            <CustomOverlayMap
-              key={`distance-${paths[index + 1].lat},${paths[index + 1].lng}`}
-              position={paths[index + 1]}
-              yAnchor={1}
-              zIndex={2}
-            >
-              {!isdrawing && distances.length === index + 2 ? (
-                <DistanceInfo distance={distance} />
-              ) : (
-                <div>
-                  거리 <span>{distance}</span>m
-                </div>
-              )}
-            </CustomOverlayMap>
-          ))}
-        <Polyline
-          path={isdrawing ? [paths[paths.length - 1], mousePosition] : []}
-          strokeWeight={3}
-          strokeColor="#b064ad"
-          strokeOpacity={0.5}
-          strokeStyle="solid"
-          onCreate={setMoveLine}
-        />
-        {isdrawing && (
-          <CustomOverlayMap position={mousePosition} yAnchor={1} zIndex={2}>
-            <div>
-              총거리{' '}
-              <span>
-                {Math.round(clickLine.getLength() + moveLine.getLength())}
-              </span>
-              m
-            </div>
-          </CustomOverlayMap>
-        )}
-      </Map>
+            <Polyline
+              path={paths}
+              strokeWeight={3}
+              strokeColor="#80327e"
+              strokeOpacity={1}
+              strokeStyle="solid"
+              onCreate={setClickLine}
+            />
+            {paths.length > 1 &&
+              distances.slice(1, distances.length).map((distance, index) => (
+                <CustomOverlayMap
+                  key={`distance-${paths[index + 1].lat},${
+                    paths[index + 1].lng
+                  }`}
+                  position={paths[index + 1]}
+                  yAnchor={1}
+                  zIndex={2}
+                >
+                  {!isdrawing && distances.length === index + 2 ? (
+                    <DistanceInfo distance={distance} />
+                  ) : (
+                    <div>
+                      거리 <span>{distance}</span>m
+                    </div>
+                  )}
+                </CustomOverlayMap>
+              ))}
+            <Polyline
+              path={isdrawing ? [paths[paths.length - 1], center] : []}
+              strokeWeight={3}
+              strokeColor="#b064ad"
+              strokeOpacity={0.5}
+              strokeStyle="solid"
+              onCreate={setMoveLine}
+            />
+            {paths.length > 1 &&
+              distances.slice(1, distances.length).map((distance, index) => (
+                <CustomOverlayMap
+                  key={`distance-${paths[index + 1].lat},${
+                    paths[index + 1].lng
+                  }`}
+                  position={paths[index + 1]}
+                  yAnchor={1}
+                  zIndex={2}
+                >
+                  {!isdrawing && distances.length === index + 2 ? (
+                    <DistanceInfo distance={distance} />
+                  ) : (
+                    <div>
+                      거리 <span>{distance}</span>m
+                    </div>
+                  )}
+                </CustomOverlayMap>
+              ))}
+            <ToolBox
+              onClickUndo={handleClickUndo}
+              onClickReset={handleClickReset}
+            />
+          </MapComponent>
+        </>
+      ) : (
+        <Indicator />
+      )}
     </>
   );
 };

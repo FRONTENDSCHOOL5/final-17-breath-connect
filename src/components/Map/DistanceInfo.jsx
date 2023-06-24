@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 const DistanceContainer = styled.div`
   background-color: violet;
-  border-radius: 20px;
-  padding: 7px;
-  border: 2px solid purple;
+  border-radius: 2rem;
+  padding: 0.7rem;
+  border: 0.2rem solid purple;
   color: white;
 `;
 
