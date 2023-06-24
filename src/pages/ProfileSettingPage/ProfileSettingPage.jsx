@@ -40,7 +40,7 @@ const ProfileSettingPage = () => {
   formData.append("image", file);
   const imgData = await postUploadProfile(formData);
   console.log(imgData);
-  setImage(URL + '/' + imgData[0].filename);
+  setImage(URL + '/' + imgData.filename);
   };
 
   // username 유효성 검사
