@@ -2,18 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import BasicProfile from '../../assets/images/basic-profile-xs.svg';
 
-const FeedComment = ({ data }) => {
+const FeedComment = ({ user, content, image, time }) => {
+
+  const createdTime = () => {
+    const year = time.slice(0, 4) + '년 ';
+    const month = time.slice(5, 7) + '월 ';
+    const date = time.slice(8, 10) + '일';
+    return year + month + date;
+  }
+  
   return (
     <Container>
       <div>
-        <img src={BasicProfile} alt="" />
+        <img src={image} alt="유저 프로필 이미지" />
       </div>
       <UserContents>
         <UserInfo>
-          <UserName>김용덕</UserName>
-          <TimeAgo>qwe</TimeAgo>
+          <UserName>{user}</UserName>
+          <TimeAgo>{createdTime()}</TimeAgo>
         </UserInfo>
-        <Contents>qwe</Contents>
+        <Contents>{content}</Contents>
       </UserContents>
     </Container>
   );
@@ -24,7 +32,13 @@ export default FeedComment;
 const Container = styled.div`
   display: flex;
   padding: 15px;
-  box-shadow: inset 0 0 10px red;
+box-shadow: rgba(217, 217, 217, 0.5) 0px 0.1rem 0px;
+img {
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
 `;
 
 const UserContents = styled.div`
