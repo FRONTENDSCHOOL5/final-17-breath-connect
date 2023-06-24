@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Feed from './Feed';
+import PostPage from '../PostPage/PostPage';
 import TopMainNavHeader from '../../components/Header/TopMainNavHeader';
 import FeedNoUser from './FeedNoUser';
 import TabMenu from '../../components/Footer/TabMenu';
@@ -53,7 +53,7 @@ const FeedPage = () => {
       {!data ? (
         <FeedNoUser />
       ) : (
-        data.map((post, index) => <Feed key={index} data={post} />)
+        data.map((data, index) => <PostPage key={index} data={data} />)
       )}
       <TabMenu />
     </>

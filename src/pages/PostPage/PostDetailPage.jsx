@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import PostPage from './PostPage';
 import styled from 'styled-components';
-import { getPostDetail, getComment, postComment } from '../../utils/Apis';
+import { getComment, postComment } from '../../utils/Apis';
 import TopListNavHeader from '../../components/Header/TopListNavHeader';
 import FeedComment from '../FeedPage/FeedComment';
 import BasicProfileImg from '../../assets/images/basic-profile-xs.svg';
@@ -15,24 +15,23 @@ const PostPageDetail = () => {
   const location = useLocation();
   const data = location.state?.data;
 
+  /* 댓글 리스트 받아오기 */
   const fetchCommentList = async () => {
       const response = await getComment(postId);
       setCommentData(response.comments); 
-      // 배열 안에, id, content, createdAt, author
   }
 
   const handleInput = (e) => {
-    const inputComment = e.target.value;
-    setInputComment(inputComment);
+    setInputComment(e.target.value);
   };
 
+  /* 댓글 작성 */
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-
     const response = await postComment(postId, inputComment);
+    setInputComment('');
     fetchCommentList();
   };
-
 
   useEffect(() => {
     if(postId) {
@@ -64,6 +63,7 @@ const PostPageDetail = () => {
           <CommentInput
             placeholder="댓글을 입력하세요..."
             onChange={handleInput}
+            value={inputComment}
           />
         </StyledComment>
         <PostBtn active={inputComment.trim() !== ''} type="submit">
