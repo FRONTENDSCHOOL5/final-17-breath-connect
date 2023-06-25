@@ -1,19 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import PostPage from './PostPage';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { getComment, postComment } from '../../utils/Apis';
 import TopListNavHeader from '../../components/Header/TopListNavHeader';
 import FeedComment from '../FeedPage/FeedComment';
 import BasicProfileImg from '../../assets/images/basic-profile-xs.svg';
 
+import IconPostModal from '../../components/common/Modal/IconPostModal';
+
+
+
 const PostPageDetail = () => {
-  
+
   const postId = useParams().id;
   const [commentData, setCommentData] = useState();
   const [inputComment, setInputComment] = useState('');
   const location = useLocation();
   const data = location.state?.data;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTopText, setModalTopText] = useState();
+  const [modalBtmText, setModalBtmText] = useState();
+  const modalRef = useRef(null);
+
 
   /* 댓글 리스트 받아오기 */
   const fetchCommentList = async () => {
@@ -40,10 +50,41 @@ const PostPageDetail = () => {
   }, [postId])
     
 
+  // 모달
+
+  const toggleModal = (topText, btmText) => {
+    setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
+    setModalTopText(topText);
+    setModalBtmText(btmText);
+  };
+  
+
+  const handleAnimationEnd = () => {
+    if (!isModalOpen) {
+      setIsModalOpen(false);
+    }
+  };
+
+  const handleClickOutsideModal = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setIsModalOpen(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutsideModal);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideModal);
+    };
+  }, []);
+
+
   return (
   <Container>
     <TopListNavHeader />
-    <PostPage data={data} />
+    <PostPage 
+    data={data}
+    onButtonClick={() => toggleModal('신고하기', '공유하기')}
+     />
     {commentData && commentData.length > 0 ? (
       commentData.map((comment) => (
         <FeedComment
@@ -52,6 +93,7 @@ const PostPageDetail = () => {
           time={comment.createdAt}
           content={comment.content}
           image={comment.author.image}
+          handleCommentClick={() => toggleModal('신고하기', '')}
         />
       ))
     ) : (
@@ -70,7 +112,18 @@ const PostPageDetail = () => {
           게시
         </PostBtn>
       </CommentContainer>
+{isModalOpen && (
+        <>
+          <BackgroundOverlay />
+          <ModalContainer isOpen={isModalOpen} onAnimationEnd={handleAnimationEnd}>
+            <ModalContent ref={modalRef}>
+            <IconPostModal topText={modalTopText} btmText={modalBtmText} onClose={toggleModal} />
+            </ModalContent>
+          </ModalContainer>
+        </>
+      )}
   </Container>
+  
 );
     }
 
@@ -86,6 +139,7 @@ const Container = styled.div`
 `;
 
 const CommentContainer = styled.form`
+  width: 39rem;
   padding: 0 1.6rem;
   position: fixed;
   bottom: 0;
@@ -134,4 +188,48 @@ const PostBtn = styled.button`
     pointer-events: none;
     opacity: 0.5;
   `}
+`;
+
+const slideUpAnimation = keyframes`
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
+
+const ModalContainer= styled.div`
+  position: fixed;
+  height: 85rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 99999;
+  animation: ${({ isOpen }) =>
+    isOpen &&
+    css`
+      ${slideUpAnimation} 0.5s ease-in-out forwards;
+    `};
+`;
+
+const ModalContent = styled.div`
+position: fixed;
+bottom: 0;
+  height: 13.8rem;
+  background-color: white;
+  border-top-left-radius: 0.8rem;
+  border-top-right-radius: 0.8rem;
+`;
+
+const BackgroundOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 `;
