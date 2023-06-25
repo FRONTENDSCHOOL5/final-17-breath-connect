@@ -4,17 +4,26 @@ import BasicProfile from '../../assets/images/basic-profile-xs.svg';
 
 const FeedComment = ({ user, content, image, time }) => {
 
+  const URL = 'https://api.mandarin.weniv.co.kr/';
   const createdTime = () => {
     const year = time.slice(0, 4) + '년 ';
     const month = time.slice(5, 7) + '월 ';
     const date = time.slice(8, 10) + '일';
     return year + month + date;
   }
+
+  const imagePrev = () => {
+    if(!image.includes(URL)) {
+      return BasicProfile
+    } else {
+      return image
+    }
+  }
   
   return (
     <Container>
       <div>
-        <img src={image} alt="유저 프로필 이미지" />
+        <img src={imagePrev()} alt="유저 프로필 이미지" />
       </div>
       <UserContents>
         <UserInfo>
