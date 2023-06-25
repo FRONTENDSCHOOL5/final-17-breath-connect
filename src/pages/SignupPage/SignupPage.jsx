@@ -104,6 +104,7 @@ const SignupPage = () => {
           name='email'
           onChange={handleInputEmail}
           onBlur={handleEmailDuplicate}
+          hasError={emailErrorMsg !== ''}
           required
         />
         {emailErrorMsg && <ErrorMsg>{emailErrorMsg}</ErrorMsg>}
@@ -115,6 +116,7 @@ const SignupPage = () => {
           type='password'
           name='password'
           onChange={handleInputPassword}
+          hasError={passwordErrorMsg !== ''}
           required
         />
         </div>
