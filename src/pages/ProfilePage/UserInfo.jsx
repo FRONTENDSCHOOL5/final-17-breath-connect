@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { accountAtom } from '../../atoms/UserAtom';
 import FollowCount from './FollowCount';
 import basicProfile from '../../assets/images/basic-profile-l.svg';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
@@ -7,9 +10,11 @@ import { postFollow, deleteFollow } from '../../utils/Apis';
 
 
 const UserInfo = ({ data, myProfile }) => {
+  
+  const navigate = useNavigate();
+  const account = useRecoilValue(accountAtom);
   const [profile, setProfile] = useState(data);
-    const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
-
+  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
 
   const handleFollow = async (e) => {
     const followResult = await postFollow(profile.accountname);
@@ -26,6 +31,13 @@ const UserInfo = ({ data, myProfile }) => {
   useEffect(() => {
     console.log('my', myProfile);
   }, [profile]);
+
+  /* 프로필 수정 페이지로 이동 */
+  const goToProfileEdit = () => {
+    if(profile.accountname === account) {
+      navigate(`/profile/${profile.accountname}/editProfile`);
+    } 
+  }
 
   return (
     <Container>
@@ -57,7 +69,8 @@ const UserInfo = ({ data, myProfile }) => {
             <ButtonContainer
               type={'M'}
               text={'프로필 수정'}
-              isClicked={'true'}
+              isClicked={true}
+              handleClick={goToProfileEdit}
             />
           </>
         )}

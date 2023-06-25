@@ -8,6 +8,7 @@ import FeedPage from '../pages/FeedPage/FeedPage';
 import PostPage from '../pages/PostPage/PostPage';
 import PostDetailPage from '../pages/PostPage/PostDetailPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
+import ProfileEditPage from '../pages/ProfilePage/ProfileEdit/ProfileEditPage';
 import FollowerListPage from '../pages/FollowListPage/FollowerListPage';
 import FollowingListPage from '../pages/FollowListPage/FollowingListPage';
 import UploadPage from '../pages/UploadPage/UploadPage';
@@ -33,6 +34,7 @@ const AppRouter = () => {
         <Route path="/post/upload/map" element={<UploadMap />} />
         {/* Profile */}
          <Route path="/profile/:id" element={<ProfilePage />} />
+         <Route path='/profile/:id/editProfile' element={<ProfileEditPage />} />
         <Route path="/profile/:id/follower" element={<FollowerListPage />} />
         <Route path="/profile/:id/follow" element={<FollowingListPage />} />
         <Route path="/search" element={<SearchPage />} />

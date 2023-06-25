@@ -1,27 +1,31 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
-import BasicProfileImg from '../../assets/images/basic-profile-l.svg'
-import AddImg from '../../assets/sprite/img-btn.svg';
-
-import Input from '../../components/common/Input/Input';
-import ButtonContainer from '../../components/common/Button/ButtonContainer';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+// import BasicProfileImg from '../../assets/images/basic-profile-l.svg'
+import AddImg from '../../../assets/sprite/img-btn.svg';
+import { accountAtom,
+        profileImgAtom,
+        usernameAtom,
+        introAtom
+} from '../../../atoms/UserAtom';
+import Input from '../../../components/common/Input/Input';
+import TopUploadHeader from '../../../components/Header/TopUploadHeader';
 
 import {
+  getMyInfo,
   postAccountnameDuplicate,
-  postUserSignup,
   postUploadProfile,
-} from '../../utils/Apis'
+  editProfile
+} from '../../../utils/Apis'
 
-const ProfileSettingPage = () => {
+const ProfileEditPage = () => {
 
-  const URL = 'https://api.mandarin.weniv.co.kr/';
+  const URL = 'https://api.mandarin.weniv.co.kr';
 
   const navigate = useNavigate();
   const fileInputRef = useRef();
-  const location = useLocation();
-  const userEmail = location.state.email;
-  const userPassword = location.state.password;
+  const formData = new FormData();
 
   const [username, setUsername] = useState('');
   const [accountname, setAccountname] = useState('');
@@ -33,40 +37,57 @@ const ProfileSettingPage = () => {
   const [accountnameValid, setAccountnameValid] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
- const formData = new FormData();
+  const [userAccount, setUserAccount] = useRecoilState(accountAtom);
+  const [userProfileImg, setUserProfileImg] = useRecoilState(profileImgAtom);
+  const [userName, setUserName] = useRecoilState(usernameAtom);
+  const [userIntro, setUserIntro] = useRecoilState(introAtom);
 
+  /* 기존 프로필 정보 불러오기 */
+ useEffect(() => {
+  const fetchMyInfo = async () => {
+    const response = await getMyInfo(userAccount);
+    setUsername(response.user.username);
+    setAccountname(response.user.accountname);
+    setIntro(response.user.intro);
+    setImage(response.user.image);
+  }
+  fetchMyInfo()
+ }, []);
+
+
+
+/* 이미지 업로드 */
  const handleInputImage = async (e) => {
   const file = e.target.files[0];
   formData.append("image", file);
   const imgData = await postUploadProfile(formData);
-  console.log(imgData);
   setImage(URL + '/' + imgData.filename);
-  };
+};
 
   // username 유효성 검사
   const handleInputUsername = (e) => {
-    const username = e.target.value;
+    const usernameInp = e.target.value;
     const usernameRegex = /^[a-zA-Z0-9]{2,10}$/;
-    if(username === '') {
+    if(usernameInp === '') {
       setUsernameErrorMsg('*입력해주세요');
-    } else if (!usernameRegex.test(username)) {
+    } else if (!usernameRegex.test(usernameInp)) {
       setUsernameErrorMsg('*영문 2~10자 이내로 입력해주세요');    
   } else {
     setUsernameErrorMsg('');
     setUsernameValid(true);
-    setUsername(username);
+    setUsername(usernameInp);
   }
 }
 
 // accountname 유효성 검사
 const handleInputAccountname = async (e) => {
-  const accountname = e.target.value;
+  const accountnameInp = e.target.value;
   const accountnameRegex = /^[a-zA-Z0-9._]+$/;
-  const checkAccountname = await postAccountnameDuplicate(accountname);
-  if(accountname === '') {
+  const checkAccountname = await postAccountnameDuplicate(accountnameInp);
+  if(accountnameInp === '') {
     setAccountnameErrorMsg('*입력해주세요');
     setAccountnameValid(false);
-  } else if (!accountnameRegex.test(accountname)) {
+  } else if (!accountnameRegex.test(accountnameInp)) {
     setAccountnameErrorMsg('*영문, 숫자, 특수문자 ., _ 만 입력해주세요');
     setAccountnameValid(false);
   } else if (checkAccountname.message === '이미 가입된 계정ID 입니다.') {
@@ -75,7 +96,7 @@ const handleInputAccountname = async (e) => {
   } else {
     setAccountnameValid(true);
     setAccountnameErrorMsg('');
-    setAccountname(accountname);
+    setAccountname(accountnameInp);
   }
 }
 
@@ -93,20 +114,23 @@ const handleInputAccountname = async (e) => {
     setAccountnameErrorMsg()
   }, [accountname]);
 
-const handleProfileSignup = async (e) => {
+  /* 프로필 수정 */
+const handleProfileEdit = async (e) => {
   e.preventDefault();
     if(usernameValid && accountnameValid) {
-      const signupData = await postUserSignup (
-      username,
-      userEmail,
-      userPassword,
-      accountname,
-      intro,
-      image
+      const fetchProfileEdit = await editProfile (
+        username,
+        accountname,
+        intro,
+        image
       )
       setIsComplete(true);
-      console.log(signupData);
-      navigate('/login');
+      setUserAccount(accountname);
+      setUserProfileImg(image);
+      setUserName(username);
+      setUserIntro(intro);
+      alert('프로필 수정이 완료되었습니다 🌬️')
+      navigate('/profile/${accountname}');
     } else {
       setIsComplete(false);
     }
@@ -114,13 +138,14 @@ const handleProfileSignup = async (e) => {
 
   return (
     <>
-    <ProfileSettingSection>
-    <ProfileSettingTitle>프로필 설정</ProfileSettingTitle>
-    <p className="profileSetting-description">나중에 언제든지 변경할 수 있습니다.</p>
-    <UploadForm onSubmit={handleProfileSignup}>   
+    <TopUploadHeader text='저장' isDisabled = {!handleActivateButton()} 
+    handleClick={handleProfileEdit}
+    />  
+    <ProfileEditContainer>
+    <UploadForm onSubmit={handleProfileEdit}>   
      <ImageWrap> 
       <label htmlFor="upload-image">
-      <ProfileImage src={image ? image : BasicProfileImg} alt="사용자 프로필 이미지" />
+      <ProfileImage src={image} alt="사용자 프로필 이미지" />
       </label>
       <ProfileImageInput 
       type="file" 
@@ -159,24 +184,16 @@ const handleProfileSignup = async (e) => {
           required
         />
         </div>
-        <ButtonContainer type={'L'} text={'들숨날숨 시작하기'} isDisabled = {!handleActivateButton()} 
-        handleClick={handleProfileSignup}/>
-       
         </UploadForm>
-         </ProfileSettingSection>
+        </ProfileEditContainer>
         </>
     )
   }
 
-export default ProfileSettingPage;
+export default ProfileEditPage;
 
-const ProfileSettingSection = styled.section`
+const ProfileEditContainer = styled.main`
 margin: 0 auto;
-.profileSetting-description {
-  margin-top: 1.4rem;
-  color: ${({theme}) => theme.colors.textColor};
-  font-size: ${({theme}) => theme.fontSize.medium};
-  text-align: center;
   .spriteImg-wrapper {
     position: absolute;
     bottom: 0;
@@ -185,14 +202,6 @@ margin: 0 auto;
     position: absolute;
     left: 0;
   }
-}
-`
-
-const ProfileSettingTitle = styled.h1`
-color: ${({theme}) => theme.colors.blackText};
-font-size: ${({theme}) => theme.fontSize.xxlarge};
-padding-top: 2.7rem;
-text-align: center;
 `
 
 const ImageWrap = styled.div`

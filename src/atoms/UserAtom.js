@@ -14,3 +14,21 @@ export const accountAtom = atom({
   default: '',
   effects_UNSTABLE: [persistAtom],
 });
+
+export const profileImgAtom = atom({
+  key: 'profileImgAtom',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const usernameAtom = atom({
+  key: 'usernameAtom',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const introAtom = atom({
+  key: 'introAtom',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
