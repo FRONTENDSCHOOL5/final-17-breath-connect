@@ -7,7 +7,7 @@ import FeedMap from '../../components/Map/FeedMap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 
-const PostPage = ({ data }) => {
+const PostPage = ({ data, onButtonClick }) => {
   const [startPoint, setStartPoint] = useState(''); // startPoint 상태 추가
   const [endPoint, setEndPoint] = useState(''); // endPoint 상태 추가
   const location = useLocation();
@@ -86,6 +86,9 @@ const PostPage = ({ data }) => {
             <UserName>{data.author.username}</UserName>
             <FeedNickName>@ {data.author.accountname}</FeedNickName>
           </button>
+          <SBtn onClick={onButtonClick}>
+            <GlovalSprite id={'s-icon-more-vertical'} color={'white'} size={18}/>
+          </SBtn>
           <button onClick={handleFeedClick}>
             <div>
               <GlovalSprite id={'icon-calendal'} size={13} />
@@ -139,6 +142,10 @@ const FeedNickName = styled.div`
   color: ${({ theme }) => theme.colors.textColor};
   margin-bottom: 1.6rem;
 `;
+
+const SBtn = styled.button`
+  float: right;
+`
 
 const FeedInfo = styled.span`
   margin-left: 0.4rem;

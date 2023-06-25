@@ -17,6 +17,8 @@ const ProfilePage = () => {
   const [profile, setProfile] = useState();
   const [accountName, setAccountName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTopText, setModalTopText] = useState();
+  const [modalBtmText, setModalBtmText] = useState();
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -58,9 +60,12 @@ const ProfilePage = () => {
     }
   };
 
-  const toggleModal = () => {
+  const toggleModal = (topText, btmText) => {
     setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
+    setModalTopText(topText);
+    setModalBtmText(btmText);
   };
+  
 
   const handleAnimationEnd = () => {
     if (!isModalOpen) {
@@ -83,7 +88,8 @@ const ProfilePage = () => {
   return (
     <>
       {console.log(profile)}
-      <TopBasicNavHeader onButtonClick={toggleModal} />
+      <TopBasicNavHeader onButtonClick={() => toggleModal('설정 및 개인정보', '로그아웃')} />
+
       {profile && (
         <UserInfo
           data={profile}
@@ -93,13 +99,15 @@ const ProfilePage = () => {
         />
       )}
       {posts.length > 0 &&
-        posts.map((post, index) => <PostPage key={index} data={post} />)}
+        posts.map((post, index) => <PostPage key={index} data={post} onButtonClick={() => toggleModal('삭제', '수정')} />
+        )}
       {isModalOpen && (
         <>
           <BackgroundOverlay />
           <ModalContainer isOpen={isModalOpen} onAnimationEnd={handleAnimationEnd}>
             <ModalContent ref={modalRef}>
-              <IconPostModal topText="설정 및 개인정보" btmText="로그아웃" onClose={toggleModal} />
+            <IconPostModal topText={modalTopText} btmText={modalBtmText} onClose={toggleModal} />
+
             </ModalContent>
           </ModalContainer>
         </>

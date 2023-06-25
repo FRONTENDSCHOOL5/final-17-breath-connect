@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import BasicProfile from '../../assets/images/basic-profile-xs.svg';
+import GlovalSprite from '../../assets/sprite/GlovalSprite';
 
-const FeedComment = ({ user, content, image, time }) => {
+const FeedComment = ({ user, content, image, time, handleCommentClick }) => {
 
   const createdTime = () => {
     const year = time.slice(0, 4) + '년 ';
@@ -13,6 +14,7 @@ const FeedComment = ({ user, content, image, time }) => {
   
   return (
     <Container>
+      <ContentsContainer>
       <div>
         <img src={image} alt="유저 프로필 이미지" />
       </div>
@@ -23,6 +25,10 @@ const FeedComment = ({ user, content, image, time }) => {
         </UserInfo>
         <Contents>{content}</Contents>
       </UserContents>
+      </ContentsContainer>
+      <Sbtn onClick={handleCommentClick}>
+      <GlovalSprite id={'s-icon-more-vertical'} color={'white'} size={16}/>
+      </Sbtn>
     </Container>
   );
 };
@@ -31,6 +37,7 @@ export default FeedComment;
 
 const Container = styled.div`
   display: flex;
+  justify-content: space-between;
   padding: 15px;
 box-shadow: rgba(217, 217, 217, 0.5) 0px 0.1rem 0px;
 img {
@@ -40,6 +47,7 @@ img {
   object-fit: cover;
 }
 `;
+
 
 const UserContents = styled.div`
   padding: 10px;
@@ -66,3 +74,14 @@ const Contents = styled.div`
   font-weight: 400;
   font-size: 14px;
 `;
+
+
+const ContentsContainer = styled.div`
+  display: flex;
+`
+
+
+const Sbtn = styled.button`
+  float:right;
+  padding-bottom: 3rem;
+`
