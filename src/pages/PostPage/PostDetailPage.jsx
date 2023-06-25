@@ -86,6 +86,7 @@ const Container = styled.div`
 `;
 
 const CommentContainer = styled.form`
+  width: 39rem;
   padding: 0 1.6rem;
   position: fixed;
   bottom: 0;
