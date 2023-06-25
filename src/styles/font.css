@@ -1,6 +1,29 @@
 @font-face {
-  font-family: 'GmarketSansMedium';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'Spoqa Han Sans Neo';
+  font-weight: 400;
+  src: local('Gmarket Sans Light'),
+    url('../assets/fonts/SpoqaHanSansNeo-Regular.woff2')
+      format('woff2'),
+    url('../assets/fonts/SpoqaHanSansNeo-Regular.otf')
+      format('opentype');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans Neo';
+  font-weight: 500;
+  src: local('Gmarket Sans Medium'),
+    url('../assets/fonts/SpoqaHanSansNeo-Medium.woff2')
+      format('woff2'),
+    url('../assets/fonts/SpoqaHanSansNeo-Medium.otf')
+      format('opentype');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans Neo';
+  font-weight: 700;
+  src: local('Gmarket Sans Bold'),
+    url('../assets/fonts/SpoqaHanSansNeo-Bold.woff2')
+      format('woff2'),
+    url('../assets/fonts/SpoqaHanSansNeo-Bold.otf')
+      format('opentype');
 }

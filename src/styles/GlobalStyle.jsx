@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import font from './font.css';
 import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
@@ -14,7 +15,8 @@ const GlobalStyle = createGlobalStyle`
 
 body {
   color: inherit;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: 'Spoqa Han Sans Neo';
+  font-weight: 400;
 }
 
 a {
