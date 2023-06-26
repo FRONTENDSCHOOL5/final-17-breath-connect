@@ -66,7 +66,7 @@ const UserName = styled.span`
 
 const TimeAgo = styled.span`
   color: #767676;
-  padding-left: 6px;
+  padding: 0.4rem 0.7rem;
 `;
 
 const Contents = styled.div`
