@@ -6,7 +6,13 @@ import { useRecoilState } from 'recoil';
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postUserLogin } from '../../utils/Apis';
-import { tokenAtom, accountAtom, profileImgAtom, usernameAtom, introAtom } from '../../atoms/UserAtom';
+import {
+  tokenAtom,
+  accountAtom,
+  profileImgAtom,
+  usernameAtom,
+  introAtom,
+} from '../../atoms/UserAtom';
 import { loginAtom } from '../../atoms/LoginAtom';
 
 const LoginPage = () => {
@@ -16,7 +22,7 @@ const LoginPage = () => {
   const [userPassword, setUserPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isComplete, setIsComplete] = useState(false);
-  const [hasError, setHasError] = useState(false); 
+  const [hasError, setHasError] = useState(false);
 
   const [userToken, setUserToken] = useRecoilState(tokenAtom);
   const [userAccount, setUserAccount] = useRecoilState(accountAtom);
@@ -62,7 +68,11 @@ const LoginPage = () => {
       setUserIntro(intro);
       setUserLogin(true);
       setIsComplete(!isComplete);
-      navigate('/home');
+      navigate('/home', {
+        state: {
+          token: loginData.user.token,
+        },
+      });
     }
   };
 
@@ -85,7 +95,7 @@ const LoginPage = () => {
             value={userEmail}
             onChange={handleInputEmail}
             required
-            hasError={hasError} 
+            hasError={hasError}
           />
           <Input
             label="비밀번호"
@@ -96,7 +106,7 @@ const LoginPage = () => {
             value={userPassword}
             onChange={handleInputPassword}
             required
-            hasError={hasError} 
+            hasError={hasError}
           />
           {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         </div>
