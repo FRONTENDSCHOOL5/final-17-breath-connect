@@ -99,7 +99,7 @@ const PostPageDetail = () => {
         />
       ))
     ) : (
-      <p>댓글이 존재하지 않습니다 🥲</p>
+      <NoComment>댓글이 존재하지 않습니다 🥲</NoComment>
     )}
     <CommentContainer onSubmit={handleCommentSubmit}>
         <StyledComment>
@@ -125,7 +125,6 @@ const PostPageDetail = () => {
         </>
       )}
   </Container>
-  
 );
     }
 
@@ -134,11 +133,12 @@ export default PostPageDetail;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-   p {
+`;
+
+const NoComment = styled.p`
     margin-top: 2rem;
     text-align: center;
-   }
-`;
+`
 
 const CommentContainer = styled.form`
   width: 39rem;

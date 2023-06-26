@@ -93,7 +93,8 @@ const ButtonContainer = styled.div`
 `;
 
 const CancelButton = styled.button`
-  padding: 1.3rem 5rem;
+  width: 12.3rem;
+  padding: 1.3rem 1rem;
 `;
 
 const LogOutButton = styled.button`
