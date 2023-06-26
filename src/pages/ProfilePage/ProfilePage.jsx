@@ -106,7 +106,7 @@ const ProfilePage = () => {
           <BackgroundOverlay />
           <ModalContainer isOpen={isModalOpen} onAnimationEnd={handleAnimationEnd}>
             <ModalContent ref={modalRef}>
-            <IconPostModal topText={modalTopText} btmText={modalBtmText} onClose={toggleModal} />
+            <IconPostModal topText={modalTopText} btmText={modalBtmText} onClose={toggleModal} accountName={accountName}/>
 
             </ModalContent>
           </ModalContainer>
