@@ -114,11 +114,15 @@ export const postContentUpload = async (post) => {
 };
 
 /* 팔로우 게시물 */
-export const getFollowFeed = async (limit, skip) => {
+export const getFollowFeed = async (limit, skip, token) => {
   const response = await authInstance.get(`/post/feed`, {
     params: {
       limit,
       skip,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json',
     },
   });
   const { posts } = response.data;
