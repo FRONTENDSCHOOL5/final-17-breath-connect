@@ -301,7 +301,7 @@ export const postLike = async (postId) => {
 /* 좋아요 취소 */
 export const deleteLike = async (postId) => {
   try {
-    const response = await authInstance.post(`/post/${postId}/unheart`);
+    const response = await authInstance.delete(`/post/${postId}/unheart`);
     return response.data;
   } catch (error) {
     console.log(error);
