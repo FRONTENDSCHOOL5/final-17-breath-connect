@@ -9,8 +9,6 @@ import BasicProfileImg from '../../assets/images/basic-profile-xs.svg';
 
 import IconPostModal from '../../components/common/Modal/IconPostModal';
 
-
-
 const PostPageDetail = () => {
 
   const postId = useParams().id;
@@ -77,14 +75,18 @@ const PostPageDetail = () => {
     };
   }, []);
 
+  const hiddenText = {
+    whiteSpace: 'normal',
+    wordWrap: 'break-word',
+  }
 
   return (
   <Container>
     <TopListNavHeader />
-    <PostPage 
+    <PostPage
     data={data}
     onButtonClick={() => toggleModal('신고하기', '공유하기')}
-     />
+    userFeedTextStyle={hiddenText}/>
     {commentData && commentData.length > 0 ? (
       commentData.map((comment) => (
         <FeedComment
