@@ -103,7 +103,7 @@ const MapDrawingManager = ({ getpath }) => {
             handleOnCreate={setMap}
             handleStyle={{
               width: '100%',
-              height: '600px',
+              height: '820px',
             }}
           >
             <Polyline
