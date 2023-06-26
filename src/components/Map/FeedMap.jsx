@@ -3,10 +3,14 @@ import { CustomOverlayMap, Polyline } from 'react-kakao-maps-sdk';
 import MapComponent from './MapComponent';
 
 const FeedMap = ({ data, detail }) => {
-  const arr = JSON.parse(data);
 
-  const paths = arr.slice(0, arr.length - 1);
-  console.log(paths);
+  let paths = [];
+  try {
+    const parsedData = JSON.parse(data);
+    paths = parsedData.slice(0, parsedData.length - 1);
+  } catch (error) {
+    console.error('Invalid JSON data:', error);
+  }
 
   const latSum = paths.reduce((sum, el) => sum + el.lat, 0);
   const lngSum = paths.reduce((sum, el) => sum + el.lng, 0);
