@@ -14,7 +14,7 @@ const UserInfo = ({ data, myProfile }) => {
   const navigate = useNavigate();
   const account = useRecoilValue(accountAtom);
   const [profile, setProfile] = useState(data);
-  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
+  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[/\w.]*$/;
 
   const handleFollow = async (e) => {
     const followResult = await postFollow(profile.accountname);

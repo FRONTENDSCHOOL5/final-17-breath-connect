@@ -21,7 +21,7 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
     location.pathname === `/post/${data.author.accountname}`
   );
 
-  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
+  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[/\w.]*$/;
 
   const handleFeedClick = (e) => {
     if (location.pathname !== `/post/${data.author.accountname}`) {
