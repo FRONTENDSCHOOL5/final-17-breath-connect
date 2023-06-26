@@ -11,6 +11,7 @@ import MapDrawingManager from '../../components/Map/MapDrawingManager';
 import FeedMap from '../../components/Map/FeedMap';
 import { postContentUpload } from '../../utils/Apis';
 import TabMenu from '../../components/Footer/TabMenu'
+import { useNavigate } from 'react-router-dom';
 
 const UploadPage = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -22,6 +23,8 @@ const UploadPage = () => {
 
   const [enableUpload, setEnableUpload] = useState(false);
   const [isMapDrawingComplete, setIsMapDrawingComplete] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -49,6 +52,7 @@ const UploadPage = () => {
       };
       const data = await postContentUpload(mapData);
       console.log(data.message);
+      navigate(`/profile/${data.post.author.username}`)
     }
   };
 
