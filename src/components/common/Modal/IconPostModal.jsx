@@ -4,7 +4,7 @@ import Alert from '../../common/Alert/Alert';
 import LogOut from '../Alert/LogOut';
 import { useNavigate } from 'react-router-dom';
 
-const IconPostModal = ({ topText, btmText }) => {
+const IconPostModal = ({ topText, btmText, accountName }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [showLogOut, setShowLogOut] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -19,7 +19,7 @@ const IconPostModal = ({ topText, btmText }) => {
       setAlertDone("게시물이 삭제되었습니다.")
     } else if (topText === '설정 및 개인정보') {
       // setShowModal(false); // Close the modal
-      navigate("/profile/:id/editProfile")
+      navigate(`/profile/${accountName}/editProfile`)
     } else if (topText === '신고하기') {
       setAlertMessage('게시물을 신고하시겠습니까?');
       setShowAlert(true);

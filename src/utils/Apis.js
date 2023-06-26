@@ -31,8 +31,8 @@ export const authInstance = axios.create({
 export const postUserLogin = async (email, password) => {
   const loginData = {
     user: {
-      email,
-      password,
+      email: email,
+      password: password,
     },
   };
   const response = await instance.post('/user/login', loginData);
@@ -43,7 +43,7 @@ export const postUserLogin = async (email, password) => {
 export const postEmailDuplicate = async (email) => {
   const emailData = {
     user: {
-      email,
+      email: email,
     },
   };
   const response = await instance.post('/user/emailvalid', emailData);
@@ -61,12 +61,12 @@ export const postUserSignup = async (
 ) => {
   const userData = {
     user: {
-      username,
-      email,
-      password,
-      accountname,
-      intro,
-      image,
+      username: username,
+      email: email,
+      password: password,
+      accountname: accountname,
+      intro: intro,
+      image: image,
     },
   };
   const response = await instance.post('/user/', userData);
@@ -114,11 +114,15 @@ export const postContentUpload = async (post) => {
 };
 
 /* 팔로우 게시물 */
-export const getFollowFeed = async (limit, skip) => {
+export const getFollowFeed = async (limit, skip, token) => {
   const response = await authInstance.get(`/post/feed`, {
     params: {
       limit,
       skip,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json',
     },
   });
   const { posts } = response.data;
@@ -221,9 +225,11 @@ export const getMyInfo = async () => {
 };
 
 /* 프로필 수정 */
-export const editProfile = async (userData) => {
+export const editProfile = async (user) => {
+  console.log('user', {user})
   try {
-    const response = await authInstance.put(`/user`, userData);
+    const response = await authInstance.put(`/user`, { user });
+    console.log('response', response);
     return response.data;
   } catch (error) {
     console.log(error);

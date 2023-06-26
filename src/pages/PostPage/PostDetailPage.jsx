@@ -83,6 +83,7 @@ const PostPageDetail = () => {
   return (
   <Container>
     <TopListNavHeader />
+    <ContainerContent>
     <PostPage
     data={data}
     onButtonClick={() => toggleModal('신고하기', '공유하기')}
@@ -101,6 +102,7 @@ const PostPageDetail = () => {
     ) : (
       <NoComment>댓글이 존재하지 않습니다 🥲</NoComment>
     )}
+    </ContainerContent>
     <CommentContainer onSubmit={handleCommentSubmit}>
         <StyledComment>
           <img src={BasicProfileImg} alt="프로필 비활성화" />
@@ -129,6 +131,11 @@ const PostPageDetail = () => {
     }
 
 export default PostPageDetail;
+
+const ContainerContent = styled.div`
+  height: 100%;
+  padding: 0rem 0rem 6rem;
+`
 
 const Container = styled.div`
   display: flex;

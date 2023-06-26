@@ -140,6 +140,8 @@ const ProfilePage = () => {
                 btmText={modalBtmText}
                 onClose={toggleModal}
               />
+            <IconPostModal topText={modalTopText} btmText={modalBtmText} onClose={toggleModal} accountName={accountName}/>
+
             </ModalContent>
           </ModalContainer>
         </>

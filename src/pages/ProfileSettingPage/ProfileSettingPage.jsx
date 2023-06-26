@@ -43,6 +43,11 @@ const ProfileSettingPage = () => {
   setImage(URL + '/' + imgData.filename);
   };
 
+  const handleInputChange = (e) => {
+    const intro = e.target.value;
+    setIntro(intro);
+  }
+
   // username 유효성 검사
   const handleInputUsername = (e) => {
     const username = e.target.value;
@@ -86,11 +91,11 @@ const handleInputAccountname = async (e) => {
 
   /* 에러 메시지 초기화 */
   useEffect(() => {
-    setUsernameErrorMsg();
+    setUsernameErrorMsg('');
   }, [username]);
 
   useEffect(() => {
-    setAccountnameErrorMsg()
+    setAccountnameErrorMsg('')
   }, [accountname]);
 
 const handleProfileSignup = async (e) => {
@@ -158,12 +163,12 @@ const handleProfileSignup = async (e) => {
           id='intro'
           type='text'
           name='intro'
+          onChange={handleInputChange}
           required
         />
         </div>
         <ButtonContainer type={'L'} text={'들숨날숨 시작하기'} isDisabled = {!handleActivateButton()} 
         handleClick={handleProfileSignup}/>
-       
         </UploadForm>
          </ProfileSettingSection>
         </>
@@ -230,7 +235,7 @@ const UploadForm = styled.form`
 const ProfileImage = styled.img`
 width: 100%;
 height: 100%;
-object-fit: contain;
+object-fit: cover;
 border-radius: 50%;
 `
 
