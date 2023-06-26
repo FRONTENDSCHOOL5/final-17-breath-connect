@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 
-const Alert = ({ message, onClose, done, text }) => {
+const Alert = ({ message, onClose, done, text, setIsPostDeleted }) => {
   const [showAlert, setShowAlert] = useState(true);
 
   const handleClickCancel = () => {
@@ -11,7 +11,8 @@ const Alert = ({ message, onClose, done, text }) => {
   const handleClick = () => {
     alert(done);
     setShowAlert(false);
-    onClose(true); // 삭제 완료를 알리기 위해 onClose(true) 호출
+    onClose(true);
+    setIsPostDeleted(true);
   };
 
   return (

@@ -20,7 +20,9 @@ const ProfilePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTopText, setModalTopText] = useState();
   const [modalBtmText, setModalBtmText] = useState();
-  const [profileKey, setProfileKey] = useState(0);
+
+  const [isPostDeleted, setIsPostDeleted] = useState(false);
+
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -36,11 +38,9 @@ const ProfilePage = () => {
   }, [accountName]);
 
   useEffect(() => {
-    if (profile) {
-      // profile이 변경될 때마다 profileKey 값을 변경하여 UserInfo 컴포넌트를 다시 렌더링
-      setProfileKey((prevKey) => prevKey + 1);
-    }
-  }, [profile]);
+    setIsModalOpen(false);
+  }, [isPostDeleted]);
+
 
   const fetchData = async () => {
     try {
@@ -68,11 +68,13 @@ const ProfilePage = () => {
   const getPost = async () => {
     try {
       const postData = await getMyPost(accountName, 10, 0);
+      const postId = postData.post;
       setPosts(postData.post);
     } catch (error) {
       console.error('Error fetching user posts:', error);
     }
   };
+
 
   const toggleModal = (topText, btmText) => {
     setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
@@ -99,12 +101,20 @@ const ProfilePage = () => {
     };
   }, []);
 
+useEffect(() => {
+  if(isPostDeleted) {
+    fetchData();
+    setIsPostDeleted(false);
+  }
+}, [isPostDeleted]);
+
+ 
+  console.log(posts);
+
   return (
     <>
-      {console.log(profile)}
-      <TopBasicNavHeader
-        onButtonClick={() => toggleModal('설정 및 개인정보', '로그아웃')}
-      />
+      <TopBasicNavHeader onButtonClick={() => toggleModal('설정 및 개인정보', '로그아웃')} />
+
 
       {profile && (
         <UserInfo
@@ -135,12 +145,13 @@ const ProfilePage = () => {
             onAnimationEnd={handleAnimationEnd}
           >
             <ModalContent ref={modalRef}>
-              <IconPostModal
-                topText={modalTopText}
-                btmText={modalBtmText}
-                onClose={toggleModal}
-              />
-            <IconPostModal topText={modalTopText} btmText={modalBtmText} onClose={toggleModal} accountName={accountName}/>
+              {posts.map((post, index) => (
+                <IconPostModal topText={modalTopText} btmText={modalBtmText} 
+                onClose={toggleModal} accountName={accountName}
+                key={index} data={post}
+                setIsPostDeleted={setIsPostDeleted}
+                />
+              ))}
 
             </ModalContent>
           </ModalContainer>
