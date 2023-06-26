@@ -84,4 +84,5 @@ const Container = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
   margin-top: 28px;
   background-color: white;
+  z-index: 99999;
 `;
