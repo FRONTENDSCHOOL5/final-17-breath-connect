@@ -13,13 +13,14 @@ const SignupPage = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [emailErrorMsg, setEmailErrorMsg] = useState('');
+  const [emailSuccessMsg, setEmailSuccessMsg] = useState('');
   const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
   /* 이메일 유효성 검사 */
-  const handleInputEmail = (e) => {
+  const handleInputEmail = async (e) => {
     const userEmail = e.target.value;
     const emailRegex = 
     /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -32,17 +33,18 @@ const SignupPage = () => {
       setEmailErrorMsg('');
       setUserEmail(userEmail);
     }
+    
   }
 
 /* 중복된 이메일 확인 */
   const handleEmailDuplicate = async (e) => {
-    const checkEmail = await postEmailDuplicate(e.target.value);
-    console.log(checkEmail);
+    const checkEmail = await postEmailDuplicate(userEmail);
     if (checkEmail.message === '이미 가입된 이메일 주소 입니다.') {
       setEmailErrorMsg('*이미 가입된 이메일 주소 입니다 😥');
     } else if (checkEmail.message === '사용 가능한 이메일 입니다.') {
       setEmailValid(true);
-      setEmailErrorMsg('사용 가능한 이메일 입니다 🤗')
+      setEmailErrorMsg('');
+      setEmailSuccessMsg('사용 가능한 이메일 입니다 🤗');
     }
   }
 
@@ -107,7 +109,8 @@ const SignupPage = () => {
           hasError={emailErrorMsg !== ''}
           required
         />
-        {emailErrorMsg && <ErrorMsg>{emailErrorMsg}</ErrorMsg>}
+        {emailErrorMsg && <ErrorMsg hasError>{emailErrorMsg}</ErrorMsg>}
+        {emailSuccessMsg && <ErrorMsg className="success-msg">{emailSuccessMsg}</ErrorMsg>}
         <div className='input-wrapper'>
         <Input
           label='비밀번호'
@@ -155,5 +158,8 @@ const ErrorMsg = styled.p`
   `}
   &.password-msg {
     margin: -2.4rem 0 3rem;
+  }
+  &.success-msg {
+    color: blue;
   }
 `;
