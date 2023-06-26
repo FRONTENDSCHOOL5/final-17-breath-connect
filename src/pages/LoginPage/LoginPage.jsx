@@ -81,6 +81,12 @@ const LoginPage = () => {
     return userEmail !== '' && userPassword !== '';
   };
 
+   useEffect(() => {
+    if (userLogin) {
+      navigate('/home');
+    }
+  }, [userLogin]);
+
   return (
     <LoginContainer>
       <LoginTitle>로그인</LoginTitle>
