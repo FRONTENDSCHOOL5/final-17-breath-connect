@@ -23,13 +23,20 @@ const ButtonWrapper = styled.div`
   width: 100%;
 `;
 
+const Button = styled.button`
+  background-color: ${({ theme }) => theme.colors.whiteText};
+  padding: 0.5rem 0.5rem;
+  border-radius: 1rem;
+  border: ${({ theme }) => `0.15rem solid ${theme.colors.borderColor}`};
+`
+
 const ToolBox = ({ onClickUndo, onClickReset }) => {
   return (
     <>
       <CustomToolWrapper />
       <ButtonWrapper>
-        <button onClick={onClickUndo}>마지막 그리기 취소!</button>
-        <button onClick={onClickReset}>초기화!</button>
+        <Button onClick={onClickUndo}>😢 마지막 그리기 취소</Button>
+        <Button onClick={onClickReset}>❌ 초기화</Button>
       </ButtonWrapper>
     </>
   );
