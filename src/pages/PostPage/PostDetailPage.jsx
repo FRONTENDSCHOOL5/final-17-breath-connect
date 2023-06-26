@@ -146,7 +146,6 @@ const CommentContainer = styled.form`
   position: fixed;
   bottom: 0;
   display: flex;
-  justify-content: space-between;
   height: 6.1rem;
   background-color: ${({ theme }) => theme.colors.whiteText};
   font-size: ${({ theme }) => theme.fontSize.medium};
@@ -166,8 +165,8 @@ const StyledComment = styled.div`
 const CommentInput = styled.input`
   border: none;
   outline: none;
-  width: 100%;
-  padding-right: 11.7rem;
+  width: 27rem;
+  margin-right: 1rem;
   &::placeholder {
     color: ${({ theme }) => theme.colors.placeHolderColor};
   }
@@ -218,8 +217,8 @@ const ModalContainer= styled.div`
 `;
 
 const ModalContent = styled.div`
-position: fixed;
-bottom: 0;
+  position: fixed;
+  bottom: 0;
   height: 13.8rem;
   background-color: white;
   border-top-left-radius: 0.8rem;

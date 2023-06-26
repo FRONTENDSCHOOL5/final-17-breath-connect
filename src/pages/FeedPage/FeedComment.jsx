@@ -48,7 +48,6 @@ img {
 }
 `;
 
-
 const UserContents = styled.div`
   padding: 10px;
 `;
@@ -73,13 +72,13 @@ const TimeAgo = styled.span`
 const Contents = styled.div`
   font-weight: 400;
   font-size: 14px;
+  width: 28rem;
+  word-break: break-all;
 `;
-
 
 const ContentsContainer = styled.div`
   display: flex;
 `
-
 
 const Sbtn = styled.button`
   float:right;
