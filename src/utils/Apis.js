@@ -31,8 +31,8 @@ export const authInstance = axios.create({
 export const postUserLogin = async (email, password) => {
   const loginData = {
     user: {
-      email,
-      password,
+      email: email,
+      password: password,
     },
   };
   const response = await instance.post('/user/login', loginData);
@@ -43,7 +43,7 @@ export const postUserLogin = async (email, password) => {
 export const postEmailDuplicate = async (email) => {
   const emailData = {
     user: {
-      email,
+      email: email,
     },
   };
   const response = await instance.post('/user/emailvalid', emailData);
@@ -61,12 +61,12 @@ export const postUserSignup = async (
 ) => {
   const userData = {
     user: {
-      username,
-      email,
-      password,
-      accountname,
-      intro,
-      image,
+      username: username,
+      email: email,
+      password: password,
+      accountname: accountname,
+      intro: intro,
+      image: image,
     },
   };
   const response = await instance.post('/user/', userData);
