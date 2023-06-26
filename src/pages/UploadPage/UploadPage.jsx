@@ -10,6 +10,7 @@ import TopUploadHeader from '../../components/Header/TopUploadHeader';
 import MapDrawingManager from '../../components/Map/MapDrawingManager';
 import FeedMap from '../../components/Map/FeedMap';
 import { postContentUpload } from '../../utils/Apis';
+import TabMenu from '../../components/Footer/TabMenu'
 
 const UploadPage = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -137,6 +138,7 @@ const UploadPage = () => {
           <MapDrawingManager getpath={handlePathProcess} />
         </>
       )}
+      <TabMenu/>
     </>
   );
 };
