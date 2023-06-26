@@ -7,7 +7,7 @@ import FeedMap from '../../components/Map/FeedMap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 
-const PostPage = ({ data, onButtonClick }) => {
+const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
   const [startPoint, setStartPoint] = useState(''); // startPoint 상태 추가
   const [endPoint, setEndPoint] = useState(''); // endPoint 상태 추가
   const location = useLocation();
@@ -31,8 +31,7 @@ const PostPage = ({ data, onButtonClick }) => {
       state: { data: data },
     });
   };
-
-   useEffect(() => {
+  useEffect(() => {
     if (data.image) {
       try {
         const parsing = JSON.parse(data.image);
@@ -101,7 +100,7 @@ const PostPage = ({ data, onButtonClick }) => {
             <MapContents>
               {/* <FeedMap data={data.updatedAt} detail={detail} /> */}
             </MapContents>
-            <UserFeedText>{data.content.slice(15)}</UserFeedText>
+            <UserFeedText style={userFeedTextStyle}>{data.content.slice(15)}</UserFeedText>
           </Contents>
           <AppendAndComment>
             <AppendButton>{data.heartCount}명 참여</AppendButton>
