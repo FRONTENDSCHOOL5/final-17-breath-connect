@@ -10,7 +10,6 @@ import { tokenAtom } from '../../atoms/UserAtom';
 import IconPostModal from '../../components/common/Modal/IconPostModal';
 import styled, { keyframes, css } from 'styled-components';
 
-
 const FeedPage = () => {
   const [data, setData] = useState([]);
   const [skip, setSkip] = useState(0);
@@ -21,7 +20,6 @@ const FeedPage = () => {
   const [modalTopText, setModalTopText] = useState();
   const [modalBtmText, setModalBtmText] = useState();
   const modalRef = useRef(null);
-
 
   const fetchData = async () => {
     if (isFetchingData) return;
@@ -57,12 +55,11 @@ const FeedPage = () => {
   }, [skip]);
 
   // modal
-    const toggleModal = (topText, btmText) => {
+  const toggleModal = (topText, btmText) => {
     setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
     setModalTopText(topText);
     setModalBtmText(btmText);
   };
-  
 
   const handleAnimationEnd = () => {
     if (!isModalOpen) {
@@ -85,17 +82,30 @@ const FeedPage = () => {
   return (
     <>
       <TopMainNavHeader />
-      {!data ? (
+      {!data.length ? (
         <FeedNoUser />
       ) : (
-        data.map((data, index) => <PostPage key={index} data={data} onButtonClick={() => toggleModal('신고하기', '공유하기')}/>)
+        data.map((data, index) => (
+          <PostPage
+            key={index}
+            data={data}
+            onButtonClick={() => toggleModal('신고하기', '공유하기')}
+          />
+        ))
       )}
       {isModalOpen && (
         <>
           <BackgroundOverlay />
-          <ModalContainer isOpen={isModalOpen} onAnimationEnd={handleAnimationEnd}>
+          <ModalContainer
+            isOpen={isModalOpen}
+            onAnimationEnd={handleAnimationEnd}
+          >
             <ModalContent ref={modalRef}>
-            <IconPostModal topText={modalTopText} btmText={modalBtmText} onClose={toggleModal} />
+              <IconPostModal
+                topText={modalTopText}
+                btmText={modalBtmText}
+                onClose={toggleModal}
+              />
             </ModalContent>
           </ModalContainer>
         </>
@@ -107,8 +117,6 @@ const FeedPage = () => {
 
 export default FeedPage;
 
-
-
 const slideUpAnimation = keyframes`
   0% {
     transform: translateY(100%);
@@ -118,7 +126,7 @@ const slideUpAnimation = keyframes`
   }
 `;
 
-const ModalContainer= styled.div`
+const ModalContainer = styled.div`
   position: fixed;
   height: 85rem;
   bottom: 0;
@@ -135,8 +143,8 @@ const ModalContainer= styled.div`
 `;
 
 const ModalContent = styled.div`
-position: fixed;
-bottom: 0;
+  position: fixed;
+  bottom: 0;
   height: 13.8rem;
   background-color: white;
   border-top-left-radius: 0.8rem;
