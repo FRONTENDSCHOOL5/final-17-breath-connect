@@ -89,7 +89,7 @@ const PostPage = ({ data, onButtonClick }) => {
           <SBtn onClick={onButtonClick}>
             <GlovalSprite id={'s-icon-more-vertical'} color={'white'} size={18}/>
           </SBtn>
-          <button onClick={handleFeedClick}>
+          <Contents onClick={handleFeedClick}>
             <div>
               <GlovalSprite id={'icon-calendal'} size={13} />
               <FeedInfo>{data.content[0] + '요일'+ data.content.slice(1,7)+' , '+data.content.slice(9, 14)}</FeedInfo>
@@ -102,7 +102,7 @@ const PostPage = ({ data, onButtonClick }) => {
               {/* <FeedMap data={data.updatedAt} detail={detail} /> */}
             </MapContents>
             <UserFeedText>{data.content.slice(15)}</UserFeedText>
-          </button>
+          </Contents>
           <AppendAndComment>
             <AppendButton>{data.heartCount}명 참여</AppendButton>
             <div>
@@ -147,7 +147,12 @@ const SBtn = styled.button`
   float: right;
 `
 
+const Contents = styled.button`
+  width: 30rem;
+`
+
 const FeedInfo = styled.span`
+width: 30rem;
   margin-left: 0.4rem;
   vertical-align: 0.2rem;
   color: ${({ theme }) => theme.colors.textColor};
@@ -160,6 +165,9 @@ const UserName = styled.div`
 `;
 
 const UserFeedText = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 1.2rem;
   margin: 1.6rem 0;
 `;
@@ -201,3 +209,4 @@ const FeedContents = styled.div`
   display: flex;
   margin-bottom: 2rem;
 `;
+
