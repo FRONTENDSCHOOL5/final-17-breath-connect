@@ -64,11 +64,12 @@ const ImgContainer = styled.div`
 const SnsMainLogo = styled.img`
   width: 20rem;
   height: 21rem;
+  margin-bottom: 1rem;
 `
 
 const MainTitle = styled.img`
-  width: 20rem;
-  height: 8rem;
+  width: 13rem;
+  height: 4rem;
   margin-top: 1.8rem;
 `
 

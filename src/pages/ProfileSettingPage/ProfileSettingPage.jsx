@@ -136,6 +136,7 @@ const handleProfileSignup = async (e) => {
           type='text'
           name='username'
           onChange={handleInputUsername}
+          hasError={usernameErrorMsg !== ''}
           required
         />
         {usernameErrorMsg && <ErrorMsg>{usernameErrorMsg}</ErrorMsg>}
@@ -146,6 +147,7 @@ const handleProfileSignup = async (e) => {
           type='text'
           name='accountname'
           onChange = {handleInputAccountname}
+          hasError={accountnameErrorMsg !== ''}
           required
         />
         {accountnameErrorMsg && <ErrorMsg>{accountnameErrorMsg}</ErrorMsg>}

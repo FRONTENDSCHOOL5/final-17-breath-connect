@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postUserLogin } from '../../utils/Apis';
-import { tokenAtom,
-        accountAtom,
-        profileImgAtom,
-        usernameAtom,
-        introAtom
-} from '../../atoms/UserAtom';
-
+import { tokenAtom, accountAtom, profileImgAtom, usernameAtom, introAtom } from '../../atoms/UserAtom';
 import { loginAtom } from '../../atoms/LoginAtom';
-
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -23,6 +16,7 @@ const LoginPage = () => {
   const [userPassword, setUserPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isComplete, setIsComplete] = useState(false);
+  const [hasError, setHasError] = useState(false); 
 
   const [userToken, setUserToken] = useRecoilState(tokenAtom);
   const [userAccount, setUserAccount] = useRecoilState(accountAtom);
@@ -30,21 +24,20 @@ const LoginPage = () => {
   const [userName, setUserName] = useRecoilState(usernameAtom);
   const [userLogin, setUserLogin] = useRecoilState(loginAtom);
   const [userIntro, setUserIntro] = useRecoilState(introAtom);
-  
 
   const handleInputEmail = (e) => {
     const userEmail = e.target.value;
     setUserEmail(userEmail);
+    setErrorMsg('');
+    setHasError(false);
   };
 
   const handleInputPassword = (e) => {
     const userPassword = e.target.value;
     setUserPassword(userPassword);
-  };
-
-  useEffect(() => {
     setErrorMsg('');
-  }, [userPassword]);
+    setHasError(false);
+  };
 
   /* 로그인 요청을 보내고 결과 반환 */
   const handleLogin = async (e) => {
@@ -53,6 +46,7 @@ const LoginPage = () => {
     console.log(loginData);
     if (loginData.message === '이메일 또는 비밀번호가 일치하지 않습니다.') {
       setErrorMsg('*이메일 또는 비밀번호가 일치하지 않습니다 🥲');
+      setHasError(true);
       setIsComplete(false);
     } else {
       const token = loginData.user.token;
@@ -88,8 +82,10 @@ const LoginPage = () => {
             id="email"
             type="email"
             name="email"
+            value={userEmail}
             onChange={handleInputEmail}
             required
+            hasError={hasError} 
           />
           <Input
             label="비밀번호"
@@ -97,8 +93,10 @@ const LoginPage = () => {
             id="password"
             type="password"
             name="password"
+            value={userPassword}
             onChange={handleInputPassword}
             required
+            hasError={hasError} 
           />
           {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         </div>
@@ -140,6 +138,7 @@ const SignupLink = styled(Link)`
   display: block;
   padding-top: 1.9rem;
 `;
+
 const ErrorMsg = styled.p`
   ${({ theme }) => css`
     color: ${theme.colors.errorText};

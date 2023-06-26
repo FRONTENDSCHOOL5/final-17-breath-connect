@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TopSearchNavHeader from '../../components/Header/TopSearchNavHeader';
 import TabMenu from '../../components/Footer/TabMenu';
 import profileImg from '../../assets/images/basic-profile-m.svg';
+import Loading from '../../components/common/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '../../atoms/UserAtom';
@@ -13,6 +14,7 @@ const SearchPage = () => {
   const token = useRecoilValue(tokenAtom);
   const url = 'https://api.mandarin.weniv.co.kr';
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[\w.]*$/;
 
@@ -41,11 +43,13 @@ const SearchPage = () => {
     }
   };
 
-  return (
+  if(!data) return <Loading />
+  else {
+return (
     <>
       <TopSearchNavHeader value={search} setValue={setSearch} />
       <SearchContainer>
-        {data.length === 0 ? (
+          {data.length === 0 ? (
           <NoResultsText>검색 결과가 없습니다.</NoResultsText>
         ) : (
           data.map((item, index) => (
@@ -71,6 +75,9 @@ const SearchPage = () => {
     </>
   );
 };
+  }
+
+  
 
 const SearchContainer = styled.div`
   height: 100vh;
