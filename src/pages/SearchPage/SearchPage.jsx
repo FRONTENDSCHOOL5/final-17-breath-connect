@@ -77,10 +77,8 @@ return (
 };
   }
 
-  
-
 const SearchContainer = styled.div`
-  height: 100vh;
+  height: 100%;
   margin-top: 2rem;
   margin-left: 1.6rem;
   color: ${({ theme }) => theme.colors.textColor};
