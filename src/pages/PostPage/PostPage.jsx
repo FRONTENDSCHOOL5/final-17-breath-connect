@@ -132,7 +132,7 @@ const handleToggleLike = async (e) => {
           </button>
           {/* 피드로 이동 */}
           <button onClick={handleFeedClick} className='go-to-post-detail'>
-            <p>
+            <ScheduleInfo>
               <GlovalSprite id={'icon-calendal'} size={13} />
               <FeedInfo>
                 {data.content[0] +
@@ -141,13 +141,13 @@ const handleToggleLike = async (e) => {
                   ' , ' +
                   data.content.slice(9, 14)}
               </FeedInfo>
-            </p>
-            <p>
+            </ScheduleInfo>
+            <LocationInfo>
               <GlovalSprite id={'icon-location'} size={13} />
               <FeedInfo>
                 {startPoint}~{endPoint}
               </FeedInfo>
-            </p>
+            </LocationInfo>
             <MapContents>
               <FeedMap data={data.image} detail={detail} />
             </MapContents>
@@ -157,14 +157,16 @@ const handleToggleLike = async (e) => {
           </button>
           <AppendAndComment>
             <AppendButton>{postLikeCount}명 참여</AppendButton>
-            <div>
-              <GlovalSprite
-                id={'icon-message-circle'}
-                size={12}
-                color={'white'}
-              ></GlovalSprite>
+            <CommentContainer>
+              <button>
+                <GlovalSprite
+                  id={'icon-message-circle'}
+                  size={12}
+                  color={'white'}
+                /> 
               <FeedInfo>{data.commentCount}</FeedInfo>
-            </div>
+              </button>
+            </CommentContainer>
           </AppendAndComment>
         </div>
       </PostContents>
@@ -212,6 +214,17 @@ const UserAccountName = styled.div`
   margin-bottom: 1.6rem;
 `;
 
+const ScheduleInfo = styled.p`
+  margin-bottom: 0.5rem; 
+`
+
+const LocationInfo = styled.p`
+  margin-bottom: 0.5rem;
+`
+
+const CommentContainer = styled.div`
+  padding: 0.3rem;
+`
 
 const FeedInfo = styled.span`
   width: 30rem;
@@ -231,28 +244,28 @@ const UserFeedText = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 1.2rem;
-  margin: 1.6rem 0;
+  margin-bottom: 1.6rem;
 `;
 
 const AppendAndComment = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   margin-top: 1.5rem;
 `;
 
 const AppendButton = styled.div`
   background-color: rgba(101, 33, 211, 0.043);
   color: ${({ theme }) => theme.colors.mainColor};
-  padding: 0.3rem 1rem;
+  padding: 0.5rem 1rem 0rem;
   border-radius: 1rem;
 `;
 
 const MapContents = styled.div`
-  width: 304px;
+  width: 30.4rem;
   /* height: 80px; */
-  border-radius: 10px;
+  border-radius: 1rem;
   overflow: hidden;
-  margin: 12px 0;
+  margin: 1.2rem 0rem;
 `;
 
 const DetailMap = styled.button`
