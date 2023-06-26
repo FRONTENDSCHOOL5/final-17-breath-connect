@@ -6,9 +6,11 @@ import TabMenu from '../../components/Footer/TabMenu';
 import { getFollowFeed } from '../../utils/Apis';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '../../atoms/UserAtom';
+import { useLocation } from 'react-router-dom';
 
 import IconPostModal from '../../components/common/Modal/IconPostModal';
 import styled, { keyframes, css } from 'styled-components';
+import Loading from '../../components/common/Loading/Loading';
 
 const FeedPage = () => {
   const [data, setData] = useState([]);
@@ -21,12 +23,19 @@ const FeedPage = () => {
   const [modalBtmText, setModalBtmText] = useState();
   const modalRef = useRef(null);
 
+  const token = useRecoilValue(tokenAtom);
+  const location = useLocation();
+  const loginData = location.state.token;
+
   const fetchData = async () => {
     if (isFetchingData) return;
     setIsFetchingData(true);
 
-    console.log(limit, skip);
-    const newData = await getFollowFeed(limit, skip);
+    const newData = await getFollowFeed(
+      limit,
+      skip,
+      loginData ? loginData : token
+    );
     if (newData.length > 0) {
       setData((prevData) => [...prevData, ...newData]);
       setSkip((prevSkip) => prevSkip + limit);
