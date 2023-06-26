@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import UserInfo from './UserInfo';
 import TopBasicNavHeader from '../../components/Header/TopBasicNavHeader';
 import PostPage from '../PostPage/PostPage';
-import { getUserProfile, getMyPost, getUserPosts } from '../../utils/Apis';
+import { getUserProfile, getMyPost } from '../../utils/Apis';
 import { useRecoilValue } from 'recoil';
-import { tokenAtom, accountAtom } from '../../atoms/UserAtom';
+import { tokenAtom } from '../../atoms/UserAtom';
 import { useLocation } from 'react-router-dom';
 import TabMenu from '../../components/Footer/TabMenu';
 import IconPostModal from '../../components/common/Modal/IconPostModal';
 import styled, { keyframes, css } from 'styled-components';
+import { isEqual } from 'lodash';
 
 const ProfilePage = () => {
   const location = useLocation();
@@ -19,14 +20,16 @@ const ProfilePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTopText, setModalTopText] = useState();
   const [modalBtmText, setModalBtmText] = useState();
+
   const [isPostDeleted, setIsPostDeleted] = useState(false);
+
   const modalRef = useRef(null);
 
   useEffect(() => {
     setAccountName(
       location.pathname.substring(location.pathname.lastIndexOf('/') + 1)
     );
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (accountName) {
@@ -37,6 +40,7 @@ const ProfilePage = () => {
   useEffect(() => {
     setIsModalOpen(false);
   }, [isPostDeleted]);
+
 
   const fetchData = async () => {
     try {
@@ -50,7 +54,12 @@ const ProfilePage = () => {
   const getProfile = async () => {
     try {
       const profileData = await getUserProfile(userToken, accountName);
-      setProfile(profileData.profile);
+      setProfile((prevProfile) => {
+        if (isEqual(prevProfile, profileData.profile)) {
+          return prevProfile;
+        }
+        return profileData.profile;
+      });
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
@@ -72,7 +81,6 @@ const ProfilePage = () => {
     setModalTopText(topText);
     setModalBtmText(btmText);
   };
-  
 
   const handleAnimationEnd = () => {
     if (!isModalOpen) {
@@ -85,6 +93,7 @@ const ProfilePage = () => {
       setIsModalOpen(false);
     }
   };
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutsideModal);
     return () => {
@@ -104,24 +113,37 @@ useEffect(() => {
 
   return (
     <>
-      {/* {console.log(profile)} */}
       <TopBasicNavHeader onButtonClick={() => toggleModal('설정 및 개인정보', '로그아웃')} />
+
 
       {profile && (
         <UserInfo
+          key={profileKey}
           data={profile}
           myProfile={
-            JSON.parse(localStorage.getItem('recoil-persist'))['accountAtom'] === accountName
+            JSON.parse(localStorage.getItem('recoil-persist'))[
+              'accountAtom'
+            ] === accountName
           }
         />
       )}
+
       {posts.length > 0 &&
-        posts.map((post, index) => <PostPage key={index} data={post} onButtonClick={() => toggleModal('삭제', '수정')} />
-        )}
+        posts.map((post, index) => (
+          <PostPage
+            key={index}
+            data={post}
+            onButtonClick={() => toggleModal('삭제', '수정')}
+          />
+        ))}
+
       {isModalOpen && (
         <>
           <BackgroundOverlay />
-          <ModalContainer isOpen={isModalOpen} onAnimationEnd={handleAnimationEnd}>
+          <ModalContainer
+            isOpen={isModalOpen}
+            onAnimationEnd={handleAnimationEnd}
+          >
             <ModalContent ref={modalRef}>
               {posts.map((post, index) => (
                 <IconPostModal topText={modalTopText} btmText={modalBtmText} 
@@ -130,10 +152,12 @@ useEffect(() => {
                 setIsPostDeleted={setIsPostDeleted}
                 />
               ))}
+
             </ModalContent>
           </ModalContainer>
         </>
       )}
+
       <TabMenu />
     </>
   );
@@ -148,7 +172,7 @@ const slideUpAnimation = keyframes`
   }
 `;
 
-const ModalContainer= styled.div`
+const ModalContainer = styled.div`
   position: fixed;
   height: 85rem;
   bottom: 0;
@@ -165,8 +189,8 @@ const ModalContainer= styled.div`
 `;
 
 const ModalContent = styled.div`
-position: fixed;
-bottom: 0;
+  position: fixed;
+  bottom: 0;
   height: 13.8rem;
   background-color: white;
   border-top-left-radius: 0.8rem;

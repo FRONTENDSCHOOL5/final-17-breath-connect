@@ -60,8 +60,7 @@ export default FollowListPage;
 const ContentsWrapper = styled.main`
   display: flex;
   flex-direction: column;
-  margin-bottom: 20rem;
-  padding: 2.4rem 1.6rem;
+  padding: 2rem 1.6rem 6rem;
 `;
 
 const FollowList = styled.ul`
