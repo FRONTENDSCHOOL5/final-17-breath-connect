@@ -20,8 +20,10 @@ const ProfilePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTopText, setModalTopText] = useState();
   const [modalBtmText, setModalBtmText] = useState();
-
+  const [profileKey, setProfileKey] = useState(0);
   const [isPostDeleted, setIsPostDeleted] = useState(false);
+  
+
 
   const modalRef = useRef(null);
 
@@ -108,6 +110,12 @@ useEffect(() => {
   }
 }, [isPostDeleted]);
 
+useEffect(() => {
+  if (profile) {
+    // profile이 변경될 때마다 profileKey 값을 변경하여 UserInfo 컴포넌트를 다시 렌더링
+    setProfileKey((prevKey) => prevKey + 1);
+  }
+}, [profile]);
  
   console.log(posts);
 
