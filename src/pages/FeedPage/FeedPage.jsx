@@ -83,7 +83,7 @@ const FeedPage = () => {
   return (
     <>
       <TopMainNavHeader />
-      {!data ? (
+      {!data.length ? (
         <FeedNoUser />
       ) : (
         data.map((data, index) => (
