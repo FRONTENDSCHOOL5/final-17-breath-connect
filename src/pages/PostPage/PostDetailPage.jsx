@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PostPage from './PostPage';
 import styled, { keyframes, css } from 'styled-components';
 import { getComment, postComment } from '../../utils/Apis';
@@ -11,12 +11,12 @@ import IconPostModal from '../../components/common/Modal/IconPostModal';
 
 const PostPageDetail = () => {
 
-  const postId = useParams().id;
-  const [commentData, setCommentData] = useState();
-  const [inputComment, setInputComment] = useState('');
   const location = useLocation();
   const data = location.state?.data;
+  const postId = location.state?.data.id;
 
+  const [commentData, setCommentData] = useState();
+  const [inputComment, setInputComment] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTopText, setModalTopText] = useState();
   const [modalBtmText, setModalBtmText] = useState();
