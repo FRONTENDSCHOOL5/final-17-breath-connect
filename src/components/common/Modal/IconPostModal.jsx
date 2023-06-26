@@ -19,7 +19,7 @@ const IconPostModal = ({ topText, btmText }) => {
       setAlertDone("게시물이 삭제되었습니다.")
     } else if (topText === '설정 및 개인정보') {
       // setShowModal(false); // Close the modal
-      navigate("/post/upload")
+      navigate("/profile/:id/editProfile")
     } else if (topText === '신고하기') {
       setAlertMessage('게시물을 신고하시겠습니까?');
       setShowAlert(true);
@@ -29,7 +29,7 @@ const IconPostModal = ({ topText, btmText }) => {
 
   const modifyClick = () => {
     if (btmText === '수정') {
-      navigate("/search")
+      navigate("/post/:id")
     } else if (btmText === '로그아웃') {
       setAlertMessage('계정을 로그아웃 하시겠습니까?');
       setShowLogOut(true);

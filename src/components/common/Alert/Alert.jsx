@@ -66,7 +66,8 @@ const ButtonContainer = styled.div`
 border-top: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
 font-size: ${({ theme }) => theme.fontSize.medium};
   button {
-    padding: 1.3rem 5rem;
+    width: 12.5rem;
+    padding: 1.3rem 0;
   }
 `;
 
