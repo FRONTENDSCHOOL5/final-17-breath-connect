@@ -71,7 +71,6 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
     }
   }, [data.image]);
 
-
   return (
     <Container>
       <FeedContents>
@@ -86,21 +85,35 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
             <FeedNickName>@ {data.author.accountname}</FeedNickName>
           </button>
           <SBtn onClick={onButtonClick}>
-            <GlovalSprite id={'s-icon-more-vertical'} color={'white'} size={18}/>
+            <GlovalSprite
+              id={'s-icon-more-vertical'}
+              color={'white'}
+              size={18}
+            />
           </SBtn>
           <Contents onClick={handleFeedClick}>
             <div>
               <GlovalSprite id={'icon-calendal'} size={13} />
-              <FeedInfo>{data.content[0] + '요일'+ data.content.slice(1,7)+' , '+data.content.slice(9, 14)}</FeedInfo>
+              <FeedInfo>
+                {data.content[0] +
+                  '요일' +
+                  data.content.slice(1, 7) +
+                  ' , ' +
+                  data.content.slice(9, 14)}
+              </FeedInfo>
             </div>
             <div>
               <GlovalSprite id={'icon-location'} size={13} />
-              <FeedInfo>{startPoint}~{endPoint}</FeedInfo>
+              <FeedInfo>
+                {startPoint}~{endPoint}
+              </FeedInfo>
             </div>
             <MapContents>
-              {/* <FeedMap data={data.updatedAt} detail={detail} /> */}
+              <FeedMap data={data.image} detail={detail} />
             </MapContents>
-            <UserFeedText style={userFeedTextStyle}>{data.content.slice(15)}</UserFeedText>
+            <UserFeedText style={userFeedTextStyle}>
+              {data.content.slice(15)}
+            </UserFeedText>
           </Contents>
           <AppendAndComment>
             <AppendButton>{data.heartCount}명 참여</AppendButton>
@@ -144,14 +157,14 @@ const FeedNickName = styled.div`
 
 const SBtn = styled.button`
   float: right;
-`
+`;
 
 const Contents = styled.button`
   width: 30rem;
-`
+`;
 
 const FeedInfo = styled.span`
-width: 30rem;
+  width: 30rem;
   margin-left: 0.4rem;
   vertical-align: 0.2rem;
   color: ${({ theme }) => theme.colors.textColor};
@@ -208,4 +221,3 @@ const FeedContents = styled.div`
   display: flex;
   margin-bottom: 2rem;
 `;
-
