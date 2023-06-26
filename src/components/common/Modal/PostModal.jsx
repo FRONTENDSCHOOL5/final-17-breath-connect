@@ -25,14 +25,14 @@ const PostModal = ({ text }) => {
 
   return (
     <>
-        <ModalWrapper>
+        <div>
           <ModalContent>
             <Separator />
             <ModalButtons>
               <button onClick={handleClick}>{text}</button>
             </ModalButtons>
           </ModalContent>
-        </ModalWrapper>
+        </div>
       {showAlert && <Alert message={alertMessage} onClose={handleAlertClose} done={alertDone}/>}
     </>
   );
@@ -67,17 +67,4 @@ const ModalButtons = styled.div`
   }
 `;
 
-const ModalWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  opacity: 1;
-  pointer-events: auto;
-`;
+

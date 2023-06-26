@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import PostPage from './PostPage';
 import styled, { keyframes, css } from 'styled-components';
 import { getComment, postComment } from '../../utils/Apis';
 import TopListNavHeader from '../../components/Header/TopListNavHeader';
 import FeedComment from '../FeedPage/FeedComment';
 import BasicProfileImg from '../../assets/images/basic-profile-xs.svg';
+import { accountAtom } from '../../atoms/UserAtom';
 
 import IconPostModal from '../../components/common/Modal/IconPostModal';
+import PostModal from '../../components/common/Modal/PostModal';
 
 const PostPageDetail = () => {
+  
+  const account = useRecoilValue(accountAtom);
 
   const location = useLocation();
   const data = location.state?.data;
@@ -95,7 +100,13 @@ const PostPageDetail = () => {
           time={comment.createdAt}
           content={comment.content}
           image={comment.author.image}
-          handleCommentClick={() => toggleModal('신고하기', '')}
+          handleCommentClick= {() => {
+          if (comment.author.username === account) {
+              toggleModal('삭제','');
+            } else {
+              toggleModal('신고하기', '')}
+            }
+          }
         />
       ))
     ) : (
@@ -119,7 +130,12 @@ const PostPageDetail = () => {
           <BackgroundOverlay />
           <ModalContainer isOpen={isModalOpen} onAnimationEnd={handleAnimationEnd}>
             <ModalContent ref={modalRef}>
-            <IconPostModal topText={modalTopText} btmText={modalBtmText} onClose={toggleModal} />
+              {commentData.map((comment) => (
+                <PostModal topText={modalTopText} btmText={modalBtmText} onClose={toggleModal}
+                onClick={() => handleCommentSubmit(comment.id)}
+            />
+              ))}
+            
             </ModalContent>
           </ModalContainer>
         </>

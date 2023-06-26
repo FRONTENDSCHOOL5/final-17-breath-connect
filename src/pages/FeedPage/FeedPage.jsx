@@ -25,17 +25,13 @@ const FeedPage = () => {
 
   const token = useRecoilValue(tokenAtom);
   const location = useLocation();
-  const loginData = location.state.token;
+  const loginData = location.state?.token || localStorage.getItem('token');
 
   const fetchData = async () => {
     if (isFetchingData) return;
     setIsFetchingData(true);
 
-    const newData = await getFollowFeed(
-      limit,
-      skip,
-      loginData ? loginData : token
-    );
+    const newData = await getFollowFeed(limit, skip, loginData);
     if (newData.length > 0) {
       setData((prevData) => [...prevData, ...newData]);
       setSkip((prevSkip) => prevSkip + limit);
@@ -46,7 +42,7 @@ const FeedPage = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [loginData]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -81,6 +77,7 @@ const FeedPage = () => {
       setIsModalOpen(false);
     }
   };
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutsideModal);
     return () => {

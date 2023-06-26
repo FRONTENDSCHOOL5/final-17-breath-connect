@@ -188,6 +188,12 @@ export const putEditPost = async (postId) => {
 export const deletePost = async (postId) => {
   try {
     const response = await authInstance.delete(`/post/${postId}`);
+    // {
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -226,7 +232,7 @@ export const getMyInfo = async () => {
 
 /* 프로필 수정 */
 export const editProfile = async (user) => {
-  console.log('user', {user})
+  console.log('user', { user });
   try {
     const response = await authInstance.put(`/user`, { user });
     console.log('response', response);
@@ -307,7 +313,7 @@ export const postLike = async (postId) => {
 /* 좋아요 취소 */
 export const deleteLike = async (postId) => {
   try {
-    const response = await authInstance.delete(`/post/${postId}/unheart`);
+    const response = await authInstance.post(`/post/${postId}/unheart`);
     return response.data;
   } catch (error) {
     console.log(error);
