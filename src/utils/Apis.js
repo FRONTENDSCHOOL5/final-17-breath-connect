@@ -264,9 +264,14 @@ export const editProfile = async (user) => {
 };
 
 /* 팔로우 */
-export const postFollow = async (accountname) => {
+export const postFollow = async (token, accountname) => {
   try {
-    const response = await authInstance.post(`/profile/${accountname}/follow`);
+    const response = await authInstance.post(`/profile/${accountname}/follow`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -274,10 +279,16 @@ export const postFollow = async (accountname) => {
 };
 
 /* 언팔로우 */
-export const deleteFollow = async (accountname) => {
+export const deleteFollow = async (token, accountname) => {
   try {
     const response = await authInstance.delete(
-      `/profile/${accountname}/unfollow`
+      `/profile/${accountname}/unfollow`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      }
     );
     return response.data;
   } catch (error) {

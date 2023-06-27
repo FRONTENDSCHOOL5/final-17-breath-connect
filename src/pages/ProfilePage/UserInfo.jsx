@@ -7,22 +7,23 @@ import FollowCount from './FollowCount';
 import basicProfile from '../../assets/images/basic-profile-l.svg';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postFollow, deleteFollow } from '../../utils/Apis';
-
+import { tokenAtom } from '../../atoms/UserAtom';
 
 const UserInfo = ({ data, myProfile }) => {
+  const token = useRecoilValue(tokenAtom);
   const navigate = useNavigate();
   const account = useRecoilValue(accountAtom);
   const [profile, setProfile] = useState(data);
   const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[/\w.]*$/;
 
   const handleFollow = async (e) => {
-    const followResult = await postFollow(profile.accountname);
+    const followResult = await postFollow(token, profile.accountname);
     console.log(followResult);
     setProfile(followResult.profile);
   };
 
   const handleUnFollow = async (e) => {
-    const followResult = await deleteFollow(profile.accountname);
+    const followResult = await deleteFollow(token, profile.accountname);
     console.log(followResult);
     setProfile(followResult.profile);
   };
@@ -37,10 +38,10 @@ const UserInfo = ({ data, myProfile }) => {
 
   /* 프로필 수정 페이지로 이동 */
   const goToProfileEdit = () => {
-    if(profile.accountname === account) {
+    if (profile.accountname === account) {
       navigate(`/profile/${profile.accountname}/editProfile`);
-    } 
-  }
+    }
+  };
 
   return (
     <Container>
@@ -48,7 +49,10 @@ const UserInfo = ({ data, myProfile }) => {
         {/* 팔로워 리스트 * */}
         <FollowCount follow={'Follower'} data={profile} />
         <div>
-            <img src={numberRegex.test(profile.image) ? profile.image : basicProfile} alt="유저 이미지" />
+          <img
+            src={numberRegex.test(profile.image) ? profile.image : basicProfile}
+            alt="유저 이미지"
+          />
         </div>
         {/* 팔로잉 리스트 */}
         <FollowCount follow={'Following'} data={profile} />
@@ -68,7 +72,12 @@ const UserInfo = ({ data, myProfile }) => {
           />
         ) : (
           <>
-            <ButtonContainer type={'M'} text={'러닝 등록'} isClicked={'true'} handleClick={handleBtnClick}/>
+            <ButtonContainer
+              type={'M'}
+              text={'러닝 등록'}
+              isClicked={'true'}
+              handleClick={handleBtnClick}
+            />
             <ButtonContainer
               type={'M'}
               text={'프로필 수정'}
