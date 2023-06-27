@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Map } from 'react-kakao-maps-sdk';
 import basicImg from '../../assets/images/basic-profile-m.svg';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
 import FeedMap from '../../components/Map/FeedMap';
@@ -24,6 +23,7 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
   const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[/\w.]*$/;
 
   const handleFeedClick = (e) => {
+    e.stopPropagation();
     if (location.pathname !== `/post/${data.author.accountname}`) {
       setDetail(true);
       navigate(`/post/${data.author.accountname}`, {
@@ -80,12 +80,12 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
   }, [data.image]);
 
   const postId = data.id;
-    /* 좋아요 기능 */
+  /* 좋아요 기능 */
   const fetchLike = async () => {
     const response = await postLike(postId);
     setPostLikeCount(response.post.heartCount);
     setPostLikeState(true);
-  }
+  };
 
   /* 좋아요 취소 */
   const fetchDisLike = async () => {
@@ -93,23 +93,22 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
     setPostLikeCount(response.post.heartCount);
     console.log(response);
     setPostLikeState(false);
-  }
+  };
 
- /* 좋아요 토글 */
-const handleToggleLike = async (e) => {
-  if (liked) {
-    await fetchDisLike();
-    setLiked(false);
-  } else {
-    await fetchLike();
-    setLiked(true);
-  }
-};
-
+  /* 좋아요 토글 */
+  const handleToggleLike = async (e) => {
+    if (liked) {
+      await fetchDisLike();
+      setLiked(false);
+    } else {
+      await fetchLike();
+      setLiked(true);
+    }
+  };
 
   return (
     <PostContainer>
-      <h1 className='a11y-hidden'>게시글 페이지</h1>
+      <h1 className="a11y-hidden">게시글 페이지</h1>
       <PostContents>
         <UserProfileImg
           src={
@@ -117,13 +116,13 @@ const handleToggleLike = async (e) => {
           }
         />
         <div>
-           {/* 프로필로 이동 */}
-          <button onClick={handleProfileClick} className='go-to-profile'>
+          {/* 프로필로 이동 */}
+          <button onClick={handleProfileClick} className="go-to-profile">
             <UserName>{data.author.username}</UserName>
             <UserAccountName>@ {data.author.accountname}</UserAccountName>
           </button>
           {/* 신고, 공유 모달 */}
-          <button onClick={onButtonClick} className='post-modal'>
+          <button onClick={onButtonClick} className="post-modal">
             <GlovalSprite
               id={'s-icon-more-vertical'}
               color={'white'}
@@ -131,7 +130,11 @@ const handleToggleLike = async (e) => {
             />
           </button>
           {/* 피드로 이동 */}
-          <button onClick={handleFeedClick} className='go-to-post-detail'>
+          <DetailButton
+            onClick={handleFeedClick}
+            className="go-to-post-detail"
+            detail={detail}
+          >
             <ScheduleInfo>
               <GlovalSprite id={'icon-calendal'} size={13} />
               <FeedInfo>
@@ -154,20 +157,18 @@ const handleToggleLike = async (e) => {
             <UserFeedText style={userFeedTextStyle}>
               {data.content.slice(15)}
             </UserFeedText>
-          </button>
-          <AppendAndComment>
-            <AppendButton>{postLikeCount}명 참여</AppendButton>
-            <CommentContainer>
-              <button>
+            <AppendAndComment>
+              <AppendButton>{postLikeCount}명 참여</AppendButton>
+              <CommentContainer>
                 <GlovalSprite
                   id={'icon-message-circle'}
                   size={12}
                   color={'white'}
-                /> 
-              <FeedInfo>{data.commentCount}</FeedInfo>
-              </button>
-            </CommentContainer>
-          </AppendAndComment>
+                />
+                <FeedInfo>{data.commentCount}</FeedInfo>
+              </CommentContainer>
+            </AppendAndComment>
+          </DetailButton>
         </div>
       </PostContents>
       {detail ? (
@@ -178,9 +179,8 @@ const handleToggleLike = async (e) => {
           handleClick={handleToggleLike}
         />
       ) : (
-  <></>
-)}
-
+        <></>
+      )}
     </PostContainer>
   );
 };
@@ -195,10 +195,9 @@ const PostContainer = styled.div`
   .post-modal {
     float: right;
   }
-  .go-to-post-detail{
+  .go-to-post-detail {
     width: 30rem;
   }
-
 `;
 
 const UserProfileImg = styled.img`
@@ -215,16 +214,16 @@ const UserAccountName = styled.div`
 `;
 
 const ScheduleInfo = styled.p`
-  margin-bottom: 0.5rem; 
-`
+  margin-bottom: 0.5rem;
+`;
 
 const LocationInfo = styled.p`
   margin-bottom: 0.5rem;
-`
+`;
 
 const CommentContainer = styled.div`
   padding: 0.3rem;
-`
+`;
 
 const FeedInfo = styled.span`
   width: 30rem;
@@ -258,6 +257,7 @@ const AppendButton = styled.div`
   color: ${({ theme }) => theme.colors.mainColor};
   padding: 0.5rem 1rem 0rem;
   border-radius: 1rem;
+  z-index: 1;
 `;
 
 const MapContents = styled.div`
@@ -268,19 +268,12 @@ const MapContents = styled.div`
   margin: 1.2rem 0rem;
 `;
 
-const DetailMap = styled.button`
-  display: ${(props) => (props.detail ? 'block' : 'none')};
-  width: 9rem;
-  height: 1.9rem;
-  border-radius: 1rem;
-  border: ${({ theme }) => `0.1rem solid ${theme.colors.mainColor}`};
-  color: ${({ theme }) => theme.colors.mainColor};
-  margin-top: -0.5rem;
-  margin-left: auto;
-  font-weight: bold;
-`;
-
 const PostContents = styled.div`
   display: flex;
   margin-bottom: 2rem;
+`;
+
+const DetailButton = styled.button`
+  pointer-events: ${(props) => (props.detail ? 'none' : 'auto')};
+  cursor: ${(props) => (props.detail ? 'not-allowed' : 'pointer')};
 `;
