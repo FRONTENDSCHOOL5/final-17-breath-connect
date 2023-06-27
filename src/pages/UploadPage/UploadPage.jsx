@@ -135,6 +135,16 @@ const UploadPage = () => {
                 </MakeCourseBtn>
               </CompleteCourse>
             )}
+            <ManualContainer>
+              <Title>Map 그리는 방법</Title>
+              <Content>
+                <Text>지도를 드래그하여 이동할 수 있습니다.</Text>  
+                <Text>지도를 클릭하면 거리 그리기가 시작됩니다.</Text>
+                <Text>지도를 드래그하며 이동하고 경유할 지점을 클릭합니다.</Text>
+                <Text>마지막으로 도착지점을 클릭합니다.</Text> 
+                <Text>두 손가락으로 클릭하면 경로 그리기가 종료됩니다. </Text>        
+              </Content>
+            </ManualContainer>
           </Container>
         </>
       ) : (
@@ -225,7 +235,6 @@ const CompleteCourse = styled.div`
   }
 `
 
-
 const MakeCourseBtn = styled.button`
   width: 8rem;
   height: 2rem;
@@ -239,3 +248,28 @@ const MakeCourseBtn = styled.button`
   border: 0.1rem solid ${({ theme }) => theme.colors.mainColor};
   border-radius: 2.5rem;
 `;
+
+const Title = styled.h2`
+  font-size: 14px;
+  margin-bottom: 0.8rem;
+`
+const ManualContainer = styled.div`
+  display: flex;
+  flex-direction  : column;
+`
+const Content = styled.div`
+  display: flex;
+  flex-direction  : column;
+  border-radius: 0.5rem;
+  background-color: ${({ theme }) => theme.colors.uploadBoxColor};
+  padding: 1rem 1rem 0;
+`
+const Text = styled.h3`
+  font-size: ${({ theme }) => theme.fontSize.small};
+  margin-bottom: 1rem;
+
+  &:before {
+    content: '✔';
+    margin-right: 0.3rem;
+  }
+`
