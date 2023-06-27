@@ -5,6 +5,7 @@ import GetLocation from './GetLocation';
 import MapComponent from './MapComponent';
 import ToolBox from './ToolBox';
 import Indicator from './Indecator';
+import styled from 'styled-components';
 
 const MapDrawingManager = ({ getpath }) => {
   const location = GetLocation();
@@ -127,9 +128,9 @@ const MapDrawingManager = ({ getpath }) => {
                   {!isdrawing && distances.length === index + 2 ? (
                     <DistanceInfo distance={distance} />
                   ) : (
-                    <div>
+                    <Distance>
                       거리 <span>{distance}</span>m
-                    </div>
+                    </Distance>
                   )}
                 </CustomOverlayMap>
               ))}
@@ -154,9 +155,9 @@ const MapDrawingManager = ({ getpath }) => {
                   {!isdrawing && distances.length === index + 2 ? (
                     <DistanceInfo distance={distance} />
                   ) : (
-                    <div>
+                    <Distance>
                       거리 <span>{distance}</span>m
-                    </div>
+                    </Distance>
                   )}
                 </CustomOverlayMap>
               ))}
@@ -174,3 +175,8 @@ const MapDrawingManager = ({ getpath }) => {
 };
 
 export default MapDrawingManager;
+
+const Distance = styled.span`
+  color: ${({ theme }) => theme.colors.disabledColor};;
+  font-weight: bold;
+`
