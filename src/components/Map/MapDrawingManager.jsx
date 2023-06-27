@@ -4,7 +4,7 @@ import DistanceInfo from './DistanceInfo';
 import GetLocation from './GetLocation';
 import MapComponent from './MapComponent';
 import ToolBox from './ToolBox';
-import Indicator from './Indecator';
+import Loading from '../../components/common/Loading/Loading';
 import styled from 'styled-components';
 
 const MapDrawingManager = ({ getpath }) => {
@@ -168,7 +168,7 @@ const MapDrawingManager = ({ getpath }) => {
           </MapComponent>
         </>
       ) : (
-        <Indicator />
+        <Loading />
       )}
     </>
   );

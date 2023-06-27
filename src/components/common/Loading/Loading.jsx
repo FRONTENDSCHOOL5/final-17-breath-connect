@@ -1,97 +1,99 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'EF_watermelonSalad';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-EF@1.0/EF_watermelonSalad.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+`;
 
 const Loading = () => {
   return (
-    <ContainerAll>
-      <Circle1 />
-      <Circle2 />
-      <Circle3 />
-      <Circle4 />
-      <Load>
-        <p>Loading ...</p>
-      </Load>
-    </ContainerAll>
+    <>
+      <GlobalStyle />
+      <Body>
+        <LoaderContainer>
+          <LoaderCircle>
+            <LoaderCircleBefore />
+          </LoaderCircle>
+          <LoaderText>Loading...</LoaderText>
+        </LoaderContainer>
+      </Body>
+    </>
   );
 };
 
-export default Loading;
-
-const rotateAnimation = keyframes`
-  from {
-    transform: rotateZ(0deg);
-  }
-  to {
-    transform: rotateZ(360deg);
-  }
-`;
-
-const ContainerAll = styled.div`
-  width: 15rem;
-  height: 15rem;
-  position: relative;
-`;
-
-const Load = styled.div`
-  width: 100%;
-  height: 100%;
+const Body = styled.div`
+  background-color: #f7f7f7;
   display: flex;
-  align-items: center;
   justify-content: center;
-  position: relative;
+  align-items: center;
+  height: 90vh;
+  margin: 0;
+  font-family: 'EF_watermelonSalad', Arial, sans-serif;
 `;
 
-const Circle = styled.div`
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 2px solid #c1c1c1;
+const LoaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const pulseAnimation = keyframes`
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+`;
+
+const LoaderCircle = styled.div`
+  width: 12rem;
+  height: 12rem;
   border-radius: 50%;
-  transform-origin: 50% 50%;
-  animation: ${rotateAnimation} 2s infinite linear;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: ${pulseAnimation} 1.5s ease-in-out infinite;
 `;
 
-const Circle1 = styled(Circle)`
-  top: 0;
-  left: 0;
-  border-top: 0;
-  border-bottom: 0;
-  border-left: 0;
+const loaderAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 `;
 
-const Circle2 = styled(Circle)`
-  top: 7px;
-  left: 7px;
-  width: 90%;
-  height: 90%;
-  border: 2px solid #919191;
-  border-top: 0;
-  border-right: 0;
-  border-left: 0;
-  animation-direction: reverse;
+const LoaderCircleBefore = styled.div`
+  content: "";
+  display: block;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  border: 0.8rem solid #7e3af2;
+  border-color: #7e3af2 transparent #7e3af2 transparent;
+  animation: ${loaderAnimation} 1.2s linear infinite;
 `;
 
-const Circle3 = styled(Circle)`
-  top: 14px;
-  left: 14px;
-  width: 80%;
-  height: 80%;
-  border: 2px solid #ccc;
-  border-top: 0;
-  border-right: 0;
-  border-bottom: 0;
-  animation-duration: 1s;
+const LoaderText = styled.span`
+  color: #7e3af2;
+  font-size: 2.4rem;
+  font-weight: bold;
+  margin-top: 2rem;
 `;
 
-const Circle4 = styled(Circle)`
-  top: 21px;
-  left: 21px;
-  width: 70%;
-  height: 70%;
-  border: 2px solid #e1e1e1;
-  border-top: 0;
-  border-right: 0;
-  border-left: 0;
-  animation-duration: 3s;
-`;
+export default Loading;

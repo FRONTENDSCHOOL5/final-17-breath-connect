@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import UserInfo from './UserInfo';
 import TopBasicNavHeader from '../../components/Header/TopBasicNavHeader';
 import PostPage from '../PostPage/PostPage';
+import Loading from '../../components/common/Loading/Loading';
 import { getUserProfile, getMyPost } from '../../utils/Apis';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '../../atoms/UserAtom';
@@ -119,7 +120,10 @@ useEffect(() => {
  
   console.log(posts);
 
-  return (
+  if(!posts) {
+    return <Loading />
+  } else {
+     return (
     <>
       <TopBasicNavHeader onButtonClick={() => toggleModal('설정 및 개인정보', '로그아웃')} />
 
@@ -169,6 +173,8 @@ useEffect(() => {
       <TabMenu />
     </>
   );
+  }
+ 
 };
 
 const slideUpAnimation = keyframes`
