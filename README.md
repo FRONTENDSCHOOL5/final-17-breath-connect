@@ -1,8 +1,8 @@
 # <span id="top">🌬 들숨날숨 🌬</span>
+![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/8314f327-997a-4dc6-9865-89bafb45a3b2)
 
 ## 소개 및 개요
 
-- 프로젝트 기간 : 2023.06.12 ~ 2023.06.27
 - 배포 URL : [🔗 들숨날숨](https://13oosters.netlify.app)
 
 - Test ID / PW : / 
@@ -38,6 +38,8 @@
 > 위니브라는 회사의 도움을 얻고 <br/>
 > `함께` 프로젝트를 진행하면서 서로가 `필요한` 부분을 채워주기 위해 <br/>
 > 다음과 같은 팀명을 짓게 되었습니다.
+<br/>
+
 
 
 |                                    **🐿 김용덕**                                    |                                    **💜 박연주**                                    |                                 **🌿 백수연**                                 |                                    **🐕 이양래**                                    |
@@ -61,52 +63,124 @@
 <br/>
 
 ## <span id="tree">4. 프로젝트 구조</span>
-- assets/ :
-- atoms/ :
-- components/ :
-- hooks/ :
-- pages/ :
-- routes/ :
-- styles/ :
-- utils/ :
+- public/favicon/ : 파비콘
+- src/assets/ : 전역에서 사용하는 폰트, 스프라이트 이미지, 로고 이미지
+- src/atoms/ : 전역 상태 관리를 위한 아톰 (UserAtom, LoginAtom) 
+- src/components/ : 공통 컴포넌트와 Map 컴포트
+- src/pages/ : 서비스에 사용되는 각 페이지
+- src/routes/ : 페이지 라우팅
+- src/styles/ : 전역 스타일 (layout, globalstyle, theme)
+- src/utils/ : 유효성 검사를 위한  
+
 ```
-src
-├── assets
-│    ├── images
-│    ├── sprite
-├── atoms
-├── components
-│    ├── common
-│    ├── Footer
-│    ├── Header
-│    ├── Map
-├── hooks
-├── pages
-│    ├── ChatPage
-│    ├── FeedPage
-│    ├── FollowListPage
-│    ├── LoginPage
-│    ├── NotFoundPage
-│    ├── PostPage
-│    ├── ProfilePage
-│    ├── ProfileSettingPage
-│    ├── SearchPage
-│    ├── SignupPage
-│    ├── SnsLoginPage
-│    ├── SplashPage
-│    ├── UploadPage
-├── routes
-├── styles
-├── utils
-├── App.js
-└── index.js
+🌬️ 들숨날숨
+🌱public
+ ┣ 🌿favicon.ico
+ ┗ 🌿index.html
+🌱src
+ ┣ 🌿assets
+ ┃ ┣ 🪴fonts
+ ┃ ┣ 🪴images
+ ┃ ┗ 🪴sprite
+ ┣ 🌿atoms
+ ┣ 🌿components
+ ┃ ┣ 🪴common
+ ┃ ┃ ┣ 🌳Alert
+ ┃ ┃ ┣ 🌳Button
+ ┃ ┃ ┣ 🌳Comment
+ ┃ ┃ ┣ 🌳Input
+ ┃ ┃ ┣ 🌳Loading
+ ┃ ┃ ┣ 🌳Modal
+ ┃ ┃ ┗ 🌳User
+ ┃ ┃ ┃ ┣ 🌳Follow
+ ┃ ┃ ┃ ┗ 🌳Search
+ ┃ ┣ 🪴Footer
+ ┃ ┣ 🪴Header
+ ┃ ┗ 🪴Map
+ ┣ 🌿hooks
+ ┣ 🌿pages
+ ┃ ┣ 🪴ChatPage
+ ┃ ┣ 🪴FeedPage
+ ┃ ┣ 🪴FollowListPage
+ ┃ ┣ 🪴LoginPage
+ ┃ ┣ 🪴NotFoundPage
+ ┃ ┣ 🪴PostPage
+ ┃ ┣ 🪴ProfilePage
+ ┃ ┃ ┣ 🌳ProfileEdit
+ ┃ ┣ 🪴ProfileSettingPage
+ ┃ ┣ 🪴SearchPage
+ ┃ ┣ 🪴SignupPage
+ ┃ ┣ 🪴SnsLoginPage
+ ┃ ┣ 🪴SplashPage
+ ┃ ┗ 🪴UploadPage
+ ┣ 🌿routes
+ ┣ 🌿styles
+ ┣ 🌿utils
+ ┣ 📜App.js
+ ┗ 📜index.js
 ```
+
 #### <p align="right"><a href="#top">TOP👆🏼</a></p>
 <br/>
 
-## <span id="convention">6. 역할 분담</span>
+## <span id="convention">5. 역할 분담</span>
+### 김용덕
+- UI
+  - 마이 프로필 페이지
+  - 사용자 프로필 페이지
+  - 홈 피드 페이지
+  - 지도 상세 페이지
+- 공통 컴포넌트
+  - Button
+  - Header
+  - Footer
+  - Map
+- 기능 구현
+  -
 
-## <span id="convention">5. 컨벤션</span>
+### 박연주
+- UI
+  - 팔로잉 목록 페이지
+  - 팔로워 목록 페이지
+  - 채팅 페이지
+  - 404 페이지
+- 공통 컴포넌트
+  - Comment
+  - Follow
+  - Search
+- 기능 구현
+
+- 
+
+### 백수연
+- UI
+  - Splash 페이지
+  - 회원가입 페이지
+  - 로그인 페이지
+  - 프로필 수정 페이지
+- 공통 컴포넌트
+  - Input
+  - Loading
+- 기능 구현
+  - 
+
+### 이양래
+- UI
+  - 검색 페이지
+  - 게시물 작성 페이지
+  - 게시물 상세 페이지
+- 공통 컴포넌트
+  - Modal
+  - Alert
+- 기능 구현
+  - 
+
+## <span id="convention">5. 개발 일정</span>
+🔥 2023.06.12 ~ 2023.06.27
+![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/22268f6b-cff5-4f61-8643-d0cad77ef7a6)
+
+
+## <span id="convention">6. 컨벤션</span>
 ### 🦊 git convention
 
 | Emoji | Code                          | 기능     | Description              |
