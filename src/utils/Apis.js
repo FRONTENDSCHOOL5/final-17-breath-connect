@@ -322,9 +322,14 @@ export const getUserSearch = async (keyword) => {
 };
 
 /* 좋아요 */
-export const postLike = async (postId) => {
+export const postLike = async (token, postId) => {
   try {
-    const response = await authInstance.post(`/post/${postId}/heart`);
+    const response = await authInstance.post(`/post/${postId}/heart`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -332,9 +337,14 @@ export const postLike = async (postId) => {
 };
 
 /* 좋아요 취소 */
-export const deleteLike = async (postId) => {
+export const deleteLike = async (token, postId) => {
   try {
-    const response = await authInstance.delete(`/post/${postId}/unheart`);
+    const response = await authInstance.delete(`/post/${postId}/unheart`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
