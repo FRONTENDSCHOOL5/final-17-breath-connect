@@ -10,7 +10,6 @@ import { postFollow, deleteFollow } from '../../utils/Apis';
 
 
 const UserInfo = ({ data, myProfile }) => {
-  
   const navigate = useNavigate();
   const account = useRecoilValue(accountAtom);
   const [profile, setProfile] = useState(data);
@@ -26,6 +25,10 @@ const UserInfo = ({ data, myProfile }) => {
     const followResult = await deleteFollow(profile.accountname);
     console.log(followResult);
     setProfile(followResult.profile);
+  };
+
+  const handleBtnClick = () => {
+    navigate(`/post/upload`);
   };
 
   useEffect(() => {
@@ -65,7 +68,7 @@ const UserInfo = ({ data, myProfile }) => {
           />
         ) : (
           <>
-            <ButtonContainer type={'M'} text={'러닝 등록'} isClicked={'true'} />
+            <ButtonContainer type={'M'} text={'러닝 등록'} isClicked={'true'} handleClick={handleBtnClick}/>
             <ButtonContainer
               type={'M'}
               text={'프로필 수정'}
