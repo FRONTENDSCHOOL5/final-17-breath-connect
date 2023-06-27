@@ -4,7 +4,7 @@
 
 ## 소개 및 개요
 
-- 배포 URL : [🔗 들숨날숨](https://13oosters.netlify.app)
+- 배포 URL : [🔗 들숨날숨](www.test.com)
 
 - Test ID / PW : / 
 
