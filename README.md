@@ -1,5 +1,6 @@
 # <span id="top">🌬 들숨날숨 🌬</span>
-![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/8314f327-997a-4dc6-9865-89bafb45a3b2)
+![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/2f93b8f1-59d7-4f90-8b6a-8bdf67682de3)
+
 
 ## 소개 및 개요
 
@@ -10,7 +11,7 @@
 <summary>목차</summary>
 
 1. [서비스 소개](#app)
-2. [팀 소개](#member)
+2. [팀 소개](#team)
 3. [기술 및 개발 환경](#dev)
 4. [프로젝트 구조](#tree)
 6. [컨벤션](#convention)
