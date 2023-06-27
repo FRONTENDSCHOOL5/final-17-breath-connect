@@ -6,8 +6,11 @@ import FeedMap from '../../components/Map/FeedMap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postLike, deleteLike } from '../../utils/Apis';
+import { useRecoilValue } from 'recoil';
+import { tokenAtom } from '../../atoms/UserAtom';
 
 const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
+  const token = useRecoilValue(tokenAtom);
   const [startPoint, setStartPoint] = useState(''); // startPoint 상태 추가
   const [endPoint, setEndPoint] = useState(''); // endPoint 상태 추가
   const location = useLocation();
@@ -15,7 +18,7 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
 
   const [liked, setLiked] = useState(false);
   const [postLikeState, setPostLikeState] = useState(data.hearted);
-  const [postLikeCount, setPostLikeCount] = useState(data.heartCount); 
+  const [postLikeCount, setPostLikeCount] = useState(data.heartCount);
   const [detail, setDetail] = useState(
     location.pathname === `/post/${data.author.accountname}`
   );
@@ -82,14 +85,14 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
   const postId = data.id;
   /* 좋아요 기능 */
   const fetchLike = async () => {
-    const response = await postLike(postId);
+    const response = await postLike(token, postId);
     setPostLikeCount(response.post.heartCount);
     setPostLikeState(true);
   };
 
   /* 좋아요 취소 */
   const fetchDisLike = async () => {
-    const response = await deleteLike(postId);
+    const response = await deleteLike(token, postId);
     setPostLikeCount(response.post.heartCount);
     setPostLikeState(false);
   };
@@ -222,7 +225,6 @@ const LocationInfo = styled.p`
 
 const CommentContainer = styled.div`
   padding-top: 0.4rem;
-  
 `;
 
 const FeedInfo = styled.span`

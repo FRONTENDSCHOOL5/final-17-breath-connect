@@ -8,6 +8,7 @@ import {
   profileImgAtom,
   usernameAtom,
   introAtom,
+  tokenAtom,
 } from '../../../atoms/UserAtom';
 import Input from '../../../components/common/Input/Input';
 import TopUploadHeader from '../../../components/Header/TopUploadHeader';
@@ -18,9 +19,11 @@ import {
   postUploadProfile,
   editProfile,
 } from '../../../utils/Apis';
+import { useRecoilValue } from 'recoil';
 
 const ProfileEditPage = () => {
   const URL = 'https://api.mandarin.weniv.co.kr';
+  const userToken = useRecoilValue(tokenAtom);
 
   const navigate = useNavigate();
   const fileInputRef = useRef();
@@ -44,9 +47,7 @@ const ProfileEditPage = () => {
   /* 기존 프로필 정보 불러오기 */
   useEffect(() => {
     const fetchMyInfo = async () => {
-      const response = await getMyInfo(
-        JSON.parse(localStorage.getItem('recoil-persist'))['accountAtom']
-      );
+      const response = await getMyInfo(userToken);
       setUsername(response.user.username);
       setAccountname(response.user.accountname);
       setIntro(response.user.intro);

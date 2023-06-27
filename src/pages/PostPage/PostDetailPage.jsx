@@ -7,15 +7,14 @@ import { getComment, postComment } from '../../utils/Apis';
 import TopListNavHeader from '../../components/Header/TopListNavHeader';
 import FeedComment from '../FeedPage/FeedComment';
 import BasicProfileImg from '../../assets/images/basic-profile-xs.svg';
-import { accountAtom } from '../../atoms/UserAtom';
+import { accountAtom, tokenAtom } from '../../atoms/UserAtom';
 
 import IconPostModal from '../../components/common/Modal/IconPostModal';
 import PostModal from '../../components/common/Modal/PostModal';
 
 const PostPageDetail = () => {
-  
   const account = useRecoilValue(accountAtom);
-
+  const token = useRecoilValue(tokenAtom);
   const location = useLocation();
   const data = location.state?.data;
   const postId = location.state?.data.id;
@@ -27,12 +26,12 @@ const PostPageDetail = () => {
   const [modalBtmText, setModalBtmText] = useState();
   const modalRef = useRef(null);
 
-
   /* 댓글 리스트 받아오기 */
   const fetchCommentList = async () => {
-      const response = await getComment(postId);
-      setCommentData(response.comments); 
-  }
+    const response = await getComment(postId, token);
+    setCommentData(response.comments);
+    console.log(response);
+  };
 
   const handleInput = (e) => {
     setInputComment(e.target.value);
@@ -47,11 +46,10 @@ const PostPageDetail = () => {
   };
 
   useEffect(() => {
-    if(postId) {
+    if (postId) {
       fetchCommentList();
     }
-  }, [postId])
-    
+  }, [postId]);
 
   // 모달
 
@@ -60,7 +58,6 @@ const PostPageDetail = () => {
     setModalTopText(topText);
     setModalBtmText(btmText);
   };
-  
 
   const handleAnimationEnd = () => {
     if (!isModalOpen) {
@@ -83,38 +80,39 @@ const PostPageDetail = () => {
   const hiddenText = {
     whiteSpace: 'normal',
     wordWrap: 'break-word',
-  }
+  };
 
   return (
-  <Container>
-    <TopListNavHeader />
-    <ContainerContent>
-    <PostPage
-    data={data}
-    onButtonClick={() => toggleModal('신고하기', '공유하기')}
-    userFeedTextStyle={hiddenText}/>
-    {commentData && commentData.length > 0 ? (
-      commentData.map((comment) => (
-        <FeedComment
-          key={comment.id}
-          user={comment.author.username}
-          time={comment.createdAt}
-          content={comment.content}
-          image={comment.author.image}
-          handleCommentClick= {() => {
-          if (comment.author.username === account) {
-              toggleModal('삭제','');
-            } else {
-              toggleModal('신고하기', '')}
-            }
-          }
+    <Container>
+      <TopListNavHeader />
+      <ContainerContent>
+        <PostPage
+          data={data}
+          onButtonClick={() => toggleModal('신고하기', '공유하기')}
+          userFeedTextStyle={hiddenText}
         />
-      ))
-    ) : (
-      <NoComment>댓글이 존재하지 않습니다 🥲</NoComment>
-    )}
-    </ContainerContent>
-    <CommentContainer onSubmit={handleCommentSubmit}>
+        {commentData && commentData.length > 0 ? (
+          commentData.map((comment) => (
+            <FeedComment
+              key={comment.id}
+              user={comment.author.username}
+              time={comment.createdAt}
+              content={comment.content}
+              image={comment.author.image}
+              handleCommentClick={() => {
+                if (comment.author.username === account) {
+                  toggleModal('삭제', '');
+                } else {
+                  toggleModal('신고하기', '');
+                }
+              }}
+            />
+          ))
+        ) : (
+          <NoComment>댓글이 존재하지 않습니다 🥲</NoComment>
+        )}
+      </ContainerContent>
+      <CommentContainer onSubmit={handleCommentSubmit}>
         <StyledComment>
           <img src={BasicProfileImg} alt="프로필 비활성화" />
           <CommentInput
@@ -127,31 +125,36 @@ const PostPageDetail = () => {
           게시
         </PostBtn>
       </CommentContainer>
-{isModalOpen && (
+      {isModalOpen && (
         <>
           <BackgroundOverlay />
-          <ModalContainer isOpen={isModalOpen} onAnimationEnd={handleAnimationEnd}>
+          <ModalContainer
+            isOpen={isModalOpen}
+            onAnimationEnd={handleAnimationEnd}
+          >
             <ModalContent ref={modalRef}>
               {commentData.map((comment) => (
-                <PostModal topText={modalTopText} btmText={modalBtmText} onClose={toggleModal}
-                onClick={() => handleCommentSubmit(comment.id)}
-            />
+                <PostModal
+                  topText={modalTopText}
+                  btmText={modalBtmText}
+                  onClose={toggleModal}
+                  onClick={() => handleCommentSubmit(comment.id)}
+                />
               ))}
-            
             </ModalContent>
           </ModalContainer>
         </>
       )}
-  </Container>
-);
-    }
+    </Container>
+  );
+};
 
 export default PostPageDetail;
 
 const ContainerContent = styled.div`
   height: 100%;
   padding: 0rem 0rem 6rem;
-`
+`;
 
 const Container = styled.div`
   display: flex;
@@ -159,9 +162,9 @@ const Container = styled.div`
 `;
 
 const NoComment = styled.p`
-    margin-top: 2rem;
-    text-align: center;
-`
+  margin-top: 2rem;
+  text-align: center;
+`;
 
 const CommentContainer = styled.form`
   width: 39rem;
@@ -223,7 +226,7 @@ const slideUpAnimation = keyframes`
   }
 `;
 
-const ModalContainer= styled.div`
+const ModalContainer = styled.div`
   position: fixed;
   height: 85rem;
   bottom: 0;

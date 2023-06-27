@@ -10,10 +10,13 @@ import TopUploadHeader from '../../components/Header/TopUploadHeader';
 import MapDrawingManager from '../../components/Map/MapDrawingManager';
 import FeedMap from '../../components/Map/FeedMap';
 import { postContentUpload } from '../../utils/Apis';
-import TabMenu from '../../components/Footer/TabMenu'
+import TabMenu from '../../components/Footer/TabMenu';
 import { useNavigate } from 'react-router-dom';
+import { tokenAtom } from '../../atoms/UserAtom';
+import { useRecoilValue } from 'recoil';
 
 const UploadPage = () => {
+  const userToken = useRecoilValue(tokenAtom);
   const [startDate, setStartDate] = useState(new Date());
   const [time, setTime] = useState(moment());
   const [text, setText] = useState('');
@@ -39,7 +42,7 @@ const UploadPage = () => {
 
   const handleTestClick = () => {
     setMap(!map);
-    }
+  };
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -50,12 +53,10 @@ const UploadPage = () => {
           image: pathProcess,
         },
       };
-      const data = await postContentUpload(mapData);
-      console.log(data.message);
-      navigate(`/profile/${data.post.author.username}`)
+      const data = await postContentUpload(userToken, mapData);
+      navigate(`/profile/${data.post.author.accountname}`);
     }
   };
-
 
   const handlePathProcess = (path) => {
     setPathProcess(path);
@@ -77,13 +78,13 @@ const UploadPage = () => {
 
   const handleActivateButton = () => {
     return enableUpload && isMapDrawingComplete;
-  }
+  };
 
   return (
     <>
       <TopUploadHeader
         text={map ? '업로드' : '완료'}
-        handleClick={map ? handleUpload : handleTestClick }
+        handleClick={map ? handleUpload : handleTestClick}
         isDisabled={!handleActivateButton()}
       />
       {map ? (
@@ -138,11 +139,13 @@ const UploadPage = () => {
             <ManualContainer>
               <Title>Map 그리는 방법</Title>
               <Content>
-                <Text>지도를 드래그하여 이동할 수 있습니다.</Text>  
+                <Text>지도를 드래그하여 이동할 수 있습니다.</Text>
                 <Text>지도를 클릭하면 거리 그리기가 시작됩니다.</Text>
-                <Text>지도를 드래그하며 이동하고 경유할 지점을 클릭합니다.</Text>
-                <Text>마지막으로 도착지점을 클릭합니다.</Text> 
-                <Text>두 손가락으로 클릭하면 경로 그리기가 종료됩니다. </Text>        
+                <Text>
+                  지도를 드래그하며 이동하고 경유할 지점을 클릭합니다.
+                </Text>
+                <Text>마지막으로 도착지점을 클릭합니다.</Text>
+                <Text>두 손가락으로 클릭하면 경로 그리기가 종료됩니다. </Text>
               </Content>
             </ManualContainer>
           </Container>
@@ -152,7 +155,7 @@ const UploadPage = () => {
           <MapDrawingManager getpath={handlePathProcess} />
         </>
       )}
-      <TabMenu/>
+      <TabMenu />
     </>
   );
 };
@@ -233,7 +236,7 @@ const CompleteCourse = styled.div`
   div {
     border-radius: 0.5rem;
   }
-`
+`;
 
 const MakeCourseBtn = styled.button`
   width: 8rem;
@@ -252,19 +255,19 @@ const MakeCourseBtn = styled.button`
 const Title = styled.h2`
   font-size: 14px;
   margin-bottom: 0.8rem;
-`
+`;
 const ManualContainer = styled.div`
   display: flex;
-  flex-direction  : column;
+  flex-direction: column;
   margin-top: 4rem;
-`
+`;
 const Content = styled.div`
   display: flex;
-  flex-direction  : column;
+  flex-direction: column;
   border-radius: 0.5rem;
   background-color: ${({ theme }) => theme.colors.uploadBoxColor};
   padding: 1rem 1rem 0;
-`
+`;
 const Text = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.small};
   margin-bottom: 1rem;
@@ -273,4 +276,4 @@ const Text = styled.h3`
     content: '✔';
     margin-right: 0.3rem;
   }
-`
+`;
