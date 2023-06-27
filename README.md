@@ -176,7 +176,7 @@
   - 
 
 ## <span id="convention">5. 개발 일정</span>
-🔥 2023.06.12 ~ 2023.06.27
+🔥 2023.06.12 ~ 2023.06.27 <br />
 ![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/22268f6b-cff5-4f61-8643-d0cad77ef7a6)
 
 
