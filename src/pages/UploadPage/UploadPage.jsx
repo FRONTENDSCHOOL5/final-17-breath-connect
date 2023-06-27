@@ -141,7 +141,7 @@ const UploadPage = () => {
                 <Text>지도를 드래그하여 이동할 수 있습니다.</Text>  
                 <Text>지도를 클릭하면 거리 그리기가 시작됩니다.</Text>
                 <Text>지도를 드래그하며 이동하고 경유할 지점을 클릭합니다.</Text>
-                <Text>마지막 도착지점을 클릭합니다.</Text> 
+                <Text>마지막으로 도착지점을 클릭합니다.</Text> 
                 <Text>두 손가락으로 클릭하면 경로 그리기가 종료됩니다. </Text>        
               </Content>
             </ManualContainer>
