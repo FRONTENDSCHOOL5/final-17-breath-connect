@@ -38,4 +38,10 @@ const Input = styled.input`
   &::placeholder {
     color: ${({ theme }) => theme.colors.uploadPlaceholderColor};
   }
+  &:focus{
+    background-color: #fff;
+    box-shadow: 0.2rem 0.2rem 0.1rem 0.1rem ${({ theme }) => theme.colors.mainColor};
+    outline: 0.2rem solid ${({ theme }) => theme.colors.mainColor};
+    transition: 0.3s ;
+  }
 `;
