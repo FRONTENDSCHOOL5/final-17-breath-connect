@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import PostPage from '../PostPage/PostPage';
 import TopMainNavHeader from '../../components/Header/TopMainNavHeader';
 import FeedNoUser from './FeedNoUser';
+import Loading from '../../components/common/Loading/Loading';
 import TabMenu from '../../components/Footer/TabMenu';
 import { getFollowFeed } from '../../utils/Apis';
 import { useRecoilValue } from 'recoil';
@@ -10,7 +11,7 @@ import { useLocation } from 'react-router-dom';
 
 import IconPostModal from '../../components/common/Modal/IconPostModal';
 import styled, { keyframes, css } from 'styled-components';
-import Loading from '../../components/common/Loading/Loading';
+
 
 const FeedPage = () => {
   const [data, setData] = useState([]);
@@ -85,10 +86,13 @@ const FeedPage = () => {
     };
   }, []);
 
-  return (
+  if (!data) {
+  <Loading /> }
+  else {
+return (
     <>
       <TopMainNavHeader />
-      {!data.length ? (
+      {data.length === 0 ? (
         <FeedNoUser />
       ) : (
         data.map((data, index) => (
@@ -119,6 +123,9 @@ const FeedPage = () => {
       <TabMenu />
     </>
   );
+    
+  }
+  
 };
 
 export default FeedPage;

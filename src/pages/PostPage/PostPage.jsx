@@ -15,7 +15,7 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
 
   const [liked, setLiked] = useState(false);
   const [postLikeState, setPostLikeState] = useState(data.hearted);
-  const [postLikeCount, setPostLikeCount] = useState(data.heartCount);
+  const [postLikeCount, setPostLikeCount] = useState(data.heartCount); 
   const [detail, setDetail] = useState(
     location.pathname === `/post/${data.author.accountname}`
   );
@@ -91,7 +91,6 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
   const fetchDisLike = async () => {
     const response = await deleteLike(postId);
     setPostLikeCount(response.post.heartCount);
-    console.log(response);
     setPostLikeState(false);
   };
 
@@ -222,7 +221,8 @@ const LocationInfo = styled.p`
 `;
 
 const CommentContainer = styled.div`
-  padding: 0.3rem;
+  padding-top: 0.4rem;
+  
 `;
 
 const FeedInfo = styled.span`
@@ -241,6 +241,9 @@ const UserName = styled.div`
 const UserFeedText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   white-space: nowrap;
   font-size: 1.2rem;
   margin-bottom: 1.6rem;
