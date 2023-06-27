@@ -15,6 +15,7 @@ import { isEqual } from 'lodash';
 const ProfilePage = () => {
   const location = useLocation();
   const userToken = useRecoilValue(tokenAtom);
+
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState();
   const [accountName, setAccountName] = useState('');
@@ -23,8 +24,6 @@ const ProfilePage = () => {
   const [modalBtmText, setModalBtmText] = useState();
   const [profileKey, setProfileKey] = useState(0);
   const [isPostDeleted, setIsPostDeleted] = useState(false);
-  
-
 
   const modalRef = useRef(null);
 
@@ -43,7 +42,6 @@ const ProfilePage = () => {
   useEffect(() => {
     setIsModalOpen(false);
   }, [isPostDeleted]);
-
 
   const fetchData = async () => {
     try {
@@ -70,14 +68,12 @@ const ProfilePage = () => {
 
   const getPost = async () => {
     try {
-      const postData = await getMyPost(accountName, 10, 0);
-      const postId = postData.post;
+      const postData = await getMyPost(userToken, accountName, 10, 0);
       setPosts(postData.post);
     } catch (error) {
       console.error('Error fetching user posts:', error);
     }
   };
-
 
   const toggleModal = (topText, btmText) => {
     setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
@@ -104,77 +100,80 @@ const ProfilePage = () => {
     };
   }, []);
 
-useEffect(() => {
-  if(isPostDeleted) {
-    fetchData();
-    setIsPostDeleted(false);
-  }
-}, [isPostDeleted]);
+  useEffect(() => {
+    if (isPostDeleted) {
+      fetchData();
+      setIsPostDeleted(false);
+    }
+  }, [isPostDeleted]);
 
-useEffect(() => {
-  if (profile) {
-    // profile이 변경될 때마다 profileKey 값을 변경하여 UserInfo 컴포넌트를 다시 렌더링
-    setProfileKey((prevKey) => prevKey + 1);
-  }
-}, [profile]);
- 
+  useEffect(() => {
+    if (profile) {
+      // profile이 변경될 때마다 profileKey 값을 변경하여 UserInfo 컴포넌트를 다시 렌더링
+      setProfileKey((prevKey) => prevKey + 1);
+    }
+  }, [profile]);
+
   console.log(posts);
 
-  if(!posts) {
-    return <Loading />
+  if (!posts) {
+    return <Loading />;
   } else {
-     return (
-    <>
-      <TopBasicNavHeader onButtonClick={() => toggleModal('설정 및 개인정보', '로그아웃')} />
-
-
-      {profile && (
-        <UserInfo
-          key={profileKey}
-          data={profile}
-          myProfile={
-            JSON.parse(localStorage.getItem('recoil-persist'))[
-              'accountAtom'
-            ] === accountName
-          }
+    return (
+      <>
+        <TopBasicNavHeader
+          onButtonClick={() => toggleModal('설정 및 개인정보', '로그아웃')}
         />
-      )}
 
-      {posts.length > 0 &&
-        posts.map((post, index) => (
-          <PostPage
-            key={index}
-            data={post}
-            onButtonClick={() => toggleModal('삭제', '수정')}
+        {profile && (
+          <UserInfo
+            key={profileKey}
+            data={profile}
+            myProfile={
+              JSON.parse(localStorage.getItem('recoil-persist'))[
+                'accountAtom'
+              ] === accountName
+            }
           />
-        ))}
+        )}
 
-      {isModalOpen && (
-        <>
-          <BackgroundOverlay />
-          <ModalContainer
-            isOpen={isModalOpen}
-            onAnimationEnd={handleAnimationEnd}
-          >
-            <ModalContent ref={modalRef}>
-              {posts.map((post, index) => (
-                <IconPostModal topText={modalTopText} btmText={modalBtmText} 
-                onClose={toggleModal} accountName={accountName}
-                key={index} data={post}
-                setIsPostDeleted={setIsPostDeleted}
-                />
-              ))}
+        {posts.length > 0 &&
+          posts.map((post, index) => (
+            <PostPage
+              key={index}
+              data={post}
+              onButtonClick={() => toggleModal('삭제', '수정')}
+            />
+          ))}
 
-            </ModalContent>
-          </ModalContainer>
-        </>
-      )}
+        {isModalOpen && (
+          <>
+            <BackgroundOverlay />
+            <ModalContainer
+              isOpen={isModalOpen}
+              onAnimationEnd={handleAnimationEnd}
+            >
+              <ModalContent ref={modalRef}>
+                {posts.map((post, index) => (
+                  <IconPostModal
+                    topText={modalTopText}
+                    btmText={modalBtmText}
+                    onClose={toggleModal}
+                    accountName={accountName}
+                    key={index}
+                    data={post}
+                    setIsPostDeleted={setIsPostDeleted}
+                  />
+                ))}
+              </ModalContent>
+            </ModalContainer>
+          </>
+        )}
 
-      <TabMenu />
-    </>
-  );
+        <TabMenu />
+      </>
+    );
   }
- 
 };
 
 const slideUpAnimation = keyframes`

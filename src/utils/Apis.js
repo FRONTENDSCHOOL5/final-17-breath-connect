@@ -107,8 +107,13 @@ export const getSearchResult = async (url, search, userToken) => {
 };
 
 /* content 업로드 */
-export const postContentUpload = async (post) => {
-  const response = await authInstance.post(`/post/`, post);
+export const postContentUpload = async (token, post) => {
+  const response = await authInstance.post(`/post/`, post, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json',
+    },
+  });
   console.log(response);
   return response.data;
 };
@@ -131,10 +136,16 @@ export const getFollowFeed = async (limit, skip, token) => {
 };
 
 /* 나의 게시글 목록 */
-export const getMyPost = async (accountname) => {
+export const getMyPost = async (token, accountname) => {
   try {
     const response = await authInstance.get(
-      `/post/${accountname}/userpost/?limit=Number&skip=Number`
+      `/post/${accountname}/userpost/?limit=Number&skip=Number`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      }
     );
     return response.data;
   } catch (error) {
@@ -155,7 +166,12 @@ export const getPostDetail = async (postId) => {
 /* 개인 프로필 정보 */
 export const getUserProfile = async (token, account) => {
   try {
-    const response = await authInstance.get(`/profile/${account}`);
+    const response = await authInstance.get(`/profile/${account}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -221,9 +237,14 @@ export const followProfile = async (accountname) => {
 };
 
 /* 나의 프로필 정보 정보 불러오기 */
-export const getMyInfo = async () => {
+export const getMyInfo = async (token) => {
   try {
-    const response = await authInstance.get(`/user/myinfo`);
+    const response = await authInstance.get(`/user/myinfo`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -335,9 +356,14 @@ export const postComment = async (postId, comment) => {
 };
 
 /* 댓글 리스트 */
-export const getComment = async (postId) => {
+export const getComment = async (postId, token) => {
   try {
-    const response = await authInstance.get(`/post/${postId}/comments`);
+    const response = await authInstance.get(`/post/${postId}/comments`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
