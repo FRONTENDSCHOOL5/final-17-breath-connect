@@ -256,6 +256,7 @@ const Title = styled.h2`
 const ManualContainer = styled.div`
   display: flex;
   flex-direction  : column;
+  margin-top: 4rem;
 `
 const Content = styled.div`
   display: flex;
