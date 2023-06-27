@@ -1,13 +1,18 @@
-# 🌬들숨날숨 🌬
-### <a href='https://github.com/FRONTENDSCHOOL5/WeNeed'>들숨날숨 바로가기 🏃🏻‍♂️🏃🏻‍♀️</a>
-<details>
+# <span id="top">🌬 들숨날숨 🌬</span>
+
+## 소개 및 개요
+
+- 프로젝트 기간 : 2023.06.12 ~ 2023.06.27
+- 배포 URL : [🔗 들숨날숨](https://13oosters.netlify.app)
+
+- Test ID / PW : / 
+
 <summary>목차</summary>
 
-1. [서비스 소개](#intro)
-2. [프로젝트 기간](#period)
-3. [멤버](#members)
-4. [개발 환경](#dev)
-5. [프로젝트 구조](#tree)
+1. [서비스 소개](#app)
+2. [팀 소개](#member)
+3. [기술 및 개발 환경](#dev)
+4. [프로젝트 구조](#tree)
 6. [컨벤션](#convention)
 7. [협업 문화](#culture)
 8. [이슈 관리](#issues)
@@ -17,31 +22,23 @@
 
 <br/>
 
-## <span id="intro">1. 서비스 소개</span>
-<img src="https://github.com/withLeche/sample/assets/106927728/9cf31c8d-8d7f-4e4c-b150-88619713e976"><br>
-> 함께 달리는 즐거움을 나눌 수 있는 공간<br>
-> 들숨날숨 from 멋사
 
-- 같은 동네 혹은 서로 다른 동네에서 새로운 사람들과 함께 달리거나 소식을 공유하세요.<br>
-- 자유롭게 뛰는 날짜와 장소만 게시한다면 누구든지 함께 달릴 수 있습니다!<br>
-- 내가 달린 기록과 사람들을 이웃들에게 공유할 수 있습니다!
+## <span id="app">서비스 소개</span>
+### 함께 달리는 즐거움을 나눌 수 있는 공간, 들숨날숨 🌬
+* 함께 달리는 즐거움을 나눌 수 있는 공간 🏃‍♀️🏃‍♂️<br>
 
-<br/>
+* '들숨날숨'은 **함께 달리는 즐거움을 나눌 수 있는 SNS 플랫폼**입니다. 
+* '들숨날숨'은 같은 동네 혹은 서로 다른 동네에서 새로운 사람들과 함께 달리거나 소식을 공유할 수 있습니다.
+* 자유롭게 뛰는 날짜와 장소만 게시한다면 누구든지 함께 달릴 수 있습니다!
+* 내가 달린 기록과 사람들을 이웃들에게 공유할 수 있습니다!
 
-## <span id="period">2. 프로젝트 개발 기간</span>
-
-2023.06.12 ~ 2023.06.27
-
-<br/>
-
-## <span id="members">3. 멤버</span>
-<img src="https://github.com/withLeche/sample/assets/106927728/6be14e7d-a3f9-4486-80c3-4be9ab3786aa">
-
-### 위니드 WeNeed
+## <span id="team">팀 소개</span>
+### 위니드팀을 소개합니다!
 > "`우리는` 개발자로 성장이 `필요하다`"라는 의미로<br/>
 > 위니브라는 회사의 도움을 얻고 <br/>
 > `함께` 프로젝트를 진행하면서 서로가 `필요한` 부분을 채워주기 위해 <br/>
 > 다음과 같은 팀명을 짓게 되었습니다.
+
 
 |                                    **🐿 김용덕**                                    |                                    **💜 박연주**                                    |                                 **🌿 백수연**                                 |                                    **🐕 이양래**                                    |
 | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
@@ -52,40 +49,18 @@
 #### <p align="right"><a href="#top">TOP👆🏼</a></p>
 <br/>
 
-## <span id="dev">4. 개발 환경</span>
-<table>
-      <thead align="center">
-        <tr>
-          <th colspan="2" style="text-align:center;"><span style="font-size:16px;">프론트엔드</span></th>
-          <th style="text-align:center;"><span style="font-size:16px">백엔드</span></th>
-          <th colspan="2" style="text-align:center;"><span style="font-size:16px;">디자인</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td align="center" style="text-align:center;">
-            <a href="https://reactjs.org/" target="_blank"><img style="margin: 10px" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1579667701/noticon/basd2y5bygpkqjiixuqy.png" alt="React" height="50" /></a>
-            <br>
-            <code>React</code>
-          </td>
-          <td align="center" style="text-align:center; margin: 0 auto;">
-            <a href="https://styled-components.com/" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/styled-components.png" alt="Styled Components" height="50" /></a>
-            <br>
-            <code>styled-components</code>
-          </td>
-          <td align="center" style="text-align:center;">부트캠프에서 제공된<br>API 사용</td>
-          </td>
-          <td align="center" style="text-align:center; margin: 0 auto;">
-            <a href="https://www.figma.com/" target="_blank"><img style="margin: 10px" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1640982247/noticon/tpvr26zp02angin4t0jv.png" alt="Styled Components" height="50" /></a>
-            <br>
-            <code>Figma</code>
-          </td>
-        </tr>
-      </tbody>
-</table>
+
+## <span id="dev">2. 기술 및 개발 환경</span>
+### 개발 환경
+| 구분       | 설명                                                                                                                                                            |
+|:----------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| FrontEnd   |<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/ESLint-E33332?style=for-the-badge&logo=ESLint&logoColor=white"> <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white"> |
+| BackEnd    | 제공된 API 사용                                                                                                                                                  |
+| 협업 도구  |<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Trello-3776AB?style=for-the-badge&logo=Trello&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white"> |
+
 <br/>
 
-## <span id="tree">5. 프로젝트 구조</span>
+## <span id="tree">4. 프로젝트 구조</span>
 - assets/ :
 - atoms/ :
 - components/ :
@@ -129,30 +104,36 @@ src
 #### <p align="right"><a href="#top">TOP👆🏼</a></p>
 <br/>
 
-## <span id="convention">6. 컨벤션</span>
-### 커밋
-    1. 커밋 유형 지정
-        - 커밋 유형은 영어로 작성, 첫 글자를 대문자
-        - 커밋 유형
-        - 🎨 Style : 코드의 구조 / 형태 개선
-        - 🔥 Fire : 코드 / 파일 삭제
-        - 🐛 Fix : 버그 수정
-        - ✨ Feat : 새로운 기능 추가
-        - 📝 Docs : 문서 추가 / 수정
-        - ♻️ Refactor : 리팩토링
-        - ✅ Test : 테스트 추가 / 수정
-        - 🔨 Build : 개발 스크립트 추가 / 수정
-        - 🎉 Init : 프로젝트 시작
+## <span id="convention">6. 역할 분담</span>
 
-    2. 커밋 메시지는 "유형: 제목 (#이슈번호)"로 구성
+## <span id="convention">5. 컨벤션</span>
+### 🦊 git convention
 
-        git commit -m "Feat: 로그인 기능 구현 (#13)"
+| Emoji | Code                          | 기능     | Description              |
+| ----- | ----------------------------- | -------- | ------------------------ |
+| ✨    | `:sparkles:`                  | Feat     | 새 기능                  |
+| ♻️    | `:recycle:`                   | Refactor | 코드 리팩토링            |
+| 📦    | `:wrench:`                    | Chore    | 리소스 수정/삭제         |
+| 🐛    | `:bug:`                       | Fix      | 버그 수정                |
+| 📝    | `:memo:`                      | Docs     | 문서 추가/수정           |
+| 🎨    | `:lipstick:`                  | Style    | UI/스타일 파일 추가/수정 |
+| 🎉    | `:tada:`                      | Init     | 프로젝트 시작 / Init     |
+| ✅    | `:white_check_mark:`          | Test     | 테스트 추가/수정         |
+| ⏪    | `:rewind:`                    | Rewind   | 변경 사항 되돌리기       |
+| 🔀    | `:twisted_rightwards_arrows:` | Merge    | 브랜치 합병              |
+| 🗃     | `:card_file_box:`             | DB       | 데이터베이스 관련 수정   |
+| 💡    | `:bulb:`                      | Comment  | 주석 추가/수정           |
+| 🚀    | `:rocket:`                    | Deploy   | 배포                     |
 
-### 코드
+### 🔍 코드 컨벤션
+- 작은 따옴표 사용 ``` '' ``` 사용
+- 전체를 묶는 스타일 컴포넌트 명은 끝에 container 사용
+- 이미지를 가져오는 컴포넌트 명은 파스칼 표기법 사용
+- 일치 연산자 사용
 
 <br/>
 
-## <span id="culture">7. 협업 문화</span>
+## <span id="culture">6. 협업 문화</span>
 
 ### 💪 팀워크 강화
 #### - Daily Scrum
@@ -162,6 +143,8 @@ src
 ### 🎯 목표 관리
 #### <p align="right"><a href="#top">TOP👆🏼</a></p>
 <br/>
+
+## <span id="culture">7. </span>
 
 ## <span id="issues">8. 이슈 관리</span>
 
