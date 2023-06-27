@@ -38,7 +38,7 @@ const SignupPage = () => {
 
 /* 중복된 이메일 확인 */
   const handleEmailDuplicate = async (e) => {
-    const checkEmail = await postEmailDuplicate(userEmail);
+    const checkEmail = await postEmailDuplicate(e.target.value);
     if (checkEmail.message === '이미 가입된 이메일 주소 입니다.') {
       setEmailErrorMsg('*이미 가입된 이메일 주소 입니다 😥');
     } else if (checkEmail.message === '사용 가능한 이메일 입니다.') {
