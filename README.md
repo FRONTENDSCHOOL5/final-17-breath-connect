@@ -226,6 +226,9 @@
 ## <span id="issues">핵심 코드</span>
 
 ### API 모듈 Axios
+Axios를 사용하여 API 요청을 처리했습니다.
+이 모듈은 API 요청을 보내기 위해 여러가지 함수와 Axios의 인스턴스를 내보는 것으로 구성되어 있고
+각 함수는 특정한 API에 대한 요청을 보내고 응답을 처리하여 데이터를 반환합니다.
 ``` 
 import axios from 'axios';
 
@@ -261,5 +264,57 @@ export const postContentUpload = async (token, post) => {
   const response = await authInstance.post(`/post/`, post, {
     headers: {
       Authorization: `B다
+```
+Axios를 이용하여 간편하게 API 요청을 보낼 수 있었고 
+요청을 담당하는 인스턴스와 각각의 API 요청 함수를 별도로 관리할 수 있었습니다.
+요청을 할 때 사용하는 함수의 형식도 통일했기 때문에 코드의 일관성과 가독성을 높일 수 있었다.
 
+### kakao Map API & react-kakao-maps-sdk
+사용자들을 위해 시작 위치와 종류 위치를 얻어오는 기능, path를 그리고 그 데이터를 기반으로 주소를 값이 불러올 수 있도록 처리했습니다.
+카카오 맵을 사용할 수 있도록 도와주는 카카오 지도 API와 React 애플리케이션에서 사용할 수 있도록 도와주는 리액트 카카오 지도 라이브러리를 함께 사용했습니다.
+```
+useEffect(() => {
+    if (data.image) {
+      try {
+        const parsing = JSON.parse(data.image);
+        const startLat = parsing[0].lat;
+        const startLng = parsing[0].lng;
+        const geocoder = new window.kakao.maps.services.Geocoder();
+        const startLatlng = new window.kakao.maps.LatLng(startLat, startLng);
 
+        geocoder.coord2Address(
+          startLatlng.getLng(),
+          startLatlng.getLat(),
+          (result, status) => {
+            if (status === window.kakao.maps.services.Status.OK) {
+              const startPoint = result[0].address.address_name;
+              setStartPoint(startPoint);
+            }
+          }
+        );
+
+        const endLat = parsing[parsing.length - 2].lat;
+        const endLng = parsing[parsing.length - 2].lng;
+        const endLatlng = new window.kakao.maps.LatLng(endLat, endLng);
+				/* 마지막 요소 = 총 거리 */
+
+        geocoder.coord2Address(
+          endLatlng.getLng(),
+          endLatlng.getLat(),
+          (result, status) => {
+            if (status === window.kakao.maps.services.Status.OK) {
+              const endPoint = result[0].address.address_name;
+              setEndPoint(endPoint);
+            }
+          }
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [data.image]);
+```
+모두가 지도 API를 처음 사용하면서 새로운 경험을 할 수 있었습니다.
+기존 카카오 지도 API에서 받아오는 데이터(위도, 경도)를 사용자에게 보여주기 위한 데이터(주소 값)로 변환하는 작업이 필요했는데 새로운 라이브러리를 추가하여 해결했습니다.
+
+## <span id="bug">버그 문제</span>
