@@ -209,7 +209,7 @@
 
 <br/>
 
-## <span id="culture">6. 협업 문화</span>
+## <span id="culture">협업 문화</span>
 
 ### 💪 팀워크 강화
 #### - Daily Scrum
@@ -219,32 +219,47 @@
 * 대화방식: 정보 전달이 아닌 대화 주제가 가져오는 효과나 해결책에 토론
 
 
-### 🎯 목표 관리
 #### <p align="right"><a href="#top">TOP👆🏼</a></p>
 <br/>
 
-# 추후 추가
 
-## <span id="issues">8. 이슈 관리</span>
+## <span id="issues">핵심 코드</span>
 
-### 🪄 이슈 관리 프로세스
-#### - 작업 전
-#### - 이슈 해결 후 
-<br/>
+### API 모듈 Axios
+``` 
+import axios from 'axios';
 
-### 🕵 이슈 진행 상황 관리
+const URL = 'https://api.mandarin.weniv.co.kr/';
 
-<br/>
+/* 기본 인스턴스 */
+export const instance = axios.create({
+  baseURL: URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
-### 📆 작업 진행 상황 관리
+/* 이미지 인스턴스 */
+export const imgInstance = axios.create({
+  baseURL: URL,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
 
-<br/>
+/* auth 인스턴스 */
+export const authInstance = axios.create({
+  baseURL: URL,
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json',
+  },
+});
 
-## <span id="bug">9. 버그 관리</span>
-<br/>
-
-### 🐛 버그 관리
-
-#### - 버그 관리 프로세스
+/* content 업로드 */
+export const postContentUpload = async (token, post) => {
+  const response = await authInstance.post(`/post/`, post, {
+    headers: {
+      Authorization: `B다
 
 
