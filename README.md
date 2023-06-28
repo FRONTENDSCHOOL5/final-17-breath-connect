@@ -14,10 +14,12 @@
 2. [팀 소개](#team)
 3. [기술 및 개발 환경](#dev)
 4. [프로젝트 구조](#tree)
-6. [컨벤션](#convention)
-7. [협업 문화](#culture)
-8. [이슈 관리](#issues)
-9. [버그 관리](#bug)
+5. [역할분담](#roles)
+6. [개발일정](#schedule)
+7. [컨벤션](#convention)
+8. [협업 문화](#culture)
+9. [이슈 관리](#issues)
+10. [버그 관리](#bug)
 </details>
 
 <br/>
@@ -52,7 +54,7 @@
 <br/>
 
 
-## <span id="dev">2. 기술 및 개발 환경</span>
+## <span id="dev">기술 및 개발 환경</span>
 ### 개발 환경
 | 구분       | 설명                                                                                                                                                            |
 |:----------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -62,7 +64,7 @@
 
 <br/>
 
-## <span id="tree">4. 프로젝트 구조</span>
+## <span id="tree">프로젝트 구조</span>
 - public/favicon/ : 파비콘
 - src/assets/ : 전역에서 사용하는 폰트, 스프라이트 이미지, 로고 이미지
 - src/atoms/ : 전역 상태 관리를 위한 아톰 (UserAtom, LoginAtom) 
@@ -123,7 +125,7 @@
 #### <p align="right"><a href="#top">TOP👆🏼</a></p>
 <br/>
 
-## <span id="convention">5. 역할 분담</span>
+## <span id="roles">5. 역할 분담</span>
 ### 김용덕
 - UI
   - 마이 프로필 페이지
@@ -174,12 +176,12 @@
 - 기능 구현
   - 
 
-## <span id="convention">5. 개발 일정</span>
+## <span id="schedule">개발 일정</span>
 🔥 2023.06.12 ~ 2023.06.27 <br />
 ![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/22268f6b-cff5-4f61-8643-d0cad77ef7a6)
 
 
-## <span id="convention">6. 컨벤션</span>
+## <span id="convention">컨벤션</span>
 ### 🦊 git convention
 
 | Emoji | Code                          | 기능     | Description              |
