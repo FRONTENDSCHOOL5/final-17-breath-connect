@@ -207,6 +207,40 @@
 - 이미지를 가져오는 컴포넌트 명은 파스칼 표기법 사용
 - 일치 연산자 사용
 
+### ESLint와 Prettier
+📜 ESLint
+```
+{
+  "extends": ["react-app", "react-app/jest", "prettier"],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "linebreak-style": 0
+  }
+}
+```
+
+- `"extends": ["react-app", "react-app/jest", "prettier"]` : 다른 ESLint 구성을 확장하는 역할로, Create React App 프로젝트에서 제공하는 기본적인 규칙을 사용하고, Jest 관련 규칙도 함께 확장하며, 마지막으로 Prettier와 관련된 규칙도 추가합니다.
+- `"rules": { ... }` ****: ESLint의 규칙을 지정합니다.
+    - `"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]` ****: 이 설정은 JSX를 사용하는 React 컴포넌트 파일의 확장자를 지정하는 규칙입니다.
+    - `[1, { "extensions": [".js", ".jsx"] }]` 은 경고로 설정되어 ‘.js’ 또는 ‘.jsx’ 확장자가 아닌 파일에서 JSX를 사용하면 경고가 표시됩니다.
+    - `"linebreak-style": 0` : 개행 문자 스타일을 지정하는 규칙입니다. `0` 으로 설정되어 있어, 개행 문자 스타일에 대한 경고 또는 오류를 표시하지 않습니다.
+
+🎀 Prettier
+```
+{
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": true
+}
+```
+- `"trailingComma"` : 마지막 요소 뒤에 쉼표를 추가할지 여부를 결정합니다. `es5` 값은 ES5 문법에 따라 마지막 요소 뒤에 쉼표를 추가합니다.
+- `"tabWidth"` : 탭 문자의 너비를 결정합니다. 들여쓰기에 탭 대신 2개의 공백을 사용합니다.
+- `"semi"` : 문장 끝에 세미콜론을 추가할지 여부를 결정합니다. `true` 로 설정되어 있으므로, 세미콜론을 추가합니다.
+- `"singleQuote"` : 이 설정은 문자열을 작은 따옴표로 감쌀지 큰 따옴표로 감쌀지 결정합니다. `true` 로 설정되어 있으므로, 문자열을 작은 따옴표로 감쌉니다.
+
+
+
 <br/>
 
 ## <span id="culture">협업 문화</span>
