@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import BasicProfileImg from '../../assets/images/basic-profile-l.svg'
-import AddImg from '../../assets/sprite/img-btn.svg';
 
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
@@ -13,6 +12,15 @@ import {
   postUploadProfile,
 } from '../../utils/Apis'
 
+import { 
+  Container,
+  Title,
+  ImageWrap,
+  Form,
+  Image,
+  ImageInput,
+  ErrorMsg
+ } from './ProfileSettingPageStyle';
 const ProfileSettingPage = () => {
 
   const URL = 'https://api.mandarin.weniv.co.kr/';
@@ -119,15 +127,15 @@ const handleProfileSignup = async (e) => {
 
   return (
     <>
-    <ProfileSettingSection>
-    <ProfileSettingTitle>프로필 설정</ProfileSettingTitle>
+    <Container>
+    <Title>프로필 설정</Title>
     <p className="profileSetting-description">나중에 언제든지 변경할 수 있습니다.</p>
-    <UploadForm onSubmit={handleProfileSignup}>   
+    <Form onSubmit={handleProfileSignup}>   
      <ImageWrap> 
       <label htmlFor="upload-image">
-      <ProfileImage src={image ? image : BasicProfileImg} alt="사용자 프로필 이미지" />
+      <Image src={image ? image : BasicProfileImg} alt="사용자 프로필 이미지" />
       </label>
-      <ProfileImageInput 
+      <ImageInput 
       type="file" 
       accept="image/png, image/jpg, image/jpeg" 
       id="upload-image"
@@ -169,87 +177,10 @@ const handleProfileSignup = async (e) => {
         </div>
         <ButtonContainer type={'L'} text={'들숨날숨 시작하기'} isDisabled = {!handleActivateButton()} 
         handleClick={handleProfileSignup}/>
-        </UploadForm>
-         </ProfileSettingSection>
+        </Form>
+         </Container>
         </>
     )
   }
 
 export default ProfileSettingPage;
-
-const ProfileSettingSection = styled.section`
-margin: 0 auto;
-.profileSetting-description {
-  margin-top: 1.4rem;
-  color: ${({theme}) => theme.colors.textColor};
-  font-size: ${({theme}) => theme.fontSize.medium};
-  text-align: center;
-  .spriteImg-wrapper {
-    position: absolute;
-    bottom: 0;
-  }
-  .upload-button {
-    position: absolute;
-    left: 0;
-  }
-}
-`
-
-const ProfileSettingTitle = styled.h1`
-color: ${({theme}) => theme.colors.blackText};
-font-size: ${({theme}) => theme.fontSize.xxlarge};
-padding-top: 2.7rem;
-text-align: center;
-`
-
-const ImageWrap = styled.div`
-  label {
-    position: relative;
-    display: block;
-    width: 11rem;
-    height: 11rem;
-    margin: 3.5rem auto 5.5rem;
-    cursor: pointer;
-    border-radius: 50%;
-    border: 1px solid ${({theme}) => theme.colors.placeHolderColor};
-    &::after {
-    content: '';
-    display: block;
-    background: url(${AddImg}) no-repeat center / 3.6rem 3.6rem;
-    width: 3.6em;
-    height: 3.6rem;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: 2;
-}
-  }
-`
-
-const UploadForm = styled.form`
-.button-margin {
-  margin-bottom: 3rem;
-}
-`
-
-const ProfileImage = styled.img`
-width: 100%;
-height: 100%;
-object-fit: cover;
-border-radius: 50%;
-`
-
-const ProfileImageInput = styled.input`
-width: 0.1rem;
-height: 0.1rem;
-position: absolute;
-z-index: -1000rem;
-`
-
-const ErrorMsg = styled.p`
-  ${({ theme }) => css`
-    color: ${theme.colors.errorText};
-    font-size: ${theme.fontSize.small};
-    margin-top: -0.9rem;
-  `}
-`;
