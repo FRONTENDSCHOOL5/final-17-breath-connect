@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import basicImg from '../../assets/images/basic-profile-m.svg';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
 import FeedMap from '../../components/Map/FeedMap';
@@ -8,11 +7,27 @@ import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postLike, deleteLike } from '../../utils/Apis';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '../../atoms/UserAtom';
+import {
+  PostContainer,
+  UserProfileImg,
+  UserAccountName,
+  ScheduleInfo,
+  LocationInfo,
+  CommentContainer,
+  FeedInfo,
+  UserName,
+  UserFeedText,
+  AppendAndComment,
+  AppendButton,
+  MapContents,
+  PostContents,
+  DetailButton,
+} from './PostStyle';
 
 const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
   const token = useRecoilValue(tokenAtom);
-  const [startPoint, setStartPoint] = useState(''); // startPoint 상태 추가
-  const [endPoint, setEndPoint] = useState(''); // endPoint 상태 추가
+  const [startPoint, setStartPoint] = useState('');
+  const [endPoint, setEndPoint] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -35,7 +50,6 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
     }
   };
 
-  /* Post -> Post Detail 참가 */
   const handleProfileClick = (e) => {
     navigate(`/profile/${data.author.accountname}`, {
       state: { data: data },
@@ -83,21 +97,19 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
   }, [data.image]);
 
   const postId = data.id;
-  /* 좋아요 기능 */
+
   const fetchLike = async () => {
     const response = await postLike(token, postId);
     setPostLikeCount(response.post.heartCount);
     setPostLikeState(true);
   };
 
-  /* 좋아요 취소 */
   const fetchDisLike = async () => {
     const response = await deleteLike(token, postId);
     setPostLikeCount(response.post.heartCount);
     setPostLikeState(false);
   };
 
-  /* 좋아요 토글 */
   const handleToggleLike = async (e) => {
     if (liked) {
       await fetchDisLike();
@@ -118,12 +130,10 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
           }
         />
         <div>
-          {/* 프로필로 이동 */}
           <button onClick={handleProfileClick} className="go-to-profile">
             <UserName>{data.author.username}</UserName>
             <UserAccountName>@ {data.author.accountname}</UserAccountName>
           </button>
-          {/* 신고, 공유 모달 */}
           <button onClick={onButtonClick} className="post-modal">
             <GlovalSprite
               id={'s-icon-more-vertical'}
@@ -131,7 +141,6 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
               size={18}
             />
           </button>
-          {/* 피드로 이동 */}
           <DetailButton
             onClick={handleFeedClick}
             className="go-to-post-detail"
@@ -173,112 +182,16 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
           </DetailButton>
         </div>
       </PostContents>
-      {detail ? (
+      {detail && (
         <ButtonContainer
           type={'XL'}
           text={postLikeState ? '참가하기 취소' : '참가하기'}
           isClicked={postLikeState}
           handleClick={handleToggleLike}
         />
-      ) : (
-        <></>
       )}
     </PostContainer>
   );
 };
+
 export default PostPage;
-
-const PostContainer = styled.div`
-  padding: 1.6rem;
-  box-shadow: 0 0.1rem 0 rgba(217, 217, 217, 0.5);
-  div button {
-    text-align: start;
-  }
-  .post-modal {
-    float: right;
-  }
-  .go-to-post-detail {
-    width: 30rem;
-  }
-`;
-
-const UserProfileImg = styled.img`
-  width: 4.2rem;
-  height: 4.2rem;
-  margin-right: 1.2rem;
-  border-radius: 50%;
-`;
-
-const UserAccountName = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.small};
-  color: ${({ theme }) => theme.colors.textColor};
-  margin-bottom: 1.6rem;
-`;
-
-const ScheduleInfo = styled.p`
-  margin-bottom: 0.5rem;
-`;
-
-const LocationInfo = styled.p`
-  margin-bottom: 0.5rem;
-`;
-
-const CommentContainer = styled.div`
-  padding-top: 0.4rem;
-`;
-
-const FeedInfo = styled.span`
-  width: 30rem;
-  margin-left: 0.4rem;
-  vertical-align: 0.2rem;
-  color: ${({ theme }) => theme.colors.textColor};
-`;
-
-const UserName = styled.div`
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin-bottom: 0.4rem;
-`;
-
-const UserFeedText = styled.div`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  white-space: nowrap;
-  font-size: 1.2rem;
-  margin-bottom: 1.6rem;
-`;
-
-const AppendAndComment = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-`;
-
-const AppendButton = styled.div`
-  background-color: rgba(101, 33, 211, 0.043);
-  color: ${({ theme }) => theme.colors.mainColor};
-  padding: 0.5rem 1rem 0rem;
-  border-radius: 1rem;
-  z-index: 1;
-`;
-
-const MapContents = styled.div`
-  width: 30.4rem;
-  /* height: 80px; */
-  border-radius: 1rem;
-  overflow: hidden;
-  margin: 1.2rem 0rem;
-`;
-
-const PostContents = styled.div`
-  display: flex;
-  margin-bottom: 2rem;
-`;
-
-const DetailButton = styled.button`
-  pointer-events: ${(props) => (props.detail ? 'none' : 'auto')};
-  cursor: ${(props) => (props.detail ? 'not-allowed' : 'pointer')};
-`;
