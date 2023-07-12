@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import PostPage from './PostPage';
-import styled, { keyframes, css } from 'styled-components';
 import { getComment, postComment } from '../../utils/Apis';
 import TopListNavHeader from '../../components/Header/TopListNavHeader';
 import FeedComment from '../FeedPage/FeedComment';
 import BasicProfileImg from '../../assets/images/basic-profile-xs.svg';
 import { accountAtom, tokenAtom } from '../../atoms/UserAtom';
-
+import { Container, Main, NoComment, Form, Input, Button, slideUpAnimation, ModalContainer, ModalContent, BackgroundOverlay, StyledComment } from '../PostPage/PostDetailPageStyle'
 import IconPostModal from '../../components/common/Modal/IconPostModal';
 import PostModal from '../../components/common/Modal/PostModal';
 
@@ -85,7 +84,8 @@ const PostPageDetail = () => {
   return (
     <Container>
       <TopListNavHeader />
-      <ContainerContent>
+      
+      <Main>
         <PostPage
           data={data}
           onButtonClick={() => toggleModal('신고하기', '공유하기')}
@@ -111,20 +111,21 @@ const PostPageDetail = () => {
         ) : (
           <NoComment>댓글이 존재하지 않습니다 🥲</NoComment>
         )}
-      </ContainerContent>
-      <CommentContainer onSubmit={handleCommentSubmit}>
+      </Main>
+      <Form onSubmit={handleCommentSubmit}>
         <StyledComment>
           <img src={BasicProfileImg} alt="프로필 비활성화" />
-          <CommentInput
+          <Input
             placeholder="댓글을 입력하세요..."
             onChange={handleInput}
             value={inputComment}
           />
         </StyledComment>
-        <PostBtn active={inputComment.trim() !== ''} type="submit">
+        <Button active={inputComment.trim() !== ''} type="submit">
           게시
-        </PostBtn>
-      </CommentContainer>
+        </Button>
+      </Form>
+      
       {isModalOpen && (
         <>
           <BackgroundOverlay />
@@ -150,113 +151,3 @@ const PostPageDetail = () => {
 };
 
 export default PostPageDetail;
-
-const ContainerContent = styled.div`
-  height: 100%;
-  padding: 0rem 0rem 6rem;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const NoComment = styled.p`
-  margin-top: 2rem;
-  text-align: center;
-`;
-
-const CommentContainer = styled.form`
-  width: 39rem;
-  padding: 0 1.6rem;
-  position: fixed;
-  bottom: 0;
-  display: flex;
-  height: 6.1rem;
-  background-color: ${({ theme }) => theme.colors.whiteText};
-  font-size: ${({ theme }) => theme.fontSize.medium};
-  border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
-`;
-
-const StyledComment = styled.div`
-  display: flex;
-  align-items: center;
-  img {
-    width: 3.6rem;
-    height: 3.6rem;
-    margin-right: 1.2rem;
-  }
-`;
-
-const CommentInput = styled.input`
-  border: none;
-  outline: none;
-  width: 27rem;
-  margin-right: 1rem;
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.placeHolderColor};
-  }
-`;
-
-const PostBtn = styled.button`
-  color: ${({ theme }) => theme.colors.placeHolderColor};
-  ${({ theme }) =>
-    theme.colors.mainColor &&
-    `
-    &:not([disabled]) {
-      color: ${theme.colors.mainColor};
-      font-weight: 500;
-    }
-  `}
-
-  ${({ active }) =>
-    !active &&
-    `
-    pointer-events: none;
-    opacity: 0.5;
-  `}
-`;
-
-const slideUpAnimation = keyframes`
-  0% {
-    transform: translateY(100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`;
-
-const ModalContainer = styled.div`
-  position: fixed;
-  height: 85rem;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  z-index: 99999;
-  animation: ${({ isOpen }) =>
-    isOpen &&
-    css`
-      ${slideUpAnimation} 0.5s ease-in-out forwards;
-    `};
-`;
-
-const ModalContent = styled.div`
-  position: fixed;
-  bottom: 0;
-  height: 13.8rem;
-  background-color: white;
-  border-top-left-radius: 0.8rem;
-  border-top-right-radius: 0.8rem;
-`;
-
-const BackgroundOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-`;
