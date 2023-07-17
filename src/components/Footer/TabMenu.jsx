@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import BottomBarButton from './BottomBarButton';
-import styled from 'styled-components';
 import { accountAtom } from '../../atoms/UserAtom';
+import { Container } from './style/FooterStyle';
 
 const TabMenu = () => {
   const myaccount = useRecoilValue(accountAtom);
@@ -74,15 +74,3 @@ const TabMenu = () => {
 };
 
 export default TabMenu;
-
-const Container = styled.div`
-  position: fixed;
-  bottom: 0;
-  width: 39rem;
-  display: flex;
-  justify-content: space-around;
-  border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
-  margin-top: 28px;
-  background-color: white;
-  z-index: 99;
-`;
