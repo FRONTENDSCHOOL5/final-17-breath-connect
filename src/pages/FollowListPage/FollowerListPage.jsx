@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { tokenAtom } from '../../atoms/UserAtom';
 import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router-dom';
@@ -9,7 +8,15 @@ import TopListNavHeader from '../../components/Header/TopListNavHeader';
 import TabMenu from '../../components/Footer/TabMenu';
 import Logo from '../../assets/images/home-logo.svg';
 
-const FollowListPage = () => {  
+import {
+  Title,
+  Main,
+  FollowList,
+  Icon,
+  Text,
+} from  './FollowerListPageStyle';
+
+const FollowerListPage = () => {  
   const token = useRecoilValue(tokenAtom);
   const account = useParams().id;
   console.log(account);
@@ -27,7 +34,8 @@ const FollowListPage = () => {
   return (
     <>
       <TopListNavHeader />
-      <ContentsWrapper>
+      <Main>
+        <Title>팔로워목록</Title>
         <FollowList>
           {followings.length > 0 ? (
             followings.map((user) => (
@@ -36,6 +44,7 @@ const FollowListPage = () => {
                 user={{
                   _id: user._id,
                   username: user.username,
+                  accountname : user.accountname,
                   intro: user.intro,
                   image: user.image,
                   isfollow: user.isfollow,
@@ -45,39 +54,15 @@ const FollowListPage = () => {
           ) : (
             <>  
             <Icon src={Logo} alt="NotFollow로고" className="icon" />
-            <NotFollowersText>팔로워한 사용자가 없습니다.</NotFollowersText>
+            <Text>팔로워한 사용자가 없습니다.</Text>
             </>
           )}
         </FollowList>
-      </ContentsWrapper>
+      </Main>
       <TabMenu />
     </>
   );
 };
 
-export default FollowListPage;
+export default FollowerListPage;
 
-const ContentsWrapper = styled.main`
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 1.6rem 6rem;
-`;
-
-const FollowList = styled.ul`
-  li {
-    margin-bottom: 0.8rem;
-    height: 5rem;
-  }
-`;
-
-const Icon = styled.img`
-  width: 100%;
-  width: 14.8rem;
-  height: 20rem;
-  margin: 5rem 10rem 1rem;
-`;
-const NotFollowersText = styled.p`
-  color: ${({theme}) => theme.colors.textColor};
-  font-size: ${({theme}) => theme.fontSize.small};
-  text-align: center;
-`;
