@@ -5,7 +5,7 @@ import GetLocation from './GetLocation';
 import MapComponent from './MapComponent';
 import ToolBox from './ToolBox';
 import Loading from '../../components/common/Loading/Loading';
-import styled from 'styled-components';
+import { Distance } from './style/MapStyle';
 
 const MapDrawingManager = ({ getpath }) => {
   const location = GetLocation();
@@ -175,8 +175,3 @@ const MapDrawingManager = ({ getpath }) => {
 };
 
 export default MapDrawingManager;
-
-const Distance = styled.span`
-  color: ${({ theme }) => theme.colors.disabledColor};;
-  font-weight: bold;
-`
