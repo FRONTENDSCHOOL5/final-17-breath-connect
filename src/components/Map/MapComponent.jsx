@@ -1,10 +1,6 @@
 import React from 'react';
 import { Map } from 'react-kakao-maps-sdk';
-import styled from 'styled-components';
-
-const MapContainer = styled.div`
-  position: relative;
-`;
+import { MapContainer } from './style/MapStyle';
 
 const MapComponent = ({
   center,
