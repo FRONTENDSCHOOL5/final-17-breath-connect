@@ -4,6 +4,7 @@ export const Main = styled.main`
   display: flex;
   flex-direction: column;
   padding: 2rem 1.6rem 6rem;
+  height: 100vh;
 `;
 
 export const Title = styled.h2`
