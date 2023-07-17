@@ -9,8 +9,12 @@ import { tokenAtom } from '../../atoms/UserAtom';
 import { useLocation } from 'react-router-dom';
 import TabMenu from '../../components/Footer/TabMenu';
 import IconPostModal from '../../components/common/Modal/IconPostModal';
-import styled, { keyframes, css } from 'styled-components';
 import { isEqual } from 'lodash';
+import {
+  ModalContainer,
+  ModalContent,
+  BackgroundOverlay,
+} from './style/ProfilePageStyle';
 
 const ProfilePage = () => {
   const location = useLocation();
@@ -24,7 +28,6 @@ const ProfilePage = () => {
   const [modalBtmText, setModalBtmText] = useState();
   const [profileKey, setProfileKey] = useState(0);
   const [isPostDeleted, setIsPostDeleted] = useState(false);
-
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -114,8 +117,6 @@ const ProfilePage = () => {
     }
   }, [profile]);
 
-  console.log(posts);
-
   if (!posts) {
     return <Loading />;
   } else {
@@ -169,55 +170,10 @@ const ProfilePage = () => {
             </ModalContainer>
           </>
         )}
-
         <TabMenu />
       </>
     );
   }
 };
-
-const slideUpAnimation = keyframes`
-  0% {
-    transform: translateY(100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`;
-
-const ModalContainer = styled.div`
-  position: fixed;
-  height: 85rem;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  z-index: 99999;
-  animation: ${({ isOpen }) =>
-    isOpen &&
-    css`
-      ${slideUpAnimation} 0.5s ease-in-out forwards;
-    `};
-`;
-
-const ModalContent = styled.div`
-  position: fixed;
-  bottom: 0;
-  height: 13.8rem;
-  background-color: white;
-  border-top-left-radius: 0.8rem;
-  border-top-right-radius: 0.8rem;
-`;
-
-const BackgroundOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-`;
 
 export default ProfilePage;
