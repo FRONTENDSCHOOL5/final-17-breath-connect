@@ -1,76 +1,66 @@
 import React, { useState  } from 'react';
-import styled from 'styled-components';
-import ButtonContainer from '../../Button/ButtonContainer';
+import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import Button from '../../Button/ButtonContainer';
 import basicImg from '../../../../assets/images/basic-profile-s.svg';
+import { accountAtom } from '../../../../atoms/UserAtom';
+
+import {
+  UserItem,
+  Image,
+  Container,
+  UserName,
+  Intro,
+  ButtonWrapper,
+} from './FollowStyle.jsx';
 
 const Follow = ({ user }) => {
   const {
     username,
+    accountname,
     intro,
     image,
     isfollow,
   } = user;
   
-  const [isFollowing, setIsFollowing] = useState(isfollow);
+  const [isFollow, setIsFollow] = useState(isfollow);
+  const account = useRecoilValue(accountAtom);
+
   const handleClick = () => {
-    setIsFollowing(!isFollowing);
+    setIsFollow(!isFollow);
   };
 
   const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/(?:(?!null|undefined)[\w.]*)$/;
   
   return (
     <UserItem>
-      <ProfileImage src={numberRegex.test(image) ? image : basicImg } alt = "프로필 이미지" width="50" />
-      <Wrapper>
-        <UserName>{username}</UserName>
-        <Intro>{intro}</Intro>
-      </Wrapper>
-      <ButtonWrapper>
-        <ButtonContainer
-          type={'S'}
-          text={isFollowing ? '취소' : '팔로우'}
-          isClicked={isFollowing}
-          handleClick={handleClick} />
-      </ButtonWrapper>
+      <Image src={numberRegex.test(image) ? image : basicImg } alt = "프로필 이미지" width="50" />
+      <Container>
+        <Link to={`/profile/${accountname}`} key={accountname}>
+          <UserName>{username}</UserName>
+          <Intro>{intro}</Intro>
+        </Link>
+      </Container>
+      {account !== accountname && isFollow === true && (
+        <ButtonWrapper>
+            <Button 
+              type={'S'}
+              text={'취소'}
+              isClicked={isFollow}
+              handleClick={handleClick} />  
+          </ButtonWrapper>
+        )}
+        {account !== accountname && isFollow === false && (
+          <ButtonWrapper>
+            <Button
+              type={'S'}
+              text={'팔로우'}
+              isClicked={!!isFollow}
+              handleClick={handleClick} />
+          </ButtonWrapper>  
+        )}
     </UserItem>
   );
 };
-
 export default Follow;
 
-const UserItem = styled.li`
-  display: flex;
-`;
-
-const Wrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 1.2rem;
-`;
-
-const UserName = styled.strong`
-  display: block;
-  margin-bottom: 0.6rem;
-  font-size: ${({ theme }) => theme.fontSize.medium};
-  font-weight: 500;
-`;
-
-const Intro = styled.span`
-  display: block;
-  margin-bottom: 1rem;
-  font-size: ${({ theme }) => theme.fontSize.small};
-  color: ${({ theme }) => theme.colors.textColor};
-`;
-
-const ProfileImage = styled.img`
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-`;
-
-const ButtonWrapper = styled.button`
-  margin-top: 0rem;
-  -webkit-tap-highlight-color : rgba(0,0,0,0);
-`;
