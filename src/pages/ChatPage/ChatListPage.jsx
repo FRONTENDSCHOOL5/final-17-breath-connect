@@ -1,9 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled, {css} from 'styled-components';
 import profileImage  from '../../assets/images/basic-profile-s.svg';
 import TopBasicNavHeader from '../../components/Header/TopBasicNavHeader';
 import TabMenu from '../../components/Footer/TabMenu';
+import {
+  Title,
+  Main,
+  FollowList,
+  UserItem,
+  Section,
+  UserName,
+  Message,
+  Date,
+  Image,
+  Div,
+} from './ChatListPageStyle';
+
 
 const ChatPage = () => {
     const UserData = [
@@ -40,105 +52,30 @@ const ChatPage = () => {
   return (
     <>
       <TopBasicNavHeader/>
-      <ContentsWrapper>
+      <Main>
+      <Title>채팅리스트</Title>
         <FollowList>
           {UserData.map((user)=> (
             <UserItem key={user.id}>
-              <LeftDiv unread={!user.read}>
-                <ProfileImage src={profileImage} alt='유저의 프로필 사진' width='50' />
-              </LeftDiv>
-              <Wrapper>
+              <Div unread={!user.read}>
+                <Image src={profileImage} alt='유저의 프로필 사진' width='50' />
+              </Div>
+              <Section>
                 <Link to={`/chat/${user.id}`}> 
                   <UserName>{user.username}</UserName>
                   <Message>{user.message}</Message>
                 </Link>  
-              </Wrapper>
+              </Section>
               <Date>{user.date}</Date>
             </UserItem> 
           ))}
         </FollowList> 
-      </ContentsWrapper>
+      </Main>
       <TabMenu/>
     </>
   );
 };
 
 export default ChatPage;
-
-const UserItem = styled.li`
-  display: flex;
-`;
-
-const Wrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 1.2rem;
-`;
-
-const UserName = styled.strong`
-  display: block;
-  margin-bottom: 0.6rem;
-  font-size: ${({theme}) => theme.fontSize.medium};
-  font-weight: 500;
-`;
-
-const Message = styled.strong`
-  display: block;
-  font-size: ${({theme}) => theme.fontSize.small};
-  color: ${({theme}) => theme.colors.textColor};
- 
-`;
-
-const Date = styled.strong`
-  display: inline-block;
-  margin-top: 2.8rem;
-  font-size: ${({theme}) => theme.fontSize.xsmall};
-  color: ${({theme}) => theme.colors.textColor};
-`;
-
-const ProfileImage = styled.img`
-  width: 4.8rem;
-  height: auto;
-  border-radius: 50%;
- 
-`;
-
-const ContentsWrapper = styled.main`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  margin-bottom: 41.5rem;
-  padding: 2.4rem 1.6rem; 
-`;
-
-const FollowList = styled.ul`
-  li:not(:last-child) {
-    margin-bottom: 1.6rem;
-  }
-`;
-
-const LeftDiv = styled.div`
-  position: relative;
-  flex-grow: 0;
-  flex-shrink: 0;
-  margin-right: 1rem;
-
-  ${({ unread }) =>
-    unread &&
-    css`
-      ::after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        width: 1.2rem;
-        height: 1.2rem;
-        background-color: ${({theme}) => theme.colors.mainColor};
-        border-radius: 50%;
-      }
-    `}
-`;
 
 
