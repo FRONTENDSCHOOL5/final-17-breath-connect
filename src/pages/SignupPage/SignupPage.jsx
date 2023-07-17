@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postEmailDuplicate } from '../../utils/Apis';
+
+import { 
+  Container,
+  Title,
+  Form,
+  ErrorMsg } from './SignupPageStyle';
 
 const SignupPage = () => {
 
@@ -95,9 +100,9 @@ const SignupPage = () => {
   };
 
   return (
-     <SignupContainer>
-      <SignupTitle>회원가입</SignupTitle>
-      <SignupForm onSubmit={handleSignup}>
+     <Container>
+      <Title>회원가입</Title>
+      <Form onSubmit={handleSignup}>
         <Input
           label='이메일'
           placeholder='이메일 주소를 입력해주세요'
@@ -125,41 +130,9 @@ const SignupPage = () => {
         </div>
         {passwordErrorMsg && <ErrorMsg className='password-msg'>{passwordErrorMsg}</ErrorMsg>}
         <ButtonContainer type={'L'} text={'회원가입'} isDisabled = {!handleActivateButton()} />
-      </SignupForm>
-    </SignupContainer>
+      </Form>
+    </Container>
   )
 }
 
 export default SignupPage;
-
-const SignupContainer = styled.main`
-  margin: 0 auto;
-`
-
-const SignupTitle = styled.h1`
-padding-top: 2.7rem;
-  color: ${({ theme }) => theme.colors.blackText};
-  font-size: ${({ theme }) => theme.fontSize.xxlarge};
-  text-align: center;
-  margin-bottom: 4.5rem;
-`
-
-const SignupForm = styled.form`
-   .input-wrapper {
-    margin-bottom: 3rem; 
-  } 
-`
-
-const ErrorMsg = styled.p`
-  ${({ theme }) => css`
-    color: ${theme.colors.errorText};
-    font-size: ${theme.fontSize.small};
-    margin-top: -0.9rem;
-  `}
-  &.password-msg {
-    margin: -2.4rem 0 3rem;
-  }
-  &.success-msg {
-    color: blue;
-  }
-`;

@@ -1,8 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import AddImg from '../../../assets/sprite/img-btn.svg';
 import {
   accountAtom,
   profileImgAtom,
@@ -20,6 +18,14 @@ import {
   editProfile,
 } from '../../../utils/Apis';
 import { useRecoilValue } from 'recoil';
+
+import { 
+  Container,
+  ImageWrap,
+  Form,
+  Image,
+  ImageInput,
+  ErrorMsg } from './ProfileEditPageStyle';
 
 const ProfileEditPage = () => {
   const URL = 'https://api.mandarin.weniv.co.kr';
@@ -153,13 +159,13 @@ const ProfileEditPage = () => {
         isDisabled={!handleActivateButton()}
         handleClick={handleProfileEdit}
       />
-      <ProfileEditContainer>
-        <UploadForm onSubmit={handleProfileEdit}>
+      <Container>
+        <Form onSubmit={handleProfileEdit}>
           <ImageWrap>
             <label htmlFor="upload-image">
-              <ProfileImage src={image} alt="사용자 프로필 이미지" />
+              <Image src={image} alt="사용자 프로필 이미지" />
             </label>
-            <ProfileImageInput
+            <ImageInput
               type="file"
               accept="image/png, image/jpg, image/jpeg"
               id="upload-image"
@@ -198,74 +204,10 @@ const ProfileEditPage = () => {
               required
             />
           </div>
-        </UploadForm>
-      </ProfileEditContainer>
+        </Form>
+      </Container>
     </>
   );
 };
 
 export default ProfileEditPage;
-
-const ProfileEditContainer = styled.main`
-  margin: 0 auto;
-  .spriteImg-wrapper {
-    position: absolute;
-    bottom: 0;
-  }
-  .upload-button {
-    position: absolute;
-    left: 0;
-  }
-`;
-
-const ImageWrap = styled.div`
-  label {
-    position: relative;
-    display: block;
-    width: 11rem;
-    height: 11rem;
-    margin: 3.5rem auto 5.5rem;
-    cursor: pointer;
-    border-radius: 50%;
-    border: 1px solid ${({ theme }) => theme.colors.placeHolderColor};
-    &::after {
-      content: '';
-      display: block;
-      background: url(${AddImg}) no-repeat center / 3.6rem 3.6rem;
-      width: 3.6em;
-      height: 3.6rem;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      z-index: 2;
-    }
-  }
-`;
-
-const UploadForm = styled.form`
-  .button-margin {
-    margin-bottom: 3rem;
-  }
-`;
-
-const ProfileImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 50%;
-`;
-
-const ProfileImageInput = styled.input`
-  width: 0.1rem;
-  height: 0.1rem;
-  position: absolute;
-  z-index: -1000rem;
-`;
-
-const ErrorMsg = styled.p`
-  ${({ theme }) => css`
-    color: ${theme.colors.errorText};
-    font-size: ${theme.fontSize.small};
-    margin-top: -0.9rem;
-  `}
-`;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled, { css, keyframes } from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
@@ -14,6 +13,14 @@ import {
   introAtom,
 } from '../../atoms/UserAtom';
 import { loginAtom } from '../../atoms/LoginAtom';
+
+import { 
+  Container,
+  LoginTitle,
+  Form,
+  SignupLink,
+  ErrorMsg
+ } from './LoginPageStyle';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -88,9 +95,9 @@ const LoginPage = () => {
   }, [userLogin]);
 
   return (
-    <LoginContainer>
+    <Container>
       <LoginTitle>로그인</LoginTitle>
-      <LoginForm onSubmit={handleLogin}>
+      <Form onSubmit={handleLogin}>
         <div className="input-wrapper">
           <Input
             label="이메일"
@@ -121,44 +128,10 @@ const LoginPage = () => {
           text={'로그인'}
           isDisabled={!handleActivateButton()}
         />
-      </LoginForm>
+      </Form>
       <SignupLink to="/signup">이메일로 회원가입</SignupLink>
-    </LoginContainer>
+    </Container>
   );
 };
 
 export default LoginPage;
-
-const LoginContainer = styled.section`
-  margin: 0 auto;
-`;
-
-const LoginTitle = styled.h1`
-  padding-top: 2.7rem;
-  color: ${({ theme }) => theme.colors.blackText};
-  font-size: ${({ theme }) => theme.fontSize.xxlarge};
-  text-align: center;
-  margin-bottom: 4.5rem;
-`;
-
-const LoginForm = styled.form`
-  .input-wrapper {
-    margin-bottom: 3rem;
-  }
-`;
-
-const SignupLink = styled(Link)`
-  text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.small};
-  color: ${({ theme }) => theme.colors.textColor};
-  display: block;
-  padding-top: 1.9rem;
-`;
-
-const ErrorMsg = styled.p`
-  ${({ theme }) => css`
-    color: ${theme.colors.errorText};
-    font-size: ${theme.fontSize.small};
-    margin-top: -0.9rem;
-  `}
-`;
