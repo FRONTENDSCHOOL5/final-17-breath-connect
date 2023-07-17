@@ -94,7 +94,7 @@ export const ModalContainer = styled.div`
 export const ModalContent = styled.div`
   position: fixed;
   bottom: 0;
-  height: 13.8rem;
+  height: 9.2rem;
   background-color: white;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
