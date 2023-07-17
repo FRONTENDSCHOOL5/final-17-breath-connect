@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import HeaderContainer from './HeaderContainer';
 import BackButton from './BackButton';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
 
 const TopBasicNavHeader = ({ onButtonClick }) => {
-
   return (
     <HeaderContainer>
       <BackButton />

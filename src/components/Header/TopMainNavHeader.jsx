@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HeaderContainer from './HeaderContainer';
-import styled from 'styled-components';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
+import { MainButton } from './style/HeaderStyle';
 
 const TopMainNavHeader = () => {
   return (
@@ -18,9 +18,3 @@ const TopMainNavHeader = () => {
 };
 
 export default TopMainNavHeader;
-
-const MainButton = styled.div`
-  padding: 1.8rem;
-  font-size: 1.8rem;
-  font-weight: 500;
-`;
