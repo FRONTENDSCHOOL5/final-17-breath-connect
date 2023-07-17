@@ -6,6 +6,7 @@ import LogOut from '../Alert/LogOut';
 import { useNavigate } from 'react-router-dom';
 import { deletePost } from '../../../utils/Apis';
 import { tokenAtom } from '../../../atoms/UserAtom';
+import {Container, ButtonContainer} from '../Modal/IconPostModalStyle'
 
 const IconPostModal = ({ topText, btmText, accountName, data, key, setIsPostDeleted,
 comment, onClick }) => {
@@ -71,13 +72,12 @@ comment, onClick }) => {
 
   return (
     <>
-        <div>
-          <Separator />
-          <ModalButtons>
+        <Container>
+          <ButtonContainer>
             <button onClick={deleteClick}>{topText}</button>
             <button onClick={modifyClick}>{btmText}</button>
-          </ModalButtons>
-        </div>
+          </ButtonContainer>
+        </Container>
         {showAlert && <Alert message={alertMessage} setIsPostDeleted={setIsPostDeleted}
 onClose={handleAlertClose} done={alertDone} text={topText.replace("하기","")} />}
         {showLogOut && <LogOut message={alertMessage} onClose={handleLogOutClose} done={alertDone}/>}
@@ -86,22 +86,3 @@ onClose={handleAlertClose} done={alertDone} text={topText.replace("하기","")} 
 };
 
 export default IconPostModal;
-
-const Separator = styled.div`
-  width: 5rem;
-  height: 0.4rem;
-  background: ${({ theme }) => theme.colors.borderColor};
-  margin: 1.6rem 17rem;
-  border-radius: 0.5rem;
-`;
-
-const ModalButtons = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 2rem;
-  button{
-    text-align: left;
-    font-size: 14px;
-    padding: 1.3rem 0rem 1.4rem 2.6rem;
-  }
-`;
