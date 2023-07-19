@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
-import BasicProfileImg from '../../assets/images/basic-profile-l.svg';
+import imageCompression from 'browser-image-compression';
+import BasicProfileImg from '../../assets/images/basic-profile-l.svg'
 
 import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
@@ -10,18 +10,19 @@ import {
   postAccountnameDuplicate,
   postUserSignup,
   postUploadProfile,
-} from '../../utils/Apis';
+} from '../../utils/Apis'
 
-import {
+import { 
   Container,
   Title,
   ImageWrap,
   Form,
   Image,
   ImageInput,
-  ErrorMsg,
-} from './ProfileSettingPageStyle';
+  ErrorMsg
+ } from './ProfileSettingPageStyle';
 const ProfileSettingPage = () => {
+
   const URL = 'https://api.mandarin.weniv.co.kr/';
 
   const navigate = useNavigate();
@@ -42,54 +43,78 @@ const ProfileSettingPage = () => {
 
   const formData = new FormData();
 
+
+  const blobToFile = (blob, filename) => {
+  const file = new File([blob], filename);
+  return file;
+};
+
   const handleInputImage = async (e) => {
-    const file = e.target.files[0];
-    formData.append('image', file);
+  const file = e.target.files[0];
+  const options = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 220,
+    useWebWorker: true,
+  };
+
+  try {
+    const compressedImg = await imageCompression(file, options);
+
+    // Blob 객체를 File 객체로 변환하여 formData에 추가
+    const compressedFile = blobToFile(compressedImg, file.name);
+    formData.append("image", compressedFile);
+
     const imgData = await postUploadProfile(formData);
     console.log(imgData);
-    setImage(URL + '/' + imgData.filename);
-  };
+    setImage(URL + imgData.filename);
+    console.log(image);
+    
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
   const handleInputChange = (e) => {
     const intro = e.target.value;
     setIntro(intro);
-  };
+  }
 
   // username 유효성 검사
   const handleInputUsername = (e) => {
     const username = e.target.value;
     const usernameRegex = /^[a-zA-Z0-9]{2,10}$/;
-    if (username === '') {
+    if(username === '') {
       setUsernameErrorMsg('*입력해주세요');
     } else if (!usernameRegex.test(username)) {
-      setUsernameErrorMsg('*영문 2~10자 이내로 입력해주세요');
-    } else {
-      setUsernameErrorMsg('');
-      setUsernameValid(true);
-      setUsername(username);
-    }
-  };
+      setUsernameErrorMsg('*영문 2~10자 이내로 입력해주세요');    
+  } else {
+    setUsernameErrorMsg('');
+    setUsernameValid(true);
+    setUsername(username);
+  }
+}
 
-  // accountname 유효성 검사
-  const handleInputAccountname = async (e) => {
-    const accountname = e.target.value;
-    const accountnameRegex = /^[a-zA-Z0-9._]+$/;
-    const checkAccountname = await postAccountnameDuplicate(accountname);
-    if (accountname === '') {
-      setAccountnameErrorMsg('*입력해주세요');
-      setAccountnameValid(false);
-    } else if (!accountnameRegex.test(accountname)) {
-      setAccountnameErrorMsg('*영문, 숫자, 특수문자 ., _ 만 입력해주세요');
-      setAccountnameValid(false);
-    } else if (checkAccountname.message === '이미 가입된 계정ID 입니다.') {
-      setAccountnameErrorMsg('*이미 존재하는 계정ID 입니다 😥');
-      setAccountnameValid(false);
-    } else {
-      setAccountnameValid(true);
-      setAccountnameErrorMsg('');
-      setAccountname(accountname);
-    }
-  };
+// accountname 유효성 검사
+const handleInputAccountname = async (e) => {
+  const accountname = e.target.value;
+  const accountnameRegex = /^[a-zA-Z0-9._]+$/;
+  const checkAccountname = await postAccountnameDuplicate(accountname);
+  if(accountname === '') {
+    setAccountnameErrorMsg('*입력해주세요');
+    setAccountnameValid(false);
+  } else if (!accountnameRegex.test(accountname)) {
+    setAccountnameErrorMsg('*영문, 숫자, 특수문자 ., _ 만 입력해주세요');
+    setAccountnameValid(false);
+  } else if (checkAccountname.message === '이미 가입된 계정ID 입니다.') {
+    setAccountnameErrorMsg('*이미 존재하는 계정ID 입니다 😥');
+    setAccountnameValid(false);
+  } else {
+    setAccountnameValid(true);
+    setAccountnameErrorMsg('');
+    setAccountname(accountname);
+  }
+}
 
   /* 버튼 활성화 */
   const handleActivateButton = () => {
@@ -102,94 +127,84 @@ const ProfileSettingPage = () => {
   }, [username]);
 
   useEffect(() => {
-    setAccountnameErrorMsg('');
+    setAccountnameErrorMsg('')
   }, [accountname]);
 
-  const handleProfileSignup = async (e) => {
-    e.preventDefault();
-    if (usernameValid && accountnameValid) {
-      const signupData = await postUserSignup(
-        username,
-        userEmail,
-        userPassword,
-        accountname,
-        intro,
-        image
-      );
+const handleProfileSignup = async (e) => {
+  e.preventDefault();
+    if(usernameValid && accountnameValid) {
+      const signupData = await postUserSignup (
+      username,
+      userEmail,
+      userPassword,
+      accountname,
+      intro,
+      image
+      )
       setIsComplete(true);
       console.log(signupData);
       navigate('/login');
     } else {
       setIsComplete(false);
     }
-  };
+}
 
   return (
     <>
-      <Container>
-        <Title>프로필 설정</Title>
-        <p className="profileSetting-description">
-          나중에 언제든지 변경할 수 있습니다.
-        </p>
-        <Form onSubmit={handleProfileSignup}>
-          <ImageWrap>
-            <label htmlFor="upload-image">
-              <Image
-                src={image ? image : BasicProfileImg}
-                alt="사용자 프로필 이미지"
-              />
-            </label>
-            <ImageInput
-              type="file"
-              accept="image/png, image/jpg, image/jpeg"
-              id="upload-image"
-              ref={fileInputRef}
-              onChange={handleInputImage}
-            />
-          </ImageWrap>
-          <Input
-            label="사용자 이름"
-            placeholder="2~10자 이내여야 합니다."
-            id="username"
-            type="text"
-            name="username"
-            onChange={handleInputUsername}
-            hasError={usernameErrorMsg !== ''}
-            required
-          />
-          {usernameErrorMsg && <ErrorMsg>{usernameErrorMsg}</ErrorMsg>}
-          <Input
-            label="계정 ID"
-            placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
-            id="accountname"
-            type="text"
-            name="accountname"
-            onChange={handleInputAccountname}
-            hasError={accountnameErrorMsg !== ''}
-            required
-          />
-          {accountnameErrorMsg && <ErrorMsg>{accountnameErrorMsg}</ErrorMsg>}
-          <div className="button-margin">
-            <Input
-              label="소개"
-              placeholder="자신에 대해 소개해 주세요!"
-              id="intro"
-              type="text"
-              name="intro"
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <ButtonContainer
-            type={'L'}
-            text={'들숨날숨 시작하기'}
-            isDisabled={!handleActivateButton()}
-            handleClick={handleProfileSignup}
-          />
+    <Container>
+    <Title>프로필 설정</Title>
+    <p className="profileSetting-description">나중에 언제든지 변경할 수 있습니다.</p>
+    <Form onSubmit={handleProfileSignup}>   
+     <ImageWrap> 
+      <label htmlFor="upload-image">
+      <Image src={image ? image : BasicProfileImg} alt="사용자 프로필 이미지" />
+      </label>
+      <ImageInput 
+      type="file" 
+      accept="image/png, image/jpg, image/jpeg" 
+      id="upload-image"
+      ref={fileInputRef}
+      onChange={handleInputImage} />
+     </ImageWrap>
+     <Input
+          label='사용자 이름'
+          placeholder='2~10자 이내여야 합니다.'
+          id='username'
+          type='text'
+          name='username'
+          onChange={handleInputUsername}
+          hasError={usernameErrorMsg !== ''}
+          required
+        />
+        {usernameErrorMsg && <ErrorMsg>{usernameErrorMsg}</ErrorMsg>}
+     <Input
+          label='계정 ID'
+          placeholder='영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
+          id='accountname'
+          type='text'
+          name='accountname'
+          onChange = {handleInputAccountname}
+          hasError={accountnameErrorMsg !== ''}
+          required
+        />
+        {accountnameErrorMsg && <ErrorMsg>{accountnameErrorMsg}</ErrorMsg>}
+        <div className='button-margin'>
+     <Input
+          label='소개'
+          placeholder='자신에 대해 소개해 주세요!'
+          id='intro'
+          type='text'
+          name='intro'
+          onChange={handleInputChange}
+          required
+        />
+        </div>
+        <ButtonContainer type={'L'} text={'들숨날숨 시작하기'} isDisabled = {!handleActivateButton()} 
+        handleClick={handleProfileSignup}/>
         </Form>
-      </Container>
-    </>
-  );
-};
+         </Container>
+        </>
+    )
+  }
 
 export default ProfileSettingPage;
