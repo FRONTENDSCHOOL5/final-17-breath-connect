@@ -7,8 +7,18 @@ import TopListNavHeader from '../../components/Header/TopListNavHeader';
 import FeedComment from '../FeedPage/FeedComment';
 import BasicProfileImg from '../../assets/images/basic-profile-xs.svg';
 import { accountAtom, tokenAtom } from '../../atoms/UserAtom';
-import { Container, Main, NoComment, Form, Input, Button, slideUpAnimation, ModalContainer, ModalContent, BackgroundOverlay, StyledComment } from '../PostPage/PostDetailPageStyle'
-import IconPostModal from '../../components/common/Modal/IconPostModal';
+import {
+  Container,
+  Main,
+  NoComment,
+  Form,
+  Input,
+  Button,
+  ModalContainer,
+  ModalContent,
+  BackgroundOverlay,
+  StyledComment,
+} from './style/PostDetailPageStyle';
 import PostModal from '../../components/common/Modal/PostModal';
 
 const PostPageDetail = () => {
@@ -84,7 +94,7 @@ const PostPageDetail = () => {
   return (
     <Container>
       <TopListNavHeader />
-      
+
       <Main>
         <PostPage
           data={data}
@@ -125,7 +135,7 @@ const PostPageDetail = () => {
           게시
         </Button>
       </Form>
-      
+
       {isModalOpen && (
         <>
           <BackgroundOverlay />

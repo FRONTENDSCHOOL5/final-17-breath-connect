@@ -1,5 +1,12 @@
-import React, {useState} from 'react';
-import {Container, AlertContainer, AlertMessage, ButtonContainer, CancelButton, DeleteButton} from '../Alert/AlertStyle'
+import React, { useState } from 'react';
+import {
+  Container,
+  AlertContainer,
+  AlertMessage,
+  ButtonContainer,
+  CancelButton,
+  DeleteButton,
+} from './style/AlertStyle';
 
 const Alert = ({ message, onClose, done, text, setIsPostDeleted }) => {
   const [showAlert, setShowAlert] = useState(true);
@@ -17,13 +24,13 @@ const Alert = ({ message, onClose, done, text, setIsPostDeleted }) => {
 
   return (
     <Container>
-    <AlertContainer>
-      <AlertMessage>{message}</AlertMessage>
-      <ButtonContainer>
-        <CancelButton onClick={handleClickCancel}>취소</CancelButton>
-        <DeleteButton onClick={handleClickDelete}>{text}</DeleteButton>
-      </ButtonContainer>
-    </AlertContainer>
+      <AlertContainer>
+        <AlertMessage>{message}</AlertMessage>
+        <ButtonContainer>
+          <CancelButton onClick={handleClickCancel}>취소</CancelButton>
+          <DeleteButton onClick={handleClickDelete}>{text}</DeleteButton>
+        </ButtonContainer>
+      </AlertContainer>
     </Container>
   );
 };

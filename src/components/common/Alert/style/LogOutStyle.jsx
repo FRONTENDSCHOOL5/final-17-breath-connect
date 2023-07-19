@@ -13,7 +13,7 @@ export const Container = styled.div`
   z-index: 999;
   opacity: 1;
   pointer-events: auto;
-`
+`;
 export const LogOutContainer = styled.div`
   position: absolute;
   top: 50%;

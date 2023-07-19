@@ -1,10 +1,22 @@
-import React, {useState} from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState, useRecoilCallback } from 'recoil';
 import { loginAtom } from '../../../atoms/LoginAtom';
-import { tokenAtom, accountAtom, profileImgAtom, usernameAtom, introAtom } from '../../../atoms/UserAtom';
-import { Container, LogOutContainer, LogOutMessage, ButtonContainer, CancelButton, LogOutButton } from '../Alert/LogOutStyle'
+import {
+  tokenAtom,
+  accountAtom,
+  profileImgAtom,
+  usernameAtom,
+  introAtom,
+} from '../../../atoms/UserAtom';
+import {
+  Container,
+  LogOutContainer,
+  LogOutMessage,
+  ButtonContainer,
+  CancelButton,
+  LogOutButton,
+} from './style/LogOutStyle';
 
 const LogOut = ({ message, onClose, done }) => {
   const navigate = useNavigate();
@@ -12,7 +24,7 @@ const LogOut = ({ message, onClose, done }) => {
   const setLoginState = useSetRecoilState(loginAtom);
 
   /* reset 메서드를 사용하여 atom 값 초기화 */
-   const handleResetState = useRecoilCallback(({ reset }) => () => {
+  const handleResetState = useRecoilCallback(({ reset }) => () => {
     reset(tokenAtom);
     reset(accountAtom);
     reset(profileImgAtom);
@@ -36,17 +48,20 @@ const LogOut = ({ message, onClose, done }) => {
     navigate('/');
   };
 
-
   return (
     <Container>
       <LogOutContainer>
         <LogOutMessage>{message}</LogOutMessage>
         <ButtonContainer>
           <CancelButton onClick={handleClickCancel}>취소</CancelButton>
-          <LogOutButton onClick={() => {
-            handleClick();
-            handleLogout();
-          }}>로그아웃</LogOutButton>
+          <LogOutButton
+            onClick={() => {
+              handleClick();
+              handleLogout();
+            }}
+          >
+            로그아웃
+          </LogOutButton>
         </ButtonContainer>
       </LogOutContainer>
     </Container>

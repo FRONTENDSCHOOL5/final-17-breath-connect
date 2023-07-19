@@ -2,13 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import icon404 from '../../assets/images/icon-404.svg';
 import Button from '../../components/common/Button/ButtonContainer';
-import { 
-  Section,
-  Image,
-  ErrorMessage,
-} from './NotFoundPageStyle';
+import { Section, Image, ErrorMessage } from './style/NotFoundPageStyle';
 
-const NotFound=()=> {
+const NotFound = () => {
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
@@ -20,6 +16,5 @@ const NotFound=()=> {
       <Button text={'이전 페이지'} type={'ML'} handleClick={handleGoBack} />
     </Section>
   );
-}
+};
 export default NotFound;
-

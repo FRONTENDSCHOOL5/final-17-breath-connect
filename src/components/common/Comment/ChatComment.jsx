@@ -7,7 +7,7 @@ import {
   Form,
   Input,
   Button,
-} from './ChatCommentStyle';
+} from './style/ChatCommentStyle';
 
 const CommentSection = () => {
   const [comment, setComment] = useState('');
@@ -23,11 +23,12 @@ const CommentSection = () => {
       </Label>
       <Form>
         <Input value={comment} onChange={handleInputChange} />
-        <Button className={comment ? 'active' : ''} isActive={comment}>전송</Button>
+        <Button className={comment ? 'active' : ''} isActive={comment}>
+          전송
+        </Button>
       </Form>
     </Section>
   );
 };
 
 export default CommentSection;
-

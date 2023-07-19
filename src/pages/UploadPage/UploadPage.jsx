@@ -13,7 +13,17 @@ import TabMenu from '../../components/Footer/TabMenu';
 import { useNavigate } from 'react-router-dom';
 import { tokenAtom } from '../../atoms/UserAtom';
 import { useRecoilValue } from 'recoil';
-import { Container, DateSection, TextSection, Counter, MapSection, CompleteMapSection, Button, ManualSection, ManualContents } from './UploadPageStyle';
+import {
+  Container,
+  DateSection,
+  TextSection,
+  Counter,
+  MapSection,
+  CompleteMapSection,
+  Button,
+  ManualSection,
+  ManualContents,
+} from './style/UploadPageStyle';
 
 const UploadPage = () => {
   const userToken = useRecoilValue(tokenAtom);
@@ -124,16 +134,12 @@ const UploadPage = () => {
             {!pathProcess ? (
               <MapSection>
                 <p>나만의 러닝 코스를 그려보세요!</p>
-                <Button onClick={handleTestClick}>
-                  러닝 코스 그리기
-                </Button>
+                <Button onClick={handleTestClick}>러닝 코스 그리기</Button>
               </MapSection>
             ) : (
               <CompleteMapSection>
                 <FeedMap data={pathProcess} />
-                <Button onClick={handleTestClick}>
-                  다시 그리기
-                </Button>
+                <Button onClick={handleTestClick}>다시 그리기</Button>
               </CompleteMapSection>
             )}
             <ManualSection>

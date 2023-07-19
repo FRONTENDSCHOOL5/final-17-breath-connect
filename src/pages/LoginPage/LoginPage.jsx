@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import Input from '../../components/common/Input/Input';
@@ -14,13 +14,13 @@ import {
 } from '../../atoms/UserAtom';
 import { loginAtom } from '../../atoms/LoginAtom';
 
-import { 
+import {
   Container,
   LoginTitle,
   Form,
   SignupLink,
-  ErrorMsg
- } from './LoginPageStyle';
+  ErrorMsg,
+} from './style/LoginPageStyle';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -88,7 +88,7 @@ const LoginPage = () => {
     return userEmail !== '' && userPassword !== '';
   };
 
-   useEffect(() => {
+  useEffect(() => {
     if (userLogin) {
       navigate('/home');
     }

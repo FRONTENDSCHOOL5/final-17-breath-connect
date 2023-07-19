@@ -6,7 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '../../atoms/UserAtom';
 import { getSearchResult } from '../../utils/Apis';
-import { Main, NoResultsText, Button, Image, Section, HighlightedText, UserName, NickName } from './SearchPageStyle';
+import {
+  Main,
+  NoResultsText,
+  Button,
+  Image,
+  Section,
+  HighlightedText,
+  UserName,
+  NickName,
+} from './style/SearchPageStyle';
 
 const SearchPage = () => {
   const navigate = useNavigate();
@@ -14,7 +23,8 @@ const SearchPage = () => {
   const url = 'https://api.mandarin.weniv.co.kr';
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
-  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/(?:(?!null|undefined)[\w.]*)$/;
+  const numberRegex =
+    /^https:\/\/api\.mandarin\.weniv\.co\.kr\/(?:(?!null|undefined)[\w.]*)$/;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,11 +64,11 @@ const SearchPage = () => {
       );
   };
 
-return (
+  return (
     <>
       <TopSearchNavHeader value={search} setValue={setSearch} />
       <Main>
-          {data.length === 0 ? (
+        {data.length === 0 ? (
           <NoResultsText>검색 결과가 없습니다.</NoResultsText>
         ) : (
           data.map((item, index) => (
@@ -84,50 +94,5 @@ return (
     </>
   );
 };
-
-// const SearchContainer = styled.div`
-//   height: 100%;
-//   margin-top: 2rem;
-//   margin-left: 1.6rem;
-//   color: ${({ theme }) => theme.colors.textColor};
-// `;
-
-// const NoResultsText = styled.p`
-//   font-size: 1.4rem;
-// `;
-
-// const SearchResultItem = styled.button`
-//   display: flex;
-//   align-items: center;
-//   margin-bottom: 1.5rem;
-// `;
-
-// const ProfileImage = styled.img`
-//   width: 5rem;
-//   height: 5rem;
-//   border-radius: 50%;
-//   margin-right: 1.2rem;
-// `;
-
-// const UserInfo = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   text-align: start;
-// `;
-
-// const HighlightedText = styled.span`
-//   color: ${({ theme }) => theme.colors.mainColor};
-//   font-weight: bold;
-// `;
-
-// const UserName = styled.p`
-//   font-size: ${({ theme }) => theme.fontSize.medium};
-//   margin-bottom: 0.6rem;
-//   color: ${({ theme }) => theme.colors.blackText};
-// `;
-
-// const NickName = styled.p`
-//   font-size: ${({ theme }) => theme.fontSize.small};
-// `;
 
 export default SearchPage;

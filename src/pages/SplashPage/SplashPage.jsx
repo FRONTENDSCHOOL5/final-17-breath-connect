@@ -3,13 +3,7 @@ import SplashLogo from '../../assets/images/full-logo.svg';
 import SplashTitle from '../../assets/images/main-title.svg';
 
 import SnsLoginPage from '../../pages/SnsLoginPage/SnsLoginPage';
-import { 
-  SplashScreen,
-  fadeIn,
-  zoomIn,
-  MainLogo,
-  MainTitle
-} from './SplashPageStyle';
+import { SplashScreen, MainLogo, MainTitle } from './style/SplashPageStyle';
 
 const SplashPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,4 +27,3 @@ const SplashPage = () => {
 };
 
 export default SplashPage;
-

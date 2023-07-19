@@ -23,7 +23,7 @@ export const ButtonText = styled.div`
 
 // ----- TabMenu
 export const Container = styled.div`
-  position: sticky;
+  position: fixed;
   bottom: 0;
   width: 39rem;
   display: flex;

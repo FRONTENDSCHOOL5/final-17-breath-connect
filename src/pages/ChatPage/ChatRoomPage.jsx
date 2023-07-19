@@ -12,23 +12,27 @@ import {
   MineChatBox,
   ChatTime,
   Img,
-} from './ChatRoomPageStyle';
+} from './style/ChatRoomPageStyle';
 
 const ChatRoom = () => {
-  return (    
+  return (
     <>
-      <TopChatNavHeader/>
+      <TopChatNavHeader />
       <Main className="chat-space">
         <Title>채팅방</Title>
         <ul>
           <Chatli className="chat-partner">
             <Image src={ProfileImg} alt="유저프로필" />
-            <PartnerChatBox className="chat-box">안녕하세요~ 서울역 게시글 봤어요!!</PartnerChatBox>
+            <PartnerChatBox className="chat-box">
+              안녕하세요~ 서울역 게시글 봤어요!!
+            </PartnerChatBox>
             <ChatTime className="chat-time">12:39</ChatTime>
           </Chatli>
           <Chatli className="chat-partner">
             <Image src={ProfileImg} alt="유저프로필" />
-            <PartnerChatBox className="chat-box">저도 달리기 참여하고 싶어요😊</PartnerChatBox>
+            <PartnerChatBox className="chat-box">
+              저도 달리기 참여하고 싶어요😊
+            </PartnerChatBox>
             <ChatTime className="chat-time">12:41</ChatTime>
           </Chatli>
           <Chatli className="chat-mine">
@@ -37,13 +41,12 @@ const ChatRoom = () => {
           </Chatli>
           <Chatli className="chat-mine">
             <ChatTime className="chat-time">12:51</ChatTime>
-             <Img src={ChatImg} alt="강아지 사진" />
+            <Img src={ChatImg} alt="강아지 사진" />
           </Chatli>
         </ul>
       </Main>
-      <ChatComment/> 
+      <ChatComment />
     </>
   );
 };
 export default ChatRoom;
-

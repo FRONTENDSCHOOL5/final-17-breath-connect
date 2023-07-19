@@ -109,3 +109,99 @@ export const BackgroundOverlay = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
 `;
+
+//
+export const PostContainer = styled.div`
+  padding: 1.6rem;
+  box-shadow: 0 0.1rem 0 rgba(217, 217, 217, 0.5);
+  div button {
+    text-align: start;
+  }
+  .post-modal {
+    float: right;
+  }
+  .go-to-post-detail {
+    width: 30rem;
+  }
+`;
+
+export const UserProfileImg = styled.img`
+  width: 4.2rem;
+  height: 4.2rem;
+  margin-right: 1.2rem;
+  border-radius: 50%;
+`;
+
+export const UserAccountName = styled.div`
+  font-size: ${({ theme }) => theme.fontSize.small};
+  color: ${({ theme }) => theme.colors.textColor};
+  margin-bottom: 1.6rem;
+`;
+
+export const ScheduleInfo = styled.p`
+  margin-bottom: 0.5rem;
+`;
+
+export const LocationInfo = styled.p`
+  margin-bottom: 0.5rem;
+`;
+
+export const CommentContainer = styled.div`
+  padding-top: 0.4rem;
+`;
+
+export const FeedInfo = styled.span`
+  width: 30rem;
+  margin-left: 0.4rem;
+  vertical-align: 0.2rem;
+  color: ${({ theme }) => theme.colors.textColor};
+`;
+
+export const UserName = styled.div`
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+`;
+
+export const UserFeedText = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: nowrap;
+  font-size: 1.2rem;
+  margin-bottom: 1.6rem;
+`;
+
+export const AppendAndComment = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+`;
+
+export const AppendButton = styled.div`
+  background-color: rgba(101, 33, 211, 0.043);
+  color: ${({ theme }) => theme.colors.mainColor};
+  padding: 0.5rem 1rem 0rem;
+  border-radius: 1rem;
+  z-index: 1;
+`;
+
+export const MapContents = styled.div`
+  width: 30.4rem;
+  /* height: 80px; */
+  border-radius: 1rem;
+  overflow: hidden;
+  margin: 1.2rem 0rem;
+`;
+
+export const PostContents = styled.div`
+  display: flex;
+  margin-bottom: 2rem;
+`;
+
+export const DetailButton = styled.button`
+  pointer-events: ${(props) => (props.detail ? 'none' : 'auto')};
+  cursor: ${(props) => (props.detail ? 'not-allowed' : 'pointer')};
+`;

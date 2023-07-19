@@ -5,14 +5,9 @@ import Input from '../../components/common/Input/Input';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postEmailDuplicate } from '../../utils/Apis';
 
-import { 
-  Container,
-  Title,
-  Form,
-  ErrorMsg } from './SignupPageStyle';
+import { Container, Title, Form, ErrorMsg } from './style/SignupPageStyle';
 
 const SignupPage = () => {
-
   const navigate = useNavigate();
 
   const [userEmail, setUserEmail] = useState('');
@@ -27,9 +22,8 @@ const SignupPage = () => {
   /* 이메일 유효성 검사 */
   const handleInputEmail = async (e) => {
     const userEmail = e.target.value;
-    const emailRegex = 
-    /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    if(userEmail === '') {
+    const emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (userEmail === '') {
       setEmailErrorMsg('*입력해주세요');
     } else if (!emailRegex.test(userEmail)) {
       setEmailErrorMsg('*이메일의 형식이 올바르지 않습니다 😥');
@@ -38,10 +32,9 @@ const SignupPage = () => {
       setEmailErrorMsg('');
       setUserEmail(userEmail);
     }
-    
-  }
+  };
 
-/* 중복된 이메일 확인 */
+  /* 중복된 이메일 확인 */
   const handleEmailDuplicate = async (e) => {
     const checkEmail = await postEmailDuplicate(e.target.value);
     if (checkEmail.message === '이미 가입된 이메일 주소 입니다.') {
@@ -51,21 +44,23 @@ const SignupPage = () => {
       setEmailErrorMsg('');
       setEmailSuccessMsg('사용 가능한 이메일 입니다 🤗');
     }
-  }
+  };
 
   /* 비밀번호 유효성 검사 */
   const handleInputPassword = (e) => {
     const userPassword = e.target.value;
-    const passwordRegex = 
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/;
-    if(!passwordRegex.test(userPassword)) {
-    setPasswordErrorMsg('*영문+숫자+특수기호 조합으로 6자리 이상 입력해주세요');
-  } else {
-    setPasswordValid(true);
-    setPasswordErrorMsg('');
-    setUserPassword(userPassword);
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/;
+    if (!passwordRegex.test(userPassword)) {
+      setPasswordErrorMsg(
+        '*영문+숫자+특수기호 조합으로 6자리 이상 입력해주세요'
+      );
+    } else {
+      setPasswordValid(true);
+      setPasswordErrorMsg('');
+      setUserPassword(userPassword);
     }
-  }
+  };
 
   /* 에러 메시지 초기화 */
   useEffect(() => {
@@ -79,16 +74,16 @@ const SignupPage = () => {
 
   /* 아이디와 비밀번호 모두 유효 시, 프로필 설정 페이지로 이동 */
   const handleSignup = async (e) => {
-  e.preventDefault();
-  console.log(userEmail, userPassword);
-  if(emailValid && passwordValid) {
-    setIsComplete(true);
-    navigate('/signup/profile', {
-      state: {
-      email: userEmail, 
-      password: userPassword
-      }
-    });
+    e.preventDefault();
+    console.log(userEmail, userPassword);
+    if (emailValid && passwordValid) {
+      setIsComplete(true);
+      navigate('/signup/profile', {
+        state: {
+          email: userEmail,
+          password: userPassword,
+        },
+      });
     } else {
       setIsComplete(false);
     }
@@ -100,39 +95,47 @@ const SignupPage = () => {
   };
 
   return (
-     <Container>
+    <Container>
       <Title>회원가입</Title>
       <Form onSubmit={handleSignup}>
         <Input
-          label='이메일'
-          placeholder='이메일 주소를 입력해주세요'
-          id='email'
-          type='email'
-          name='email'
+          label="이메일"
+          placeholder="이메일 주소를 입력해주세요"
+          id="email"
+          type="email"
+          name="email"
           onChange={handleInputEmail}
           onBlur={handleEmailDuplicate}
           hasError={emailErrorMsg !== ''}
           required
         />
         {emailErrorMsg && <ErrorMsg hasError>{emailErrorMsg}</ErrorMsg>}
-        {emailSuccessMsg && <ErrorMsg className="success-msg">{emailSuccessMsg}</ErrorMsg>}
-        <div className='input-wrapper'>
-        <Input
-          label='비밀번호'
-          placeholder='비밀번호를 입력해주세요'
-          id='password'
-          type='password'
-          name='password'
-          onChange={handleInputPassword}
-          hasError={passwordErrorMsg !== ''}
-          required
-        />
+        {emailSuccessMsg && (
+          <ErrorMsg className="success-msg">{emailSuccessMsg}</ErrorMsg>
+        )}
+        <div className="input-wrapper">
+          <Input
+            label="비밀번호"
+            placeholder="비밀번호를 입력해주세요"
+            id="password"
+            type="password"
+            name="password"
+            onChange={handleInputPassword}
+            hasError={passwordErrorMsg !== ''}
+            required
+          />
         </div>
-        {passwordErrorMsg && <ErrorMsg className='password-msg'>{passwordErrorMsg}</ErrorMsg>}
-        <ButtonContainer type={'L'} text={'회원가입'} isDisabled = {!handleActivateButton()} />
+        {passwordErrorMsg && (
+          <ErrorMsg className="password-msg">{passwordErrorMsg}</ErrorMsg>
+        )}
+        <ButtonContainer
+          type={'L'}
+          text={'회원가입'}
+          isDisabled={!handleActivateButton()}
+        />
       </Form>
     </Container>
-  )
-}
+  );
+};
 
 export default SignupPage;

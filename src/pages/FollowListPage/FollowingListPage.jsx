@@ -14,18 +14,18 @@ import {
   FollowList,
   Icon,
   Text,
-} from  './FollowerListPageStyle';
+} from './style/FollowerListPageStyle';
 
-const FollowingListPage = () => {  
+const FollowingListPage = () => {
   const token = useRecoilValue(tokenAtom);
   const account = useParams().id;
   console.log(account);
   const [followings, setFollowings] = useState([]);
-    useEffect(() => {
+  useEffect(() => {
     const followList = async () => {
       // 팔로잉 리스트 목록
       const data = await getFollowingList(account);
-      console.log(data); 
+      console.log(data);
       setFollowings(data);
     };
     followList();
@@ -44,7 +44,7 @@ const FollowingListPage = () => {
                 user={{
                   _id: user._id,
                   username: user.username,
-                  accountname : user.accountname,
+                  accountname: user.accountname,
                   intro: user.intro,
                   image: user.image,
                   isfollow: user.isfollow,
@@ -52,10 +52,10 @@ const FollowingListPage = () => {
               />
             ))
           ) : (
-              <>  
-                <Icon src={Logo} alt="NotFollow로고" className="icon" />
-                <Text>팔로우한 사용자가 없습니다.</Text>
-              </>
+            <>
+              <Icon src={Logo} alt="NotFollow로고" className="icon" />
+              <Text>팔로우한 사용자가 없습니다.</Text>
+            </>
           )}
         </FollowList>
       </Main>
@@ -65,4 +65,3 @@ const FollowingListPage = () => {
 };
 
 export default FollowingListPage;
-
