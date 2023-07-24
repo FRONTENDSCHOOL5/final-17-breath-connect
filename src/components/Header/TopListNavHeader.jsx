@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderContainer from './HeaderContainer';
 import BackButton from './BackButton';
-import { BackAndUserText, User } from './style/HeaderStyle';
+import { BackAndUserText, User } from './HeaderStyle';
 
 const TopListNavHeader = ({ text }) => {
   return (

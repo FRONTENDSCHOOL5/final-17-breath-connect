@@ -2,7 +2,7 @@ import React from 'react';
 import HeaderContainer from './HeaderContainer';
 import BackButton from './BackButton';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
-import { BackAndUserText, User } from './style/HeaderStyle';
+import { BackAndUserText, User } from './HeaderStyle';
 
 const TopChatNavHeader = ({ text }) => {
   return (
