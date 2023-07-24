@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Input from '../../components/common/Input/Input';
-import ButtonContainer from '../../components/common/Button/ButtonContainer';
-import { postEmailDuplicate } from '../../utils/Apis';
+import Input from '../../../components/common/Input/Input';
+import ButtonContainer from '../../../components/common/Button/ButtonContainer';
+import { postEmailDuplicate } from '../../../utils/Apis';
 
-import { Container, Title, Form, ErrorMsg } from './style/SignupPageStyle';
+import { Container, Title, Form, ErrorMsg } from './EmailJoinPageStyle';
 
 const SignupPage = () => {
   const navigate = useNavigate();
