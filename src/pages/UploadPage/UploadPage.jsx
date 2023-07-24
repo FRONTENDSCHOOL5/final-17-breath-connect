@@ -23,7 +23,7 @@ import {
   Button,
   ManualSection,
   ManualContents,
-} from './style/UploadPageStyle';
+} from './UploadPageStyle';
 
 const UploadPage = () => {
   const userToken = useRecoilValue(tokenAtom);
