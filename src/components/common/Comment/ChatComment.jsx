@@ -7,7 +7,7 @@ import {
   Form,
   Input,
   Button,
-} from './style/ChatCommentStyle';
+} from './ChatCommentStyle';
 
 const CommentSection = () => {
   const [comment, setComment] = useState('');
