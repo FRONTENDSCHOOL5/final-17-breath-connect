@@ -14,7 +14,7 @@ import {
   ModalContainer,
   ModalContent,
   BackgroundOverlay,
-} from './style/ProfilePageStyle';
+} from './ProfilePageStyle';
 
 const ProfilePage = () => {
   const location = useLocation();

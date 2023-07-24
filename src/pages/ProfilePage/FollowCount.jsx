@@ -1,6 +1,6 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { BoldText, BoldBlurText, FollowText } from './style/FollowCountStyle';
 
 const FollowCount = ({ follow, data }) => {
   return (
@@ -23,3 +23,18 @@ const FollowCount = ({ follow, data }) => {
 };
 
 export default FollowCount;
+
+const BoldText = styled.div`
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSize.large};
+`;
+const BoldBlurText = styled.div`
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.textColor};
+  font-size: ${({ theme }) => theme.fontSize.xlarge};
+`;
+const FollowText = styled.div`
+  font-size: ${({ theme }) => theme.fontSize.medium};
+  color: ${({ theme }) => theme.colors.textColor};
+  margin-top: 0.6rem;
+`;
