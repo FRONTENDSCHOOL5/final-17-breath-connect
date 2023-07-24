@@ -23,7 +23,7 @@ import {
   MapContents,
   PostContents,
   DetailButton,
-} from './style/PostDetailPageStyle';
+} from './PostDetailPage/PostDetailPageStyle';
 
 const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
   const token = useRecoilValue(tokenAtom);
