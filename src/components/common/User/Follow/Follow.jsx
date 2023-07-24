@@ -12,7 +12,7 @@ import {
   UserName,
   Intro,
   ButtonWrapper,
-} from './style/FollowStyle.jsx';
+} from './FollowStyle.jsx';
 
 const Follow = ({ user }) => {
   const { username, accountname, intro, image, isfollow } = user;
