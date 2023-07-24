@@ -1,6 +1,6 @@
 import React from 'react';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
-import { Button, ButtonText } from './style/FooterStyle';
+import { Button, ButtonText } from './FooterStyle';
 
 const BottomBarButton = ({ id, text, isSelected, onClick, textSize }) => {
   return (

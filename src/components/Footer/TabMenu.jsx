@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import BottomBarButton from './BottomBarButton';
 import { accountAtom } from '../../atoms/UserAtom';
-import { Container } from './style/FooterStyle';
+import { Container } from './FooterStyle';
 
 const TabMenu = () => {
   const myaccount = useRecoilValue(accountAtom);
