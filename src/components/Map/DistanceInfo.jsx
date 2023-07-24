@@ -1,5 +1,5 @@
 import React from 'react';
-import { DistanceContainer, SText } from './style/MapStyle';
+import { DistanceContainer, SText } from './MapStyle';
 
 export default function DistanceInfo({ distance }) {
   const walkkTime = (distance / 67) | 0;

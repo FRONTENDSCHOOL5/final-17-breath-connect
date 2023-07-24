@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map } from 'react-kakao-maps-sdk';
-import { MapContainer } from './style/MapStyle';
+import { MapContainer } from './MapStyle';
 
 const MapComponent = ({
   center,
