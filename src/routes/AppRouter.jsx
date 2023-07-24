@@ -1,21 +1,21 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SplashPage from '../pages/SplashPage/SplashPage';
-import LoginPage from '../pages/LoginPage/LoginPage';
-import SignupPage from '../pages/SignupPage/SignupPage';
-import ProfileSettingPage from '../pages/ProfileSettingPage/ProfileSettingPage';
+import LoginPage from '../pages/LoginPage/LoginPage/LoginPage';
+import SignupPage from '../pages/SignupPage/EmailJoinPage/EmailJoinPage';
+import ProfileSettingPage from '../pages/SignupPage/ProfileSettingPage/ProfileSettingPage';
 import FeedPage from '../pages/FeedPage/FeedPage';
 import PostPage from '../pages/PostPage/PostPage';
-import PostDetailPage from '../pages/PostPage/PostDetailPage';
+import PostDetailPage from '../pages/PostPage/PostDetailPage/PostDetailPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
-import ProfileEditPage from '../pages/ProfilePage/ProfileEdit/ProfileEditPage';
-import FollowerListPage from '../pages/FollowListPage/FollowerListPage';
-import FollowingListPage from '../pages/FollowListPage/FollowingListPage';
+import ProfileEditPage from '../pages/ProfilePage/ProfileEditPage/ProfileEditPage';
+import FollowerListPage from '../pages/FollowListPage/FollowerListPage/FollowerListPage';
+import FollowingListPage from '../pages/FollowListPage/FollowingListPage/FollowingListPage';
 import UploadPage from '../pages/UploadPage/UploadPage';
 import UploadMap from '../pages/UploadPage/UploadMap';
 import SearchPage from '../pages/SearchPage/SearchPage';
-import ChatListPage from '../pages/ChatPage/ChatListPage';
-import ChatRoomPage from '../pages/ChatPage/ChatRoomPage';
+import ChatListPage from '../pages/ChatPage/ChatListPage/ChatListPage';
+import ChatRoomPage from '../pages/ChatPage/ChatRoomPage/ChatRoomPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
 const AppRouter = () => {
