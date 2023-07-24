@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import profileImage from '../../assets/images/basic-profile-s.svg';
-import TopBasicNavHeader from '../../components/Header/TopBasicNavHeader';
-import TabMenu from '../../components/Footer/TabMenu';
+import profileImage from '../../../assets/images/basic-profile-s.svg';
+import TopBasicNavHeader from '../../../components/Header/TopBasicNavHeader';
+import TabMenu from '../../../components/Footer/TabMenu';
 import {
   Title,
   Main,
@@ -14,7 +14,7 @@ import {
   Date,
   Image,
   Div,
-} from './style/ChatListPageStyle';
+} from './ChatListPageStyle';
 
 const ChatPage = () => {
   const UserData = [
