@@ -16,7 +16,7 @@ import {
   ButtonContainer,
   CancelButton,
   LogOutButton,
-} from './style/LogOutStyle';
+} from './LogOutStyle';
 
 const LogOut = ({ message, onClose, done }) => {
   const navigate = useNavigate();

@@ -6,7 +6,7 @@ import {
   ButtonContainer,
   CancelButton,
   DeleteButton,
-} from './style/AlertStyle';
+} from './AlertStyle';
 
 const Alert = ({ message, onClose, done, text, setIsPostDeleted }) => {
   const [showAlert, setShowAlert] = useState(true);
