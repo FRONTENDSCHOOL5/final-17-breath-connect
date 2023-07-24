@@ -3,7 +3,7 @@ import SplashLogo from '../../assets/images/full-logo.svg';
 import SplashTitle from '../../assets/images/main-title.svg';
 
 import SnsLoginPage from '../LoginPage/SnsLoginPage/SnsLoginPage';
-import { SplashScreen, MainLogo, MainTitle } from './style/SplashPageStyle';
+import { SplashScreen, MainLogo, MainTitle } from './SplashPageStyle';
 
 const SplashPage = () => {
   const [isLoading, setIsLoading] = useState(true);
