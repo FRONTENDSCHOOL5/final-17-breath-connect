@@ -6,7 +6,7 @@ import {
   Container,
   UserName,
   UserId,
-} from './style/SearchStyle';
+} from './SearchStyle';
 
 const Search = () => {
   return (

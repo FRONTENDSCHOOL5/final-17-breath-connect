@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import PostPage from './PostPage';
-import { getComment, postComment } from '../../utils/Apis';
-import TopListNavHeader from '../../components/Header/TopListNavHeader';
-import FeedComment from '../FeedPage/FeedComment';
-import BasicProfileImg from '../../assets/images/basic-profile-xs.svg';
-import { accountAtom, tokenAtom } from '../../atoms/UserAtom';
+import PostPage from '../PostPage';
+import { getComment, postComment } from '../../../utils/Apis';
+import TopListNavHeader from '../../../components/Header/TopListNavHeader';
+import FeedComment from '../../FeedPage/FeedComment';
+import BasicProfileImg from '../../../assets/images/basic-profile-xs.svg';
+import { accountAtom, tokenAtom } from '../../../atoms/UserAtom';
 import {
   Container,
   Main,
@@ -18,8 +18,8 @@ import {
   ModalContent,
   BackgroundOverlay,
   StyledComment,
-} from './style/PostDetailPageStyle';
-import PostModal from '../../components/common/Modal/PostModal';
+} from './PostDetailPageStyle';
+import PostModal from '../../../components/common/Modal/PostModal';
 
 const PostPageDetail = () => {
   const account = useRecoilValue(accountAtom);

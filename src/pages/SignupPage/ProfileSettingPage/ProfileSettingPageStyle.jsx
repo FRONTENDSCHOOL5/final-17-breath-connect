@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import AddImg from '../../assets/sprite/img-btn.svg';
+import AddImg from '../../../assets/sprite/img-btn.svg';
 
 export const Container = styled.main`
 margin: 0 auto;

@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import Input from '../../components/common/Input/Input';
-import ButtonContainer from '../../components/common/Button/ButtonContainer';
-import { postUserLogin } from '../../utils/Apis';
+import Input from '../../../components/common/Input/Input';
+import ButtonContainer from '../../../components/common/Button/ButtonContainer';
+import { postUserLogin } from '../../../utils/Apis';
 import {
   tokenAtom,
   accountAtom,
   profileImgAtom,
   usernameAtom,
   introAtom,
-} from '../../atoms/UserAtom';
-import { loginAtom } from '../../atoms/LoginAtom';
+} from '../../../atoms/UserAtom';
+import { loginAtom } from '../../../atoms/LoginAtom';
 
 import {
   Container,
@@ -20,7 +20,7 @@ import {
   Form,
   SignupLink,
   ErrorMsg,
-} from './style/LoginPageStyle';
+} from './LoginPageStyle';
 
 const LoginPage = () => {
   const navigate = useNavigate();

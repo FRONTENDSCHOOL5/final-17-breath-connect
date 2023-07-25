@@ -15,7 +15,7 @@ import {
   HighlightedText,
   UserName,
   NickName,
-} from './style/SearchPageStyle';
+} from './SearchPageStyle';
 
 const SearchPage = () => {
   const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import React from 'react';
-import SnsLogo from '../../assets/images/login-logo.svg';
+import SnsLogo from '../../../assets/images/login-logo.svg';
 import { Link } from 'react-router-dom';
-import GlovalSprite from '../../assets/sprite/GlovalSprite';
-import WhiteTitle from '../../assets/images/main-title(w).svg';
+import GlovalSprite from '../../../assets/sprite/GlovalSprite';
+import WhiteTitle from '../../../assets/images/main-title(w).svg';
 
 import {
   Container,
@@ -12,7 +12,7 @@ import {
   MainTitle,
   LoginSection,
   SnsLoginLink,
-} from './style/SnsLoginPageStyle';
+} from './SnsLoginPageStyle';
 
 const SnsLoginPage = () => {
   return (

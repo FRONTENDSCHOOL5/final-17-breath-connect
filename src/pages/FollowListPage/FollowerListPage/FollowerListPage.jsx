@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { tokenAtom } from '../../atoms/UserAtom';
+import { tokenAtom } from '../../../atoms/UserAtom';
 import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router-dom';
-import { getFollowerList } from '../../utils/Apis';
-import Follow from '../../components/common/User/Follow/Follow';
-import TopListNavHeader from '../../components/Header/TopListNavHeader';
-import TabMenu from '../../components/Footer/TabMenu';
-import Logo from '../../assets/images/home-logo.svg';
+import { getFollowerList } from '../../../utils/Apis';
+import Follow from '../../../components/common/User/Follow/Follow';
+import TopListNavHeader from '../../../components/Header/TopListNavHeader';
+import TabMenu from '../../../components/Footer/TabMenu';
+import Logo from '../../../assets/images/home-logo.svg';
 
 import {
   Title,
@@ -14,7 +14,7 @@ import {
   FollowList,
   Icon,
   Text,
-} from './style/FollowerListPageStyle';
+} from './FollowerListPageStyle';
 
 const FollowerListPage = () => {
   const token = useRecoilValue(tokenAtom);

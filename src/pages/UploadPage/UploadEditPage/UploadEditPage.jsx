@@ -23,9 +23,9 @@ import {
   Button,
   ManualSection,
   ManualContents,
-} from './UploadPageStyle';
+} from '../UploadPageStyle';
 
-const UploadPage = () => {
+const UploadEditPage = () => {
   const userToken = useRecoilValue(tokenAtom);
   const [startDate, setStartDate] = useState(new Date());
   const [time, setTime] = useState(moment());
@@ -164,4 +164,4 @@ const UploadPage = () => {
   );
 };
 
-export default UploadPage;
+export default UploadEditPage;

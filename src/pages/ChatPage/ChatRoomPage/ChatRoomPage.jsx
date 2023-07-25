@@ -1,8 +1,8 @@
 import React from 'react';
-import TopChatNavHeader from '../../components/Header/TopChatNavHeader';
-import ProfileImg from '../../assets/images/basic-profile-s.svg';
-import ChatImg from '../../assets/images/chat-img.png';
-import ChatComment from '../../components/common/Comment/ChatComment';
+import TopChatNavHeader from '../../../components/Header/TopChatNavHeader';
+import ProfileImg from '../../../assets/images/basic-profile-s.svg';
+import ChatImg from '../../../assets/images/chat-img.png';
+import ChatComment from '../../../components/common/Comment/ChatComment';
 import {
   Main,
   Title,
@@ -12,7 +12,7 @@ import {
   MineChatBox,
   ChatTime,
   Img,
-} from './style/ChatRoomPageStyle';
+} from './ChatRoomPageStyle';
 
 const ChatRoom = () => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputWrapper, InputLabel, InputText, shake } from './style/InputStyle';
+import { InputWrapper, InputLabel, InputText, shake } from './InputStyle';
 
 const Input = ({
   label,

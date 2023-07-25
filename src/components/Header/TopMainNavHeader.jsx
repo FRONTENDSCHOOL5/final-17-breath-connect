@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import HeaderContainer from './HeaderContainer';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
-import { MainButton } from './style/HeaderStyle';
+import { MainButton } from './HeaderStyle';
 
 const TopMainNavHeader = () => {
   return (

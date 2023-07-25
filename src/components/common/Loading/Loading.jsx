@@ -7,7 +7,7 @@ import {
   LoaderCircleBefore,
   LoaderText,
   GlobalStyle,
-} from './style/LoadingStyle';
+} from './LoadingStyle';
 
 const Loading = () => {
   return (

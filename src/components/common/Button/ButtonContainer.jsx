@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from './style/ButtonContainerStyle';
+import { Container } from './ButtonContainerStyle';
 
 const ButtonContainer = ({
   text,

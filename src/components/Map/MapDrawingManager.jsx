@@ -5,7 +5,7 @@ import GetLocation from './GetLocation';
 import MapComponent from './MapComponent';
 import ToolBox from './ToolBox';
 import Loading from '../../components/common/Loading/Loading';
-import { Distance } from './style/MapStyle';
+import { Distance } from './MapStyle';
 
 const MapDrawingManager = ({ getpath }) => {
   const location = GetLocation();

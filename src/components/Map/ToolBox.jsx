@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomToolWrapper, ButtonWrapper, Button } from './style/MapStyle';
+import { CustomToolWrapper, ButtonWrapper, Button } from './MapStyle';
 
 const ToolBox = ({ onClickUndo, onClickReset }) => {
   return (
