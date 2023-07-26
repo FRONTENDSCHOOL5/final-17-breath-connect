@@ -7,6 +7,7 @@ import Follow from '../../../components/common/User/Follow/Follow';
 import TopListNavHeader from '../../../components/Header/TopListNavHeader';
 import TabMenu from '../../../components/Footer/TabMenu';
 import Logo from '../../../assets/images/home-logo.svg';
+import DarkLogo from '../../../assets/images/home-logo-dark.svg';
 
 import {
   Title,
@@ -16,7 +17,12 @@ import {
   Text,
 } from './FollowerListPageStyle';
 
-const FollowerListPage = () => {
+import {ThemeProvider} from 'styled-components'
+import Theme, { darkColors } from '../../../styles/Theme';
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+
+const FollowerListPage = ({theme}) => {
+  const isDarkMode = useRecoilValue(isDarkModeState);
   const token = useRecoilValue(tokenAtom);
   const account = useParams().id;
   console.log(account);
@@ -32,6 +38,7 @@ const FollowerListPage = () => {
   }, [account, token]);
 
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
       <TopListNavHeader />
       <Main>
@@ -53,7 +60,7 @@ const FollowerListPage = () => {
             ))
           ) : (
             <>
-              <Icon src={Logo} alt="NotFollow로고" className="icon" />
+              <Icon src={isDarkMode ? DarkLogo : Logo} alt="NotFollow로고" className="icon" />
               <Text>팔로워한 사용자가 없습니다.</Text>
             </>
           )}
@@ -61,6 +68,7 @@ const FollowerListPage = () => {
       </Main>
       <TabMenu />
     </>
+    </ThemeProvider>
   );
 };
 

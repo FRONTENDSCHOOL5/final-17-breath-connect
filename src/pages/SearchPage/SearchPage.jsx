@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TopSearchNavHeader from '../../components/Header/TopSearchNavHeader';
 import TabMenu from '../../components/Footer/TabMenu';
 import profileImg from '../../assets/images/basic-profile-m.svg';
+import profileDarkImg from '../../assets/images/basic-profile-m-dark.svg';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '../../atoms/UserAtom';
@@ -16,8 +17,11 @@ import {
   UserName,
   NickName,
 } from './SearchPageStyle';
+import { isDarkModeState } from '../../atoms/StylesAtom';
+import { ThemeProvider } from 'styled-components';
+import Theme, { darkColors } from '../../styles/Theme';
 
-const SearchPage = () => {
+const SearchPage = ({theme}) => {
   const navigate = useNavigate();
   const token = useRecoilValue(tokenAtom);
   const url = 'https://api.mandarin.weniv.co.kr';
@@ -64,10 +68,14 @@ const SearchPage = () => {
       );
   };
 
+  const isDarkMode = useRecoilValue(isDarkModeState);
+
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
       <TopSearchNavHeader value={search} setValue={setSearch} />
       <Main>
+      {/* <button onClick={toggleDarkMode}>젠장</button> */}
         {data.length === 0 ? (
           <NoResultsText>검색 결과가 없습니다.</NoResultsText>
         ) : (
@@ -79,7 +87,7 @@ const SearchPage = () => {
               }}
             >
               <Image
-                src={numberRegex.test(item.image) ? item.image : profileImg}
+                src={numberRegex.test(item.image) ? item.image : isDarkMode ? profileDarkImg : profileImg}
                 alt="프로필 이미지"
               />
               <Section>
@@ -92,6 +100,7 @@ const SearchPage = () => {
       </Main>
       <TabMenu />
     </>
+    </ThemeProvider>
   );
 };
 

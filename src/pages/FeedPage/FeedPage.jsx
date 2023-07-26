@@ -10,10 +10,13 @@ import { tokenAtom } from '../../atoms/UserAtom';
 import { useLocation } from 'react-router-dom';
 
 import IconPostModal from '../../components/common/Modal/IconPostModal';
-import styled, { keyframes, css } from 'styled-components';
+import styled, { keyframes, css, ThemeProvider } from 'styled-components';
+
+import { isDarkModeState } from '../../atoms/StylesAtom';
+import Theme, { darkColors } from '../../styles/Theme';
 
 
-const FeedPage = () => {
+const FeedPage = ({theme}) => {
   const [data, setData] = useState([]);
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(5);
@@ -86,10 +89,14 @@ const FeedPage = () => {
     };
   }, []);
 
+  const isDarkMode = useRecoilValue(isDarkModeState);
+
+
   if (!data) {
   <Loading /> }
   else {
 return (
+  <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
       <TopMainNavHeader />
       {data.length === 0 ? (
@@ -122,10 +129,9 @@ return (
       )}
       <TabMenu />
     </>
+    </ThemeProvider>
   );
-    
   }
-  
 };
 
 export default FeedPage;

@@ -16,7 +16,12 @@ import {
   Text,
 } from '../FollowerListPage/FollowerListPageStyle';
 
-const FollowingListPage = () => {
+import {ThemeProvider} from 'styled-components'
+import Theme, { darkColors } from '../../../styles/Theme';
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+
+const FollowingListPage = ({theme}) => {
+  const isDarkMode = useRecoilValue(isDarkModeState);
   const token = useRecoilValue(tokenAtom);
   const account = useParams().id;
   console.log(account);
@@ -32,6 +37,7 @@ const FollowingListPage = () => {
   }, [account, token]);
 
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
       <TopListNavHeader />
       <Main>
@@ -61,6 +67,7 @@ const FollowingListPage = () => {
       </Main>
       <TabMenu />
     </>
+    </ThemeProvider>
   );
 };
 

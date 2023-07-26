@@ -1,5 +1,6 @@
 import React from 'react';
 import SnsLogo from '../../../assets/images/login-logo.svg';
+import SnsLogoDark from '../../../assets/images/login-logo-dark.svg'
 import { Link } from 'react-router-dom';
 import GlovalSprite from '../../../assets/sprite/GlovalSprite';
 import WhiteTitle from '../../../assets/images/main-title(w).svg';
@@ -14,13 +15,17 @@ import {
   SnsLoginLink,
 } from './SnsLoginPageStyle';
 
+import { useRecoilValue } from "recoil";
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+
 const SnsLoginPage = () => {
+  const isDarkMode = useRecoilValue(isDarkModeState);
   return (
     <Container>
       <h1 className="a11y-hidden">Sns 로그인 페이지</h1>
       <Main>
         <Logo>
-          <SnsMainLogo src={SnsLogo} alt="들숨날숨 로고" />
+          <SnsMainLogo src={isDarkMode ? SnsLogoDark : SnsLogo} alt="들숨날숨 로고" />
           <MainTitle src={WhiteTitle} alt="들숨날숨" />
         </Logo>
         <LoginSection>

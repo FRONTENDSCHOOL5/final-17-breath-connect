@@ -16,9 +16,14 @@ import {
   BackgroundOverlay,
 } from './ProfilePageStyle';
 
-const ProfilePage = () => {
+import {ThemeProvider} from 'styled-components'
+import { isDarkModeState } from '../../atoms/StylesAtom';
+import Theme, { darkColors } from '../../styles/Theme';
+
+const ProfilePage = ({theme}) => {
   const location = useLocation();
   const userToken = useRecoilValue(tokenAtom);
+  const isDarkMode = useRecoilValue(isDarkModeState);
 
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState();
@@ -121,11 +126,11 @@ const ProfilePage = () => {
     return <Loading />;
   } else {
     return (
+      <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
       <>
         <TopBasicNavHeader
           onButtonClick={() => toggleModal('설정 및 개인정보', '로그아웃')}
         />
-
         {profile && (
           <UserInfo
             key={profileKey}
@@ -172,6 +177,7 @@ const ProfilePage = () => {
         )}
         <TabMenu />
       </>
+      </ThemeProvider>
     );
   }
 };

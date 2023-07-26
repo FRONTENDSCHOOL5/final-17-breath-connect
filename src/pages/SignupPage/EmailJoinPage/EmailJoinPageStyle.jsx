@@ -15,7 +15,10 @@ padding-top: 2.7rem;
 export const Form = styled.form`
    .input-wrapper {
     margin-bottom: 3rem; 
-  } 
+  }
+  input {
+    background-color: ${({ theme }) => theme.colors.whiteText};
+  }
 `
 
 export const ErrorMsg = styled.p`

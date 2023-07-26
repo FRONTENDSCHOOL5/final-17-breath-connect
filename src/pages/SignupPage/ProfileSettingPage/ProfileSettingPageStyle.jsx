@@ -54,6 +54,9 @@ export const Form = styled.form`
 .button-margin {
   margin-bottom: 3rem;
 }
+input {
+  background-color: ${({ theme }) => theme.colors.whiteText};
+}
 `
 
 export const Image = styled.img`

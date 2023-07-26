@@ -6,6 +6,7 @@ import { getComment, postComment } from '../../../utils/Apis';
 import TopListNavHeader from '../../../components/Header/TopListNavHeader';
 import FeedComment from '../../FeedPage/FeedComment';
 import BasicProfileImg from '../../../assets/images/basic-profile-xs.svg';
+import BasicDarkProfileImg from '../../../assets/images/basic-profile-xs-dark.svg';
 import { accountAtom, tokenAtom } from '../../../atoms/UserAtom';
 import {
   Container,
@@ -21,7 +22,12 @@ import {
 } from './PostDetailPageStyle';
 import PostModal from '../../../components/common/Modal/PostModal';
 
-const PostPageDetail = () => {
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+import { ThemeProvider } from 'styled-components';
+import Theme, { darkColors } from '../../../styles/Theme';
+
+const PostPageDetail = ({theme}) => {
+  const isDarkMode = useRecoilValue(isDarkModeState);
   const account = useRecoilValue(accountAtom);
   const token = useRecoilValue(tokenAtom);
   const location = useLocation();
@@ -92,9 +98,9 @@ const PostPageDetail = () => {
   };
 
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <Container>
       <TopListNavHeader />
-
       <Main>
         <PostPage
           data={data}
@@ -124,7 +130,7 @@ const PostPageDetail = () => {
       </Main>
       <Form onSubmit={handleCommentSubmit}>
         <StyledComment>
-          <img src={BasicProfileImg} alt="프로필 비활성화" />
+          <img src={isDarkMode ? BasicDarkProfileImg : BasicProfileImg} alt="프로필 비활성화" />
           <Input
             placeholder="댓글을 입력하세요..."
             onChange={handleInput}
@@ -157,6 +163,7 @@ const PostPageDetail = () => {
         </>
       )}
     </Container>
+    </ThemeProvider>
   );
 };
 

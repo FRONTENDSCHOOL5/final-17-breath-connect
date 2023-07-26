@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Input from '../../../components/common/Input/Input';
 import ButtonContainer from '../../../components/common/Button/ButtonContainer';
@@ -22,7 +22,11 @@ import {
   ErrorMsg,
 } from './LoginPageStyle';
 
-const LoginPage = () => {
+import {ThemeProvider} from 'styled-components'
+import Theme, { darkColors } from '../../../styles/Theme';
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+
+const LoginPage = ({theme}) => {
   const navigate = useNavigate();
 
   const [userEmail, setUserEmail] = useState('');
@@ -37,6 +41,8 @@ const LoginPage = () => {
   const [userName, setUserName] = useRecoilState(usernameAtom);
   const [userLogin, setUserLogin] = useRecoilState(loginAtom);
   const [userIntro, setUserIntro] = useRecoilState(introAtom);
+
+  const isDarkMode = useRecoilValue(isDarkModeState);
 
   const handleInputEmail = (e) => {
     const userEmail = e.target.value;
@@ -95,6 +101,7 @@ const LoginPage = () => {
   }, [userLogin]);
 
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <Container>
       <LoginTitle>로그인</LoginTitle>
       <Form onSubmit={handleLogin}>
@@ -131,6 +138,7 @@ const LoginPage = () => {
       </Form>
       <SignupLink to="/signup">이메일로 회원가입</SignupLink>
     </Container>
+    </ThemeProvider>
   );
 };
 

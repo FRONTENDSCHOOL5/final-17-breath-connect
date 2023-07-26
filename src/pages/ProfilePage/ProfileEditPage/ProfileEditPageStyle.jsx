@@ -21,6 +21,7 @@ export const ImageWrap = styled.div`
     height: 11rem;
     margin: 3.5rem auto 5.5rem;
     cursor: pointer;
+    background-color: white;
     border-radius: 50%;
     border: 1px solid ${({ theme }) => theme.colors.placeHolderColor};
     &::after {

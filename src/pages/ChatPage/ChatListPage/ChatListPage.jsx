@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import profileImage from '../../../assets/images/basic-profile-s.svg';
+import profileDarkImage from '../../../assets/images/basic-profile-s-dark.svg';
 import TopBasicNavHeader from '../../../components/Header/TopBasicNavHeader';
 import TabMenu from '../../../components/Footer/TabMenu';
 import {
@@ -16,7 +17,13 @@ import {
   Div,
 } from './ChatListPageStyle';
 
-const ChatPage = () => {
+import { useRecoilValue } from "recoil";
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+import { ThemeProvider } from 'styled-components';
+import Theme, { darkColors } from '../../../styles/Theme';
+
+const ChatPage = ({theme}) => {
+  const isDarkMode = useRecoilValue(isDarkModeState);
   const UserData = [
     {
       id: 1,
@@ -49,6 +56,7 @@ const ChatPage = () => {
   ];
 
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
       <TopBasicNavHeader />
       <Main>
@@ -57,7 +65,7 @@ const ChatPage = () => {
           {UserData.map((user) => (
             <UserItem key={user.id}>
               <Div unread={!user.read}>
-                <Image src={profileImage} alt="유저의 프로필 사진" width="50" />
+                <Image src={isDarkMode ? profileDarkImage : profileImage} alt="유저의 프로필 사진" width="50" />
               </Div>
               <Section>
                 <Link to={`/chat/${user.id}`}>
@@ -72,6 +80,7 @@ const ChatPage = () => {
       </Main>
       <TabMenu />
     </>
+    </ThemeProvider>
   );
 };
 

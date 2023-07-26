@@ -25,8 +25,13 @@ import {
   ManualContents,
 } from './UploadPageStyle';
 
-const UploadPage = () => {
+import {ThemeProvider} from 'styled-components'
+import { isDarkModeState } from '../../atoms/StylesAtom';
+import Theme, { darkColors } from '../../styles/Theme';
+
+const UploadPage = ({theme}) => {
   const userToken = useRecoilValue(tokenAtom);
+  const isDarkMode = useRecoilValue(isDarkModeState);
   const [startDate, setStartDate] = useState(new Date());
   const [time, setTime] = useState(moment());
   const [text, setText] = useState('');
@@ -91,6 +96,7 @@ const UploadPage = () => {
   };
 
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
       <TopUploadHeader
         text={map ? '업로드' : '완료'}
@@ -161,6 +167,7 @@ const UploadPage = () => {
       )}
       <TabMenu />
     </>
+    </ThemeProvider>
   );
 };
 

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 // ----- distanceInfo
 export const DistanceContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.whiteText};
+  background-color: ${({ theme }) => theme.colors.backgroundColor};
   border-radius: 2rem;
   padding: 0.7rem;
   border: 0.2rem solid ${({ theme }) => theme.colors.mainColor};
@@ -55,8 +55,9 @@ export const ButtonWrapper = styled.div`
 
 export const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.whiteText};
+  color: ${({ theme }) => theme.colors.mainColor};
   padding: 0.5rem 0.5rem;
   border-radius: 1rem;
-  border: ${({ theme }) => `0.15rem solid ${theme.colors.borderColor}`};
+  border: ${({ theme }) => `0.15rem solid ${theme.colors.mainColor}`};
 `;
 // ----- toolBox

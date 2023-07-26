@@ -21,13 +21,13 @@ export const UserName = styled.strong`
   margin-bottom: 0.6rem;
   font-size: ${({theme}) => theme.fontSize.medium};
   font-weight: 500;
+  color: ${({theme}) => theme.colors.blackText};
 `;
 
 export const Message = styled.strong`
   display: block;
   font-size: ${({theme}) => theme.fontSize.small};
   color: ${({theme}) => theme.colors.textColor};
- 
 `;
 
 export const Date = styled.strong`
@@ -41,7 +41,6 @@ export const Image = styled.img`
   width: 4.8rem;
   height: auto;
   border-radius: 50%;
- 
 `;
 
 export const Main = styled.main`
@@ -49,7 +48,8 @@ export const Main = styled.main`
   flex-direction: column;
   height: 100vh;
   margin-bottom: 41.5rem;
-  padding: 2.4rem 1.6rem; 
+  padding: 2.4rem 1.6rem;
+  background-color: ${({theme}) => theme.colors.backgroundColor};
 `;
 
 export const FollowList = styled.ul`

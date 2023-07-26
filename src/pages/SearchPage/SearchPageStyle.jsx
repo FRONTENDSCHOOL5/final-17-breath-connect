@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-
 export const Main = styled.main`
   height: 100%;
   margin-top: 2rem;
   margin-left: 1.6rem;
   color: ${({ theme }) => theme.colors.textColor};
+  background-color: ${({theme}) => theme.colors.backgroundColor};
 `
 
 export const NoResultsText = styled.p`

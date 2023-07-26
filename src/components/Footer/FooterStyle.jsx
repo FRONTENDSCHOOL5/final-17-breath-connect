@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import Theme from '../../styles/Theme';
+import Theme from '../../styles/Theme'
 
 // ----- BottomBatButton
 export const Button = styled.button`
   width: 85px;
   height: 60px;
-  background-color: inherit;
+  /* background-color: inherit; */
   border: none;
   margin: 0;
   padding: 10px;
@@ -14,8 +14,12 @@ export const Button = styled.button`
 `;
 
 export const ButtonText = styled.div`
-  color: ${(props) =>
-    props.isSelected ? Theme.colors.mainColor : Theme.colors.textColor};
+  color: ${(props) => {
+    if (props.isSelected && props.isDarkMode) return '#A16EE4';
+    if (!props.isSelected && props.isDarkMode) return '#ffffff';
+    if (props.isSelected && !props.isDarkMode) return '#6521D3';
+    return '#767676';
+  }};
   font-size: ${(props) => props.textSize || '14px'};
   padding-top: 0.4rem;
 `;
@@ -29,7 +33,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-around;
   border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
-  background-color: white;
   z-index: 99;
+  background-color: ${({ theme }) => theme.colors.footerColor};
 `;
 // ----- TabMenu

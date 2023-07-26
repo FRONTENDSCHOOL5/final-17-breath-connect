@@ -26,6 +26,7 @@ export default FollowCount;
 
 const BoldText = styled.div`
   font-weight: bold;
+  color: ${({ theme }) => theme.colors.blackText};
   font-size: ${({ theme }) => theme.fontSize.large};
 `;
 const BoldBlurText = styled.div`

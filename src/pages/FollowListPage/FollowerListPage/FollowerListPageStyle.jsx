@@ -14,6 +14,7 @@ export const FollowList = styled.ul`
   li {
     margin-bottom: 0.8rem;
     height: 5rem;
+    color: ${({theme}) => theme.colors.blackText};
   }
 `;
 

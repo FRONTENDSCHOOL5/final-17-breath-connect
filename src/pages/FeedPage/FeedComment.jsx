@@ -1,9 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import BasicProfile from '../../assets/images/basic-profile-xs.svg';
+import BasicDarkProfile from '../../assets/images/basic-profile-xs-dark.svg';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
 
+import { useRecoilValue } from 'recoil';
+import { isDarkModeState } from '../../atoms/StylesAtom';
+
 const FeedComment = ({ user, content, image, time, handleCommentClick }) => {
+  const isDarkMode = useRecoilValue(isDarkModeState);
 
   const createdTime = () => {
     const year = time.slice(0, 4) + '년 ';
@@ -16,7 +21,7 @@ const FeedComment = ({ user, content, image, time, handleCommentClick }) => {
     <Container>
       <ContentsContainer>
       <div>
-        <img src={image} alt="유저 프로필 이미지" />
+        <img src={isDarkMode ? BasicDarkProfile : BasicProfile } alt="유저 프로필 이미지" />
       </div>
       <UserContents>
         <UserInfo>
@@ -46,6 +51,7 @@ img {
   border-radius: 50%;
   object-fit: cover;
 }
+color: ${({ theme }) => theme.colors.blackText};
 `;
 
 const UserContents = styled.div`
@@ -65,7 +71,7 @@ const UserName = styled.span`
 `;
 
 const TimeAgo = styled.span`
-  color: #767676;
+  color: ${({ theme }) => theme.colors.textColor};
   padding: 0.4rem 0.7rem;
 `;
 

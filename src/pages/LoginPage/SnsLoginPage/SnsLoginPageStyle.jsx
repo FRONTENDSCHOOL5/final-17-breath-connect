@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: ${({ theme }) => theme.colors.mainColor};
+  background-color: ${({ theme }) => theme.colors.snsColor};
   width: 39rem;
   padding: 10.4rem;
   height: 85rem;
@@ -44,7 +44,7 @@ bottom: 0;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
   padding: 5rem 3.4rem;
-  background: ${({ theme }) => theme.colors.whiteText};
+  background-color: ${({ theme }) => theme.colors.footerColor};
   display: flex;
   flex-direction: column;
   align-items: center;

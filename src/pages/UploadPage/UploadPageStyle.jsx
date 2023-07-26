@@ -3,10 +3,12 @@ import styled from 'styled-components';
 
 export const Container = styled.form`
   h1 {
+    color: ${({ theme }) => theme.colors.textColor};
     font-size: ${({ theme }) => theme.fontSize.xxlarge};
     font-weight: bold;
   }
   p {
+    color: ${({ theme }) => theme.colors.textColor};
     font-size: ${({ theme }) => theme.fontSize.medium};
     margin-bottom: 0.8rem;
   }
@@ -29,6 +31,7 @@ export const Container = styled.form`
   width: 39rem;
   color: ${({ theme }) => theme.colors.textColor};
   padding: 4.1rem 3.2rem;
+  background-color: ${({ theme }) => theme.colors.backgroundColor};
 `;
 export const DateSection = styled.section`
   display: flex;
@@ -43,6 +46,7 @@ export const TextSection = styled.section`
     height: 10rem;
     padding: 1rem 1rem;
     position: relative;
+    color: ${({ theme }) => theme.colors.blackText};
   }
   textarea::placeholder {
     color: ${({ theme }) => theme.colors.uploadPlaceholderColor};

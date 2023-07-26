@@ -20,6 +20,7 @@ export const InputText = styled.input`
   padding: 0.8rem 0;
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.borderColor};
   font-size: ${({ theme }) => theme.fontSize.medium};
+  background-color: ${({ theme }) => theme.colors.backgroundColor};
   color: ${({ theme }) => theme.colors.blackText};
   animation: ${({ hasError }) => (hasError ? shake : 'none')} 0.4s linear; // 에러 발생 시 흔들림 애니메이션 적용
   &:focus {
