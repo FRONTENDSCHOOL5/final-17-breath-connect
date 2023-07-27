@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import Button from '../../Button/ButtonContainer';
 import basicImg from '../../../../assets/images/basic-profile-s.svg';
+import basicDarkImg from '../../../../assets/images/basic-profile-s-dark.svg';
 import { accountAtom } from '../../../../atoms/UserAtom';
 
 import {
@@ -13,12 +14,14 @@ import {
   Intro,
   ButtonWrapper,
 } from './FollowStyle.jsx';
+import { isDarkModeState } from '../../../../atoms/StylesAtom';
 
 const Follow = ({ user }) => {
   const { username, accountname, intro, image, isfollow } = user;
 
   const [isFollow, setIsFollow] = useState(isfollow);
   const account = useRecoilValue(accountAtom);
+  const isDarkMode = useRecoilValue(isDarkModeState);
 
   const handleClick = () => {
     setIsFollow(!isFollow);
@@ -30,7 +33,9 @@ const Follow = ({ user }) => {
   return (
     <UserItem>
       <Image
-        src={numberRegex.test(image) ? image : basicImg}
+        src={numberRegex.test(image) ?
+              image
+              : isDarkMode ? basicDarkImg : basicImg}
         alt="프로필 이미지"
         width="50"
       />

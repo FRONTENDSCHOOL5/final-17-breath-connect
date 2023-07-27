@@ -13,7 +13,7 @@ export const Container = styled.button`
     props.isDisabled
       ? Theme.colors.disabledColor
       : props.isClicked
-      ? 'white'
+      ? Theme.colors.whiteText
       : Theme.colors.mainColor};
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   font-weight: 500;

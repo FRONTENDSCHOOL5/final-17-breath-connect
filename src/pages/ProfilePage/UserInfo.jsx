@@ -5,13 +5,16 @@ import { useRecoilValue } from 'recoil';
 import { accountAtom } from '../../atoms/UserAtom';
 import FollowCount from './FollowCount';
 import basicProfile from '../../assets/images/basic-profile-l.svg';
+import basicDarkProfile from '../../assets/images/basic-profile-l-dark.svg';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
 import { postFollow, deleteFollow } from '../../utils/Apis';
+import { isDarkModeState } from '../../atoms/StylesAtom';
 
 
 const UserInfo = ({ data, myProfile }) => {
   const navigate = useNavigate();
   const account = useRecoilValue(accountAtom);
+  const isDarkMode = useRecoilValue(isDarkModeState);
   const [profile, setProfile] = useState(data);
   const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[/\w.]*$/;
 
@@ -42,7 +45,7 @@ const UserInfo = ({ data, myProfile }) => {
         <FollowCount follow="Follower" data={profile} />
         <ProfileImage>
           <img
-            src={numberRegex.test(profile.image) ? profile.image : basicProfile}
+            src={numberRegex.test(profile.image) ? profile.image : isDarkMode ? basicDarkProfile : basicProfile}
             alt="유저 이미지"
           />
         </ProfileImage>
@@ -89,6 +92,7 @@ export default UserInfo;
 
  const Container = styled.section`
   text-align: center;
+  background-color: ${({theme}) => theme.colors.backgroundColor};
 `;
 
 const Header = styled.div`
@@ -115,6 +119,7 @@ const Header = styled.div`
 const UserName = styled.li`
   font-weight: bold;
   font-size: ${({ theme }) => theme.fontSize.large};
+  color: ${({ theme }) => theme.colors.blackText};
 `;
 
 const AccountName = styled.li`
@@ -139,7 +144,8 @@ const Interaction = styled.div`
 
 const SelectionBox = styled.div`
   background-color: #f6f5f6;
-  box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.2);
+  border: 0.01rem solid rgba(217, 217, 217, 0.5);
+  border-bottom: none;
   color: ${({ theme }) => theme.colors.textColor};
   height: 3.4rem;
   text-align: center;
@@ -147,6 +153,8 @@ const SelectionBox = styled.div`
   font-size: ${({ theme }) => theme.fontSize.xsmall};
   padding-top: 1.1rem;
   strong {
-    color: #6521d3;
+    color: ${({theme}) => theme.colors.mainColor};
   }
+  background-color: ${({theme}) => theme.colors.uploadBoxColor};
+  
 `;

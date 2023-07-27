@@ -13,6 +13,7 @@ export const Main = styled.main`
 export const NoComment = styled.p`
   margin-top: 2rem;
   text-align: center;
+  color: ${({ theme }) => theme.colors.blackText};
 `;
 
 export const Form = styled.form`
@@ -42,6 +43,8 @@ export const Input = styled.input`
   outline: none;
   width: 27rem;
   margin-right: 1rem;
+  background-color: ${({ theme }) => theme.colors.whiteText};
+  color: ${({ theme }) => theme.colors.blackText};
   &::placeholder {
     color: ${({ theme }) => theme.colors.placeHolderColor};
   }
@@ -113,7 +116,8 @@ export const BackgroundOverlay = styled.div`
 //
 export const PostContainer = styled.div`
   padding: 1.6rem;
-  box-shadow: 0 0.1rem 0 rgba(217, 217, 217, 0.5);
+  border: 0.01rem solid rgba(217, 217, 217, 0.5);
+  /* box-shadow: 0 0.1rem 0 rgba(217, 217, 217, 0.5); */
   div button {
     text-align: start;
   }
@@ -123,6 +127,8 @@ export const PostContainer = styled.div`
   .go-to-post-detail {
     width: 30rem;
   }
+  background-color: ${({theme}) => theme.colors.backgroundColor};
+  color: ${({ theme }) => theme.colors.blackText};
 `;
 
 export const UserProfileImg = styled.img`

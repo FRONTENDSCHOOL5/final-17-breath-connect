@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import basicImg from '../../assets/images/basic-profile-m.svg';
+import basicDarkImg from '../../assets/images/basic-profile-m-dark.svg';
 import GlovalSprite from '../../assets/sprite/GlovalSprite';
 import FeedMap from '../../components/Map/FeedMap';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -24,8 +25,13 @@ import {
   PostContents,
   DetailButton,
 } from './PostDetailPage/PostDetailPageStyle';
+import { iconColorSelector } from '../../atoms/StylesAtom';
+import { isDarkModeState } from '../../atoms/StylesAtom';
+import Theme, { darkColors } from '../../styles/Theme';
 
-const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
+const PostPage = ({ data, onButtonClick, userFeedTextStyle, theme }) => {
+  const iconColor = useRecoilValue(iconColorSelector);
+  const isDarkMode = useRecoilValue(isDarkModeState);
   const token = useRecoilValue(tokenAtom);
   const [startPoint, setStartPoint] = useState(''); // startPoint 상태 추가
   const [endPoint, setEndPoint] = useState(''); // endPoint 상태 추가
@@ -125,12 +131,13 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
   };
 
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <PostContainer>
       <h1 className="a11y-hidden">게시글 페이지</h1>
       <PostContents>
         <UserProfileImg
           src={
-            numberRegex.test(data.author.image) ? data.author.image : basicImg
+            numberRegex.test(data.author.image) ? data.author.image : isDarkMode ? basicDarkImg : basicImg
           }
         />
         <div>
@@ -154,7 +161,7 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
             detail={detail}
           >
             <ScheduleInfo>
-              <GlovalSprite id={'icon-calendal'} size={13} />
+              <GlovalSprite id={isDarkMode ? 'icon-calendar-dark' : 'icon-calendar'} size={13} />
               <FeedInfo>
                 {data.content[0] +
                   '요일' +
@@ -164,7 +171,7 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
               </FeedInfo>
             </ScheduleInfo>
             <LocationInfo>
-              <GlovalSprite id={'icon-location'} size={13} />
+              <GlovalSprite id={isDarkMode ? 'icon-location-dark' : 'icon-location'} size={13} />
               <FeedInfo>
                 {startPoint}~{endPoint}
               </FeedInfo>
@@ -179,9 +186,9 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
               <AppendButton>{postLikeCount}명 참여</AppendButton>
               <CommentContainer>
                 <GlovalSprite
-                  id={'icon-message-circle'}
+                  id={isDarkMode ? 'icon-message-circle-dark' : 'icon-message-circle'}
                   size={12}
-                  color={'white'}
+                  color={iconColor}
                 />
                 <FeedInfo>{data.commentCount}</FeedInfo>
               </CommentContainer>
@@ -200,6 +207,7 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle }) => {
         <></>
       )}
     </PostContainer>
+    </ThemeProvider>
   );
 };
 export default PostPage;

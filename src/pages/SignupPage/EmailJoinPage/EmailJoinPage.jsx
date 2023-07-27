@@ -7,8 +7,14 @@ import { postEmailDuplicate } from '../../../utils/Apis';
 
 import { Container, Title, Form, ErrorMsg } from './EmailJoinPageStyle';
 
-const SignupPage = () => {
+import { useRecoilValue } from "recoil";
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+import { ThemeProvider } from 'styled-components';
+import Theme, { darkColors } from '../../../styles/Theme';
+
+const SignupPage = ({theme}) => {
   const navigate = useNavigate();
+  const isDarkMode = useRecoilValue(isDarkModeState);
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -95,6 +101,7 @@ const SignupPage = () => {
   };
 
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <Container>
       <Title>회원가입</Title>
       <Form onSubmit={handleSignup}>
@@ -135,6 +142,7 @@ const SignupPage = () => {
         />
       </Form>
     </Container>
+    </ThemeProvider>
   );
 };
 

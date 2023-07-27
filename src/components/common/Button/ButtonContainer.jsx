@@ -1,5 +1,7 @@
 import React from 'react';
 import { Container } from './ButtonContainerStyle';
+import { useRecoilValue } from 'recoil';
+import { isDarkModeState } from '../../../atoms/StylesAtom';
 
 const ButtonContainer = ({
   text,
@@ -15,6 +17,8 @@ const ButtonContainer = ({
     textSize: '1.4rem',
     radius: '',
   };
+
+  const isDarkMode = useRecoilValue(isDarkModeState);
 
   switch (type) {
     case 'XL':
@@ -63,6 +67,20 @@ const ButtonContainer = ({
       isDisabled={isDisabled}
       isClicked={isClicked}
       onClick={handleClick}
+      style={{
+        backgroundColor:
+          isClicked
+            ? isDarkMode ? '#3F4043' : '#FFFFFF'
+            : isDarkMode ? '#A16EE4' : '#6541D3',
+        color:
+        isClicked
+            ? isDarkMode ? '#A16EE4' : '#6541D3'
+            : isDarkMode ? '#ffffff' : '#ffffff',
+        borderColor:
+            isClicked
+            ? isDarkMode ? '#A16EE4' : '#6541D3'
+            : isDarkMode ? '#ffffff' : '#ffffff',
+      }}
     >
       {text}
     </Container>

@@ -9,7 +9,8 @@ export const Container = styled.header`
   border-bottom: ${({ theme }) => `0.1rem solid ${theme.colors.borderColor}`};
   font-size: 1.4rem;
   height: 4.8rem;
-  background-color: white;
+  background-color: ${({theme}) => theme.colors.headerColor};
+  color: ${({theme}) => theme.colors.blackText};
   z-index: 999;
 
   > button {
@@ -54,13 +55,14 @@ export const Input = styled.input`
   height: 3.2rem;
   border: none;
   background-color: ${({ theme }) => theme.colors.inputColor};
+  color: ${({ theme }) => theme.colors.blackText};
   border-radius: 3.2rem;
   padding-left: 1.6rem;
   &::placeholder {
     color: ${({ theme }) => theme.colors.uploadPlaceholderColor};
   }
   &:focus {
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colors.inputColor};
     box-shadow: 0.2rem 0.2rem 0.1rem 0.1rem
       ${({ theme }) => theme.colors.mainColor};
     outline: 0.2rem solid ${({ theme }) => theme.colors.mainColor};

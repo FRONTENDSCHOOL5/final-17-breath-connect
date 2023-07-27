@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 import {
   accountAtom,
   profileImgAtom,
@@ -17,7 +17,6 @@ import {
   postUploadProfile,
   editProfile,
 } from '../../../utils/Apis';
-import { useRecoilValue } from 'recoil';
 
 import { 
   Container,
@@ -27,9 +26,14 @@ import {
   ImageInput,
   ErrorMsg } from './ProfileEditPageStyle';
 
-const ProfileEditPage = () => {
+  import { isDarkModeState } from '../../../atoms/StylesAtom';
+  import { ThemeProvider } from 'styled-components';
+  import Theme, { darkColors } from '../../../styles/Theme';
+
+const ProfileEditPage = ({theme}) => {
   const URL = 'https://api.mandarin.weniv.co.kr';
   const userToken = useRecoilValue(tokenAtom);
+  const isDarkMode = useRecoilValue(isDarkModeState);
 
   const navigate = useNavigate();
   const fileInputRef = useRef();
@@ -152,7 +156,9 @@ const ProfileEditPage = () => {
     }
   };
 
+
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
       <TopUploadHeader
         text="저장"
@@ -207,6 +213,7 @@ const ProfileEditPage = () => {
         </Form>
       </Container>
     </>
+    </ThemeProvider>
   );
 };
 

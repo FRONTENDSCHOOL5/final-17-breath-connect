@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import imageCompression from 'browser-image-compression';
 import BasicProfileImg from '../../../assets/images/basic-profile-l.svg'
+import BasicDarkProfileImg from '../../../assets/images/basic-profile-l-dark.svg'
 
 import Input from '../../../components/common/Input/Input';
 import ButtonContainer from '../../../components/common/Button/ButtonContainer';
@@ -21,7 +22,14 @@ import {
   ImageInput,
   ErrorMsg
  } from './ProfileSettingPageStyle';
-const ProfileSettingPage = () => {
+
+import { useRecoilValue } from "recoil";
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+import { ThemeProvider } from 'styled-components';
+import Theme, { darkColors } from '../../../styles/Theme';
+
+const ProfileSettingPage = ({theme}) => {
+  const isDarkMode = useRecoilValue(isDarkModeState);
 
   const URL = 'https://api.mandarin.weniv.co.kr/';
 
@@ -68,7 +76,6 @@ const ProfileSettingPage = () => {
     console.log(imgData);
     setImage(URL + imgData.filename);
     console.log(image);
-    
   } catch (error) {
     console.log(error);
   }
@@ -87,7 +94,7 @@ const ProfileSettingPage = () => {
     if(username === '') {
       setUsernameErrorMsg('*입력해주세요');
     } else if (!usernameRegex.test(username)) {
-      setUsernameErrorMsg('*영문 2~10자 이내로 입력해주세요');    
+      setUsernameErrorMsg('*영문 2~10자 이내로 입력해주세요');
   } else {
     setUsernameErrorMsg('');
     setUsernameValid(true);
@@ -150,18 +157,19 @@ const handleProfileSignup = async (e) => {
 }
 
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
     <Container>
     <Title>프로필 설정</Title>
     <p className="profileSetting-description">나중에 언제든지 변경할 수 있습니다.</p>
-    <Form onSubmit={handleProfileSignup}>   
+    <Form onSubmit={handleProfileSignup}>
      <ImageWrap> 
       <label htmlFor="upload-image">
-      <Image src={image ? image : BasicProfileImg} alt="사용자 프로필 이미지" />
+      <Image src={image ? image : isDarkMode ? BasicDarkProfileImg : BasicProfileImg} alt="사용자 프로필 이미지" />
       </label>
-      <ImageInput 
-      type="file" 
-      accept="image/png, image/jpg, image/jpeg" 
+      <ImageInput
+      type="file"
+      accept="image/png, image/jpg, image/jpeg"
       id="upload-image"
       ref={fileInputRef}
       onChange={handleInputImage} />
@@ -204,6 +212,7 @@ const handleProfileSignup = async (e) => {
         </Form>
          </Container>
         </>
+        </ThemeProvider>
     )
   }
 

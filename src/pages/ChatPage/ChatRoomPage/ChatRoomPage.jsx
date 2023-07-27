@@ -1,6 +1,7 @@
 import React from 'react';
 import TopChatNavHeader from '../../../components/Header/TopChatNavHeader';
 import ProfileImg from '../../../assets/images/basic-profile-s.svg';
+import ProfileDarkImg from '../../../assets/images/basic-profile-s-dark.svg';
 import ChatImg from '../../../assets/images/chat-img.png';
 import ChatComment from '../../../components/common/Comment/ChatComment';
 import {
@@ -13,16 +14,22 @@ import {
   ChatTime,
   Img,
 } from './ChatRoomPageStyle';
+import { useRecoilValue } from "recoil";
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+import { ThemeProvider } from 'styled-components';
+import Theme, { darkColors } from '../../../styles/Theme';
 
-const ChatRoom = () => {
+const ChatRoom = ({theme}) => {
+  const isDarkMode = useRecoilValue(isDarkModeState);
   return (
+    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
       <TopChatNavHeader />
       <Main className="chat-space">
         <Title>채팅방</Title>
         <ul>
           <Chatli className="chat-partner">
-            <Image src={ProfileImg} alt="유저프로필" />
+            <Image src={isDarkMode ? ProfileDarkImg : ProfileImg} alt="유저프로필" />
             <PartnerChatBox className="chat-box">
               안녕하세요~ 서울역 게시글 봤어요!!
             </PartnerChatBox>
@@ -47,6 +54,7 @@ const ChatRoom = () => {
       </Main>
       <ChatComment />
     </>
+    </ThemeProvider>
   );
 };
 export default ChatRoom;
