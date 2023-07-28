@@ -1,39 +1,52 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserInfo from './UserInfo';
 import TopBasicNavHeader from '../../components/Header/TopBasicNavHeader';
 import PostPage from '../PostPage/PostPage';
 import Loading from '../../components/common/Loading/Loading';
 import { getUserProfile, getMyPost } from '../../utils/Apis';
-import { useRecoilValue } from 'recoil';
-import { tokenAtom } from '../../atoms/UserAtom';
-import { useLocation } from 'react-router-dom';
-import TabMenu from '../../components/Footer/TabMenu';
-import IconPostModal from '../../components/common/Modal/IconPostModal';
-import { isEqual } from 'lodash';
+import { useRecoilValue, useRecoilCallback, useSetRecoilState } from 'recoil';
 import {
-  ModalContainer,
-  ModalContent,
-  BackgroundOverlay,
-} from './ProfilePageStyle';
+  tokenAtom,
+  accountAtom,
+  profileImgAtom,
+  usernameAtom,
+  introAtom,
+} from '../../atoms/UserAtom';
+import { loginAtom } from '../../atoms/LoginAtom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import TabMenu from '../../components/Footer/TabMenu';
+import { isEqual } from 'lodash';
+import Modal from '../../components/common/Modal/PostModal';
+import IconPostModal from '../../components/common/Modal/IconPostModal';
+import {
+  deletePostData,
+  resetProfile,
+  logOut,
+  reportUserPost,
+  sharePost,
+} from '../../components/common/Modal/ModalFunction';
 
-import {ThemeProvider} from 'styled-components'
+import { ThemeProvider } from 'styled-components';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../styles/Theme';
 
-const ProfilePage = ({theme}) => {
+const ProfilePage = ({ theme }) => {
   const location = useLocation();
   const userToken = useRecoilValue(tokenAtom);
-  const isDarkMode = useRecoilValue(isDarkModeState);
+  const account = useRecoilValue(accountAtom);
+  const setLoginState = useSetRecoilState(loginAtom);
+  const navigate = useNavigate();
 
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState();
   const [accountName, setAccountName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTopText, setModalTopText] = useState();
-  const [modalBtmText, setModalBtmText] = useState();
-  const [profileKey, setProfileKey] = useState(0);
-  const [isPostDeleted, setIsPostDeleted] = useState(false);
-  const modalRef = useRef(null);
+
+  const isDarkMode = useRecoilValue(isDarkModeState);
+  const [isDelete, setIsDelete] = useState(false);
+  const [modalText, setModalText] = useState([]);
+  const [modalFunc, setModalFunc] = useState([]);
+  const [pickedPost, setPickedPost] = useState('');
 
   useEffect(() => {
     setAccountName(
@@ -45,11 +58,12 @@ const ProfilePage = ({theme}) => {
     if (accountName) {
       fetchData();
     }
-  }, [accountName]);
+  }, [accountName, isDelete]);
 
   useEffect(() => {
+    setIsDelete(false);
     setIsModalOpen(false);
-  }, [isPostDeleted]);
+  }, [isDelete]);
 
   const fetchData = async () => {
     try {
@@ -77,106 +91,105 @@ const ProfilePage = ({theme}) => {
   const getPost = async () => {
     try {
       const postData = await getMyPost(userToken, accountName, 10, 0);
+      console.log(postData);
       setPosts(postData.post);
     } catch (error) {
       console.error('Error fetching user posts:', error);
     }
   };
 
-  const toggleModal = (topText, btmText) => {
-    setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
-    setModalTopText(topText);
-    setModalBtmText(btmText);
-  };
+  const handleResetState = useRecoilCallback(({ reset }) => () => {
+    reset(tokenAtom);
+    reset(accountAtom);
+    reset(profileImgAtom);
+    reset(usernameAtom);
+    reset(introAtom);
+  });
 
-  const handleAnimationEnd = () => {
+  const onShowModal = () => {
     if (!isModalOpen) {
-      setIsModalOpen(false);
+      setIsModalOpen(true);
+      if (accountName === account) {
+        setModalText(['삭제', '수정']);
+        setModalFunc([
+          () => deletePostData(userToken, pickedPost.id, setIsDelete),
+          () =>
+            navigate(`/post/${account}/edit`, {
+              state: {
+                data: pickedPost,
+              },
+            }),
+        ]);
+      } else {
+        setModalText(['신고', '공유']);
+        setModalFunc([
+          () => reportUserPost(userToken, pickedPost.id),
+          () => sharePost(),
+        ]);
+      }
     }
   };
 
-  const handleClickOutsideModal = (event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      setIsModalOpen(false);
+  const onShowHeaderModal = () => {
+    if (!isModalOpen) {
+      setIsModalOpen(true);
+      if (accountName === account) {
+        setModalText(['설정 및 개인정보', '로그아웃']);
+        setModalFunc([
+          () => resetProfile(accountName, navigate),
+          () => logOut(handleResetState, setLoginState, navigate),
+        ]);
+      } else {
+        setModalText(['신고', '공유']);
+        setModalFunc([
+          () => resetProfile(accountName, navigate),
+          () => logOut(handleResetState, setLoginState, navigate),
+        ]);
+      }
     }
   };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutsideModal);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutsideModal);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isPostDeleted) {
-      fetchData();
-      setIsPostDeleted(false);
-    }
-  }, [isPostDeleted]);
-
-  useEffect(() => {
-    if (profile) {
-      // profile이 변경될 때마다 profileKey 값을 변경하여 UserInfo 컴포넌트를 다시 렌더링
-      setProfileKey((prevKey) => prevKey + 1);
-    }
-  }, [profile]);
 
   if (!posts) {
     return <Loading />;
   } else {
     return (
-      <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
-      <>
-        <TopBasicNavHeader
-          onButtonClick={() => toggleModal('설정 및 개인정보', '로그아웃')}
-        />
-        {profile && (
-          <UserInfo
-            key={profileKey}
-            data={profile}
-            myProfile={
-              JSON.parse(localStorage.getItem('recoil-persist'))[
-                'accountAtom'
-              ] === accountName
-            }
-          />
-        )}
-
-        {posts.length > 0 &&
-          posts.map((post, index) => (
-            <PostPage
-              key={index}
-              data={post}
-              onButtonClick={() => toggleModal('삭제', '수정')}
+      <ThemeProvider
+        theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
+      >
+        <>
+          <TopBasicNavHeader onButtonClick={onShowHeaderModal} />
+          {profile && (
+            <UserInfo
+              data={profile}
+              myProfile={
+                JSON.parse(localStorage.getItem('recoil-persist'))[
+                  'accountAtom'
+                ] === accountName
+              }
             />
-          ))}
-
-        {isModalOpen && (
-          <>
-            <BackgroundOverlay />
-            <ModalContainer
-              isOpen={isModalOpen}
-              onAnimationEnd={handleAnimationEnd}
-            >
-              <ModalContent ref={modalRef}>
-                {posts.map((post, index) => (
-                  <IconPostModal
-                    topText={modalTopText}
-                    btmText={modalBtmText}
-                    onClose={toggleModal}
-                    accountName={accountName}
-                    key={index}
-                    data={post}
-                    setIsPostDeleted={setIsPostDeleted}
-                  />
-                ))}
-              </ModalContent>
-            </ModalContainer>
-          </>
-        )}
-        <TabMenu />
-      </>
+          )}
+          {posts.length > 0 &&
+            posts.map((post, index) => (
+              <PostPage
+                key={index}
+                data={post}
+                showModal={onShowModal}
+                setPickedPost={setPickedPost}
+              />
+            ))}
+          {isModalOpen && (
+            <Modal setIsModalOpen={setIsModalOpen}>
+              {modalText.map((text, index) => (
+                <IconPostModal
+                  key={index}
+                  text={text}
+                  onButtonClick={modalFunc[index]}
+                />
+              ))}
+            </Modal>
+          )}
+          <TabMenu />
+        </>
       </ThemeProvider>
     );
   }

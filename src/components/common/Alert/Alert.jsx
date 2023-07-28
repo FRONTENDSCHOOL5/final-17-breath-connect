@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Container,
   AlertContainer,
@@ -8,18 +8,16 @@ import {
   DeleteButton,
 } from './AlertStyle';
 
-const Alert = ({ message, onClose, done, text, setIsPostDeleted }) => {
-  const [showAlert, setShowAlert] = useState(true);
-
+const Alert = ({ message, Func, cancel }) => {
   const handleClickCancel = () => {
-    setShowAlert(false);
-    onClose(false);
+    console.log('no');
+    cancel(false);
   };
-  const handleClickDelete = () => {
-    alert(done);
-    setShowAlert(false);
-    onClose(true);
-    setIsPostDeleted(true);
+
+  const handleClickYes = () => {
+    console.log('yes');
+    if (Func) Func();
+    cancel(false);
   };
 
   return (
@@ -27,8 +25,8 @@ const Alert = ({ message, onClose, done, text, setIsPostDeleted }) => {
       <AlertContainer>
         <AlertMessage>{message}</AlertMessage>
         <ButtonContainer>
-          <CancelButton onClick={handleClickCancel}>취소</CancelButton>
-          <DeleteButton onClick={handleClickDelete}>{text}</DeleteButton>
+          <DeleteButton onClick={handleClickYes}>예</DeleteButton>
+          <CancelButton onClick={handleClickCancel}>아니요</CancelButton>
         </ButtonContainer>
       </AlertContainer>
     </Container>
