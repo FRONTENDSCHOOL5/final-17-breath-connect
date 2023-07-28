@@ -30,6 +30,16 @@ const SearchPage = ({theme}) => {
   const numberRegex =
     /^https:\/\/api\.mandarin\.weniv\.co\.kr\/(?:(?!null|undefined)[\w.]*)$/;
 
+function debounce(func, delay) {
+  let timerId;
+  function debounced(...args) {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => func.apply(this, args), delay);
+  }
+  debounced.cancel = () => clearTimeout(timerId);
+  return debounced;
+}
+
   useEffect(() => {
     const fetchData = async () => {
       if (search === '') {
@@ -44,7 +54,13 @@ const SearchPage = ({theme}) => {
       }
     };
 
-    fetchData();
+    const debounceFetchData = debounce(fetchData, 500); 
+
+    debounceFetchData(); 
+
+    return () => {
+      debounceFetchData.cancel(); 
+    };
   }, [search, token]);
 
   const handleProfileClick = (index) => {
