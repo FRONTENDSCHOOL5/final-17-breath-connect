@@ -9,10 +9,10 @@ export const Container = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 999;
+  z-index: 99999;
   opacity: 1;
   pointer-events: auto;
-`
+`;
 
 export const AlertContainer = styled.div`
   position: absolute;
@@ -31,18 +31,17 @@ export const AlertMessage = styled.p`
   text-align: center;
   padding: 2rem 0rem;
   font-size: ${({ theme }) => theme.fontSize.large};
-`
+`;
 
 export const ButtonContainer = styled.div`
-border-top: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
-font-size: ${({ theme }) => theme.fontSize.medium};
+  border-top: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
+  font-size: ${({ theme }) => theme.fontSize.medium};
   button {
     width: 12.5rem;
     padding: 1.3rem 0;
   }
 `;
-export const CancelButton = styled.button`
-`
+export const CancelButton = styled.button``;
 
 export const DeleteButton = styled.button`
   border-left: 0.05rem solid ${({ theme }) => theme.colors.borderColor};

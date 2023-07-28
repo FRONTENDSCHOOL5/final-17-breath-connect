@@ -191,9 +191,14 @@ export const getUserPosts = async (token, accountname, limit, skip) => {
 };
 
 /* 게시글 수정 */
-export const putEditPost = async (postId) => {
+export const putEditPost = async (token, post, postId) => {
   try {
-    const response = await authInstance.put(`/post/${postId}`);
+    const response = await authInstance.put(`/post/${postId}`,post, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -201,15 +206,14 @@ export const putEditPost = async (postId) => {
 };
 
 /* 게시글 삭제 */
-export const deletePost = async (postId) => {
+export const deletePost = async (token, postId) => {
   try {
-    const response = await authInstance.delete(`/post/${postId}`);
-    // {
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
+    const response = await authInstance.delete(`/post/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -217,7 +221,7 @@ export const deletePost = async (postId) => {
 };
 
 /* 게시글 신고 */
-export const reportPost = async (postId) => {
+export const reportPost = async (token, postId) => {
   try {
     const response = await authInstance.post(`/post/${postId}/report`);
     return response.data;
@@ -352,7 +356,7 @@ export const deleteLike = async (token, postId) => {
 };
 
 /* 댓글 작성 */
-export const postComment = async (postId, comment) => {
+export const postComment = async (token, postId, comment) => {
   const commentData = {
     comment: {
       content: comment,
@@ -360,7 +364,12 @@ export const postComment = async (postId, comment) => {
   };
   const response = await authInstance.post(
     `/post/${postId}/comments`,
-    commentData
+    commentData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    }
   );
   return response.data;
 };
@@ -381,10 +390,13 @@ export const getComment = async (postId, token) => {
 };
 
 /* 댓글 삭제 */
-export const deleteComment = async (postId, comment) => {
+export const deleteComment = async (token, postId, comment) => {
   try {
     const response = await authInstance.delete(
-      `/post/${postId}/comments/${comment.id}`
+      `/post/${postId}/comments/${comment.id}`, {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      }
     );
     return response.data;
   } catch (error) {
@@ -393,10 +405,13 @@ export const deleteComment = async (postId, comment) => {
 };
 
 /* 댓글 신고 */
-export const reportComment = async (postId, comment) => {
+export const reportComment = async (token, postId, comment) => {
   try {
     const response = await authInstance.post(
-      `/post/${postId}/comments/${comment.id}/report`
+      `/post/${postId}/comments/${comment.id}/report` , {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      }
     );
     return response.data;
   } catch (error) {

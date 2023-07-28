@@ -29,7 +29,7 @@ import { iconColorSelector } from '../../atoms/StylesAtom';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../styles/Theme';
 
-const PostPage = ({ data, onButtonClick, userFeedTextStyle, theme }) => {
+const PostPage = ({ data, showModal, setPickedPost, theme }) => {
   const iconColor = useRecoilValue(iconColorSelector);
   const isDarkMode = useRecoilValue(isDarkModeState);
   const token = useRecoilValue(tokenAtom);
@@ -46,6 +46,11 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle, theme }) => {
   );
 
   const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[/\w.]*$/;
+
+  useEffect(() => {
+    setPickedPost(data);
+    console.log('data', data);
+  }, []);
 
   const handleFeedClick = (e) => {
     e.stopPropagation();
@@ -131,82 +136,98 @@ const PostPage = ({ data, onButtonClick, userFeedTextStyle, theme }) => {
   };
 
   return (
-    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
-    <PostContainer>
-      <h1 className="a11y-hidden">게시글 페이지</h1>
-      <PostContents>
-        <UserProfileImg
-          src={
-            numberRegex.test(data.author.image) ? data.author.image : isDarkMode ? basicDarkImg : basicImg
-          }
-        />
-        <div>
-          {/* 프로필로 이동 */}
-          <button onClick={handleProfileClick} className="go-to-profile">
-            <UserName>{data.author.username}</UserName>
-            <UserAccountName>@ {data.author.accountname}</UserAccountName>
-          </button>
-          {/* 신고, 공유 모달 */}
-          <button onClick={onButtonClick} className="post-modal">
-            <GlovalSprite
-              id={'s-icon-more-vertical'}
-              color={'white'}
-              size={18}
-            />
-          </button>
-          {/* 피드로 이동 */}
-          <DetailButton
-            onClick={handleFeedClick}
-            className="go-to-post-detail"
-            detail={detail}
-          >
-            <ScheduleInfo>
-              <GlovalSprite id={isDarkMode ? 'icon-calendar-dark' : 'icon-calendar'} size={13} />
-              <FeedInfo>
-                {data.content[0] +
-                  '요일' +
-                  data.content.slice(1, 7) +
-                  ' , ' +
-                  data.content.slice(9, 14)}
-              </FeedInfo>
-            </ScheduleInfo>
-            <LocationInfo>
-              <GlovalSprite id={isDarkMode ? 'icon-location-dark' : 'icon-location'} size={13} />
-              <FeedInfo>
-                {startPoint}~{endPoint}
-              </FeedInfo>
-            </LocationInfo>
-            <MapContents>
-              <FeedMap data={data.image} detail={detail} />
-            </MapContents>
-            <UserFeedText style={userFeedTextStyle}>
-              {data.content.slice(15)}
-            </UserFeedText>
-            <AppendAndComment>
-              <AppendButton>{postLikeCount}명 참여</AppendButton>
-              <CommentContainer>
+    <ThemeProvider
+      theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
+    >
+      <PostContainer>
+        <h1 className="a11y-hidden">게시글 페이지</h1>
+        <PostContents>
+          <UserProfileImg
+            src={
+              numberRegex.test(data.author.image)
+                ? data.author.image
+                : isDarkMode
+                ? basicDarkImg
+                : basicImg
+            }
+          />
+          <div>
+            {/* 프로필로 이동 */}
+            <button onClick={handleProfileClick} className="go-to-profile">
+              <UserName>{data.author.username}</UserName>
+              <UserAccountName>@ {data.author.accountname}</UserAccountName>
+            </button>
+            {/* 신고, 공유 모달 */}
+            <button onClick={showModal} className="post-modal">
+              <GlovalSprite
+                id={'s-icon-more-vertical'}
+                color={'white'}
+                size={18}
+              />
+            </button>
+            {/* 피드로 이동 */}
+            <DetailButton
+              onClick={handleFeedClick}
+              className="go-to-post-detail"
+              detail={detail}
+            >
+              <ScheduleInfo>
                 <GlovalSprite
-                  id={isDarkMode ? 'icon-message-circle-dark' : 'icon-message-circle'}
-                  size={12}
-                  color={iconColor}
+                  id={isDarkMode ? 'icon-calendar-dark' : 'icon-calendar'}
+                  size={13}
                 />
-                <FeedInfo>{data.commentCount}</FeedInfo>
-              </CommentContainer>
-            </AppendAndComment>
-          </DetailButton>
-        </div>
-      </PostContents>
-      {detail ? (
-        <ButtonContainer
-          type={'XL'}
-          text={postLikeState ? '참가하기 취소' : '참가하기'}
-          isClicked={postLikeState}
-          handleClick={handleToggleLike}
-        />
-      ) : (
-        <></>
-      )}
-    </PostContainer>
+                <FeedInfo>
+                  {data.content.substring(3, 4) +
+                    '요일, ' +
+                    data.content.substring(5, 10) +
+                    ', ' +
+                    JSON.parse(data.content)[1]}
+                </FeedInfo>
+              </ScheduleInfo>
+              <LocationInfo>
+                <GlovalSprite
+                  id={isDarkMode ? 'icon-location-dark' : 'icon-location'}
+                  size={13}
+                />
+                <FeedInfo>
+                  {startPoint}~{endPoint}
+                </FeedInfo>
+              </LocationInfo>
+              <MapContents>
+                <FeedMap data={data.image} detail={detail} />
+              </MapContents>
+              <UserFeedText>
+                {data && JSON.parse(data.content)[2].toString()}
+              </UserFeedText>
+              <AppendAndComment>
+                <AppendButton>{postLikeCount}명 참여</AppendButton>
+                <CommentContainer>
+                  <GlovalSprite
+                    id={
+                      isDarkMode
+                        ? 'icon-message-circle-dark'
+                        : 'icon-message-circle'
+                    }
+                    size={12}
+                    color={iconColor}
+                  />
+                  <FeedInfo>{data.commentCount}</FeedInfo>
+                </CommentContainer>
+              </AppendAndComment>
+            </DetailButton>
+          </div>
+        </PostContents>
+        {detail ? (
+          <ButtonContainer
+            type={'XL'}
+            text={postLikeState ? '참가하기 취소' : '참가하기'}
+            isClicked={postLikeState}
+            handleClick={handleToggleLike}
+          />
+        ) : (
+          <></>
+        )}
+      </PostContainer>
     </ThemeProvider>
   );
 };

@@ -1,38 +1,36 @@
 import React, { useState } from 'react';
+import {
+  ModalContainer,
+  ModalContent,
+  BackgroundOverlay,
+} from './PostModalStyle';
 import Alert from '../Alert/Alert';
-import {Container, ButtonContainer} from '../Modal/PostModalStyle'
 
-const PostModal = ({ text }) => {
+export default function Modal({ setIsModalOpen, children }) {
+  const [tempFunc, setTempFunc] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertDone, setAlertDone] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleClick = () => {
-    if (text === '삭제') {
-      setAlertMessage('게시물을 삭제하시겠습니까?');
-      setShowAlert(true); // 알림(Alert) 띄우기
-      setAlertDone("게시물이 삭제되었습니다.")
-    } else if (text === '신고하기') {
-      setAlertMessage('게시물을 신고하시겠습니까?');
-      setShowAlert(true);
-      setAlertDone("게시물이 신고되었습니다.")
-    }
+    setIsModalOpen(false);
   };
-
-  const handleAlertClose = () => {
-    setShowAlert(false); // 알림(Alert) 닫기
-  };
+  const childrenWithProps = React.Children.map(children, (child) =>
+    React.cloneElement(child, { setShowAlert, setTempFunc, setMessage })
+  );
 
   return (
     <>
-          <Container>
-            <ButtonContainer>
-              <button onClick={handleClick}>{text}</button>
-            </ButtonContainer>
-          </Container>
-      {showAlert && <Alert message={alertMessage} onClose={handleAlertClose} done={alertDone}/>}
+      <BackgroundOverlay onClick={handleClick} />
+      <ModalContainer>
+        <ModalContent showAlert={showAlert}>{childrenWithProps}</ModalContent>
+      </ModalContainer>
+      {showAlert && (
+        <Alert
+          message={`${message}하시겠습니까?`}
+          Func={tempFunc}
+          cancel={setShowAlert}
+        />
+      )}
     </>
   );
-};
-
-export default PostModal;
+}
