@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+background-color: ${({theme}) => theme.colors.backgroundColor};
+`;
 
 export const ButtonContainer = styled.div`
   display: flex;
   width: 380px;
   flex-direction: column;
+  color: ${({theme}) => theme.colors.blackText};
   button {
     text-align: left;
     font-size: 14px;
