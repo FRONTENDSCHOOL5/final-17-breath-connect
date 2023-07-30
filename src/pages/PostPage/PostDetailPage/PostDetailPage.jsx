@@ -94,31 +94,32 @@ const PostPageDetail = ({ theme }) => {
     wordWrap: 'break-word',
   };
 
-  const onShowModal = () => {
+  const onShowModal = (postId) => {
     if (!isModalOpen) {
       setIsModalOpen(true);
       if (data.author.accountname === account) {
         setModalText(['삭제', '수정']);
         setModalFunc([
-          () => deletePostData(token, pickedPost, setIsDelete),
+          () => deletePostData(token, postId.id, setIsDelete),
           () =>
             navigate(`edit`, {
               state: {
-                data: data,
+                data: postId,
               },
             }),
         ]);
       } else {
         setModalText(['신고', '공유']);
         setModalFunc([
-          () => reportUserPost(token, pickedPost),
+          () => reportUserPost(token, postId.id),
           () => sharePost(),
         ]);
       }
     }
   };
 
-  const onShowCommentModal = (index) => {
+  const onShowCommentModal = (index, comment) => {
+    console.log(data);
     if (!isModalOpen) {
       setIsModalOpen(true);
       if (commentData[index].author.accountname === account) {
@@ -127,7 +128,7 @@ const PostPageDetail = ({ theme }) => {
           () =>
             deleteUserComment(
               token,
-              pickedPost.id,
+              data.id,
               commentData[index],
               setIsDeleteComment
             ),
@@ -162,7 +163,7 @@ const PostPageDetail = ({ theme }) => {
                 time={comment.createdAt}
                 content={comment.content}
                 image={comment.author.image}
-                handleCommentClick={() => onShowCommentModal(index)}
+                handleCommentClick={() => onShowCommentModal(index, comment)}
               />
             ))
           ) : (

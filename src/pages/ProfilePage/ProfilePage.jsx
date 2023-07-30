@@ -111,7 +111,7 @@ const ProfilePage = ({ theme }) => {
       if (accountName === account) {
         setModalText(['삭제', '수정']);
         setModalFunc([
-          () => deletePostData(userToken, postId, setIsDelete),
+          () => deletePostData(userToken, postId.id, setIsDelete),
           () =>
             navigate(`/post/${account}/edit`, {
               state: {
@@ -122,7 +122,7 @@ const ProfilePage = ({ theme }) => {
       } else {
         setModalText(['신고', '공유']);
         setModalFunc([
-          () => reportUserPost(userToken, postId),
+          () => reportUserPost(userToken, postId.id),
           () => sharePost(),
         ]);
       }

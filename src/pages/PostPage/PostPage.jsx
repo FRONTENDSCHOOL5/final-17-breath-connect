@@ -164,7 +164,8 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
             {/* 신고, 공유 모달 */}
             <button
               onClick={() => {
-                showModal(data.id);
+                showModal(data);
+                setPickedPost(data);
               }}
               className="post-modal"
             >
