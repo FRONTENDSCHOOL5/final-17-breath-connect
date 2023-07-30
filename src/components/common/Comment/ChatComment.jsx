@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import GlovalSprite from '../../../assets/sprite/GlovalSprite';
+import GlobalSprite from '../../../assets/sprite/GlobalSprite';
 import {
   Section,
   Upload,
@@ -19,7 +19,7 @@ const CommentSection = () => {
     <Section>
       <Upload name="" id="upload-profile" />
       <Label for="upload-profile">
-        <GlovalSprite id={'img-btn'} size={36} />
+        <GlobalSprite id={'img-btn'} size={36} />
       </Label>
       <Form>
         <Input value={comment} onChange={handleInputChange} />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import basicImg from '../../assets/images/basic-profile-m.svg';
 import basicDarkImg from '../../assets/images/basic-profile-m-dark.svg';
-import GlovalSprite from '../../assets/sprite/GlovalSprite';
+import GlobalSprite from '../../assets/sprite/GlobalSprite';
 import FeedMap from '../../components/Map/FeedMap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ButtonContainer from '../../components/common/Button/ButtonContainer';
@@ -159,7 +159,7 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
             </button>
             {/* 신고, 공유 모달 */}
             <button onClick={showModal} className="post-modal">
-              <GlovalSprite
+              <GlobalSprite
                 id={'s-icon-more-vertical'}
                 color={'white'}
                 size={18}
@@ -172,7 +172,7 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
               detail={detail}
             >
               <ScheduleInfo>
-                <GlovalSprite
+                <GlobalSprite
                   id={isDarkMode ? 'icon-calendar-dark' : 'icon-calendar'}
                   size={13}
                 />
@@ -185,7 +185,7 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
                 </FeedInfo>
               </ScheduleInfo>
               <LocationInfo>
-                <GlovalSprite
+                <GlobalSprite
                   id={isDarkMode ? 'icon-location-dark' : 'icon-location'}
                   size={13}
                 />
@@ -202,7 +202,7 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
               <AppendAndComment>
                 <AppendButton>{postLikeCount}명 참여</AppendButton>
                 <CommentContainer>
-                  <GlovalSprite
+                  <GlobalSprite
                     id={
                       isDarkMode
                         ? 'icon-message-circle-dark'

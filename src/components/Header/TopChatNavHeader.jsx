@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderContainer from './HeaderContainer';
 import BackButton from './BackButton';
-import GlovalSprite from '../../assets/sprite/GlovalSprite';
+import GlobalSprite from '../../assets/sprite/GlobalSprite';
 import { BackAndUserText, User } from './HeaderStyle';
 
 const TopChatNavHeader = ({ text }) => {
@@ -12,7 +12,7 @@ const TopChatNavHeader = ({ text }) => {
         <User>{text}</User>
       </BackAndUserText>
       <button>
-        <GlovalSprite id={'s-icon-more-vertical'} color={'white'} />
+        <GlobalSprite id={'s-icon-more-vertical'} color={'white'} />
       </button>
     </HeaderContainer>
   );
