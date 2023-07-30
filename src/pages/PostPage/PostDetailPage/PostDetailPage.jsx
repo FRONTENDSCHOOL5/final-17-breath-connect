@@ -127,7 +127,7 @@ const PostPageDetail = ({ theme }) => {
           () =>
             deleteUserComment(
               token,
-              pickedPost,
+              pickedPost.id,
               commentData[index],
               setIsDeleteComment
             ),
