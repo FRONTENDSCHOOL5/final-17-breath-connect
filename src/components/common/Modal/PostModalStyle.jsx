@@ -35,13 +35,12 @@ export const ModalContent = styled.div`
   position: absolute;
   bottom: 0;
   height: 13.8rem;
-  /* background-color: white; */
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
   animation: ${css`
     ${slideUpAnimation} 0.5s ease-in-out forwards;
   `};
-  background-color: ${({ showAlert, isDarkMode }) => (showAlert ? '#ccc9c9' : isDarkMode ? '#3F4043' : 'white')};
+  background: ${({ theme }) => theme.colors.backgroundColor};
 `;
 
 export const BackgroundOverlay = styled.div`
