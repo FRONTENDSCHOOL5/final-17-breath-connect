@@ -47,11 +47,6 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
 
   const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[/\w.]*$/;
 
-  useEffect(() => {
-    setPickedPost(data);
-    console.log('data', data);
-  }, []);
-
   const handleFeedClick = (e) => {
     e.stopPropagation();
     if (location.pathname !== `/post/${data.author.accountname}`) {
@@ -135,6 +130,15 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
     }
   };
 
+  function isJSON(str) {
+    try {
+      JSON.parse(str);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
   return (
     <ThemeProvider
       theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
@@ -158,13 +162,13 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
               <UserAccountName>@ {data.author.accountname}</UserAccountName>
             </button>
             {/* 신고, 공유 모달 */}
-            <button onClick={showModal} className="post-modal">
-              <GlobalSprite
-                id={'s-icon-more-vertical'}
-                color={'white'}
-                size={18}
-              />
-            </button>
+            <button
+              onClick={() => {
+                showModal(data);
+                setPickedPost(data);
+              }}
+              className="post-modal"
+            >
             {/* 피드로 이동 */}
             <DetailButton
               onClick={handleFeedClick}
@@ -177,11 +181,12 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
                   size={13}
                 />
                 <FeedInfo>
-                  {data.content.substring(3, 4) +
-                    '요일, ' +
-                    data.content.substring(5, 10) +
-                    ', ' +
-                    JSON.parse(data.content)[1]}
+                  {data &&
+                    data.content.substring(3, 4) +
+                      '요일, ' +
+                      data.content.substring(5, 10) +
+                      ', ' +
+                      (isJSON(data.content) ? JSON.parse(data.content)[1] : '')}
                 </FeedInfo>
               </ScheduleInfo>
               <LocationInfo>
@@ -197,7 +202,10 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
                 <FeedMap data={data.image} detail={detail} />
               </MapContents>
               <UserFeedText>
-                {data && JSON.parse(data.content)[2].toString()}
+                {data &&
+                  (isJSON(data.content)
+                    ? JSON.parse(data.content)[2].toString()
+                    : '')}
               </UserFeedText>
               <AppendAndComment>
                 <AppendButton>{postLikeCount}명 참여</AppendButton>

@@ -46,7 +46,6 @@ const ProfilePage = ({ theme }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [modalText, setModalText] = useState([]);
   const [modalFunc, setModalFunc] = useState([]);
-  const [pickedPost, setPickedPost] = useState('');
 
   useEffect(() => {
     setAccountName(
@@ -106,24 +105,24 @@ const ProfilePage = ({ theme }) => {
     reset(introAtom);
   });
 
-  const onShowModal = () => {
+  const onShowModal = (postId) => {
     if (!isModalOpen) {
       setIsModalOpen(true);
       if (accountName === account) {
         setModalText(['삭제', '수정']);
         setModalFunc([
-          () => deletePostData(userToken, pickedPost.id, setIsDelete),
+          () => deletePostData(userToken, postId.id, setIsDelete),
           () =>
             navigate(`/post/${account}/edit`, {
               state: {
-                data: pickedPost,
+                data: postId,
               },
             }),
         ]);
       } else {
         setModalText(['신고', '공유']);
         setModalFunc([
-          () => reportUserPost(userToken, pickedPost.id),
+          () => reportUserPost(userToken, postId.id),
           () => sharePost(),
         ]);
       }
@@ -170,12 +169,7 @@ const ProfilePage = ({ theme }) => {
           )}
           {posts.length > 0 &&
             posts.map((post, index) => (
-              <PostPage
-                key={index}
-                data={post}
-                showModal={onShowModal}
-                setPickedPost={setPickedPost}
-              />
+              <PostPage key={index} data={post} showModal={onShowModal} />
             ))}
           {isModalOpen && (
             <Modal setIsModalOpen={setIsModalOpen}>
