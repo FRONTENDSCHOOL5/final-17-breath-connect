@@ -26,7 +26,13 @@ export default function Modal({ setIsModalOpen, children }) {
       </ModalContainer>
       {showAlert && (
         <Alert
-          message={`${message}하시겠습니까?`}
+        message={
+          message === '설정 및 개인정보'
+            ? `프로필을 변경할까요?`
+            : message === '삭제' || message === '수정'
+            ? `게시글을 ${message}할까요?`
+            : `${message}하시겠어요?`
+        }
           Func={tempFunc}
           cancel={setShowAlert}
         />

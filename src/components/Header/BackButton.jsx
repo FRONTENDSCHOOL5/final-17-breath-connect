@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import GlovalSprite from '../../assets/sprite/GlovalSprite';
+import GlobalSprite from '../../assets/sprite/GlobalSprite';
 import { iconColorSelector } from '../../atoms/StylesAtom';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 
@@ -16,7 +16,7 @@ const BackButton = () => {
 
   return (
     <button onClick={goBack}>
-      <GlovalSprite id={isDarkMode ? 'icon-arrow-left-dark' : 'icon-arrow-left'} color={iconColor} />
+      <GlobalSprite id={isDarkMode ? 'icon-arrow-left-dark' : 'icon-arrow-left'} color={iconColor} />
     </button>
   );
 };

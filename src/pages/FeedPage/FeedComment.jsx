@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BasicProfile from '../../assets/images/basic-profile-xs.svg';
 import BasicDarkProfile from '../../assets/images/basic-profile-xs-dark.svg';
-import GlovalSprite from '../../assets/sprite/GlovalSprite';
+import GlobalSprite from '../../assets/sprite/GlobalSprite';
 
 import { useRecoilValue } from 'recoil';
 import { isDarkModeState } from '../../atoms/StylesAtom';
@@ -32,7 +32,7 @@ const FeedComment = ({ user, content, image, time, handleCommentClick }) => {
       </UserContents>
       </ContentsContainer>
       <Sbtn onClick={handleCommentClick}>
-      <GlovalSprite id={'s-icon-more-vertical'} color={'white'} size={16}/>
+      <GlobalSprite id={'s-icon-more-vertical'} color={'white'} size={16}/>
       </Sbtn>
     </Container>
   );

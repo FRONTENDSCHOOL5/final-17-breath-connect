@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HeaderContainer from './HeaderContainer';
-import GlovalSprite from '../../assets/sprite/GlovalSprite';
+import GlobalSprite from '../../assets/sprite/GlobalSprite';
 import { MainButton } from './HeaderStyle';
 import { useRecoilValue } from 'recoil';
 import { iconColorSelector } from '../../atoms/StylesAtom';
@@ -15,7 +15,7 @@ const TopMainNavHeader = () => {
       <MainButton>들숨날숨 피드</MainButton>
       <button>
         <Link to="/Search">
-          <GlovalSprite id={isDarkMode ? 'icon-search-dark' : 'icon-search'} color={iconColor} />
+          <GlobalSprite id={isDarkMode ? 'icon-search-dark' : 'icon-search'} color={iconColor} />
         </Link>
       </button>
     </HeaderContainer>

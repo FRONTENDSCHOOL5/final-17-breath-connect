@@ -9,6 +9,7 @@ export const Container = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 99999;
   opacity: 1;
   pointer-events: auto;
@@ -31,11 +32,13 @@ export const AlertMessage = styled.p`
   text-align: center;
   padding: 2rem 0rem;
   font-size: ${({ theme }) => theme.fontSize.large};
+  color: ${({ theme }) => theme.colors.blackText};
 `;
 
 export const ButtonContainer = styled.div`
   border-top: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
   font-size: ${({ theme }) => theme.fontSize.medium};
+  color: ${({ theme }) => theme.colors.blackText};
   button {
     width: 12.5rem;
     padding: 1.3rem 0;
@@ -44,6 +47,6 @@ export const ButtonContainer = styled.div`
 export const CancelButton = styled.button``;
 
 export const DeleteButton = styled.button`
-  border-left: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
+  border-right: 0.05rem solid ${({ theme }) => theme.colors.borderColor};
   color: ${({ theme }) => theme.colors.mainColor};
 `;

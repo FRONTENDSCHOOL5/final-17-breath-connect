@@ -1,7 +1,7 @@
 // BottomBarButton.js
 
 import React from 'react';
-import GlovalSprite from '../../assets/sprite/GlovalSprite';
+import GlobalSprite from '../../assets/sprite/GlobalSprite';
 import { Button, ButtonText } from './FooterStyle';
 import { useRecoilValue } from 'recoil';
 import { isDarkModeState, iconColorSelector } from '../../atoms/StylesAtom';
@@ -16,7 +16,7 @@ const BottomBarButton = ({ id, text, isSelected, onClick, textSize }) => {
 
   return (
     <Button onClick={onClick}>
-      <GlovalSprite
+      <GlobalSprite
         id={id}
         color={id === 'icon-user' && isSelected ? selectedColor : defaultColor}
       />
