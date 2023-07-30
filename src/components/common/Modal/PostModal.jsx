@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import {
   ModalContainer,
   ModalContent,
   BackgroundOverlay,
 } from './PostModalStyle';
+import { isDarkModeState } from '../../../atoms/StylesAtom';
 import Alert from '../Alert/Alert';
 
 export default function Modal({ setIsModalOpen, children }) {
+  const isDarkMode = useRecoilValue(isDarkModeState);
   const [tempFunc, setTempFunc] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [message, setMessage] = useState('');
@@ -22,7 +25,7 @@ export default function Modal({ setIsModalOpen, children }) {
     <>
       <BackgroundOverlay onClick={handleClick} />
       <ModalContainer>
-        <ModalContent showAlert={showAlert}>{childrenWithProps}</ModalContent>
+        <ModalContent isDarkMode={isDarkMode} showAlert={showAlert}>{childrenWithProps}</ModalContent>
       </ModalContainer>
       {showAlert && (
         <Alert
