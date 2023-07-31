@@ -19,28 +19,28 @@
 1. [서비스 소개](#app)
 2. [팀 소개](#team)
 3. [기술 및 개발 환경](#dev)
-4. [프로젝트 구조](#tree)
+4. [개발일정](#schedule)
 5. [역할분담](#roles)
-6. [개발일정](#schedule)
+6. [프로젝트 구조](#tree)
 7. [컨벤션](#convention)
 8. [협업 문화](#culture)
 9. [이슈 관리](#issues)
 10. [버그 관리](#bug)
 
 </details>
-<br/>
+<br>
 
 
-## <span id="app">1. 🏃서비스 소개</span>
+## <span id="app">🏃 1. 서비스 소개</span>
 <b>'들숨날숨'</b>은 같은 동네 혹은 서로 다른 동네에서 새로운 사람들과 함께 달리거나 소식을 공유할 수 있는 SNS/커뮤니티 서비스입니다. <br>
 * 자유롭게 뛰는 날짜와 장소만 게시한다면 누구든지 함께 달릴 수 있습니다.
 * 팔로잉하는 사용자 뿐만 아니라 사용자 검색을 통해 팔로잉하지 않은 사용자의 소식을 확인할 수 있습니다.
 * 내가 달린 기록과 사람들을 이웃들에게 공유할 수 있습니다.
 * 사용자의 게시글에 좋아요, 댓글을 통해 활발하게 소통할 수 있습니다.
 
-<br/>
+<br><br>
 
-## <span id="team">2. 👨‍💻팀 소개👩‍💻</span>
+## <span id="team">👨‍💻👩‍💻 2. 팀 소개</span>
 ### 위니드팀을 소개합니다!
 > "`우리는` 개발자로 성장이 `필요하다`"라는 의미로<br/>
 > 위니브라는 회사의 도움을 얻고 <br/>
@@ -57,9 +57,9 @@
 | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Development%20Leader](https://img.shields.io/badge/-Development%20leader-green) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Communication%20Leader](https://img.shields.io/badge/-Comunication%20Leader-orange) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Design%20Leader](https://img.shields.io/badge/-Design%20leader-purple) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Team%20Leader](https://img.shields.io/badge/-Team%20leader-yellow) | 
 
 </div>
-<br>
+<br><br>
 
-## <span id="dev">3. 🛠️ 기술 및 개발 환경</span>
+## <span id="dev">🛠️ 3. 기술 및 개발 환경</span>
 
 <div align="center">
 
@@ -68,9 +68,64 @@
 | <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=flat-square&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-3578E5.svg?style=flat-square&logo=Recoil&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat-square&logo=JavaScript&logoColor=black"> | 제공된 API | <img src="https://img.shields.io/badge/figma-FBCEB1?style=flat-square&logo=figma&logoColor=white"> | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000.svg?style=flat-square&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"> | <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat-square&logo=Prettier&logoColor=black"> <img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat-square&logo=ESLint&logoColor=white"> |
 
 </div>
-<br/>
+<br><br>
 
-## <span id="tree">프로젝트 구조</span>
+## <span id="schedule">📅 4. 개발 일정</span>
+![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/22268f6b-cff5-4f61-8643-d0cad77ef7a6)
+
+## <span id="roles">📝 5. 역할 분담</span>
+### 김용덕
+🎨 UI
+  - 마이 프로필 페이지
+  - 사용자 프로필 페이지
+  - 홈 피드 페이지
+  - 지도 상세 페이지
+- 공통 컴포넌트
+  - Button
+  - Header
+  - Footer
+  - Map
+✨ 기능 구현
+  - 홈피드, 무한스크롤, 사용자, 마이 프로필, 지도 api를 이용한 path 그리기
+
+### 박연주
+🎨 UI
+  - 팔로잉 목록 페이지
+  - 팔로워 목록 페이지
+  - 채팅 페이지
+  - 404 페이지
+- 공통 컴포넌트
+  - Follow
+  - Search
+✨ 기능 구현
+  - 팔로우, 팔로잉 리스트, 채팅 리스트, 채팅 룸
+
+### 백수연
+🎨 UI
+  - Splash 페이지
+  - 회원가입 페이지
+  - 로그인 페이지
+  - 프로필 수정 페이지
+- 공통 컴포넌트
+  - Input
+  - Loading
+✨ 기능 구현
+  - 로그인, 회원가입, 프로필 설정, 프로필 수정, 참여하기, 참여하기 취소, 댓글 작성
+
+### 이양래
+🎨 UI
+  - 검색 페이지
+  - 게시물 작성 페이지
+  - 게시물 상세 페이지
+- 공통 컴포넌트
+  - Comment
+  - Modal
+  - Alert
+✨ 기능 구현
+  - 유저 검색, 게시물 업로드, 댓글 삭제, 이미지 유효성
+
+
+## <span id="tree">🌱 6. 프로젝트 구조</span>
 - public/favicon/ : 파비콘
 - src/assets/ : 전역에서 사용하는 폰트, 스프라이트 이미지, 로고 이미지
 - src/atoms/ : 전역 상태 관리를 위한 아톰 (UserAtom, LoginAtom) 
@@ -78,7 +133,6 @@
 - src/pages/ : 서비스에 사용되는 각 페이지
 - src/routes/ : 페이지 라우팅
 - src/styles/ : 전역 스타일 (layout, globalstyle, theme)
-- src/utils/ : 유효성 검사를 위한  
 
 ```
 
@@ -131,64 +185,8 @@
 
 #### <p align="right"><a href="#top">TOP👆🏼</a></p>
 
-## <span id="roles">5. 역할 분담</span>
-### 김용덕
-- UI
-  - 마이 프로필 페이지
-  - 사용자 프로필 페이지
-  - 홈 피드 페이지
-  - 지도 상세 페이지
-- 공통 컴포넌트
-  - Button
-  - Header
-  - Footer
-  - Map
-- 기능 구현
-  - 홈피드, 무한스크롤, 사용자, 마이 프로필, 지도 api를 이용한 path 그리기
-
-### 박연주
-- UI
-  - 팔로잉 목록 페이지
-  - 팔로워 목록 페이지
-  - 채팅 페이지
-  - 404 페이지
-- 공통 컴포넌트
-  - Follow
-  - Search
-- 기능 구현
-  - 팔로우, 팔로잉 리스트, 채팅 리스트, 채팅 룸
-
-### 백수연
-- UI
-  - Splash 페이지
-  - 회원가입 페이지
-  - 로그인 페이지
-  - 프로필 수정 페이지
-- 공통 컴포넌트
-  - Input
-  - Loading
-- 기능 구현
-  - 로그인, 회원가입, 프로필 설정, 프로필 수정, 참여하기, 참여하기 취소, 댓글 작성
-
-### 이양래
-- UI
-  - 검색 페이지
-  - 게시물 작성 페이지
-  - 게시물 상세 페이지
-- 공통 컴포넌트
-  - Comment
-  - Modal
-  - Alert
-- 기능 구현
-  - 유저 검색, 게시물 업로드, 댓글 삭제, 이미지 유효성
-
-## <span id="schedule">개발 일정</span>
-🔥 2023.06.12 ~ 2023.06.27 <br />
-![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/22268f6b-cff5-4f61-8643-d0cad77ef7a6)
-
-
-## <span id="convention">컨벤션</span>
-### 깃 컨벤션
+## <span id="convention">☁️ 7. 컨벤션</span>
+### Git 컨벤션
 
 | Emoji | Code                          | 기능     | Description              |
 | ----- | ----------------------------- | -------- | ------------------------ |
@@ -206,14 +204,14 @@
 | 💡    | `:bulb:`                      | Comment  | 주석 추가/수정           |
 | 🚀    | `:rocket:`                    | Deploy   | 배포                     |
 
-### 코드 컨벤션
+### Code 컨벤션
 - 작은 따옴표 사용 ``` '' ``` 사용
 - 전체를 묶는 스타일 컴포넌트 명은 끝에 container 사용
 - 이미지를 가져오는 컴포넌트 명은 파스칼 표기법 사용
 - 일치 연산자 사용
 
 ### ESLint와 Prettier
-📜 ESLint
+#### `ESLint`
 ```
 {
   "extends": ["react-app", "react-app/jest", "prettier"],
@@ -224,13 +222,13 @@
 }
 ```
 
-- `"extends": ["react-app", "react-app/jest", "prettier"]` : 다른 ESLint 구성을 확장하는 역할로, Create React App 프로젝트에서 제공하는 기본적인 규칙을 사용하고, Jest 관련 규칙도 함께 확장하며, 마지막으로 Prettier와 관련된 규칙도 추가합니다.
+- ```"extends": ["react-app", "react-app/jest", "prettier"]``` : 다른 ESLint 구성을 확장하는 역할로, Create React App 프로젝트에서 제공하는 기본적인 규칙을 사용하고, Jest 관련 규칙도 함께 확장하며, 마지막으로 Prettier와 관련된 규칙도 추가합니다.
 - `"rules": { ... }` ****: ESLint의 규칙을 지정합니다.
     - `"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]` ****: 이 설정은 JSX를 사용하는 React 컴포넌트 파일의 확장자를 지정하는 규칙입니다.
     - `[1, { "extensions": [".js", ".jsx"] }]` 은 경고로 설정되어 ‘.js’ 또는 ‘.jsx’ 확장자가 아닌 파일에서 JSX를 사용하면 경고가 표시됩니다.
     - `"linebreak-style": 0` : 개행 문자 스타일을 지정하는 규칙입니다. `0` 으로 설정되어 있어, 개행 문자 스타일에 대한 경고 또는 오류를 표시하지 않습니다.
 
-🎀 Prettier
+#### Prettier
 ```
 {
   "trailingComma": "es5",
