@@ -1,13 +1,16 @@
-# <span id="top">🌬 들숨날숨 🌬</span>
+<div align=center>
+	<span id="top">
+	<h1>🌬 들숨날숨 🌬</h1><br>
+
 ![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/2f93b8f1-59d7-4f90-8b6a-8bdf67682de3)
+<h3>함께 달리는 즐거움을 나눌 수 있는 공간, 들숨날숨 🏃‍♀️🏃‍♂️</h3><br>
 
 
-## 소개 및 개요
-
-- 배포 URL : [🔗 들숨날숨](www.test.com)
-
-- Test ID / PW : / 
-
+ <b>[들숨날숨 바로가기](https://64c7578e9e67f377e17adb2e--teal-jalebi-251bb4.netlify.app/)</b> <br>
+  Test ID : `bc30@naver.com` <br>
+  PW : `bc12345!`
+<br> 
+</div>
 <summary>목차</summary>
 
 1. [서비스 소개](#app)
@@ -52,8 +55,6 @@
 | <img src="https://avatars.githubusercontent.com/yongdeok97" height=180 width=180> | <img src="https://avatars.githubusercontent.com/parkyeonjux" height=180 width=180> | <img src="https://avatars.githubusercontent.com/sypaik-dev" height=180 width=180> | <img src="https://avatars.githubusercontent.com/withLeche" height=180 width=180> |
 | <a href="https://github.com/yongdeok97"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/parkyeonjux"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |           <a href="https://github.com/sypaik-dev"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/withLeche"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |
 |<code>개발 리더</code> | <code>커뮤니케이션 리더</code> | <code>디자인 리더</code> | <code>팀 리더</code> |
-
-#### <p align="right"><a href="#top">TOP👆🏼</a></p>
 
 
 ## <span id="dev">기술 및 개발 환경</span>
