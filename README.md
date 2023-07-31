@@ -1,6 +1,6 @@
 <div align=center>
 	<span id="top">
-	<h1>🌬 들숨날숨 🌬</h1><br>
+	<h1>🌬 들숨날숨 </h1><br>
 
 ![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/2f93b8f1-59d7-4f90-8b6a-8bdf67682de3)
 <h3>함께 달리는 즐거움을 나눌 수 있는 공간, 들숨날숨 🏃‍♀️🏃‍♂️</h3><br>
@@ -8,10 +8,10 @@
 
  <b>[들숨날숨 바로가기](https://64c7578e9e67f377e17adb2e--teal-jalebi-251bb4.netlify.app/)</b> <br>
   Test ID : `bc30@naver.com` <br>
-  PW : `bc12345!`
+  Test PW : `bc12345!`
 <br> 
 </div>
-<summary>목차</summary>
+<h2>목차</h2>
 
 1. [서비스 소개](#app)
 2. [팀 소개](#team)
@@ -28,18 +28,16 @@
 <br/>
 
 
-## <span id="app">서비스 소개</span>
-### 함께 달리는 즐거움을 나눌 수 있는 공간, 들숨날숨 🌬
-* 함께 달리는 즐거움을 나눌 수 있는 공간 🏃‍♀️🏃‍♂️<br>
-
-* '들숨날숨'은 **함께 달리는 즐거움을 나눌 수 있는 SNS 플랫폼**입니다. 
-* '들숨날숨'은 같은 동네 혹은 서로 다른 동네에서 새로운 사람들과 함께 달리거나 소식을 공유할 수 있습니다.
-* 자유롭게 뛰는 날짜와 장소만 게시한다면 누구든지 함께 달릴 수 있습니다!
-* 내가 달린 기록과 사람들을 이웃들에게 공유할 수 있습니다!
+## <span id="app">1. 🏃서비스 소개</span>
+<b>'들숨날숨'</b>은 같은 동네 혹은 서로 다른 동네에서 새로운 사람들과 함께 달리거나 소식을 공유할 수 있는 SNS/커뮤니티 서비스입니다. <br>
+* 자유롭게 뛰는 날짜와 장소만 게시한다면 누구든지 함께 달릴 수 있습니다.
+* 팔로잉하는 사용자 뿐만 아니라 사용자 검색을 통해 팔로잉하지 않은 사용자의 소식을 확인할 수 있습니다.
+* 내가 달린 기록과 사람들을 이웃들에게 공유할 수 있습니다.
+* 사용자의 게시글에 좋아요, 댓글을 통해 활발하게 소통할 수 있습니다.
 
 <br/>
 
-## <span id="team">팀 소개</span>
+## <span id="team">2. 👨‍💻팀 소개👩‍💻</span>
 ### 위니드팀을 소개합니다!
 > "`우리는` 개발자로 성장이 `필요하다`"라는 의미로<br/>
 > 위니브라는 회사의 도움을 얻고 <br/>
@@ -49,15 +47,15 @@
 <br/>
 
 
-
 |                                    **🐿 김용덕**                                    |                                    **💜 박연주**                                    |                                 **🌿 백수연**                                 |                                    **🐕 이양래**                                    |
 | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
 | <img src="https://avatars.githubusercontent.com/yongdeok97" height=180 width=180> | <img src="https://avatars.githubusercontent.com/parkyeonjux" height=180 width=180> | <img src="https://avatars.githubusercontent.com/sypaik-dev" height=180 width=180> | <img src="https://avatars.githubusercontent.com/withLeche" height=180 width=180> |
 | <a href="https://github.com/yongdeok97"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/parkyeonjux"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |           <a href="https://github.com/sypaik-dev"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/withLeche"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |
-|<code>개발 리더</code> | <code>커뮤니케이션 리더</code> | <code>디자인 리더</code> | <code>팀 리더</code> |
+| ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Development%20Leader](https://img.shields.io/badge/-Development%20leader-green) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Communication%20Leader](https://img.shields.io/badge/-Comunication%20Leader-orange) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Design%20Leader](https://img.shields.io/badge/-Design%20leader-purple) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Team%20Leader](https://img.shields.io/badge/-Team%20leader-yellow) |
 
 
-## <span id="dev">기술 및 개발 환경</span>
+## <span id="dev">3. 🛠️ 기술 및 개발 환경</span>
+
 ### 개발 환경
 | 구분       | 설명                                                                                                                                                            |
 |:----------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
