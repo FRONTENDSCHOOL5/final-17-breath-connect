@@ -42,27 +42,27 @@ const UserInfo = ({ data, myProfile }) => {
   return (
     <Container>
       <Header>
-        <FollowCount follow="Follower" data={profile} />
+        <FollowCount follow="Follower" data={data} />
         <ProfileImage>
           <img
-            src={numberRegex.test(profile.image) ? profile.image : isDarkMode ? basicDarkProfile : basicProfile}
+            src={numberRegex.test(data.image) ? data.image : isDarkMode ? basicDarkProfile : basicProfile}
             alt="유저 이미지"
           />
         </ProfileImage>
-        <FollowCount follow="Following" data={profile} />
+        <FollowCount follow="Following" data={data} />
       </Header>
       <Profile>
-        <UserName>{profile.username}</UserName>
-        <AccountName>@ {profile.accountname}</AccountName>
-        <Introduction>{profile.intro}</Introduction>
+        <UserName>{data.username}</UserName>
+        <AccountName>@ {data.accountname}</AccountName>
+        <Introduction>{data.intro}</Introduction>
       </Profile>
       <Interaction>
         {!myProfile ? (
           <ButtonContainer
             type="M"
-            text={profile.isfollow ? '언팔로우' : '팔로우'}
-            handleClick={profile.isfollow ? handleUnFollow : handleFollow}
-            isClicked={profile.isfollow}
+            text={data.isfollow ? '언팔로우' : '팔로우'}
+            handleClick={data.isfollow ? handleUnFollow : handleFollow}
+            isClicked={data.isfollow}
           />
         ) : (
           <>
@@ -82,7 +82,7 @@ const UserInfo = ({ data, myProfile }) => {
         )}
       </Interaction>
       <SelectionBox>
-        <strong>{profile.username}</strong>가 올린 글
+        <strong>{data.username}</strong>가 올린 글
       </SelectionBox>
     </Container>
   );

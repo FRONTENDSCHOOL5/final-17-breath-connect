@@ -26,7 +26,7 @@ import {
   sharePost,
 } from '../../components/common/Modal/ModalFunction';
 
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../styles/Theme';
 
@@ -167,10 +167,12 @@ const ProfilePage = ({ theme }) => {
               }
             />
           )}
+          <Div>
           {posts.length > 0 &&
             posts.map((post, index) => (
               <PostPage key={index} data={post} showModal={onShowModal} />
             ))}
+          </Div>
           {isModalOpen && (
             <Modal setIsModalOpen={setIsModalOpen}>
               {modalText.map((text, index) => (
@@ -190,3 +192,7 @@ const ProfilePage = ({ theme }) => {
 };
 
 export default ProfilePage;
+
+const Div = styled.div`
+margin-bottom: 6rem;
+`
