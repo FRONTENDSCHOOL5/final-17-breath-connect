@@ -11,7 +11,10 @@
   Test PW : `bc12345!`
 <br> 
 </div>
-<h2>목차</h2>
+
+<details>
+<summary>목차</summary>
+
 
 1. [서비스 소개](#app)
 2. [팀 소개](#team)
@@ -23,8 +26,8 @@
 8. [협업 문화](#culture)
 9. [이슈 관리](#issues)
 10. [버그 관리](#bug)
-</details>
 
+</details>
 <br/>
 
 
@@ -45,24 +48,26 @@
 > 다음과 같은 팀명을 짓게 되었습니다.
 
 <br/>
-
+<div align="center">
 
 |                                    **🐿 김용덕**                                    |                                    **💜 박연주**                                    |                                 **🌿 백수연**                                 |                                    **🐕 이양래**                                    |
 | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
 | <img src="https://avatars.githubusercontent.com/yongdeok97" height=180 width=180> | <img src="https://avatars.githubusercontent.com/parkyeonjux" height=180 width=180> | <img src="https://avatars.githubusercontent.com/sypaik-dev" height=180 width=180> | <img src="https://avatars.githubusercontent.com/withLeche" height=180 width=180> |
 | <a href="https://github.com/yongdeok97"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/parkyeonjux"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |           <a href="https://github.com/sypaik-dev"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/withLeche"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |
-| ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Development%20Leader](https://img.shields.io/badge/-Development%20leader-green) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Communication%20Leader](https://img.shields.io/badge/-Comunication%20Leader-orange) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Design%20Leader](https://img.shields.io/badge/-Design%20leader-purple) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Team%20Leader](https://img.shields.io/badge/-Team%20leader-yellow) |
+| ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Development%20Leader](https://img.shields.io/badge/-Development%20leader-green) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Communication%20Leader](https://img.shields.io/badge/-Comunication%20Leader-orange) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Design%20Leader](https://img.shields.io/badge/-Design%20leader-purple) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Team%20Leader](https://img.shields.io/badge/-Team%20leader-yellow) | 
 
+</div>
+<br>
 
 ## <span id="dev">3. 🛠️ 기술 및 개발 환경</span>
 
-### 개발 환경
-| 구분       | 설명                                                                                                                                                            |
-|:----------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| FrontEnd   |<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/ESLint-E33332?style=for-the-badge&logo=ESLint&logoColor=white"> <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white"> |
-| BackEnd    | 제공된 API 사용                                                                                                                                                  |
-| 협업 도구  |<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Trello-3776AB?style=for-the-badge&logo=Trello&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white"> |
+<div align="center">
 
+| FrontEnd | BackEnd | Design | 협업방식 | 컨벤션 |
+| :----: | :----: | :----: | :----: | :----: |
+| <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=flat-square&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-3578E5.svg?style=flat-square&logo=Recoil&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat-square&logo=JavaScript&logoColor=black"> | 제공된 API | <img src="https://img.shields.io/badge/figma-FBCEB1?style=flat-square&logo=figma&logoColor=white"> | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000.svg?style=flat-square&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"> | <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat-square&logo=Prettier&logoColor=black"> <img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat-square&logo=ESLint&logoColor=white"> |
+
+</div>
 <br/>
 
 ## <span id="tree">프로젝트 구조</span>
@@ -76,6 +81,7 @@
 - src/utils/ : 유효성 검사를 위한  
 
 ```
+
 🌬️ 들숨날숨
 🌱public
  ┣ 🌿favicon.ico
