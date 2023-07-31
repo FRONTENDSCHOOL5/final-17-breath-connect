@@ -24,12 +24,13 @@ import {
   MapContents,
   PostContents,
   DetailButton,
+  Div
 } from './PostDetailPage/PostDetailPageStyle';
 import { iconColorSelector } from '../../atoms/StylesAtom';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../styles/Theme';
 
-const PostPage = ({ data, showModal, setPickedPost, theme }) => {
+const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
   const iconColor = useRecoilValue(iconColorSelector);
   const isDarkMode = useRecoilValue(isDarkModeState);
   const token = useRecoilValue(tokenAtom);
@@ -165,10 +166,15 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
             <button
               onClick={() => {
                 showModal(data);
-                setPickedPost(data);
               }}
               className="post-modal"
             >
+              <GlobalSprite
+              id={'s-icon-more-vertical'}
+              color={'white'}
+              size={18}
+            />
+            </button>
             {/* 피드로 이동 */}
             <DetailButton
               onClick={handleFeedClick}
@@ -223,7 +229,7 @@ const PostPage = ({ data, showModal, setPickedPost, theme }) => {
                 </CommentContainer>
               </AppendAndComment>
             </DetailButton>
-          </div>
+            </div>
         </PostContents>
         {detail ? (
           <ButtonContainer
