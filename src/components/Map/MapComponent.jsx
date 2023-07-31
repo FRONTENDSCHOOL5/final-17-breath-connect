@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map } from 'react-kakao-maps-sdk';
-import { MapContainer } from './MapStyle';
+import { Container } from './MapComponentStyle';
 
 const MapComponent = ({
   center,
@@ -15,7 +15,7 @@ const MapComponent = ({
   children,
 }) => {
   return (
-    <MapContainer>
+    <Container>
       <Map
         center={center}
         style={handleStyle}
@@ -29,7 +29,7 @@ const MapComponent = ({
       >
         {children}
       </Map>
-    </MapContainer>
+    </Container>
   );
 };
 

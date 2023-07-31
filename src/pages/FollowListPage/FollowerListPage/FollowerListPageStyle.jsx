@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+`
+
 export const Main = styled.main`
   display: flex;
   flex-direction: column;
@@ -10,7 +13,7 @@ export const Title = styled.h2`
   display: none;
 `;
 
-export const FollowList = styled.ul`
+export const List = styled.ul`
   li {
     margin-bottom: 0.8rem;
     height: 5rem;
@@ -18,12 +21,15 @@ export const FollowList = styled.ul`
   }
 `;
 
-export const Icon = styled.img`
-  width: 100%;
-  width: 14.8rem;
+export const NotFollower = styled.span`
+`
+
+export const Image = styled.img`
+  width: 15rem;
   height: 20rem;
   margin: 5rem 10rem 1rem;
 `;
+
 export const Text = styled.p`
   color: ${({theme}) => theme.colors.textColor};
   font-size: ${({theme}) => theme.fontSize.small};

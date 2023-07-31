@@ -10,9 +10,9 @@ import {
   introAtom,
 } from '../../../atoms/UserAtom';
 import {
+  Section,
   Container,
-  LogOutContainer,
-  LogOutMessage,
+  Message,
   ButtonContainer,
   CancelButton,
   LogOutButton,
@@ -49,9 +49,9 @@ const LogOut = ({ message, onClose, done }) => {
   };
 
   return (
-    <Container>
-      <LogOutContainer>
-        <LogOutMessage>{message}</LogOutMessage>
+    <Section>
+      <Container>
+        <Message>{message}</Message>
         <ButtonContainer>
           <CancelButton onClick={handleClickCancel}>취소</CancelButton>
           <LogOutButton
@@ -60,11 +60,11 @@ const LogOut = ({ message, onClose, done }) => {
               handleLogout();
             }}
           >
-            로그아웃
+          로그아웃
           </LogOutButton>
         </ButtonContainer>
-      </LogOutContainer>
-    </Container>
+      </Container>
+    </Section>
   );
 };
 

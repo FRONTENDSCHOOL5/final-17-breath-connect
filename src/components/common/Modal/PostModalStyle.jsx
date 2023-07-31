@@ -8,18 +8,39 @@ export const slideUpAnimation = keyframes`
   }
 `;
 
-export const ModalContainer = styled.div`
+export const Background = styled.div`
   position: fixed;
-  display: flex;
-  justify-content: center;
-  z-index: 99999;
-  padding: 1rem;
-  width: 100%;
+  top: 0;
   left: 0;
+  right: 0;
   bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 `;
 
-export const ModalContent = styled.div`
+export const Section = styled.section`
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem;
+  z-index: 99999;
+`;
+
+export const Container = styled.div`
+  position: absolute;
+  bottom: 0;
+  height: 13.8rem;
+  padding: 3rem 0 0 0;
+  background: ${({ theme }) => theme.colors.backgroundColor};
+  border-top-left-radius: 0.8rem;
+  border-top-right-radius: 0.8rem;
+  animation: ${css`
+    ${slideUpAnimation} 0.5s ease-in-out forwards;
+  `};
+
   &:before {
     content: '';
     position: absolute;
@@ -31,24 +52,6 @@ export const ModalContent = styled.div`
     background: ${({ theme }) => theme.colors.borderColor};
     border-radius: 0.5rem;
   }
-  padding: 3rem 0 0 0;
-  position: absolute;
-  bottom: 0;
-  height: 13.8rem;
-  border-top-left-radius: 0.8rem;
-  border-top-right-radius: 0.8rem;
-  animation: ${css`
-    ${slideUpAnimation} 0.5s ease-in-out forwards;
-  `};
-  background: ${({ theme }) => theme.colors.backgroundColor};
 `;
 
-export const BackgroundOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-`;
+

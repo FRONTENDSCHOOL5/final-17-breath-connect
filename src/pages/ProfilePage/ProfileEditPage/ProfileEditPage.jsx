@@ -1,6 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
+import { ThemeProvider } from 'styled-components';
+import Input from '../../../components/common/Input/Input';
+import Header from '../../../components/Header/TopUploadHeader';
 import {
   accountAtom,
   profileImgAtom,
@@ -8,27 +11,22 @@ import {
   introAtom,
   tokenAtom,
 } from '../../../atoms/UserAtom';
-import Input from '../../../components/common/Input/Input';
-import TopUploadHeader from '../../../components/Header/TopUploadHeader';
-
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+import Theme, { darkColors } from '../../../styles/Theme';
 import {
   getMyInfo,
   postAccountnameDuplicate,
   postUploadProfile,
   editProfile,
 } from '../../../utils/Apis';
-
-import { 
+import {
   Container,
-  ImageWrap,
+  ImageSection,
+  Label,
   Form,
   Image,
   ImageInput,
-  ErrorMsg } from './ProfileEditPageStyle';
-
-  import { isDarkModeState } from '../../../atoms/StylesAtom';
-  import { ThemeProvider } from 'styled-components';
-  import Theme, { darkColors } from '../../../styles/Theme';
+  ErrorMessage } from './ProfileEditPageStyle';
 
 const ProfileEditPage = ({theme}) => {
   const URL = 'https://api.mandarin.weniv.co.kr';
@@ -160,17 +158,17 @@ const ProfileEditPage = ({theme}) => {
   return (
     <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
-      <TopUploadHeader
+      <Header
         text="저장"
         isDisabled={!handleActivateButton()}
         handleClick={handleProfileEdit}
       />
       <Container>
         <Form onSubmit={handleProfileEdit}>
-          <ImageWrap>
-            <label htmlFor="upload-image">
+          <ImageSection>
+            <Label htmlFor="upload-image">
               <Image src={image} alt="사용자 프로필 이미지" />
-            </label>
+            </Label>
             <ImageInput
               type="file"
               accept="image/png, image/jpg, image/jpeg"
@@ -178,7 +176,7 @@ const ProfileEditPage = ({theme}) => {
               ref={fileInputRef}
               onChange={handleInputImage}
             />
-          </ImageWrap>
+          </ImageSection>
           <Input
             label="사용자 이름"
             placeholder="2~10자 이내여야 합니다."
@@ -188,7 +186,7 @@ const ProfileEditPage = ({theme}) => {
             onChange={handleInputUsername}
             required
           />
-          {usernameErrorMsg && <ErrorMsg>{usernameErrorMsg}</ErrorMsg>}
+          {usernameErrorMsg && <ErrorMessage>{usernameErrorMsg}</ErrorMessage>}
           <Input
             label="계정 ID"
             placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
@@ -198,18 +196,16 @@ const ProfileEditPage = ({theme}) => {
             onChange={handleInputAccountname}
             required
           />
-          {accountnameErrorMsg && <ErrorMsg>{accountnameErrorMsg}</ErrorMsg>}
-          <div className="button-margin">
-            <Input
-              label="소개"
-              placeholder="자신에 대해 소개해 주세요!"
-              id="intro"
-              type="text"
-              name="intro"
-              onChange={handleInputIntro}
-              required
-            />
-          </div>
+          {accountnameErrorMsg && <ErrorMessage>{accountnameErrorMsg}</ErrorMessage>}
+          <Input
+            label="소개"
+            placeholder="자신에 대해 소개해 주세요!"
+            id="intro"
+            type="text"
+            name="intro"
+            onChange={handleInputIntro}
+            required
+          />
         </Form>
       </Container>
     </>

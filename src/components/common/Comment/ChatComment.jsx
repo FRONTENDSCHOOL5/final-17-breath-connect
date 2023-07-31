@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from "recoil";
+import { isDarkModeState } from "../../../atoms/StylesAtom";
 import GlobalSprite from '../../../assets/sprite/GlobalSprite';
 import {
   Section,
@@ -9,8 +11,10 @@ import {
   Button,
 } from './ChatCommentStyle';
 
+
 const CommentSection = () => {
   const [comment, setComment] = useState('');
+  const isDarkMode = useRecoilValue(isDarkModeState);
   const handleInputChange = (e) => {
     setComment(e.target.value);
   };
@@ -19,11 +23,11 @@ const CommentSection = () => {
     <Section>
       <Upload name="" id="upload-profile" />
       <Label for="upload-profile">
-        <GlobalSprite id={'img-btn'} size={36} />
+        <GlobalSprite id={isDarkMode ? 'img-btn-dark' : 'img-btn'} size={36} />
       </Label>
       <Form>
         <Input value={comment} onChange={handleInputChange} />
-        <Button className={comment ? 'active' : ''} isActive={comment}>
+        <Button className={comment ? 'active' : ''} isActive={comment} isDarkMode={isDarkMode}>
           전송
         </Button>
       </Form>

@@ -5,7 +5,7 @@ import GetLocation from './GetLocation';
 import MapComponent from './MapComponent';
 import ToolBox from './ToolBox';
 import Loading from '../../components/common/Loading/Loading';
-import { Distance } from './MapStyle';
+import { Distance } from './MapDrawingManagerStyle';
 
 const MapDrawingManager = ({ getpath }) => {
   const location = GetLocation();
@@ -16,7 +16,6 @@ const MapDrawingManager = ({ getpath }) => {
   const [map, setMap] = useState(null);
   const [clickLine, setClickLine] = useState(null);
   const [moveLine, setMoveLine] = useState(null);
-
   const handleClick = useCallback(() => {
     if (!isdrawing) {
       setDistances([]);
@@ -110,7 +109,7 @@ const MapDrawingManager = ({ getpath }) => {
             <Polyline
               path={paths}
               strokeWeight={3}
-              strokeColor="#80327e"
+              strokeColor='#80327e'
               strokeOpacity={1}
               strokeStyle="solid"
               onCreate={setClickLine}

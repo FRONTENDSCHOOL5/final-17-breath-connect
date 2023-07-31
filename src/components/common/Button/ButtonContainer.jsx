@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from './ButtonContainerStyle';
+import { Button } from './ButtonContainerStyle';
 import { useRecoilValue } from 'recoil';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 
@@ -62,7 +62,7 @@ const ButtonContainer = ({
   }
 
   return (
-    <Container
+    <Button
       typeStyle={typeDeco}
       isDisabled={isDisabled}
       isClicked={isClicked}
@@ -83,7 +83,7 @@ const ButtonContainer = ({
       }}
     >
       {text}
-    </Container>
+    </Button>
   );
 };
 export default ButtonContainer;

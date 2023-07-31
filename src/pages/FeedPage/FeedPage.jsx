@@ -1,41 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import PostPage from '../PostPage/PostPage';
-import TopMainNavHeader from '../../components/Header/TopMainNavHeader';
-import FeedNoUser from './FeedNoUser';
-import Loading from '../../components/common/Loading/Loading';
-import TabMenu from '../../components/Footer/TabMenu';
-import { getFollowFeed } from '../../utils/Apis';
+import { useLocation } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { ThemeProvider } from 'styled-components';
 import Modal from '../../components/common/Modal/PostModal';
 import IconPostModal from '../../components/common/Modal/IconPostModal';
-import { useLocation } from 'react-router-dom';
 import {
   reportUserPost,
   sharePost,
 } from '../../components/common/Modal/ModalFunction';
+import Loading from '../../components/common/Loading/Loading';
+import Header from '../../components/Header/TopMainNavHeader';
+import Footer from '../../components/Footer/TabMenu';
+import PostPage from '../PostPage/PostPage';
+import FeedNoUser from './FeedNoUser';
 import { isDarkModeState } from '../../atoms/StylesAtom';
-import styled, { ThemeProvider } from 'styled-components';
-import { useRecoilValue } from 'recoil';
 import Theme, { darkColors } from '../../styles/Theme';
+import { getFollowFeed } from '../../utils/Apis';
+import {Container, Section} from './FeedPageStyle'
 
 const FeedPage = ({ theme }) => {
   const [data, setData] = useState([]);
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(5);
   const [isFetchingData, setIsFetchingData] = useState(false);
-
-  const isDarkMode = useRecoilValue(isDarkModeState);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalText, setModalText] = useState([]);
   const [modalFunc, setModalFunc] = useState([]);
   const [pickedPost, setPickedPost] = useState('');
-
   const location = useLocation();
+  const isDarkMode = useRecoilValue(isDarkModeState);
   const loginData = location.state?.token || localStorage.getItem('token');
-
   const fetchData = async () => {
     if (isFetchingData) return;
     setIsFetchingData(true);
-
     const newData = await getFollowFeed(limit, skip, loginData);
     if (newData.length > 0) {
       setData((prevData) => [...prevData, ...newData]);
@@ -80,8 +77,9 @@ const FeedPage = ({ theme }) => {
       <ThemeProvider
         theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
       >
-        <>
-          <TopMainNavHeader />
+        <Container>
+          <Header />
+          <Section>
           {data.length === 0 ? (
             <FeedNoUser />
           ) : (
@@ -105,8 +103,9 @@ const FeedPage = ({ theme }) => {
               ))}
             </Modal>
           )}
-          <TabMenu />
-        </>
+          </Section>
+          <Footer />
+        </Container>
       </ThemeProvider>
     );
   }

@@ -18,6 +18,7 @@ export const colors = {
   headerColor: '#ffffff',
   footerColor: '#ffffff',
   backgroundColor: '#ffffff',
+  successText: '#0000ff',
   errorText: '#EB5757',
   inputColor: '#f2f2f2',
   borderColor: '#DBDBDB',
@@ -25,7 +26,9 @@ export const colors = {
   uploadBoxColor: '#F6F5F6',
   uploadPlaceholderColor: '#9F9F9F',
   disabledColor: 'rgba(101, 33, 211, 0.5)',
-  snsColor: '#6521D3'
+  snsColor: '#6521D3',
+  mapColor: '#6521D3',
+  chatColor: '#ffffff'
 };
 
 export const darkColors = {
@@ -39,19 +42,23 @@ export const darkColors = {
   headerColor: '#353535',
   footerColor: '#353535',
   backgroundColor: '#3F4043',
-  errorText: '#EB5757',
+  successText: '#41b4de',
+  errorText: '#ee779e',
   inputColor: '#3F4043',
   borderColor: '#DBDBDB',
   placeHolderColor: '#c4c4c4',
   uploadBoxColor: '#353535',
   uploadPlaceholderColor: '#9F9F9F',
   disabledColor: 'rgba(161, 110, 228, 0.5)',
-  snsColor: '#3F4043'
+  snsColor: '#3F4043',
+  mapColor: '#A16FF4',
+  chatColor: '#000000'
 }
 
 const Theme = {
   fontSize,
   colors,
+  darkColors,
 };
 
 export default Theme;

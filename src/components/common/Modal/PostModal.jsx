@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {
-  ModalContainer,
-  ModalContent,
-  BackgroundOverlay,
+  Background,
+  Section,
+  Container,
 } from './PostModalStyle';
 import Alert from '../Alert/Alert';
 
@@ -20,10 +20,10 @@ export default function Modal({ setIsModalOpen, children }) {
 
   return (
     <>
-      <BackgroundOverlay onClick={handleClick} />
-      <ModalContainer>
-        <ModalContent showAlert={showAlert}>{childrenWithProps}</ModalContent>
-      </ModalContainer>
+      <Background onClick={handleClick} />
+      <Section>
+        <Container showAlert={showAlert}>{childrenWithProps}</Container>
+      </Section>
       {showAlert && (
         <Alert
         message={

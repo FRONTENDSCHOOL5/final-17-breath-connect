@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from './HeaderStyle';
+import { Container } from './HeaderContainerStyle';
 
 const HeaderContainer = ({ children }) => {
   return <Container>{children}</Container>;

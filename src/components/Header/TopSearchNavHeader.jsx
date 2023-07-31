@@ -1,7 +1,7 @@
 import React from 'react';
-import HeaderContainer from './HeaderContainer';
-import BackButton from './BackButton';
-import { SearchContainer, Input } from './HeaderStyle';
+import Container from './HeaderContainer';
+import Button from './BackButton';
+import { Form, Input } from './TopSearchNavHeaderStyle';
 
 const TopSearchNavHeader = ({ value, setValue }) => {
   const handleChange = (event) => {
@@ -10,17 +10,17 @@ const TopSearchNavHeader = ({ value, setValue }) => {
   };
 
   return (
-    <HeaderContainer>
-      <BackButton />
-      <SearchContainer>
+    <Container>
+      <Button />
+      <Form>
         <Input
           type="text"
           value={value}
           onChange={handleChange}
           placeholder="계정 검색"
         />
-      </SearchContainer>
-    </HeaderContainer>
+      </Form>
+    </Container>
   );
 };
 

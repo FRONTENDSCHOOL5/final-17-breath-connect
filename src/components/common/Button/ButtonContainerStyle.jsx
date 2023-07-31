@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Theme from '../../../styles/Theme';
+import Theme from '../../../styles/Theme'
 
-export const Container = styled.button`
+export const Button = styled.button`
   width: ${(props) => props.typeStyle.width};
   height: ${(props) => props.typeStyle.height};
   border-radius: ${(props) => props.typeStyle.radius};
@@ -14,9 +14,11 @@ export const Container = styled.button`
       ? Theme.colors.disabledColor
       : props.isClicked
       ? Theme.colors.whiteText
-      : Theme.colors.mainColor};
+      : (props.isDarkMode ? '#A16EE4' : '#6541D3')};
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   font-weight: 500;
   color: ${(props) =>
-    props.disabled || props.isClicked ? Theme.colors.mainColor : 'white'};
+    props.disabled || props.isClicked
+      ? (props.isDarkMode ? '#A16EE4' : '#6541D3')
+      : 'white'};
 `;

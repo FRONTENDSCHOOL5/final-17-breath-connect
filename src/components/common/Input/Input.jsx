@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputWrapper, InputLabel, InputText, shake } from './InputStyle';
+import { Container, Label, Text } from './InputStyle';
 
 const Input = ({
   label,
@@ -13,9 +13,9 @@ const Input = ({
   hasError,
 }) => {
   return (
-    <InputWrapper>
-      <InputLabel htmlFor={id}>{label}</InputLabel>
-      <InputText
+    <Container>
+      <Label htmlFor={id}>{label}</Label>
+      <Text
         type={type}
         id={id}
         name={name}
@@ -26,7 +26,7 @@ const Input = ({
         autoComplete="off"
         hasError={hasError} // 에러 발생 여부 prop 전달
       />
-    </InputWrapper>
+    </Container>
   );
 };
 

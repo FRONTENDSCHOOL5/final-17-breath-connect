@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, ButtonContainer } from './IconPostModalStyle';
+import { Container, ButtonContainer, Button } from './IconPostModalStyle';
 
 const IconPostModal = ({
   text,
@@ -19,7 +19,7 @@ const IconPostModal = ({
     <>
       <Container>
         <ButtonContainer>
-          <button onClick={handleClick}>{text}</button>
+          <Button onClick={handleClick}>{text}</Button>
         </ButtonContainer>
       </Container>
     </>

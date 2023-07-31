@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-
+import {ThemeProvider} from 'styled-components'
 import Input from '../../../components/common/Input/Input';
 import ButtonContainer from '../../../components/common/Button/ButtonContainer';
-import { postUserLogin } from '../../../utils/Apis';
+import { loginAtom } from '../../../atoms/LoginAtom';
 import {
   tokenAtom,
   accountAtom,
@@ -12,36 +12,31 @@ import {
   usernameAtom,
   introAtom,
 } from '../../../atoms/UserAtom';
-import { loginAtom } from '../../../atoms/LoginAtom';
-
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+import Theme, { darkColors } from '../../../styles/Theme';
+import { postUserLogin } from '../../../utils/Apis';
 import {
   Container,
-  LoginTitle,
+  Title,
   Form,
+  Section,
   SignupLink,
-  ErrorMsg,
+  ErrorMessage,
 } from './LoginPageStyle';
-
-import {ThemeProvider} from 'styled-components'
-import Theme, { darkColors } from '../../../styles/Theme';
-import { isDarkModeState } from '../../../atoms/StylesAtom';
 
 const LoginPage = ({theme}) => {
   const navigate = useNavigate();
-
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const [hasError, setHasError] = useState(false);
-
   const [userToken, setUserToken] = useRecoilState(tokenAtom);
   const [userAccount, setUserAccount] = useRecoilState(accountAtom);
   const [userProfileImg, setUserProfileImg] = useRecoilState(profileImgAtom);
   const [userName, setUserName] = useRecoilState(usernameAtom);
   const [userLogin, setUserLogin] = useRecoilState(loginAtom);
   const [userIntro, setUserIntro] = useRecoilState(introAtom);
-
   const isDarkMode = useRecoilValue(isDarkModeState);
 
   const handleInputEmail = (e) => {
@@ -62,7 +57,6 @@ const LoginPage = ({theme}) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const loginData = await postUserLogin(userEmail, userPassword);
-    console.log(loginData);
     if (loginData.message === '이메일 또는 비밀번호가 일치하지 않습니다.') {
       setErrorMsg('*이메일 또는 비밀번호가 일치하지 않습니다 🥲');
       setHasError(true);
@@ -103,9 +97,9 @@ const LoginPage = ({theme}) => {
   return (
     <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <Container>
-      <LoginTitle>로그인</LoginTitle>
+      <Title>로그인</Title>
       <Form onSubmit={handleLogin}>
-        <div className="input-wrapper">
+        <Section>
           <Input
             label="이메일"
             placeholder="이메일 주소를 입력해주세요"
@@ -128,8 +122,8 @@ const LoginPage = ({theme}) => {
             required
             hasError={hasError}
           />
-          {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
-        </div>
+          {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
+        </Section>
         <ButtonContainer
           type={'L'}
           text={'로그인'}

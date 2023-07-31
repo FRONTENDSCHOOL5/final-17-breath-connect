@@ -1,27 +1,24 @@
 import React from 'react';
-
 import {
-  Body,
-  LoaderContainer,
-  LoaderCircle,
-  LoaderCircleBefore,
-  LoaderText,
   GlobalStyle,
+  Container,
+  Body,
+  Circle,
+  Before,
+  Text,
 } from './LoadingStyle';
 
 const Loading = () => {
   return (
-    <>
+    <Container>
       <GlobalStyle />
       <Body>
-        <LoaderContainer>
-          <LoaderCircle>
-            <LoaderCircleBefore />
-          </LoaderCircle>
-          <LoaderText>Loading...</LoaderText>
-        </LoaderContainer>
+          <Circle>
+            <Before />
+          </Circle>
+          <Text>Loading...</Text>
       </Body>
-    </>
+    </Container>
   );
 };
 

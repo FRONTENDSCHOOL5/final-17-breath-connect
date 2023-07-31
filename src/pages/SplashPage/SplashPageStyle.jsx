@@ -1,12 +1,12 @@
 import styled, { keyframes } from 'styled-components';
 
-export const SplashScreen = styled.main`
+export const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
   top: 50%;
   left: 50%;
-  position: absolute;
   transform: translate(-50%, -50%);
 `;
 
@@ -23,20 +23,20 @@ export const fadeIn = keyframes`
 
 export const zoomIn = keyframes`
   0% {
-    transform: scale(0.5);
     opacity: 0;
+    transform: scale(0.5);
   }
   50% {
-    transform: scale(1.1);
     opacity: 1;
+    transform: scale(1.1);
   }
   100% {
-    transform: scale(1);
     opacity: 1;
+    transform: scale(1);
   }
 `;
 
-export const MainLogo = styled.img`
+export const Logo = styled.img`
   display: block;
   width: 20rem;
   height: 20rem;
@@ -44,7 +44,7 @@ export const MainLogo = styled.img`
   animation: ${fadeIn} 1s ease-in-out forwards;
 `;
 
-export const MainTitle = styled.img`
+export const Title = styled.img`
   width: 13rem;
   height: 4rem;
   opacity: 0;

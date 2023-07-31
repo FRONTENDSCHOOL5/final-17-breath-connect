@@ -1,44 +1,41 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useRecoilValue } from "recoil";
+import { ThemeProvider } from 'styled-components';
 import imageCompression from 'browser-image-compression';
-import BasicProfileImg from '../../../assets/images/basic-profile-l.svg'
-import BasicDarkProfileImg from '../../../assets/images/basic-profile-l-dark.svg'
-
 import Input from '../../../components/common/Input/Input';
-import ButtonContainer from '../../../components/common/Button/ButtonContainer';
-
+import Button from '../../../components/common/Button/ButtonContainer';
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+import Theme, { darkColors } from '../../../styles/Theme';
 import {
   postAccountnameDuplicate,
   postUserSignup,
   postUploadProfile,
 } from '../../../utils/Apis'
-
-import { 
+import BasicProfileImg from '../../../assets/images/basic-profile-l.svg'
+import BasicDarkProfileImg from '../../../assets/images/basic-profile-l-dark.svg'
+import {
   Container,
   Title,
-  ImageWrap,
+  SubTitle,
+  ImageSection,
+  Label,
   Form,
   Image,
   ImageInput,
-  ErrorMsg
- } from './ProfileSettingPageStyle';
+  TextSection,
+  ErrorMessage
+} from './ProfileSettingPageStyle';
 
-import { useRecoilValue } from "recoil";
-import { isDarkModeState } from '../../../atoms/StylesAtom';
-import { ThemeProvider } from 'styled-components';
-import Theme, { darkColors } from '../../../styles/Theme';
 
 const ProfileSettingPage = ({theme}) => {
   const isDarkMode = useRecoilValue(isDarkModeState);
-
   const URL = 'https://api.mandarin.weniv.co.kr/';
-
   const navigate = useNavigate();
   const fileInputRef = useRef();
   const location = useLocation();
   const userEmail = location.state.email;
   const userPassword = location.state.password;
-
   const [username, setUsername] = useState('');
   const [accountname, setAccountname] = useState('');
   const [intro, setIntro] = useState('');
@@ -48,10 +45,7 @@ const ProfileSettingPage = ({theme}) => {
   const [usernameValid, setUsernameValid] = useState(false);
   const [accountnameValid, setAccountnameValid] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
-
   const formData = new FormData();
-
-
   const blobToFile = (blob, filename) => {
   const file = new File([blob], filename);
   return file;
@@ -158,23 +152,22 @@ const handleProfileSignup = async (e) => {
 
   return (
     <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
-    <>
     <Container>
     <Title>프로필 설정</Title>
-    <p className="profileSetting-description">나중에 언제든지 변경할 수 있습니다.</p>
+    <SubTitle>나중에 언제든지 변경할 수 있습니다.</SubTitle>
     <Form onSubmit={handleProfileSignup}>
-     <ImageWrap> 
-      <label htmlFor="upload-image">
-      <Image src={image ? image : isDarkMode ? BasicDarkProfileImg : BasicProfileImg} alt="사용자 프로필 이미지" />
-      </label>
-      <ImageInput
-      type="file"
-      accept="image/png, image/jpg, image/jpeg"
-      id="upload-image"
-      ref={fileInputRef}
-      onChange={handleInputImage} />
-     </ImageWrap>
-     <Input
+      <ImageSection>
+        <Label htmlFor="upload-image" isDarkMode={isDarkMode}>
+          <Image src={image ? image : isDarkMode ? BasicDarkProfileImg : BasicProfileImg} alt="사용자 프로필 이미지" />
+        </Label>
+        <ImageInput
+          type="file"
+          accept="image/png, image/jpg, image/jpeg"
+          id="upload-image"
+          ref={fileInputRef}
+          onChange={handleInputImage} />
+        </ImageSection>
+        <Input
           label='사용자 이름'
           placeholder='2~10자 이내여야 합니다.'
           id='username'
@@ -184,8 +177,8 @@ const handleProfileSignup = async (e) => {
           hasError={usernameErrorMsg !== ''}
           required
         />
-        {usernameErrorMsg && <ErrorMsg>{usernameErrorMsg}</ErrorMsg>}
-     <Input
+        {usernameErrorMsg && <ErrorMessage>{usernameErrorMsg}</ErrorMessage>}
+        <Input
           label='계정 ID'
           placeholder='영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
           id='accountname'
@@ -195,9 +188,9 @@ const handleProfileSignup = async (e) => {
           hasError={accountnameErrorMsg !== ''}
           required
         />
-        {accountnameErrorMsg && <ErrorMsg>{accountnameErrorMsg}</ErrorMsg>}
-        <div className='button-margin'>
-     <Input
+        {accountnameErrorMsg && <ErrorMessage>{accountnameErrorMsg}</ErrorMessage>}
+        <TextSection className='button-margin'>
+          <Input
           label='소개'
           placeholder='자신에 대해 소개해 주세요!'
           id='intro'
@@ -205,14 +198,13 @@ const handleProfileSignup = async (e) => {
           name='intro'
           onChange={handleInputChange}
           required
-        />
-        </div>
-        <ButtonContainer type={'L'} text={'들숨날숨 시작하기'} isDisabled = {!handleActivateButton()} 
+          />
+        </TextSection>
+        <Button type={'L'} text={'들숨날숨 시작하기'} isDisabled = {!handleActivateButton()} 
         handleClick={handleProfileSignup}/>
-        </Form>
-         </Container>
-        </>
-        </ThemeProvider>
+          </Form>
+        </Container>
+      </ThemeProvider>
     )
   }
 

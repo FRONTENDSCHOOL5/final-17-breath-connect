@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+export const Container = styled.div`
+`
 
 export const Main = styled.main`
   display: flex;
@@ -10,16 +12,20 @@ export const Title = styled.h2`
   display: none;
 `;
 
-export const FollowList = styled.ul`
+export const List = styled.ul`
   li {
     margin-bottom: 0.8rem;
     height: 5rem;
+    color: ${({theme}) => theme.colors.blackText};
   }
 `;
 
-export const Icon = styled.img`
+export const NotFollowing = styled.div`
+`
+
+export const Image = styled.img`
   width: 100%;
-  width: 14.8rem;
+  width: 15rem;
   height: 20rem;
   margin: 5rem 10rem 1rem;
 `;

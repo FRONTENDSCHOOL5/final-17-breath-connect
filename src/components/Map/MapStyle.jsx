@@ -15,7 +15,6 @@ export const DistanceContainer = styled.div`
 export const SText = styled.span`
   font-weight: bold;
 `;
-// ----- distanceInfo
 
 // ----- mapComponents
 export const MapContainer = styled.div`

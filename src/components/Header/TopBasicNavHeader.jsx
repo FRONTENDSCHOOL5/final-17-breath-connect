@@ -1,19 +1,22 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import HeaderContainer from './HeaderContainer';
-import BackButton from './BackButton';
-import GlobalSprite from '../../assets/sprite/GlobalSprite';
 import { isDarkModeState } from '../../atoms/StylesAtom';
+import GlobalSprite from '../../assets/sprite/GlobalSprite';
+import Container from './HeaderContainer';
+import BackButton from './BackButton';
+import { ModalButton } from "./TopBasicNavHeaderStyle";
+
 
 const TopBasicNavHeader = ({ onButtonClick }) => {
   const isDarkMode = useRecoilValue(isDarkModeState);
+
   return (
-    <HeaderContainer>
+    <Container>
       <BackButton />
-      <button onClick={onButtonClick}>
+      <ModalButton onClick={onButtonClick}>
         <GlobalSprite id={isDarkMode ? 's-icon-more-vertical-dark' : 's-icon-more-vertical'} color={'white'} />
-      </button>
-    </HeaderContainer>
+      </ModalButton>
+    </Container>
   );
 };
 

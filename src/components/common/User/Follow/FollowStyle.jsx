@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 
-export const UserItem = styled.li`
+export const Container = styled.li`
   display: flex;
 `;
 
-export const Container = styled.div`
+export const Image = styled.img`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+`;
+
+export const UserContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -26,13 +32,7 @@ export const Intro = styled.span`
   color: ${({ theme }) => theme.colors.textColor};
 `;
 
-export const Image = styled.img`
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-`;
-
-export const ButtonWrapper = styled.button`
+export const ButtonContainer = styled.button`
   margin-top: 0rem;
   -webkit-tap-highlight-color : rgba(0,0,0,0);
 `;

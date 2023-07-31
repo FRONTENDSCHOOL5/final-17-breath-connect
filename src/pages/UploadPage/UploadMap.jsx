@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import TopUploadHeader from '../../components/Header/TopUploadHeader';
+import React from 'react';
+import Header from '../../components/Header/TopUploadHeader';
 import MapDrawingManager from '../../components/Map/MapDrawingManager';
 
 const UploadMap = () => {
   return (
     <>
-      <TopUploadHeader text={'완료'} />
+      <Header text={'완료'} />
       <MapDrawingManager />
     </>
   );

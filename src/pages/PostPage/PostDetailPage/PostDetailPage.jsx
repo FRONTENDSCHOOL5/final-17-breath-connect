@@ -1,22 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import PostPage from '../PostPage';
-import { getComment, postComment } from '../../../utils/Apis';
-import TopListNavHeader from '../../../components/Header/TopListNavHeader';
-import FeedComment from '../../FeedPage/FeedComment';
-import BasicProfileImg from '../../../assets/images/basic-profile-xs.svg';
-import BasicDarkProfileImg from '../../../assets/images/basic-profile-xs-dark.svg';
-import { accountAtom, tokenAtom } from '../../../atoms/UserAtom';
-import {
-  Container,
-  Main,
-  NoComment,
-  Form,
-  Input,
-  Button,
-  StyledComment,
-} from './PostDetailPageStyle';
+import { ThemeProvider } from 'styled-components';
 import Modal from '../../../components/common/Modal/PostModal';
 import IconPostModal from '../../../components/common/Modal/IconPostModal';
 import {
@@ -26,9 +11,25 @@ import {
   deleteUserComment,
   reportUserComment,
 } from '../../../components/common/Modal/ModalFunction';
+import Header from '../../../components/Header/TopListNavHeader';
+import Comment from '../../FeedPage/FeedComment';
+import Post from '../PostPage';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
-import { ThemeProvider } from 'styled-components';
+import { accountAtom, tokenAtom } from '../../../atoms/UserAtom';
 import Theme, { darkColors } from '../../../styles/Theme';
+import { getComment, postComment } from '../../../utils/Apis';
+import BasicProfileImg from '../../../assets/images/basic-profile-xs.svg';
+import BasicDarkProfileImg from '../../../assets/images/basic-profile-xs-dark.svg';
+import {
+  Container,
+  Main,
+  NoComment,
+  Form,
+  CommentInput,
+  Image,
+  Input,
+  Button,
+} from './PostDetailPageStyle';
 
 const PostPageDetail = ({ theme }) => {
   const isDarkMode = useRecoilValue(isDarkModeState);
@@ -147,9 +148,9 @@ const PostPageDetail = ({ theme }) => {
       theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
     >
       <Container>
-        <TopListNavHeader />
+        <Header />
         <Main>
-          <PostPage
+          <Post
             data={data}
             userFeedTextStyle={hiddenText}
             setPickedPost={setPickedPost}
@@ -157,7 +158,7 @@ const PostPageDetail = ({ theme }) => {
           />
           {commentData && commentData.length > 0 ? (
             commentData.map((comment, index) => (
-              <FeedComment
+              <Comment
                 key={comment.id}
                 user={comment.author.username}
                 time={comment.createdAt}
@@ -171,8 +172,8 @@ const PostPageDetail = ({ theme }) => {
           )}
         </Main>
         <Form onSubmit={handleCommentSubmit}>
-          <StyledComment>
-            <img
+          <CommentInput>
+            <Image
               src={isDarkMode ? BasicDarkProfileImg : BasicProfileImg}
               alt="프로필 비활성화"
             />
@@ -181,7 +182,7 @@ const PostPageDetail = ({ theme }) => {
               onChange={handleInput}
               value={inputComment}
             />
-          </StyledComment>
+          </CommentInput>
           <Button active={inputComment.trim() !== ''} type="submit">
             게시
           </Button>

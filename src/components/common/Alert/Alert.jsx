@@ -1,8 +1,8 @@
 import React from 'react';
 import {
+  Section,
   Container,
-  AlertContainer,
-  AlertMessage,
+  Message,
   ButtonContainer,
   CancelButton,
   DeleteButton,
@@ -21,15 +21,15 @@ const Alert = ({ message, Func, cancel }) => {
   };
 
   return (
-    <Container>
-      <AlertContainer>
-        <AlertMessage>{message}</AlertMessage>
+    <Section>
+      <Container>
+        <Message>{message}</Message>
         <ButtonContainer>
           <DeleteButton onClick={handleClickYes}>예</DeleteButton>
           <CancelButton onClick={handleClickCancel}>아니요</CancelButton>
         </ButtonContainer>
-      </AlertContainer>
-    </Container>
+      </Container>
+    </Section>
   );
 };
 

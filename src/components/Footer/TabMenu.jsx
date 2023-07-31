@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import BottomBarButton from './BottomBarButton';
+import Button from './BottomBarButton';
 import { accountAtom } from '../../atoms/UserAtom';
-import { Container } from './FooterStyle';
 import { isDarkModeState } from '../../atoms/StylesAtom';
+import { Container } from './TabMenuStyle';
 
 const TabMenu = () => {
-  const myaccount = useRecoilValue(accountAtom);
+  const [selectedButton, setSelectedButton] = useState('icon-home');
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedButton, setSelectedButton] = useState('icon-home');
+  const myaccount = useRecoilValue(accountAtom);
   const isDarkMode = useRecoilValue(isDarkModeState);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const TabMenu = () => {
 
   return (
     <Container>
-      <BottomBarButton
+      <Button
         id={
           selectedButton === 'icon-home'
             ? isDarkMode
@@ -54,7 +54,7 @@ const TabMenu = () => {
         isSelected={selectedButton === 'icon-home'}
         onClick={() => handleButtonClick('/home')}
       />
-      <BottomBarButton
+      <Button
         id={
           selectedButton === 'icon-message-circle'
             ? isDarkMode
@@ -69,7 +69,7 @@ const TabMenu = () => {
         isSelected={selectedButton === 'icon-message-circle'}
         onClick={() => handleButtonClick('/chat')}
       />
-      <BottomBarButton
+      <Button
         id={
           selectedButton === 'icon-edit'
             ? isDarkMode
@@ -84,7 +84,7 @@ const TabMenu = () => {
         isSelected={selectedButton === 'icon-edit'}
         onClick={() => handleButtonClick('/post/upload')}
       />
-      <BottomBarButton
+      <Button
         id={
           selectedButton === 'icon-user'
             ? isDarkMode
