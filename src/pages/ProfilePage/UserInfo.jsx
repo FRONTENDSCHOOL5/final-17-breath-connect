@@ -42,14 +42,14 @@ const UserInfo = ({ data, myProfile }) => {
   return (
     <Container>
       <Header>
-        <FollowCount follow="Follower" data={data} />
+        <FollowCount follow="Follower" data={profile} />
         <ProfileImage>
           <img
             src={numberRegex.test(data.image) ? data.image : isDarkMode ? basicDarkProfile : basicProfile}
             alt="유저 이미지"
           />
         </ProfileImage>
-        <FollowCount follow="Following" data={data} />
+        <FollowCount follow="Following" data={profile} />
       </Header>
       <Profile>
         <UserName>{data.username}</UserName>
@@ -60,9 +60,9 @@ const UserInfo = ({ data, myProfile }) => {
         {!myProfile ? (
           <ButtonContainer
             type="M"
-            text={data.isfollow ? '언팔로우' : '팔로우'}
-            handleClick={data.isfollow ? handleUnFollow : handleFollow}
-            isClicked={data.isfollow}
+            text={profile.isfollow ? '언팔로우' : '팔로우'}
+            handleClick={profile.isfollow ? handleUnFollow : handleFollow}
+            isClicked={profile.isfollow}
           />
         ) : (
           <>
