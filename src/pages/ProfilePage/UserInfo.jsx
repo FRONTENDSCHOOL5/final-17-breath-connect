@@ -49,6 +49,7 @@ const UserInfo = ({ data, myProfile }) => {
         <FollowCount follow="Following" data={data} />
       </ProfileSection>
       <UserSection>
+
         <UserName>{data.username}</UserName>
         <AccountName>@ {data.accountname}</AccountName>
         <Introduction>{data.intro}</Introduction>
@@ -57,9 +58,9 @@ const UserInfo = ({ data, myProfile }) => {
         {!myProfile ? (
           <Button
             type="M"
-            text={data.isfollow ? '언팔로우' : '팔로우'}
-            handleClick={data.isfollow ? handleUnFollow : handleFollow}
-            isClicked={data.isfollow}
+            text={profile.isfollow ? '언팔로우' : '팔로우'}
+            handleClick={profile.isfollow ? handleUnFollow : handleFollow}
+            isClicked={profile.isfollow}
           />
         ) : (
           <>
