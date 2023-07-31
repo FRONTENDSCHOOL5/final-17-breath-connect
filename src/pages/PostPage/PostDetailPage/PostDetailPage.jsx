@@ -74,6 +74,7 @@ const PostPageDetail = ({ theme }) => {
   const fetchCommentList = async () => {
     const response = await getComment(postId, token);
     setCommentData(response.comments);
+    data.commentCount = response.comments.length;
   };
 
   const handleInput = (e) => {
@@ -119,7 +120,6 @@ const PostPageDetail = ({ theme }) => {
   };
 
   const onShowCommentModal = (index, comment) => {
-    console.log(data);
     if (!isModalOpen) {
       setIsModalOpen(true);
       if (commentData[index].author.accountname === account) {
