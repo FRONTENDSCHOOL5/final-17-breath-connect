@@ -247,7 +247,7 @@
     - `"linebreak-style": 0` : 개행 문자 스타일을 지정하는 규칙입니다. `0` 으로 설정되어 있어, 개행 문자 스타일에 대한 경고 또는 오류를 표시하지 않습니다.
 <br>
 
-#### `Prettier
+#### `Prettier`
 ```
 {
   "trailingComma": "es5",
