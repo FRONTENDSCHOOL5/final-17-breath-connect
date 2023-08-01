@@ -41,12 +41,12 @@ const UserInfo = ({ data, myProfile }) => {
   return (
     <Container>
       <ProfileSection>
-        <FollowCount follow="Follower" data={data} />
+        <FollowCount follow="Follower" data={profile} />
         <Image
           src={numberRegex.test(data.image) ? data.image : isDarkMode ? basicDarkProfile : basicProfile}
           alt="유저 이미지"
         />
-        <FollowCount follow="Following" data={data} />
+        <FollowCount follow="Following" data={profile} />
       </ProfileSection>
       <UserSection>
 
