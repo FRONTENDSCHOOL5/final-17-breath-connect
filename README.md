@@ -73,7 +73,9 @@
 <br><br>
 
 ## <span id="schedule">📅 4. 개발 일정</span>
-![image](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/22268f6b-cff5-4f61-8643-d0cad77ef7a6)
+<div align="center">
+	<img src="https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/e6b947be-9abf-4fe3-b7bd-f2f45eaeea0e">
+</div>
 
 ## <span id="roles">📝 5. 역할 분담</span>
 ### 김용덕
