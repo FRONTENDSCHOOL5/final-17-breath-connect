@@ -69,6 +69,7 @@
 | <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=flat-square&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-3578E5.svg?style=flat-square&logo=Recoil&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat-square&logo=JavaScript&logoColor=black"> | 제공된 API | <img src="https://img.shields.io/badge/figma-FBCEB1?style=flat-square&logo=figma&logoColor=white"> | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000.svg?style=flat-square&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"> | <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat-square&logo=Prettier&logoColor=black"> <img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat-square&logo=ESLint&logoColor=white"> |
 
 </div>
+
 <br><br>
 
 ## <span id="schedule">📅 4. 개발 일정</span>
@@ -125,6 +126,9 @@
 ✨ 기능 구현
   - 유저 검색, 게시물 업로드, 댓글 삭제, 이미지 유효성
 
+<br>
+<br>
+
 ## <span id="schedule">🌻 6. 구현 기능</span>
 * **홈**
 
@@ -152,9 +156,16 @@
 
 | 🔗[게시글 상세](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/PostPage/PostDetailPage)                                                                                                          | 🔗[게시글 좋아요](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/blob/develop/src/pages/PostPage)                                                                                                          | 🔗[게시글 좋아요 취소](https://media.discordapp.net/attachments/1114376475857133598/1135764350481743932/2048cb482c6d5a03.gif?width=318&height=662)                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| ![게시글 상세](https://media.discordapp.net/attachments/1106481733815250964/1135826278637912064/Animation7.gif?width=363&height=662) | ![게시글 좋아요](https://media.discordapp.net/attachments/1114376475857133598/1135764351941357698/14c830195afeae44.gif?width=318&height=662) | ![게시글 좋아요 취소](https://media.discordapp.net/attachments/1114376475857133598/1135764350481743932/2048cb482c6d5a03.gif?width=318&height=662)
- |
+| ![게시글 상세](https://media.discordapp.net/attachments/1106481733815250964/1135826278637912064/Animation7.gif?width=363&height=662) | ![게시글 좋아요](https://media.discordapp.net/attachments/1114376475857133598/1135764351941357698/14c830195afeae44.gif?width=318&height=662) | ![게시글 좋아요 취소](https://media.discordapp.net/attachments/1114376475857133598/1135764350481743932/2048cb482c6d5a03.gif?width=318&height=662)|
 
+* **프로필**
+
+| 🔗[내 프로필](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/ProfilePage)                                                                                                                                    | 🔗[내 프로필 수정](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/ProfilePage/ProfileEditPage)                                                                                                               | 🔗[유저 프로필 팔로우](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/ProfilePage)                                                                                                               |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| ![내 프로필](https://media.discordapp.net/attachments/1114376475857133598/1135764351559680120/129ee799620e5e52.gif?width=318&height=662) | ![내 프로필 수정](https://media.discordapp.net/attachments/1114376475857133598/1135764351148625930/5dafff94a4f91964.gif?width=318&height=662) | ![유저 프로필 팔로우](https://media.discordapp.net/attachments/1114376475857133598/1135764350804701204/19469b897dca0c1b.gif?width=318&height=662) |
+
+<br>
+<br>
 
 ## <span id="tree">🌱 7. 프로젝트 구조</span>
 - public/favicon/ : 파비콘
