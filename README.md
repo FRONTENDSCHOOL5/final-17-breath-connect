@@ -19,13 +19,14 @@
 1. [서비스 소개](#app)
 2. [팀 소개](#team)
 3. [기술 및 개발 환경](#dev)
-4. [개발일정](#schedule)
-5. [역할분담](#roles)
-6. [프로젝트 구조](#tree)
-7. [컨벤션](#convention)
-8. [협업 문화](#culture)
-9. [이슈 관리](#issues)
-10. [버그 관리](#bug)
+4. [개발 일정](#schedule)
+5. [역할 분담](#roles)
+6. [구현 기능](#feature)
+7. [프로젝트 구조](#tree)
+8. [컨벤션](#convention)
+9. [협업 문화](#culture)
+10. [이슈 관리](#issues)
+11. [버그 관리](#bug)
 
 </details>
 <br>
@@ -124,8 +125,24 @@
 ✨ 기능 구현
   - 유저 검색, 게시물 업로드, 댓글 삭제, 이미지 유효성
 
+## <span id="schedule">🌻 6. 구현 기능</span>
+* **홈**
 
-## <span id="tree">🌱 6. 프로젝트 구조</span>
+| 🔗[스플래쉬](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/SplashPage)                                                                                                                               | 🔗[회원가입](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/SignupPage)                                                                                                                 | 🔗[프로필 설정](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/SignupPage/ProfileSettingPage)                                                                                                               |
+| -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| ![스플래쉬](https://cdn.discordapp.com/attachments/1118445497032654848/1135775933316468797/0e945e590972a47a.gif) | ![회원가입](https://cdn.discordapp.com/attachments/1118445497032654848/1135775933316468797/0e945e590972a47a.gif) | ![프로필 설정](https://cdn.discordapp.com/attachments/1118445497032654848/1135775932767031356/a9a405929c91d700.gif) |
+
+| 🔗[로그인](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/LoginPage)                                                                                                              | 🔗[홈 피드](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/FeedPage)                                                                                                          | 🔗[계정 검색](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/SearchPage)                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| ![로그인](https://media.discordapp.net/attachments/1118445497032654848/1135775932288864256/15cf02f7dc5580f9.gif?width=306&height=662) | ![홈 피드](https://media.discordapp.net/attachments/1118445497032654848/1135775931869438033/dd9367e6d93a8bf3.gif?width=306&height=662) | ![계정 검색](https://media.discordapp.net/attachments/1118445497032654848/1135782715455709305/c6818df1c8524bbc.gif?width=306&height=662) |
+
+| 🔗[팔로잉 팔로우](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/FollowListPage)                                                                                                                              | 🔗[404](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/NotFoundPage)                                                                                                           | 🔗[채팅](https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/tree/develop/src/pages/ChatPage)                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| ![팔로잉 팔로우](https://media.discordapp.net/attachments/1118445497032654848/1135782662662017106/899cfa6d1fef3cec.gif?width=306&height=662) | ![404](https://media.discordapp.net/attachments/1118445497032654848/1135790153307258890/404..gif?width=306&height=662) | ![채팅](https://media.discordapp.net/attachments/1118445497032654848/1135790153760260217/7900cf5ae81be06d.gif?width=306&height=662) |
+
+
+
+## <span id="tree">🌱 7. 프로젝트 구조</span>
 - public/favicon/ : 파비콘
 - src/assets/ : 전역에서 사용하는 폰트, 스프라이트 이미지, 로고 이미지
 - src/atoms/ : 전역 상태 관리를 위한 아톰 (UserAtom, LoginAtom) 
