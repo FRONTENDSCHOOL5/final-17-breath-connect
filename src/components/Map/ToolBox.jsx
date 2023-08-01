@@ -1,14 +1,14 @@
 import React from 'react';
-import { CustomToolWrapper, ButtonWrapper, Button } from './MapStyle';
+import { Container, ButtonContainer, Button } from './ToolBoxStyle';
 
 const ToolBox = ({ onClickUndo, onClickReset }) => {
   return (
     <>
-      <CustomToolWrapper />
-      <ButtonWrapper>
+      <Container />
+      <ButtonContainer>
         <Button onClick={onClickUndo}>😢 마지막 그리기 취소</Button>
         <Button onClick={onClickReset}>❌ 초기화</Button>
-      </ButtonWrapper>
+      </ButtonContainer>
     </>
   );
 };

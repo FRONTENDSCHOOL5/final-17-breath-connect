@@ -1,23 +1,23 @@
 import React from 'react';
-import { DistanceContainer, SText } from './MapStyle';
+import { Container, Distance, Text, Time, Hour, Amount } from './DistanceInfoStyle';
 
 export default function DistanceInfo({ distance }) {
   const walkkTime = (distance / 67) | 0;
 
   return (
-    <DistanceContainer>
-      <div>
-        <SText>총거리 = </SText> <span>{distance}</span>m
-      </div>
-      <div>
-        <SText>도보 = </SText>{' '}
+    <Container>
+      <Distance>
+        <Text>총거리 = </Text> <Amount>{distance}</Amount>m
+      </Distance>
+      <Time>
+        <Text>도보 = </Text>{' '}
         {walkkTime > 60 && (
-          <>
-            <span>{Math.floor(walkkTime / 60)}</span> 시간{' '}
-          </>
+          <Hour>
+            <Amount>{Math.floor(walkkTime / 60)}</Amount> 시간{' '}
+          </Hour>
         )}
-        <span>{walkkTime % 60}</span> 분
-      </div>
-    </DistanceContainer>
+        <Amount>{walkkTime % 60}</Amount> 분
+      </Time>
+    </Container>
   );
 }

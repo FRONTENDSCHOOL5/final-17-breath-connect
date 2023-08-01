@@ -1,92 +1,37 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { isDarkModeState } from '../../atoms/StylesAtom';
 import BasicProfile from '../../assets/images/basic-profile-xs.svg';
 import BasicDarkProfile from '../../assets/images/basic-profile-xs-dark.svg';
 import GlobalSprite from '../../assets/sprite/GlobalSprite';
-
-import { useRecoilValue } from 'recoil';
-import { isDarkModeState } from '../../atoms/StylesAtom';
+import { Container, Image, CommentSection, Contents, UserInfo, UserName, Time, Comment, Button } from "./FeedCommentStyle";
 
 const FeedComment = ({ user, content, image, time, handleCommentClick }) => {
   const isDarkMode = useRecoilValue(isDarkModeState);
-
   const createdTime = () => {
     const year = time.slice(0, 4) + '년 ';
     const month = time.slice(5, 7) + '월 ';
     const date = time.slice(8, 10) + '일';
     return year + month + date;
   }
-  
+
   return (
     <Container>
-      <ContentsContainer>
-      <div>
-        <img src={isDarkMode ? BasicDarkProfile : BasicProfile } alt="유저 프로필 이미지" />
-      </div>
-      <UserContents>
-        <UserInfo>
-          <UserName>{user}</UserName>
-          <TimeAgo>{createdTime()}</TimeAgo>
-        </UserInfo>
-        <Contents>{content}</Contents>
-      </UserContents>
-      </ContentsContainer>
-      <Sbtn onClick={handleCommentClick}>
-      <GlobalSprite id={'s-icon-more-vertical'} color={'white'} size={16}/>
-      </Sbtn>
+      <CommentSection>
+        <Image src={isDarkMode ? BasicDarkProfile : BasicProfile } alt="유저 프로필 이미지" />
+        <Contents>
+          <UserInfo>
+            <UserName>{user}</UserName>
+            <Time>{createdTime()}</Time>
+          </UserInfo>
+          <Comment>{content}</Comment>
+        </Contents>
+      </CommentSection>
+      <Button onClick={handleCommentClick}>
+        <GlobalSprite id={'s-icon-more-vertical'} color={'white'} size={16}/>
+      </Button>
     </Container>
   );
 };
 
 export default FeedComment;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-box-shadow: rgba(217, 217, 217, 0.5) 0px 0.1rem 0px;
-img {
-  width: 3.6rem;
-  height: 3.6rem;
-  border-radius: 50%;
-  object-fit: cover;
-}
-color: ${({ theme }) => theme.colors.blackText};
-`;
-
-const UserContents = styled.div`
-  padding: 10px;
-`;
-
-const UserInfo = styled.div`
-  width: 100%;
-  display: flex;
-`;
-
-const UserName = styled.span`
-  display: inline-block;
-  font-weight: 500;
-  font-size: 14px;
-  margin-bottom: 15px;
-`;
-
-const TimeAgo = styled.span`
-  color: ${({ theme }) => theme.colors.textColor};
-  padding: 0.4rem 0.7rem;
-`;
-
-const Contents = styled.div`
-  font-weight: 400;
-  font-size: 14px;
-  width: 28rem;
-  word-break: break-all;
-`;
-
-const ContentsContainer = styled.div`
-  display: flex;
-`
-
-const Sbtn = styled.button`
-  float:right;
-  padding-bottom: 3rem;
-`

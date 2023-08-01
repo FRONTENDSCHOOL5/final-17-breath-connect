@@ -1,34 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { ThemeProvider } from 'styled-components';
+import JoinButton from '../../components/common/Button/ButtonContainer';
+import Map from '../../components/Map/FeedMap';
+import { iconColorSelector, isDarkModeState } from '../../atoms/StylesAtom';
+import { tokenAtom } from '../../atoms/UserAtom';
+import Theme, { darkColors } from '../../styles/Theme';
+import { postLike, deleteLike } from '../../utils/Apis';
 import basicImg from '../../assets/images/basic-profile-m.svg';
 import basicDarkImg from '../../assets/images/basic-profile-m-dark.svg';
 import GlobalSprite from '../../assets/sprite/GlobalSprite';
-import FeedMap from '../../components/Map/FeedMap';
-import { useNavigate, useLocation } from 'react-router-dom';
-import ButtonContainer from '../../components/common/Button/ButtonContainer';
-import { postLike, deleteLike } from '../../utils/Apis';
-import { useRecoilValue } from 'recoil';
-import { tokenAtom } from '../../atoms/UserAtom';
 import {
-  PostContainer,
-  UserProfileImg,
+  Container,
+  Title,
+  Post,
+  Image,
+  Contents,
+  ProfileButton,
+  ModalButton,
   UserAccountName,
-  ScheduleInfo,
-  LocationInfo,
-  CommentContainer,
-  FeedInfo,
+  ScheduleSection,
+  LocationSection,
+  MapSection,
+  ContentsSection,
+  ButtonContainer,
+  Comment,
+  Text,
   UserName,
-  UserFeedText,
-  AppendAndComment,
-  AppendButton,
-  MapContents,
-  PostContents,
+  Participation,
   DetailButton,
-  Div
-} from './PostDetailPage/PostDetailPageStyle';
-import { iconColorSelector } from '../../atoms/StylesAtom';
-import { isDarkModeState } from '../../atoms/StylesAtom';
-import Theme, { darkColors } from '../../styles/Theme';
+} from './PostPageStyle';
 
 const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
   const iconColor = useRecoilValue(iconColorSelector);
@@ -38,7 +40,6 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
   const [endPoint, setEndPoint] = useState(''); // endPoint 상태 추가
   const location = useLocation();
   const navigate = useNavigate();
-
   const [liked, setLiked] = useState(false);
   const [postLikeState, setPostLikeState] = useState(data.hearted);
   const [postLikeCount, setPostLikeCount] = useState(data.heartCount);
@@ -144,10 +145,10 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
     <ThemeProvider
       theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
     >
-      <PostContainer>
-        <h1 className="a11y-hidden">게시글 페이지</h1>
-        <PostContents>
-          <UserProfileImg
+      <Container>
+        <Title>게시글 페이지</Title>
+        <Post>
+          <Image
             src={
               numberRegex.test(data.author.image)
                 ? data.author.image
@@ -156,14 +157,14 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
                 : basicImg
             }
           />
-          <div>
+          <Contents>
             {/* 프로필로 이동 */}
-            <button onClick={handleProfileClick} className="go-to-profile">
+            <ProfileButton onClick={handleProfileClick} className="go-to-profile">
               <UserName>{data.author.username}</UserName>
               <UserAccountName>@ {data.author.accountname}</UserAccountName>
-            </button>
+            </ProfileButton>
             {/* 신고, 공유 모달 */}
-            <button
+            <ModalButton
               onClick={() => {
                 showModal(data);
               }}
@@ -174,48 +175,48 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
               color={'white'}
               size={18}
             />
-            </button>
+            </ModalButton>
             {/* 피드로 이동 */}
             <DetailButton
               onClick={handleFeedClick}
               className="go-to-post-detail"
               detail={detail}
             >
-              <ScheduleInfo>
+              <ScheduleSection>
                 <GlobalSprite
                   id={isDarkMode ? 'icon-calendar-dark' : 'icon-calendar'}
                   size={13}
                 />
-                <FeedInfo>
+                <Text>
                   {data &&
                     data.content.substring(3, 4) +
                       '요일, ' +
                       data.content.substring(5, 10) +
                       ', ' +
                       (isJSON(data.content) ? JSON.parse(data.content)[1] : '')}
-                </FeedInfo>
-              </ScheduleInfo>
-              <LocationInfo>
+                </Text>
+              </ScheduleSection>
+              <LocationSection>
                 <GlobalSprite
                   id={isDarkMode ? 'icon-location-dark' : 'icon-location'}
                   size={13}
                 />
-                <FeedInfo>
+                <Text>
                   {startPoint}~{endPoint}
-                </FeedInfo>
-              </LocationInfo>
-              <MapContents>
-                <FeedMap data={data.image} detail={detail} />
-              </MapContents>
-              <UserFeedText>
+                </Text>
+              </LocationSection>
+              <MapSection>
+                <Map data={data.image} detail={detail} />
+              </MapSection>
+              <ContentsSection>
                 {data &&
                   (isJSON(data.content)
                     ? JSON.parse(data.content)[2].toString()
                     : '')}
-              </UserFeedText>
-              <AppendAndComment>
-                <AppendButton>{postLikeCount}명 참여</AppendButton>
-                <CommentContainer>
+              </ContentsSection>
+              <ButtonContainer>
+                <Participation>{postLikeCount}명 참여</Participation>
+                <Comment>
                   <GlobalSprite
                     id={
                       isDarkMode
@@ -225,14 +226,14 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
                     size={12}
                     color={iconColor}
                   />
-                  <FeedInfo>{data.commentCount}</FeedInfo>
-                </CommentContainer>
-              </AppendAndComment>
+                  <Text>{data.commentCount}</Text>
+                </Comment>
+              </ButtonContainer>
             </DetailButton>
-            </div>
-        </PostContents>
+            </Contents>
+        </Post>
         {detail ? (
-          <ButtonContainer
+          <JoinButton
             type={'XL'}
             text={postLikeState ? '참가하기 취소' : '참가하기'}
             isClicked={postLikeState}
@@ -241,7 +242,7 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
         ) : (
           <></>
         )}
-      </PostContainer>
+      </Container>
     </ThemeProvider>
   );
 };

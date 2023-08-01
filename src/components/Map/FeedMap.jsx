@@ -1,9 +1,9 @@
 import React from 'react';
 import { CustomOverlayMap, Polyline } from 'react-kakao-maps-sdk';
-import MapComponent from './MapComponent';
+import Map from './MapComponent';
+import { Span } from './FeedMapStyle'
 
 const FeedMap = ({ data, detail }) => {
-
   let paths = [];
   try {
     const parsedData = JSON.parse(data);
@@ -11,14 +11,13 @@ const FeedMap = ({ data, detail }) => {
   } catch (error) {
     console.error('Invalid JSON data:', error);
   }
-
   const latSum = paths.reduce((sum, el) => sum + el.lat, 0);
   const lngSum = paths.reduce((sum, el) => sum + el.lng, 0);
   const midLat = latSum / paths.length;
   const midLng = lngSum / paths.length;
 
   return (
-    <MapComponent
+    <Map
       id="map"
       center={{
         lat: midLat,
@@ -35,16 +34,16 @@ const FeedMap = ({ data, detail }) => {
       <Polyline
         path={paths}
         strokeWeight={3}
-        strokeColor="#80327e"
+        strokeColor = '#80327e'
         strokeOpacity={1}
         strokeStyle="solid"
       />
       {paths.map((path, index) => (
         <CustomOverlayMap key={`dot-${index}`} position={path} zIndex={1}>
-          <span />
+          <Span />
         </CustomOverlayMap>
       ))}
-    </MapComponent>
+    </Map>
   );
 };
 

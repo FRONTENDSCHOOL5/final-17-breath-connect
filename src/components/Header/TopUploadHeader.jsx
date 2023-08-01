@@ -1,18 +1,18 @@
 import React from 'react';
-import HeaderContainer from './HeaderContainer';
-import BackButton from './BackButton';
-import ButtonContainer from '../common/Button/ButtonContainer';
-import { Storage } from './HeaderStyle';
 import { useRecoilValue } from 'recoil';
 import { isDarkModeState } from '../../atoms/StylesAtom';
+import UploadButton from '../common/Button/ButtonContainer';
+import Container from './HeaderContainer';
+import BackButton from './BackButton';
+import { Section } from './TopUploadHeaderStyle';
 
 const TopUploadHeader = ({ text, handleClick, isDisabled }) => {
   const isDarkMode = useRecoilValue(isDarkModeState);
   return (
-    <HeaderContainer>
+    <Container>
       <BackButton />
-      <Storage>
-        <ButtonContainer
+      <Section>
+        <UploadButton
           type={'MS'}
           text={text}
           isClicked={false}
@@ -20,8 +20,8 @@ const TopUploadHeader = ({ text, handleClick, isDisabled }) => {
           isDisabled={isDisabled}
           isDarkMode={isDarkMode}
         />
-      </Storage>
-    </HeaderContainer>
+      </Section>
+    </Container>
   );
 };
 export default TopUploadHeader;

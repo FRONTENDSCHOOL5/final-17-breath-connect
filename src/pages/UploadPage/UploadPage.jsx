@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import TimePicker from 'rc-time-picker';
+import 'rc-time-picker/assets/index.css';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { ko } from 'date-fns/esm/locale';
-import 'rc-time-picker/assets/index.css';
-import 'react-datepicker/dist/react-datepicker.css';
-import TopUploadHeader from '../../components/Header/TopUploadHeader';
+import { ThemeProvider } from 'styled-components';
 import MapDrawingManager from '../../components/Map/MapDrawingManager';
-import FeedMap from '../../components/Map/FeedMap';
-import { postContentUpload, putEditPost } from '../../utils/Apis';
-import TabMenu from '../../components/Footer/TabMenu';
-import { useNavigate } from 'react-router-dom';
+import Map from '../../components/Map/FeedMap';
+import Header from '../../components/Header/TopUploadHeader';
+import Footer from '../../components/Footer/TabMenu';
 import { tokenAtom } from '../../atoms/UserAtom';
-import { useRecoilValue } from 'recoil';
+import { isDarkModeState } from '../../atoms/StylesAtom';
+import Theme, { darkColors } from '../../styles/Theme';
+import { postContentUpload, putEditPost } from '../../utils/Apis';
 import {
   Container,
+  Main,
+  Form,
+  Title,
+  Text,
+  TextArea,
   DateSection,
   TextSection,
   Counter,
@@ -23,12 +31,11 @@ import {
   CompleteMapSection,
   Button,
   ManualSection,
-  ManualContents,
+  ManualTitle,
+  ManualLists,
+  List
 } from './UploadPageStyle';
 
-import { ThemeProvider } from 'styled-components';
-import { isDarkModeState } from '../../atoms/StylesAtom';
-import Theme, { darkColors } from '../../styles/Theme';
 
 const UploadPage = ({ editData, theme }) => {
   const isDarkMode = useRecoilValue(isDarkModeState);
@@ -125,29 +132,28 @@ const UploadPage = ({ editData, theme }) => {
     <ThemeProvider
       theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
     >
-      <>
-        <TopUploadHeader
+      <Container>
+        <Header
           text={map ? '업로드' : '완료'}
           handleClick={map ? handleUpload : handleTestClick}
           isDisabled={!handleActivateButton()}
         />
         {map ? (
-          <main>
-            <Container>
-              <h1>게시글 정보를 입력해주세요.</h1>
+          <Main>
+            <Form>
+              <Title>게시글 정보를 입력해주세요.</Title>
               <DateSection>
                 <div>
-                  <p>일시</p>
+                  <Text>일시</Text>
                   <DatePicker
                     locale={ko}
                     dateFormat="EEEE, MM/dd"
                     selected={startDate}
-                    // onChange={handleDateChange}
                     onChange={(date) => setStartDate(date)}
                   />
                 </div>
                 <div>
-                  <p>시간</p>
+                  <Text>시간</Text>
                   <TimePicker
                     onChange={handleTimeChange}
                     value={time}
@@ -157,47 +163,47 @@ const UploadPage = ({ editData, theme }) => {
                 </div>
               </DateSection>
               <TextSection>
-                <p>참여 상세 글</p>
-                <textarea
+                <Text>참여 상세 글</Text>
+                <TextArea
                   placeholder="참여 인원을 모집할 수 있는 홍보 문구를 작성해주세요."
                   maxLength={100}
                   value={text}
                   onChange={handleChange}
-                ></textarea>
+                ></TextArea>
                 <Counter>({characterCount} / 100)</Counter>
               </TextSection>
               {!pathProcess ? (
                 <MapSection>
-                  <p>나만의 러닝 코스를 그려보세요!</p>
+                  <Text>나만의 러닝 코스를 그려보세요!</Text>
                   <Button onClick={handleTestClick}>러닝 코스 그리기</Button>
                 </MapSection>
               ) : (
                 <CompleteMapSection>
-                  <FeedMap data={pathProcess} />
+                  <Map data={pathProcess} />
                   <Button onClick={handleTestClick}>다시 그리기</Button>
                 </CompleteMapSection>
               )}
               <ManualSection>
-                <h2>Map 그리는 방법</h2>
-                <ManualContents>
-                  <li>✔ 지도를 드래그하여 이동할 수 있습니다.</li>
-                  <li>✔ 지도를 클릭하면 거리 그리기가 시작됩니다.</li>
-                  <li>
+                <ManualTitle>Map 그리는 방법</ManualTitle>
+                <ManualLists>
+                  <List>✔ 지도를 드래그하여 이동할 수 있습니다.</List>
+                  <List>✔ 지도를 클릭하면 거리 그리기가 시작됩니다.</List>
+                  <List>
                     ✔ 지도를 드래그하며 이동하고 경유할 지점을 클릭합니다.
-                  </li>
-                  <li>✔ 마지막으로 도착지점을 클릭합니다.</li>
-                  <li>✔ 두 손가락으로 클릭하면 경로 그리기가 종료됩니다.</li>
-                </ManualContents>
+                  </List>
+                  <List>✔ 마지막으로 도착지점을 클릭합니다.</List>
+                  <List>✔ 두 손가락으로 클릭하면 경로 그리기가 종료됩니다.</List>
+                </ManualLists>
               </ManualSection>
-            </Container>
-          </main>
+            </Form>
+          </Main>
         ) : (
           <>
             <MapDrawingManager getpath={handlePathProcess} />
           </>
         )}
-        <TabMenu />
-      </>
+        <Footer />
+      </Container>
     </ThemeProvider>
   );
 };

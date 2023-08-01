@@ -1,18 +1,14 @@
-// BottomBarButton.js
-
 import React from 'react';
-import GlobalSprite from '../../assets/sprite/GlobalSprite';
-import { Button, ButtonText } from './FooterStyle';
 import { useRecoilValue } from 'recoil';
-import { isDarkModeState, iconColorSelector } from '../../atoms/StylesAtom';
+import { isDarkModeState } from '../../atoms/StylesAtom';
+import GlobalSprite from '../../assets/sprite/GlobalSprite';
+import Theme from '../../styles/Theme'
+import { Button, Text } from './BottomBarButtonStyle';
 
 const BottomBarButton = ({ id, text, isSelected, onClick, textSize }) => {
   const isDarkMode = useRecoilValue(isDarkModeState);
-  // const iconColor = useRecoilValue(iconColorSelector);
-
-  // Define colors based on the conditions
-  const selectedColor = isDarkMode ? '#A16EE4' : '#654E92';
-  const defaultColor = isDarkMode ? '#353535' : 'white';
+  const selectedColor = isDarkMode ? `${Theme.darkColors.mainColor}` : `${Theme.colors.mainColor}`;
+  const defaultColor = isDarkMode ? `${Theme.darkColors.footerColor}` : `${Theme.colors.whiteText}`;
 
   return (
     <Button onClick={onClick}>
@@ -20,9 +16,9 @@ const BottomBarButton = ({ id, text, isSelected, onClick, textSize }) => {
         id={id}
         color={id === 'icon-user' && isSelected ? selectedColor : defaultColor}
       />
-      <ButtonText isSelected={isSelected} textSize={textSize} isDarkMode={isDarkMode}>
+      <Text isSelected={isSelected} textSize={textSize} isDarkMode={isDarkMode}>
         {text}
-      </ButtonText>
+      </Text>
     </Button>
   );
 };

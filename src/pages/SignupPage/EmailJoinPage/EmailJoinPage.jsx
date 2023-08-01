@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Input from '../../../components/common/Input/Input';
-import ButtonContainer from '../../../components/common/Button/ButtonContainer';
-import { postEmailDuplicate } from '../../../utils/Apis';
-
-import { Container, Title, Form, ErrorMsg } from './EmailJoinPageStyle';
-
 import { useRecoilValue } from "recoil";
-import { isDarkModeState } from '../../../atoms/StylesAtom';
 import { ThemeProvider } from 'styled-components';
+import Input from '../../../components/common/Input/Input';
+import Button from '../../../components/common/Button/ButtonContainer';
+import { isDarkModeState } from '../../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../../styles/Theme';
+import { postEmailDuplicate } from '../../../utils/Apis';
+import { Container, Title, Form, Section, ErrorMessage } from './EmailJoinPageStyle';
 
 const SignupPage = ({theme}) => {
   const navigate = useNavigate();
   const isDarkMode = useRecoilValue(isDarkModeState);
-
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [emailErrorMsg, setEmailErrorMsg] = useState('');
@@ -116,11 +112,11 @@ const SignupPage = ({theme}) => {
           hasError={emailErrorMsg !== ''}
           required
         />
-        {emailErrorMsg && <ErrorMsg hasError>{emailErrorMsg}</ErrorMsg>}
+        {emailErrorMsg && <ErrorMessage hasError>{emailErrorMsg}</ErrorMessage>}
         {emailSuccessMsg && (
-          <ErrorMsg className="success-msg">{emailSuccessMsg}</ErrorMsg>
+          <ErrorMessage className="success-msg">{emailSuccessMsg}</ErrorMessage>
         )}
-        <div className="input-wrapper">
+        <Section>
           <Input
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요"
@@ -131,11 +127,11 @@ const SignupPage = ({theme}) => {
             hasError={passwordErrorMsg !== ''}
             required
           />
-        </div>
+        </Section>
         {passwordErrorMsg && (
-          <ErrorMsg className="password-msg">{passwordErrorMsg}</ErrorMsg>
+          <ErrorMessage className="password-msg">{passwordErrorMsg}</ErrorMessage>
         )}
-        <ButtonContainer
+        <Button
           type={'L'}
           text={'회원가입'}
           isDisabled={!handleActivateButton()}

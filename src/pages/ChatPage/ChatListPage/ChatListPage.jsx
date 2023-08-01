@@ -1,26 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from "recoil";
+import { ThemeProvider } from 'styled-components';
+import { isDarkModeState } from '../../../atoms/StylesAtom';
+import Header from '../../../components/Header/TopBasicNavHeader';
+import Footer from '../../../components/Footer/TabMenu';
+import Theme, { darkColors } from '../../../styles/Theme';
 import profileImage from '../../../assets/images/basic-profile-s.svg';
 import profileDarkImage from '../../../assets/images/basic-profile-s-dark.svg';
-import TopBasicNavHeader from '../../../components/Header/TopBasicNavHeader';
-import TabMenu from '../../../components/Footer/TabMenu';
 import {
+  Container,
   Title,
   Main,
-  FollowList,
-  UserItem,
-  Section,
+  UserList,
+  List,
+  ImageSection,
+  ChatSection,
   UserName,
   Message,
   Date,
   Image,
-  Div,
 } from './ChatListPageStyle';
-
-import { useRecoilValue } from "recoil";
-import { isDarkModeState } from '../../../atoms/StylesAtom';
-import { ThemeProvider } from 'styled-components';
-import Theme, { darkColors } from '../../../styles/Theme';
 
 const ChatPage = ({theme}) => {
   const isDarkMode = useRecoilValue(isDarkModeState);
@@ -57,29 +57,29 @@ const ChatPage = ({theme}) => {
 
   return (
     <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
-    <>
-      <TopBasicNavHeader />
+    <Container>
+      <Header />
       <Main>
         <Title>채팅리스트</Title>
-        <FollowList>
+        <UserList>
           {UserData.map((user) => (
-            <UserItem key={user.id}>
-              <Div unread={!user.read}>
+            <List key={user.id}>
+              <ImageSection unread={!user.read}>
                 <Image src={isDarkMode ? profileDarkImage : profileImage} alt="유저의 프로필 사진" width="50" />
-              </Div>
-              <Section>
+              </ImageSection>
+              <ChatSection>
                 <Link to={`/chat/${user.id}`}>
                   <UserName>{user.username}</UserName>
                   <Message>{user.message}</Message>
                 </Link>
-              </Section>
+              </ChatSection>
               <Date>{user.date}</Date>
-            </UserItem>
+            </List>
           ))}
-        </FollowList>
+        </UserList>
       </Main>
-      <TabMenu />
-    </>
+      <Footer />
+    </Container>
     </ThemeProvider>
   );
 };

@@ -1,34 +1,36 @@
 import styled, { keyframes, css } from 'styled-components';
 
-export const InputWrapper = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 32.2rem;
   margin: 1.6rem 0;
 `;
 
-export const InputLabel = styled.label`
+export const Label = styled.label`
   ${({ theme }) => css`
-    font-size: ${theme.fontSize.small};
-    color: ${theme.colors.textColor};
     margin-bottom: 0.2rem;
+    color: ${theme.colors.textColor};
+    font-size: ${theme.fontSize.small};
   `}
 `;
 
-export const InputText = styled.input`
-  outline: none;
+export const Text = styled.input`
   padding: 0.8rem 0;
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.borderColor};
-  font-size: ${({ theme }) => theme.fontSize.medium};
   background-color: ${({ theme }) => theme.colors.backgroundColor};
   color: ${({ theme }) => theme.colors.blackText};
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.borderColor};
+  font-size: ${({ theme }) => theme.fontSize.medium};
   animation: ${({ hasError }) => (hasError ? shake : 'none')} 0.4s linear; // 에러 발생 시 흔들림 애니메이션 적용
+  outline: none;
+  
   &:focus {
     border-bottom: 0.1rem solid ${({ theme }) => theme.colors.mainColor};
   }
+  
   &::placeholder {
-    font-size: ${({ theme }) => theme.fontSize.medium};
     color: ${({ theme }) => theme.colors.borderColor};
+    font-size: ${({ theme }) => theme.fontSize.medium};
   }
 `;
 

@@ -1,16 +1,16 @@
 import React from 'react';
-import HeaderContainer from './HeaderContainer';
+import Container from './HeaderContainer';
 import BackButton from './BackButton';
-import { BackAndUserText, User } from './HeaderStyle';
+import { Section, Text } from './TopListNavHeaderStyle';
 
 const TopListNavHeader = ({ text }) => {
   return (
-    <HeaderContainer>
-      <BackAndUserText>
+    <Container>
+      <Section>
         <BackButton />
-        <User>{text}</User>
-      </BackAndUserText>
-    </HeaderContainer>
+        <Text>{text}</Text>
+      </Section>
+    </Container>
   );
 };
 

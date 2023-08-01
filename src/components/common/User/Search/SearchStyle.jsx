@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 
-export const UserItem = styled.li`
+export const Container = styled.li`
   display: flex;
 `;
 
-export const Container = styled.div`
+export const Image = styled.img`
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+`;
+
+export const UserContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -26,10 +32,4 @@ export const UserId = styled.strong`
   ::before {
     content: '@ ';
   }
-`;
-
-export const Image = styled.img`
-  width: 50px;
-  height: auto;
-  border-radius: 50%;
 `;

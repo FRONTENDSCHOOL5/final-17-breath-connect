@@ -1,37 +1,33 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { accountAtom } from '../../../../atoms/UserAtom';
+import { isDarkModeState } from '../../../../atoms/StylesAtom';
 import Button from '../../Button/ButtonContainer';
 import basicImg from '../../../../assets/images/basic-profile-s.svg';
 import basicDarkImg from '../../../../assets/images/basic-profile-s-dark.svg';
-import { accountAtom } from '../../../../atoms/UserAtom';
-
 import {
-  UserItem,
-  Image,
   Container,
+  Image,
+  UserContainer,
+  ButtonContainer,
   UserName,
   Intro,
-  ButtonWrapper,
 } from './FollowStyle.jsx';
-import { isDarkModeState } from '../../../../atoms/StylesAtom';
 
 const Follow = ({ user }) => {
   const { username, accountname, intro, image, isfollow } = user;
-
   const [isFollow, setIsFollow] = useState(isfollow);
   const account = useRecoilValue(accountAtom);
   const isDarkMode = useRecoilValue(isDarkModeState);
-
   const handleClick = () => {
     setIsFollow(!isFollow);
   };
-
   const numberRegex =
     /^https:\/\/api\.mandarin\.weniv\.co\.kr\/(?:(?!null|undefined)[\w.]*)$/;
 
   return (
-    <UserItem>
+    <Container>
       <Image
         src={numberRegex.test(image) ?
               image
@@ -39,33 +35,33 @@ const Follow = ({ user }) => {
         alt="프로필 이미지"
         width="50"
       />
-      <Container>
+      <UserContainer>
         <Link to={`/profile/${accountname}`} key={accountname}>
           <UserName>{username}</UserName>
           <Intro>{intro}</Intro>
         </Link>
-      </Container>
+      </UserContainer>
       {account !== accountname && isFollow === true && (
-        <ButtonWrapper>
+        <ButtonContainer>
           <Button
             type={'S'}
             text={'취소'}
             isClicked={isFollow}
             handleClick={handleClick}
           />
-        </ButtonWrapper>
+        </ButtonContainer>
       )}
       {account !== accountname && isFollow === false && (
-        <ButtonWrapper>
+        <ButtonContainer>
           <Button
             type={'S'}
             text={'팔로우'}
             isClicked={!!isFollow}
             handleClick={handleClick}
           />
-        </ButtonWrapper>
+        </ButtonContainer>
       )}
-    </UserItem>
+    </Container>
   );
 };
 export default Follow;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 export const Main = styled.main`
   height: 100%;
   margin-top: 2rem;
@@ -7,7 +8,7 @@ export const Main = styled.main`
   background-color: ${({theme}) => theme.colors.backgroundColor};
 `
 
-export const NoResultsText = styled.p`
+export const Text = styled.p`
   font-size: 1.4rem;
 `;
 
@@ -20,8 +21,8 @@ export const Button = styled.button`
 export const Image = styled.img`
   width: 5rem;
   height: 5rem;
-  border-radius: 50%;
   margin-right: 1.2rem;
+  border-radius: 50%;
 `
 
 export const Section = styled.section`
@@ -36,11 +37,11 @@ export const HighlightedText = styled.span`
 `;
 
 export const UserName = styled.p`
-font-size: ${({ theme }) => theme.fontSize.medium};
-margin-bottom: 0.6rem;
-color: ${({ theme }) => theme.colors.blackText};
+  margin-bottom: 0.6rem;
+  color: ${({ theme }) => theme.colors.blackText};
+  font-size: ${({ theme }) => theme.fontSize.medium};
 `;
 
 export const NickName = styled.p`
-font-size: ${({ theme }) => theme.fontSize.small};
+  font-size: ${({ theme }) => theme.fontSize.small};
 `;

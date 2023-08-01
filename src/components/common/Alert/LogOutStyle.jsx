@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Section = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +14,7 @@ export const Container = styled.div`
   opacity: 1;
   pointer-events: auto;
 `;
-export const LogOutContainer = styled.div`
+export const Container = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -27,7 +27,7 @@ export const LogOutContainer = styled.div`
   border: 0.1rem solid ${({ theme }) => theme.colors.borderColor};
 `;
 
-export const LogOutMessage = styled.p`
+export const Message = styled.p`
   text-align: center;
   padding: 2rem 0rem;
   font-size: ${({ theme }) => theme.fontSize.large};
