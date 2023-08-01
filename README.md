@@ -22,8 +22,8 @@
 4. [개발 일정](#schedule)
 5. [역할 분담](#roles)
 6. [구현 기능](#feature)
-7. [프로젝트 구조](#tree)
-8. [컨벤션](#convention)
+7. [컨벤션](#convention)
+8. [프로젝트 구조](#tree)
 9. [협업 문화](#culture)
 10. [이슈 관리](#issues)
 11. [버그 관리](#bug)
@@ -169,6 +169,73 @@
 <br>
 <br>
 
+
+#### <p align="right"><a href="#top">TOP👆🏼</a></p>
+
+## <span id="convention">☁️ 7. 컨벤션</span>
+### Git 컨벤션
+
+| Emoji | Code                          | 기능     | Description              |
+| ----- | ----------------------------- | -------- | ------------------------ |
+| ✨    | `:sparkles:`                  | Feat     | 새 기능                  |
+| ♻️    | `:recycle:`                   | Refactor | 코드 리팩토링            |
+| 📦    | `:wrench:`                    | Chore    | 리소스 수정/삭제         |
+| 🐛    | `:bug:`                       | Fix      | 버그 수정                |
+| 📝    | `:memo:`                      | Docs     | 문서 추가/수정           |
+| 🎨    | `:lipstick:`                  | Style    | UI/스타일 파일 추가/수정 |
+| 🎉    | `:tada:`                      | Init     | 프로젝트 시작 / Init     |
+| ✅    | `:white_check_mark:`          | Test     | 테스트 추가/수정         |
+| ⏪    | `:rewind:`                    | Rewind   | 변경 사항 되돌리기       |
+| 🔀    | `:twisted_rightwards_arrows:` | Merge    | 브랜치 합병              |
+| 🗃     | `:card_file_box:`             | DB       | 데이터베이스 관련 수정   |
+| 💡    | `:bulb:`                      | Comment  | 주석 추가/수정           |
+| 🚀    | `:rocket:`                    | Deploy   | 배포                     |
+
+<br>
+
+### Code 컨벤션
+- 작은 따옴표 사용 ``` '' ``` 사용
+- 전체를 묶는 스타일 컴포넌트 명은 끝에 container 사용
+- 이미지를 가져오는 컴포넌트 명은 파스칼 표기법 사용
+- 일치 연산자 사용
+
+<br>
+
+### ESLint와 Prettier
+#### `ESLint`
+```
+{
+  "extends": ["react-app", "react-app/jest", "prettier"],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "linebreak-style": 0
+  }
+}
+```
+
+- ```"extends": ["react-app", "react-app/jest", "prettier"]``` : 다른 ESLint 구성을 확장하는 역할로, Create React App 프로젝트에서 제공하는 기본적인 규칙을 사용하고, Jest 관련 규칙도 함께 확장하며, 마지막으로 Prettier와 관련된 규칙도 추가합니다.
+- `"rules": { ... }` ****: ESLint의 규칙을 지정합니다.
+    - `"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]` ****: 이 설정은 JSX를 사용하는 React 컴포넌트 파일의 확장자를 지정하는 규칙입니다.
+    - `[1, { "extensions": [".js", ".jsx"] }]` 은 경고로 설정되어 ‘.js’ 또는 ‘.jsx’ 확장자가 아닌 파일에서 JSX를 사용하면 경고가 표시됩니다.
+    - `"linebreak-style": 0` : 개행 문자 스타일을 지정하는 규칙입니다. `0` 으로 설정되어 있어, 개행 문자 스타일에 대한 경고 또는 오류를 표시하지 않습니다.
+<br>
+
+#### Prettier
+```
+{
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": true
+}
+```
+- `"trailingComma"` : 마지막 요소 뒤에 쉼표를 추가할지 여부를 결정합니다. `es5` 값은 ES5 문법에 따라 마지막 요소 뒤에 쉼표를 추가합니다.
+- `"tabWidth"` : 탭 문자의 너비를 결정합니다. 들여쓰기에 탭 대신 2개의 공백을 사용합니다.
+- `"semi"` : 문장 끝에 세미콜론을 추가할지 여부를 결정합니다. `true` 로 설정되어 있으므로, 세미콜론을 추가합니다.
+- `"singleQuote"` : 이 설정은 문자열을 작은 따옴표로 감쌀지 큰 따옴표로 감쌀지 결정합니다. `true` 로 설정되어 있으므로, 문자열을 작은 따옴표로 감쌉니다.
+
+<br>
+
 ## <span id="tree">🌱 7. 프로젝트 구조</span>
 - public/favicon/ : 파비콘
 - src/assets/ : 전역에서 사용하는 폰트, 스프라이트 이미지, 로고 이미지
@@ -227,68 +294,6 @@
  ┗ 📜index.js
 ```
 
-#### <p align="right"><a href="#top">TOP👆🏼</a></p>
-
-## <span id="convention">☁️ 7. 컨벤션</span>
-### Git 컨벤션
-
-| Emoji | Code                          | 기능     | Description              |
-| ----- | ----------------------------- | -------- | ------------------------ |
-| ✨    | `:sparkles:`                  | Feat     | 새 기능                  |
-| ♻️    | `:recycle:`                   | Refactor | 코드 리팩토링            |
-| 📦    | `:wrench:`                    | Chore    | 리소스 수정/삭제         |
-| 🐛    | `:bug:`                       | Fix      | 버그 수정                |
-| 📝    | `:memo:`                      | Docs     | 문서 추가/수정           |
-| 🎨    | `:lipstick:`                  | Style    | UI/스타일 파일 추가/수정 |
-| 🎉    | `:tada:`                      | Init     | 프로젝트 시작 / Init     |
-| ✅    | `:white_check_mark:`          | Test     | 테스트 추가/수정         |
-| ⏪    | `:rewind:`                    | Rewind   | 변경 사항 되돌리기       |
-| 🔀    | `:twisted_rightwards_arrows:` | Merge    | 브랜치 합병              |
-| 🗃     | `:card_file_box:`             | DB       | 데이터베이스 관련 수정   |
-| 💡    | `:bulb:`                      | Comment  | 주석 추가/수정           |
-| 🚀    | `:rocket:`                    | Deploy   | 배포                     |
-
-### Code 컨벤션
-- 작은 따옴표 사용 ``` '' ``` 사용
-- 전체를 묶는 스타일 컴포넌트 명은 끝에 container 사용
-- 이미지를 가져오는 컴포넌트 명은 파스칼 표기법 사용
-- 일치 연산자 사용
-
-### ESLint와 Prettier
-#### `ESLint`
-```
-{
-  "extends": ["react-app", "react-app/jest", "prettier"],
-  "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "linebreak-style": 0
-  }
-}
-```
-
-- ```"extends": ["react-app", "react-app/jest", "prettier"]``` : 다른 ESLint 구성을 확장하는 역할로, Create React App 프로젝트에서 제공하는 기본적인 규칙을 사용하고, Jest 관련 규칙도 함께 확장하며, 마지막으로 Prettier와 관련된 규칙도 추가합니다.
-- `"rules": { ... }` ****: ESLint의 규칙을 지정합니다.
-    - `"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]` ****: 이 설정은 JSX를 사용하는 React 컴포넌트 파일의 확장자를 지정하는 규칙입니다.
-    - `[1, { "extensions": [".js", ".jsx"] }]` 은 경고로 설정되어 ‘.js’ 또는 ‘.jsx’ 확장자가 아닌 파일에서 JSX를 사용하면 경고가 표시됩니다.
-    - `"linebreak-style": 0` : 개행 문자 스타일을 지정하는 규칙입니다. `0` 으로 설정되어 있어, 개행 문자 스타일에 대한 경고 또는 오류를 표시하지 않습니다.
-
-#### Prettier
-```
-{
-  "trailingComma": "es5",
-  "tabWidth": 2,
-  "semi": true,
-  "singleQuote": true
-}
-```
-- `"trailingComma"` : 마지막 요소 뒤에 쉼표를 추가할지 여부를 결정합니다. `es5` 값은 ES5 문법에 따라 마지막 요소 뒤에 쉼표를 추가합니다.
-- `"tabWidth"` : 탭 문자의 너비를 결정합니다. 들여쓰기에 탭 대신 2개의 공백을 사용합니다.
-- `"semi"` : 문장 끝에 세미콜론을 추가할지 여부를 결정합니다. `true` 로 설정되어 있으므로, 세미콜론을 추가합니다.
-- `"singleQuote"` : 이 설정은 문자열을 작은 따옴표로 감쌀지 큰 따옴표로 감쌀지 결정합니다. `true` 로 설정되어 있으므로, 문자열을 작은 따옴표로 감쌉니다.
-
-
-
-<br/>
 
 ## <span id="culture">협업 문화</span>
 
@@ -301,7 +306,7 @@
 
 
 #### <p align="right"><a href="#top">TOP👆🏼</a></p>
-<br/>
+<br>
 
 
 ## <span id="issues">핵심 코드</span>
@@ -310,7 +315,8 @@
 Axios를 사용하여 API 요청을 처리했습니다.
 이 모듈은 API 요청을 보내기 위해 여러가지 함수와 Axios의 인스턴스를 내보는 것으로 구성되어 있고
 각 함수는 특정한 API에 대한 요청을 보내고 응답을 처리하여 데이터를 반환합니다.
-``` 
+
+```jsx 
 import axios from 'axios';
 
 const URL = 'https://api.mandarin.weniv.co.kr/';
@@ -353,7 +359,9 @@ Axios를 이용하여 간편하게 API 요청을 보낼 수 있었고
 ### kakao Map API & react-kakao-maps-sdk
 사용자들을 위해 시작 위치와 종류 위치를 얻어오는 기능, path를 그리고 그 데이터를 기반으로 주소를 값이 불러올 수 있도록 처리했습니다.
 카카오 맵을 사용할 수 있도록 도와주는 카카오 지도 API와 React 애플리케이션에서 사용할 수 있도록 도와주는 리액트 카카오 지도 라이브러리를 함께 사용했습니다.
-```
+
+```jsx
+
 useEffect(() => {
     if (data.image) {
       try {
