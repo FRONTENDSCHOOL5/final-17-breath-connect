@@ -74,7 +74,7 @@
 
 ## <span id="schedule">📅 4. 개발 일정</span>
 <div align="center">
-	<img src="https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/e6b947be-9abf-4fe3-b7bd-f2f45eaeea0e">
+	<img src="https://github.com/FRONTENDSCHOOL5/final-17-breath-connect/assets/80268199/2bef886d-c79c-43cb-9c71-58d6872b16ba">
 </div>
 
 <br><br>
@@ -247,7 +247,7 @@
     - `"linebreak-style": 0` : 개행 문자 스타일을 지정하는 규칙입니다. `0` 으로 설정되어 있어, 개행 문자 스타일에 대한 경고 또는 오류를 표시하지 않습니다.
 <br>
 
-#### Prettier
+#### `Prettier
 ```
 {
   "trailingComma": "es5",
@@ -321,10 +321,10 @@
  ┗ 📜index.js
 ```
 
+<br><br>
 
-## <span id="culture">협업 문화</span>
+## <span id="culture">💪 협업 문화</span>
 
-### 💪 팀워크 강화
 #### - Daily Scrum
 * 일시: 평일 오전 9시 (15분 내외)
 * 장소: [회의실] 프로젝트 17조 디스코드 (카메라On)
