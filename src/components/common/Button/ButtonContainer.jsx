@@ -67,20 +67,31 @@ const ButtonContainer = ({
       isDisabled={isDisabled}
       isClicked={isClicked}
       onClick={handleClick}
-      style={{
-        backgroundColor:
-          isClicked
-            ? isDarkMode ? '#3F4043' : '#FFFFFF'
-            : isDarkMode ? '#A16EE4' : '#6541D3',
-        color:
-        isClicked
-            ? isDarkMode ? '#A16EE4' : '#6541D3'
-            : isDarkMode ? '#ffffff' : '#ffffff',
-        borderColor:
-            isClicked
-            ? isDarkMode ? '#A16EE4' : '#6541D3'
-            : isDarkMode ? '#ffffff' : '#ffffff',
-      }}
+      style={
+        {
+          // backgroundColor: isClicked
+          //   ? isDarkMode
+          //     ? '#3F4043'
+          //     : '#FFFFFF'
+          //   : isDarkMode
+          //   ? '#A16EE4'
+          //   : '#6541D3',
+          // color: isClicked
+          //   ? isDarkMode
+          //     ? '#A16EE4'
+          //     : '#6541D3'
+          //   : isDarkMode
+          //   ? '#ffffff'
+          //   : '#ffffff',
+          // borderColor: isClicked
+          //   ? isDarkMode
+          //     ? '#A16EE4'
+          //     : '#6541D3'
+          //   : isDarkMode
+          //   ? '#ffffff'
+          //   : '#ffffff',
+        }
+      }
     >
       {text}
     </Button>
