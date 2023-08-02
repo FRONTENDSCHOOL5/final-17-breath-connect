@@ -33,11 +33,11 @@ import {
   ManualSection,
   ManualTitle,
   ManualLists,
-  List
+  List,
 } from './UploadPageStyle';
 
-
 const UploadPage = ({ editData, theme }) => {
+  const navigate = useNavigate();
   const isDarkMode = useRecoilValue(isDarkModeState);
   const userToken = useRecoilValue(tokenAtom);
   const [startDate, setStartDate] = useState(new Date());
@@ -45,9 +45,9 @@ const UploadPage = ({ editData, theme }) => {
   const [text, setText] = useState('');
   const [map, setMap] = useState(true);
   const [pathProcess, setPathProcess] = useState('');
+
   const [enableUpload, setEnableUpload] = useState(false);
   const [isMapDrawingComplete, setIsMapDrawingComplete] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (editData) {
@@ -78,7 +78,6 @@ const UploadPage = ({ editData, theme }) => {
   };
 
   const handleTimeChange = (event) => {
-    console.log('event', event);
     setTime(event);
   };
 
@@ -87,6 +86,10 @@ const UploadPage = ({ editData, theme }) => {
   };
 
   const handleUpload = async (e) => {
+    if (!checkTime(time, startDate)) {
+      alert('현재 시간 이후의 시간을 선택하셔야합니다');
+      return;
+    }
     e.preventDefault();
     if (enableUpload) {
       const mapData = {
@@ -105,10 +108,14 @@ const UploadPage = ({ editData, theme }) => {
   };
 
   const handlePathProcess = (path) => {
+    console.log(path);
     setPathProcess(path);
     setIsMapDrawingComplete(path !== '');
-    setEnableUpload(true);
   };
+
+  useEffect(() => {
+    console.log(isMapDrawingComplete);
+  }, [isMapDrawingComplete]);
 
   /* 일시 시간 */
   const day = startDate.toLocaleDateString('ko-KR', { weekday: 'short' });
@@ -116,7 +123,6 @@ const UploadPage = ({ editData, theme }) => {
   const date = startDate.toLocaleDateString('en-US', { day: 'numeric' });
   const year = startDate.toLocaleDateString('en-US', { year: 'numeric' });
   const dateString = `${day}, ${month}/${date}, ${year}`;
-
   const characterCount = text.length;
   const contentArray = [
     [dateString],
@@ -128,6 +134,23 @@ const UploadPage = ({ editData, theme }) => {
     return enableUpload && isMapDrawingComplete;
   };
 
+  const checkTime = (time, date) => {
+    const comDate1 = date;
+    const comDate2 = new Date();
+
+    comDate1.setHours(0, 0, 0, 0);
+    comDate2.setHours(0, 0, 0, 0);
+
+    if (comDate1 < comDate2) return false;
+    else if (comDate1 > comDate2) return true;
+    else {
+      const comTime1 = time;
+      const comTime2 = moment();
+      if (comTime1.isAfter(comTime2)) return true;
+      else return false;
+    }
+  };
+
   return (
     <ThemeProvider
       theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
@@ -136,7 +159,7 @@ const UploadPage = ({ editData, theme }) => {
         <Header
           text={map ? '업로드' : '완료'}
           handleClick={map ? handleUpload : handleTestClick}
-          isDisabled={!handleActivateButton()}
+          isDisabled={map ? !isMapDrawingComplete : !handleActivateButton()}
         />
         {map ? (
           <Main>
@@ -192,7 +215,9 @@ const UploadPage = ({ editData, theme }) => {
                     ✔ 지도를 드래그하며 이동하고 경유할 지점을 클릭합니다.
                   </List>
                   <List>✔ 마지막으로 도착지점을 클릭합니다.</List>
-                  <List>✔ 두 손가락으로 클릭하면 경로 그리기가 종료됩니다.</List>
+                  <List>
+                    ✔ 두 손가락으로 클릭하면 경로 그리기가 종료됩니다.
+                  </List>
                 </ManualLists>
               </ManualSection>
             </Form>
