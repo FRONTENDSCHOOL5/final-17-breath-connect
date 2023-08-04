@@ -5,7 +5,7 @@ import Button from '../../components/common/Button/ButtonContainer';
 import FollowCount from './FollowCount';
 import { accountAtom } from '../../atoms/UserAtom';
 import { isDarkModeState } from '../../atoms/StylesAtom';
-import { postFollow, deleteFollow } from '../../utils/Apis';
+import { postFollow, deleteFollow } from '../../api/follow';
 import basicProfile from '../../assets/images/basic-profile-l.svg';
 import basicDarkProfile from '../../assets/images/basic-profile-l-dark.svg';
 import { Container, UserSection, Image, ProfileSection, UserName, AccountName, Introduction, ButtonSection, PostSection, Text } from './UseInfoStyle'

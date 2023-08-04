@@ -7,7 +7,7 @@ import Map from '../../components/Map/FeedMap';
 import { iconColorSelector, isDarkModeState } from '../../atoms/StylesAtom';
 import { tokenAtom } from '../../atoms/UserAtom';
 import Theme, { darkColors } from '../../styles/Theme';
-import { postLike, deleteLike } from '../../utils/Apis';
+import { postLike, deleteLike } from '../../api/post';
 import basicImg from '../../assets/images/basic-profile-m.svg';
 import basicDarkImg from '../../assets/images/basic-profile-m-dark.svg';
 import GlobalSprite from '../../assets/sprite/GlobalSprite';

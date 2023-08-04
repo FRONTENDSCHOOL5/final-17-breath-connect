@@ -6,7 +6,7 @@ import Input from '../../../components/common/Input/Input';
 import Button from '../../../components/common/Button/ButtonContainer';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../../styles/Theme';
-import { postEmailDuplicate } from '../../../utils/Apis';
+import { postEmailDuplicate } from '../../../api/auth';
 import { Container, Title, Form, Section, ErrorMessage } from './EmailJoinPageStyle';
 
 const SignupPage = ({theme}) => {

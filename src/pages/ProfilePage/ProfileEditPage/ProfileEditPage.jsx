@@ -13,12 +13,8 @@ import {
 } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../../styles/Theme';
-import {
-  getMyInfo,
-  postAccountnameDuplicate,
-  postUploadProfile,
-  editProfile,
-} from '../../../utils/Apis';
+import { getMyInfo, editProfile } from '../../../api/profile';
+import { postAccountnameDuplicate, postUploadProfile } from '../../../api/auth';
 import {
   Container,
   ImageSection,

@@ -15,7 +15,7 @@ import PostPage from '../PostPage/PostPage';
 import FeedNoUser from './FeedNoUser';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../styles/Theme';
-import { getFollowFeed } from '../../utils/Apis';
+import { getFollowFeed } from '../../api/post';
 import {Container, Section} from './FeedPageStyle'
 
 const FeedPage = ({ theme }) => {

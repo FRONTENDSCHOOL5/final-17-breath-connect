@@ -7,7 +7,7 @@ import Header from '../../../components/Header/TopListNavHeader';
 import Footer from '../../../components/Footer/TabMenu';
 import { tokenAtom } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
-import { getFollowingList } from '../../../utils/Apis';
+import { getFollowingList } from '../../../api/follow';
 import Theme, { darkColors } from '../../../styles/Theme';
 import Logo from '../../../assets/images/home-logo.svg';
 import DarkLogo from '../../../assets/images/home-logo-dark.svg';

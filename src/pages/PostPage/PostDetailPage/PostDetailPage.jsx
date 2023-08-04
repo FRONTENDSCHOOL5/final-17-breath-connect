@@ -17,7 +17,7 @@ import Post from '../PostPage';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import { accountAtom, tokenAtom } from '../../../atoms/UserAtom';
 import Theme, { darkColors } from '../../../styles/Theme';
-import { getComment, postComment } from '../../../utils/Apis';
+import { getComment, postComment } from '../../../api/comment';
 import BasicProfileImg from '../../../assets/images/basic-profile-xs.svg';
 import BasicDarkProfileImg from '../../../assets/images/basic-profile-xs-dark.svg';
 import {

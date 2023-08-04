@@ -14,7 +14,7 @@ import {
 } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../../styles/Theme';
-import { postUserLogin } from '../../../utils/Apis';
+import { postUserLogin } from '../../../api/auth';
 import {
   Container,
   Title,

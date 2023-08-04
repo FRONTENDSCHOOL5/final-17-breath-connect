@@ -7,7 +7,7 @@ import TabMenu from '../../components/Footer/TabMenu';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import { tokenAtom } from '../../atoms/UserAtom';
 import Theme, { darkColors } from '../../styles/Theme';
-import { getSearchResult } from '../../utils/Apis';
+import { getSearchResult } from '../../api/search'
 import profileImg from '../../assets/images/basic-profile-m.svg';
 import profileDarkImg from '../../assets/images/basic-profile-m-dark.svg';
 import {

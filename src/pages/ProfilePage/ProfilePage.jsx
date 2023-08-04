@@ -16,7 +16,8 @@ import {
 import Header from '../../components/Header/TopBasicNavHeader';
 import Footer from '../../components/Footer/TabMenu';
 import PostPage from '../PostPage/PostPage';
-import { getUserProfile, getMyPost } from '../../utils/Apis';
+import { getUserProfile } from '../../api/profile';
+import { getMyPost } from '../../api/post';
 import { loginAtom } from '../../atoms/LoginAtom';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import {

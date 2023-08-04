@@ -7,11 +7,7 @@ import Input from '../../../components/common/Input/Input';
 import Button from '../../../components/common/Button/ButtonContainer';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../../styles/Theme';
-import {
-  postAccountnameDuplicate,
-  postUserSignup,
-  postUploadProfile,
-} from '../../../utils/Apis'
+import { postAccountnameDuplicate, postUserSignup, postUploadProfile } from '../../../api/auth';
 import BasicProfileImg from '../../../assets/images/basic-profile-l.svg'
 import BasicDarkProfileImg from '../../../assets/images/basic-profile-l-dark.svg'
 import {

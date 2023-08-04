@@ -16,7 +16,7 @@ import Footer from '../../components/Footer/TabMenu';
 import { tokenAtom } from '../../atoms/UserAtom';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import Theme, { darkColors } from '../../styles/Theme';
-import { postContentUpload, putEditPost } from '../../utils/Apis';
+import { postContentUpload, putEditPost } from '../../api/post';
 import {
   Container,
   Main,
