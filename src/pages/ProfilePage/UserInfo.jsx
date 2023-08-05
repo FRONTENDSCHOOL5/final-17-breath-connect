@@ -68,12 +68,14 @@ const UserInfo = ({ data, myProfile }) => {
               type="M"
               text="러닝 등록"
               isClicked={true}
+              isDarkMode={isDarkMode}
               handleClick={handleBtnClick}
             />
             <Button
               type="M"
               text="프로필 수정"
               isClicked={true}
+              isDarkMode={isDarkMode}
               handleClick={goToProfileEdit}
             />
           </>
