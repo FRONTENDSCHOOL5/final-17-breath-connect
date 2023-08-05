@@ -48,6 +48,7 @@ const Follow = ({ user }) => {
             text={'취소'}
             isClicked={isFollow}
             handleClick={handleClick}
+            isDarkMode={isDarkMode}
           />
         </ButtonContainer>
       )}
@@ -58,6 +59,7 @@ const Follow = ({ user }) => {
             text={'팔로우'}
             isClicked={!!isFollow}
             handleClick={handleClick}
+            isDarkMode={isDarkMode}
           />
         </ButtonContainer>
       )}
