@@ -61,6 +61,7 @@ const UserInfo = ({ data, myProfile }) => {
             text={profile.isfollow ? '언팔로우' : '팔로우'}
             handleClick={profile.isfollow ? handleUnFollow : handleFollow}
             isClicked={profile.isfollow}
+            isDarkMode={isDarkMode}
           />
         ) : (
           <>
