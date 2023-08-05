@@ -1,10 +1,5 @@
-import {
-  putEditPost,
-  deletePost,
-  reportPost,
-  deleteComment,
-  reportComment,
-} from '../../../utils/Apis';
+import { putEditPost,deletePost,reportPost } from "../../../api/post";
+import { deleteComment, reportComment } from "../../../api/comment";
 
 export const deletePostData = async (userToken, pickedPost, setIsDelete) => {
   try {
