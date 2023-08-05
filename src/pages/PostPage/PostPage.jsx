@@ -232,6 +232,7 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
             text={postLikeState ? '참가하기 취소' : '참가하기'}
             isClicked={postLikeState}
             handleClick={handleToggleLike}
+            isDarkMode={isDarkMode}
           />
         ) : (
           <></>

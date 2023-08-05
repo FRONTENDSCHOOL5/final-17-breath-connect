@@ -8,21 +8,18 @@ export const Button = styled.button`
   padding: ${(props) => props.typeStyle.padding};
   font-size: ${(props) => props.typeStyle.textSize};
   border: ${(props) =>
-    props.isClicked ? `1px solid ${Theme.colors.mainColor}` : 'none'};
+    props.isClicked ? `1px solid ${props.isDarkMode ? Theme.darkColors.mainColor : Theme.colors.mainColor}` : 'none'};
   background-color: ${(props) =>
     props.isDisabled
-      ? Theme.colors.disabledColor
-      : props.isClicked
-      ? Theme.colors.whiteText
-      : props.isDarkMode
-      ? '#A16EE4'
-      : '#6541D3'};
+      ? props.isDarkMode ? Theme.darkColors.disabledColor : Theme.colors.disabledColor
+      : props.isClicked ? props.isDarkMode ? Theme.darkColors.backgroundColor : Theme.colors.backgroundColor
+      : props.isDarkMode ? Theme.darkColors.mainColor : Theme.colors.mainColor};
   pointer-events: ${(props) => (props.isDisabled ? 'none' : 'auto')};
   font-weight: 500;
   color: ${(props) =>
     props.disabled || props.isClicked
       ? props.isDarkMode
-        ? '#A16EE4'
-        : '#6541D3'
-      : 'white'};
+        ? Theme.darkColors.mainColor
+        : Theme.colors.mainColor
+      : Theme.colors.whiteText};
 `;

@@ -14,7 +14,7 @@ const FeedNoUser = () => {
       <Image src={isDarkMode ? HomeDarkLogo : HomeLogo} alt="" />
         <Text>유저를 검색해 팔로우 해보세요!</Text>
       <Link to={'/search'}>
-        <Button type={'ML'} text={'검색하기'} />
+        <Button type={'ML'} text={'검색하기'} isDarkMode={isDarkMode} />
       </Link>
     </Container>
   );
