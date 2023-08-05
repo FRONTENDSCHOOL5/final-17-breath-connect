@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import {ThemeProvider} from 'styled-components'
 import Input from '../../../components/common/Input/Input';
 import ButtonContainer from '../../../components/common/Button/ButtonContainer';
 import { loginAtom } from '../../../atoms/LoginAtom';
@@ -13,7 +12,6 @@ import {
   introAtom,
 } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
-import Theme, { darkColors } from '../../../styles/Theme';
 import { postUserLogin } from '../../../api/auth';
 import {
   Container,
@@ -95,7 +93,6 @@ const LoginPage = ({theme}) => {
   }, [userLogin]);
 
   return (
-    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <Container>
       <Title>로그인</Title>
       <Form onSubmit={handleLogin}>
@@ -132,7 +129,6 @@ const LoginPage = ({theme}) => {
       </Form>
       <SignupLink to="/signup">이메일로 회원가입</SignupLink>
     </Container>
-    </ThemeProvider>
   );
 };
 

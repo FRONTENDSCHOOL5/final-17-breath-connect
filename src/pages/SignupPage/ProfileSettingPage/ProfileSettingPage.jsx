@@ -1,12 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from "recoil";
-import { ThemeProvider } from 'styled-components';
 import imageCompression from 'browser-image-compression';
 import Input from '../../../components/common/Input/Input';
 import Button from '../../../components/common/Button/ButtonContainer';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
-import Theme, { darkColors } from '../../../styles/Theme';
 import { postAccountnameDuplicate, postUserSignup, postUploadProfile } from '../../../api/auth';
 import BasicProfileImg from '../../../assets/images/basic-profile-l.svg'
 import BasicDarkProfileImg from '../../../assets/images/basic-profile-l-dark.svg'
@@ -147,7 +145,6 @@ const handleProfileSignup = async (e) => {
 }
 
   return (
-    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <Container>
     <Title>프로필 설정</Title>
     <SubTitle>나중에 언제든지 변경할 수 있습니다.</SubTitle>
@@ -200,7 +197,6 @@ const handleProfileSignup = async (e) => {
         handleClick={handleProfileSignup}/>
           </Form>
         </Container>
-      </ThemeProvider>
     )
   }
 

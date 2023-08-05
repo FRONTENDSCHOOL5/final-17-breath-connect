@@ -1,10 +1,8 @@
 import React from 'react';
 import { useRecoilValue } from "recoil";
-import { ThemeProvider } from 'styled-components';
 import Header from '../../../components/Header/TopChatNavHeader';
 import Footer from '../../../components/common/Comment/ChatComment';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
-import Theme, { darkColors } from '../../../styles/Theme';
 import ProfileImg from '../../../assets/images/basic-profile-s.svg';
 import ProfileDarkImg from '../../../assets/images/basic-profile-s-dark.svg';
 import ChatImg from '../../../assets/images/chat-img.png';
@@ -24,7 +22,6 @@ import {
 const ChatRoom = ({theme}) => {
   const isDarkMode = useRecoilValue(isDarkModeState);
   return (
-    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <Container>
       <Header />
       <Main>
@@ -56,7 +53,6 @@ const ChatRoom = ({theme}) => {
       </Main>
       <Footer />
     </Container>
-    </ThemeProvider>
   );
 };
 export default ChatRoom;

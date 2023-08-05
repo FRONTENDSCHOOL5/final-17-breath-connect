@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
-import { ThemeProvider } from 'styled-components';
 import Input from '../../../components/common/Input/Input';
 import Header from '../../../components/Header/TopUploadHeader';
 import {
@@ -12,7 +11,6 @@ import {
   tokenAtom,
 } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
-import Theme, { darkColors } from '../../../styles/Theme';
 import { getMyInfo, editProfile } from '../../../api/profile';
 import { postAccountnameDuplicate, postUploadProfile } from '../../../api/auth';
 import {
@@ -152,7 +150,6 @@ const ProfileEditPage = ({theme}) => {
 
 
   return (
-    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <>
       <Header
         text="저장"
@@ -205,7 +202,6 @@ const ProfileEditPage = ({theme}) => {
         </Form>
       </Container>
     </>
-    </ThemeProvider>
   );
 };
 

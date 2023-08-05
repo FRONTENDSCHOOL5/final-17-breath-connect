@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { ThemeProvider } from 'styled-components';
 import JoinButton from '../../components/common/Button/ButtonContainer';
 import Map from '../../components/Map/FeedMap';
 import { iconColorSelector, isDarkModeState } from '../../atoms/StylesAtom';
 import { tokenAtom } from '../../atoms/UserAtom';
-import Theme, { darkColors } from '../../styles/Theme';
 import { postLike, deleteLike } from '../../api/post';
 import basicImg from '../../assets/images/basic-profile-m.svg';
 import basicDarkImg from '../../assets/images/basic-profile-m-dark.svg';
@@ -142,9 +140,6 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
   }
 
   return (
-    <ThemeProvider
-      theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
-    >
       <Container>
         <Title>게시글 페이지</Title>
         <Post>
@@ -243,7 +238,6 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
           <></>
         )}
       </Container>
-    </ThemeProvider>
   );
 };
 export default PostPage;

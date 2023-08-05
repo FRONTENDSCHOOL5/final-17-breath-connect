@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 import Header from '../../components/Header/TopSearchNavHeader';
 import TabMenu from '../../components/Footer/TabMenu';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import { tokenAtom } from '../../atoms/UserAtom';
-import Theme, { darkColors } from '../../styles/Theme';
 import { getSearchResult } from '../../api/search'
 import profileImg from '../../assets/images/basic-profile-m.svg';
 import profileDarkImg from '../../assets/images/basic-profile-m-dark.svg';
 import {
+  Container,
   Main,
   Text,
   Button,
@@ -87,8 +86,7 @@ function debounce(func, delay) {
   const isDarkMode = useRecoilValue(isDarkModeState);
 
   return (
-    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
-    <>
+    <Container>
       <Header value={search} setValue={setSearch} />
       <Main>
         {data.length === 0 ? (
@@ -114,8 +112,7 @@ function debounce(func, delay) {
         )}
       </Main>
       <TabMenu />
-    </>
-    </ThemeProvider>
+    </Container>
   );
 };
 

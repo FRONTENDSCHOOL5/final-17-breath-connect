@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from "recoil";
-import { ThemeProvider } from 'styled-components';
 import Input from '../../../components/common/Input/Input';
 import Button from '../../../components/common/Button/ButtonContainer';
-import { isDarkModeState } from '../../../atoms/StylesAtom';
-import Theme, { darkColors } from '../../../styles/Theme';
 import { postEmailDuplicate } from '../../../api/auth';
 import { Container, Title, Form, Section, ErrorMessage } from './EmailJoinPageStyle';
 
 const SignupPage = ({theme}) => {
   const navigate = useNavigate();
-  const isDarkMode = useRecoilValue(isDarkModeState);
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [emailErrorMsg, setEmailErrorMsg] = useState('');
@@ -97,7 +92,6 @@ const SignupPage = ({theme}) => {
   };
 
   return (
-    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <Container>
       <Title>회원가입</Title>
       <Form onSubmit={handleSignup}>
@@ -138,7 +132,6 @@ const SignupPage = ({theme}) => {
         />
       </Form>
     </Container>
-    </ThemeProvider>
   );
 };
 

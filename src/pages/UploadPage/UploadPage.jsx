@@ -8,14 +8,11 @@ import 'rc-time-picker/assets/index.css';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { ko } from 'date-fns/esm/locale';
-import { ThemeProvider } from 'styled-components';
 import MapDrawingManager from '../../components/Map/MapDrawingManager';
 import Map from '../../components/Map/FeedMap';
 import Header from '../../components/Header/TopUploadHeader';
 import Footer from '../../components/Footer/TabMenu';
 import { tokenAtom } from '../../atoms/UserAtom';
-import { isDarkModeState } from '../../atoms/StylesAtom';
-import Theme, { darkColors } from '../../styles/Theme';
 import { postContentUpload, putEditPost } from '../../api/post';
 import {
   Container,
@@ -38,7 +35,6 @@ import {
 
 const UploadPage = ({ editData, theme }) => {
   const navigate = useNavigate();
-  const isDarkMode = useRecoilValue(isDarkModeState);
   const userToken = useRecoilValue(tokenAtom);
   const [startDate, setStartDate] = useState(new Date());
   const [time, setTime] = useState(moment());
@@ -152,9 +148,6 @@ const UploadPage = ({ editData, theme }) => {
   };
 
   return (
-    <ThemeProvider
-      theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
-    >
       <Container>
         <Header
           text={map ? '업로드' : '완료'}
@@ -229,7 +222,6 @@ const UploadPage = ({ editData, theme }) => {
         )}
         <Footer />
       </Container>
-    </ThemeProvider>
   );
 };
 

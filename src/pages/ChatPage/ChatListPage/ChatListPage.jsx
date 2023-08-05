@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from "recoil";
-import { ThemeProvider } from 'styled-components';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import Header from '../../../components/Header/TopBasicNavHeader';
 import Footer from '../../../components/Footer/TabMenu';
-import Theme, { darkColors } from '../../../styles/Theme';
 import profileImage from '../../../assets/images/basic-profile-s.svg';
 import profileDarkImage from '../../../assets/images/basic-profile-s-dark.svg';
 import {
@@ -56,7 +54,6 @@ const ChatPage = ({theme}) => {
   ];
 
   return (
-    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <Container>
       <Header />
       <Main>
@@ -80,7 +77,6 @@ const ChatPage = ({theme}) => {
       </Main>
       <Footer />
     </Container>
-    </ThemeProvider>
   );
 };
 

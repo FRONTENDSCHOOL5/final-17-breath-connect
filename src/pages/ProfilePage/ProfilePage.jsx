@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useRecoilCallback, useSetRecoilState } from 'recoil';
 import { isEqual } from 'lodash';
-import { ThemeProvider } from 'styled-components';
 import Loading from '../../components/common/Loading/Loading';
 import Modal from '../../components/common/Modal/PostModal';
 import IconPostModal from '../../components/common/Modal/IconPostModal';
@@ -27,7 +26,6 @@ import {
   usernameAtom,
   introAtom,
 } from '../../atoms/UserAtom';
-import Theme, { darkColors } from '../../styles/Theme';
 import UserInfo from './UserInfo';
 import { Container, Section } from './ProfilePageStyle'
 
@@ -38,7 +36,6 @@ const ProfilePage = ({ theme }) => {
   const [profile, setProfile] = useState();
   const [accountName, setAccountName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isDarkMode = useRecoilValue(isDarkModeState);
   const userToken = useRecoilValue(tokenAtom);
   const account = useRecoilValue(accountAtom);
   const setLoginState = useSetRecoilState(loginAtom);
@@ -151,9 +148,6 @@ const ProfilePage = ({ theme }) => {
     return <Loading />;
   } else {
     return (
-      <ThemeProvider
-        theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
-      >
         <Container>
           <Header onButtonClick={onShowHeaderModal} />
           {profile && (
@@ -185,7 +179,6 @@ const ProfilePage = ({ theme }) => {
           )}
           <Footer />
         </Container>
-      </ThemeProvider>
     );
   }
 };

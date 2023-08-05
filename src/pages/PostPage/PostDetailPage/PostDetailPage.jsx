@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { ThemeProvider } from 'styled-components';
 import Modal from '../../../components/common/Modal/PostModal';
 import IconPostModal from '../../../components/common/Modal/IconPostModal';
 import {
@@ -16,7 +15,6 @@ import Comment from '../../FeedPage/FeedComment';
 import Post from '../PostPage';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import { accountAtom, tokenAtom } from '../../../atoms/UserAtom';
-import Theme, { darkColors } from '../../../styles/Theme';
 import { getComment, postComment } from '../../../api/comment';
 import BasicProfileImg from '../../../assets/images/basic-profile-xs.svg';
 import BasicDarkProfileImg from '../../../assets/images/basic-profile-xs-dark.svg';
@@ -144,9 +142,6 @@ const PostPageDetail = ({ theme }) => {
   };
 
   return (
-    <ThemeProvider
-      theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
-    >
       <Container>
         <Header />
         <Main>
@@ -200,7 +195,6 @@ const PostPageDetail = ({ theme }) => {
           </Modal>
         )}
       </Container>
-    </ThemeProvider>
   );
 };
 
