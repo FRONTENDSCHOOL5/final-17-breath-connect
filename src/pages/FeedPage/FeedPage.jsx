@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { ThemeProvider } from 'styled-components';
 import Modal from '../../components/common/Modal/PostModal';
 import IconPostModal from '../../components/common/Modal/IconPostModal';
 import {
@@ -14,7 +13,6 @@ import Footer from '../../components/Footer/TabMenu';
 import PostPage from '../PostPage/PostPage';
 import FeedNoUser from './FeedNoUser';
 import { isDarkModeState } from '../../atoms/StylesAtom';
-import Theme, { darkColors } from '../../styles/Theme';
 import { getFollowFeed } from '../../api/post';
 import {Container, Section} from './FeedPageStyle'
 
@@ -74,9 +72,6 @@ const FeedPage = ({ theme }) => {
     return <Loading />;
   } else {
     return (
-      <ThemeProvider
-        theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}
-      >
         <Container>
           <Header />
           <Section>
@@ -106,7 +101,6 @@ const FeedPage = ({ theme }) => {
           </Section>
           <Footer />
         </Container>
-      </ThemeProvider>
     );
   }
 };

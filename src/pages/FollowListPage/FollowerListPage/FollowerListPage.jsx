@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import {ThemeProvider} from 'styled-components'
 import Follower from '../../../components/common/User/Follow/Follow';
 import Header from '../../../components/Header/TopListNavHeader';
 import Footer from '../../../components/Footer/TabMenu';
 import { tokenAtom } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import { getFollowerList } from '../../../api/follow';
-import Theme, { darkColors } from '../../../styles/Theme';
 import Logo from '../../../assets/images/home-logo.svg';
 import DarkLogo from '../../../assets/images/home-logo-dark.svg';
 import {
@@ -36,7 +34,6 @@ const FollowerListPage = ({theme}) => {
   }, [account, token]);
 
   return (
-    <ThemeProvider theme={theme || (isDarkMode ? { colors: darkColors } : Theme)}>
     <Container>
       <Header />
       <Main>
@@ -66,7 +63,6 @@ const FollowerListPage = ({theme}) => {
       </Main>
       <Footer />
     </Container>
-    </ThemeProvider>
   );
 };
 
