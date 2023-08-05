@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import JoinButton from '../../components/common/Button/ButtonContainer';
 import Map from '../../components/Map/FeedMap';
-import { iconColorSelector, isDarkModeState } from '../../atoms/StylesAtom';
+import { isDarkModeState } from '../../atoms/StylesAtom';
 import { tokenAtom } from '../../atoms/UserAtom';
 import { postLike, deleteLike } from '../../api/post';
 import basicImg from '../../assets/images/basic-profile-m.svg';
@@ -31,7 +31,6 @@ import {
 } from './PostPageStyle';
 
 const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
-  const iconColor = useRecoilValue(iconColorSelector);
   const isDarkMode = useRecoilValue(isDarkModeState);
   const token = useRecoilValue(tokenAtom);
   const [startPoint, setStartPoint] = useState(''); // startPoint 상태 추가
@@ -219,7 +218,7 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
                         : 'icon-message-circle'
                     }
                     size={12}
-                    color={iconColor}
+                    color={'transparent'}
                   />
                   <Text>{data.commentCount}</Text>
                 </Comment>
