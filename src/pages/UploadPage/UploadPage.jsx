@@ -20,6 +20,7 @@ import {
   Form,
   Title,
   Text,
+  SubText,
   TextArea,
   DateSection,
   TextSection,
@@ -191,6 +192,7 @@ const UploadPage = ({ editData, theme }) => {
               {!pathProcess ? (
                 <MapSection>
                   <Text>나만의 러닝 코스를 그려보세요!</Text>
+                  <SubText>*먼저 참여 상세 글을 입력해주셔야 합니다*</SubText>
                   <Button onClick={handleTestClick}>러닝 코스 그리기</Button>
                 </MapSection>
               ) : (

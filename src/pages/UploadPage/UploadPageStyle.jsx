@@ -40,6 +40,11 @@ export const Text = styled.p`
   font-size: ${({ theme }) => theme.fontSize.medium};
 `
 
+export const SubText = styled.p`
+  margin-bottom: 0.4rem;
+  color: ${({ theme }) => theme.colors.errorText};
+`
+
 export const TextArea = styled.textarea`
   position: relative;
   width: 32.6rem;
