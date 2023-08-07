@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import Follower from '../../../components/common/User/Follow/Follow';
 import Header from '../../../components/Header/TopListNavHeader';
 import Footer from '../../../components/Footer/TabMenu';
+import Loading from '../../../components/common/Loading/Loading';
 import { tokenAtom } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import { getFollowerList } from '../../../api/follow';
@@ -23,18 +24,22 @@ const FollowerListPage = ({theme}) => {
   const account = useParams().id;
   const isDarkMode = useRecoilValue(isDarkModeState);
   const token = useRecoilValue(tokenAtom);
+  const [isLoading, setIsLoading] = useState(true);
   const [followings, setFollowings] = useState([]);
   useEffect(() => {
     const followList = async () => {
       // 팔로워 리스트 목록
       const data = await getFollowerList(account);
       setFollowings(data);
+      setIsLoading(false);
     };
     followList();
   }, [account, token]);
 
   return (
-    <Container>
+    <>
+    {isLoading ? <Loading /> : (
+      <Container>
       <Header />
       <Main>
         <Title>팔로워목록</Title>
@@ -62,7 +67,8 @@ const FollowerListPage = ({theme}) => {
         </List>
       </Main>
       <Footer />
-    </Container>
+    </Container>)}
+    </>
   );
 };
 
