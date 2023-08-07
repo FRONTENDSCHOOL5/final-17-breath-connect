@@ -32,6 +32,7 @@ import { Container, Section } from './ProfilePageStyle'
 const ProfilePage = ({ theme }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState();
   const [accountName, setAccountName] = useState('');
@@ -64,6 +65,7 @@ const ProfilePage = ({ theme }) => {
     try {
       await getProfile();
       await getPost();
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
@@ -144,43 +146,42 @@ const ProfilePage = ({ theme }) => {
     }
   };
 
-  if (!posts) {
-    return <Loading />;
-  } else {
-    return (
-        <Container>
-          <Header onButtonClick={onShowHeaderModal} />
-          {profile && (
-            <UserInfo
-              data={profile}
-              myProfile={
-                JSON.parse(localStorage.getItem('recoil-persist'))[
-                  'accountAtom'
-                ] === accountName
-              }
-            />
-          )}
-          <Section>
+   return (
+  <Container>
+    <Header onButtonClick={onShowHeaderModal} />
+    {isLoading? <Loading /> : (
+      <>
+      {profile && (
+          <UserInfo
+            data={profile}
+            myProfile={
+              JSON.parse(localStorage.getItem('recoil-persist'))[
+                'accountAtom'
+              ] === accountName
+            }
+          />
+        )}
+        <Section>
           {posts.length > 0 &&
             posts.map((post, index) => (
               <PostPage key={index} data={post} showModal={onShowModal} />
             ))}
-          </Section>
-          {isModalOpen && (
-            <Modal setIsModalOpen={setIsModalOpen}>
-              {modalText.map((text, index) => (
-                <IconPostModal
-                  key={index}
-                  text={text}
-                  onButtonClick={modalFunc[index]}
-                />
-              ))}
-            </Modal>
-          )}
-          <Footer />
-        </Container>
-    );
-  }
-};
+        </Section>
+        {isModalOpen && (
+          <Modal setIsModalOpen={setIsModalOpen}>
+            {modalText.map((text, index) => (
+              <IconPostModal
+                key={index}
+                text={text}
+                onButtonClick={modalFunc[index]}
+              />
+            ))}
+          </Modal>
+        )}
+        </>
+        )} 
+        <Footer />
+  </Container>
+   )}
 
 export default ProfilePage;
