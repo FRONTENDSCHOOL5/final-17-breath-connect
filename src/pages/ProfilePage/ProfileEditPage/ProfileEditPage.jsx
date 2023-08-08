@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 import Input from '../../../components/common/Input/Input';
 import Header from '../../../components/Header/TopUploadHeader';
+import Loading from '../../../components/common/Loading/Loading';
 import {
   accountAtom,
   profileImgAtom,
@@ -31,6 +32,7 @@ const ProfileEditPage = ({theme}) => {
   const fileInputRef = useRef();
   const formData = new FormData();
 
+  const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState('');
   const [accountname, setAccountname] = useState('');
   const [intro, setIntro] = useState('');
@@ -50,6 +52,7 @@ const ProfileEditPage = ({theme}) => {
   useEffect(() => {
     const fetchMyInfo = async () => {
       const response = await getMyInfo(userToken);
+      setIsLoading(false);
       setUsername(response.user.username);
       setAccountname(response.user.accountname);
       setIntro(response.user.intro);
@@ -151,7 +154,9 @@ const ProfileEditPage = ({theme}) => {
 
   return (
     <>
-      <Header
+    {isLoading ? <Loading /> : (
+      <>
+    <Header
         text="저장"
         isDisabled={!handleActivateButton()}
         handleClick={handleProfileEdit}
@@ -201,6 +206,9 @@ const ProfileEditPage = ({theme}) => {
           />
         </Form>
       </Container>
+      </>
+      )
+    }
     </>
   );
 };
