@@ -30,7 +30,7 @@ import {
   DetailButton,
 } from './PostPageStyle';
 
-const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
+const PostPage = ({ data, showModal }) => {
   const isDarkMode = useRecoilValue(isDarkModeState);
   const token = useRecoilValue(tokenAtom);
   const [startPoint, setStartPoint] = useState(''); // startPoint 상태 추가
@@ -139,105 +139,107 @@ const PostPage = ({ data, showModal, setPickedPost, theme, accountName }) => {
   }
 
   return (
-      <Container>
-        <Title>게시글 페이지</Title>
-        <Post>
-          <Image
-            src={
-              numberRegex.test(data.author.image)
-                ? data.author.image
-                : isDarkMode
-                ? basicDarkImg
-                : basicImg
-            }
-          />
-          <Contents>
-            {/* 프로필로 이동 */}
-            <ProfileButton onClick={handleProfileClick} className="go-to-profile">
-              <UserName>{data.author.username}</UserName>
-              <UserAccountName>@ {data.author.accountname}</UserAccountName>
-            </ProfileButton>
-            {/* 신고, 공유 모달 */}
-            <ModalButton
-              onClick={() => {
-                showModal(data);
-              }}
-              className="post-modal"
-            >
-              <GlobalSprite
+    <Container>
+      <Title>게시글 페이지</Title>
+      <Post>
+        <Image
+          src={
+            numberRegex.test(data.author.image)
+              ? data.author.image
+              : isDarkMode
+              ? basicDarkImg
+              : basicImg
+          }
+          alt="프로필 이미지"
+        />
+        <Contents>
+          {/* 프로필로 이동 */}
+          <ProfileButton onClick={handleProfileClick} className="go-to-profile">
+            <UserName>{data.author.username}</UserName>
+            <UserAccountName>@ {data.author.accountname}</UserAccountName>
+          </ProfileButton>
+          {/* 신고, 공유 모달 */}
+          <ModalButton
+            onClick={() => {
+              showModal(data);
+            }}
+            className="post-modal"
+            aria-label="모달 버튼"
+          >
+            <GlobalSprite
               id={'s-icon-more-vertical'}
               color={'white'}
               size={18}
             />
-            </ModalButton>
-            {/* 피드로 이동 */}
-            <DetailButton
-              onClick={handleFeedClick}
-              className="go-to-post-detail"
-              detail={detail}
-            >
-              <ScheduleSection>
-                <GlobalSprite
-                  id={isDarkMode ? 'icon-calendar-dark' : 'icon-calendar'}
-                  size={13}
-                />
-                <Text>
-                  {data &&
-                    data.content.substring(3, 4) +
-                      '요일, ' +
-                      data.content.substring(5, 10) +
-                      ', ' +
-                      (isJSON(data.content) ? JSON.parse(data.content)[1] : '')}
-                </Text>
-              </ScheduleSection>
-              <LocationSection>
-                <GlobalSprite
-                  id={isDarkMode ? 'icon-location-dark' : 'icon-location'}
-                  size={13}
-                />
-                <Text>
-                  {startPoint}~{endPoint}
-                </Text>
-              </LocationSection>
-              <MapSection>
-                <Map data={data.image} detail={detail} />
-              </MapSection>
-              <ContentsSection>
+          </ModalButton>
+          {/* 피드로 이동 */}
+          <DetailButton
+            onClick={handleFeedClick}
+            className="go-to-post-detail"
+            detail={detail}
+          >
+            <ScheduleSection>
+              <GlobalSprite
+                id={isDarkMode ? 'icon-calendar-dark' : 'icon-calendar'}
+                size={13}
+              />
+              <Text>
                 {data &&
-                  (isJSON(data.content)
-                    ? JSON.parse(data.content)[2].toString()
-                    : '')}
-              </ContentsSection>
-              <ButtonContainer>
-                <Participation>{postLikeCount}명 참여</Participation>
-                <Comment>
-                  <GlobalSprite
-                    id={
-                      isDarkMode
-                        ? 'icon-message-circle-dark'
-                        : 'icon-message-circle'
-                    }
-                    size={12}
-                    color={'transparent'}
-                  />
-                  <Text>{data.commentCount}</Text>
-                </Comment>
-              </ButtonContainer>
-            </DetailButton>
-            </Contents>
-        </Post>
-        {detail ? (
-          <JoinButton
-            type={'XL'}
-            text={postLikeState ? '참가하기 취소' : '참가하기'}
-            isClicked={postLikeState}
-            handleClick={handleToggleLike}
-            isDarkMode={isDarkMode}
-          />
-        ) : (
-          <></>
-        )}
-      </Container>
+                  data.content.substring(3, 4) +
+                    '요일, ' +
+                    data.content.substring(5, 10) +
+                    ', ' +
+                    (isJSON(data.content) ? JSON.parse(data.content)[1] : '')}
+              </Text>
+            </ScheduleSection>
+            <LocationSection>
+              <GlobalSprite
+                id={isDarkMode ? 'icon-location-dark' : 'icon-location'}
+                size={13}
+              />
+              <Text>
+                {startPoint}~{endPoint}
+              </Text>
+            </LocationSection>
+            <MapSection>
+              <Map data={data.image} detail={detail} />
+            </MapSection>
+            <ContentsSection>
+              {data &&
+                (isJSON(data.content)
+                  ? JSON.parse(data.content)[2].toString()
+                  : '')}
+            </ContentsSection>
+            <ButtonContainer>
+              <Participation>{postLikeCount}명 참여</Participation>
+              <Comment>
+                <GlobalSprite
+                  id={
+                    isDarkMode
+                      ? 'icon-message-circle-dark'
+                      : 'icon-message-circle'
+                  }
+                  size={12}
+                  color={'transparent'}
+                />
+                <Text>{data.commentCount}</Text>
+              </Comment>
+            </ButtonContainer>
+          </DetailButton>
+        </Contents>
+      </Post>
+      {detail ? (
+        <JoinButton
+          type={'XL'}
+          text={postLikeState ? '참가하기 취소' : '참가하기'}
+          isClicked={postLikeState}
+          handleClick={handleToggleLike}
+          isDarkMode={isDarkMode}
+        />
+      ) : (
+        <></>
+      )}
+    </Container>
   );
 };
 export default PostPage;

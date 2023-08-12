@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useRecoilCallback, useSetRecoilState } from 'recoil';
 import { isEqual } from 'lodash';
@@ -18,7 +18,6 @@ import PostPage from '../PostPage/PostPage';
 import { getUserProfile } from '../../api/profile';
 import { getMyPost } from '../../api/post';
 import { loginAtom } from '../../atoms/LoginAtom';
-import { isDarkModeState } from '../../atoms/StylesAtom';
 import {
   tokenAtom,
   accountAtom,
@@ -26,8 +25,9 @@ import {
   usernameAtom,
   introAtom,
 } from '../../atoms/UserAtom';
-import UserInfo from './UserInfo';
-import { Container, Section } from './ProfilePageStyle'
+
+import { Container, Section } from './ProfilePageStyle';
+const UserInfo = lazy(() => import('./UserInfo'));
 
 const ProfilePage = ({ theme }) => {
   const location = useLocation();
@@ -88,7 +88,6 @@ const ProfilePage = ({ theme }) => {
   const getPost = async () => {
     try {
       const postData = await getMyPost(userToken, accountName, 10, 0);
-      console.log(postData);
       setPosts(postData.post);
     } catch (error) {
       console.error('Error fetching user posts:', error);
@@ -146,20 +145,22 @@ const ProfilePage = ({ theme }) => {
     }
   };
 
-   return (
-  <Container>
-    <Header onButtonClick={onShowHeaderModal} />
-    {isLoading? <Loading /> : (
+  return (
+    <Container>
+      <Header onButtonClick={onShowHeaderModal} />
+
       <>
-      {profile && (
-          <UserInfo
-            data={profile}
-            myProfile={
-              JSON.parse(localStorage.getItem('recoil-persist'))[
-                'accountAtom'
-              ] === accountName
-            }
-          />
+        {profile && (
+          <Suspense fallback={<Loading />}>
+            <UserInfo
+              data={profile}
+              myProfile={
+                JSON.parse(localStorage.getItem('recoil-persist'))[
+                  'accountAtom'
+                ] === accountName
+              }
+            />
+          </Suspense>
         )}
         <Section>
           {posts.length > 0 &&
@@ -178,10 +179,10 @@ const ProfilePage = ({ theme }) => {
             ))}
           </Modal>
         )}
-        </>
-        )} 
-        <Footer />
-  </Container>
-   )}
+      </>
+      <Footer />
+    </Container>
+  );
+};
 
 export default ProfilePage;

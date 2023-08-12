@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import GlobalSprite from '../../assets/sprite/GlobalSprite';
-import { Button } from './BackButtonStyle'
+import { Button } from './BackButtonStyle';
 
 const BackButton = () => {
   const navigate = useNavigate();
@@ -13,8 +13,11 @@ const BackButton = () => {
   };
 
   return (
-    <Button onClick={goBack}>
-      <GlobalSprite id={isDarkMode ? 'icon-arrow-left-dark' : 'icon-arrow-left'} color={'transparent'}/>
+    <Button onClick={goBack} aria-label="뒤로 가기">
+      <GlobalSprite
+        id={isDarkMode ? 'icon-arrow-left-dark' : 'icon-arrow-left'}
+        color={'transparent'}
+      />
     </Button>
   );
 };

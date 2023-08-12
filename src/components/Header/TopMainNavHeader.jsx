@@ -12,9 +12,12 @@ const TopMainNavHeader = () => {
   return (
     <Container>
       <Title>들숨날숨 피드</Title>
-      <SearchButton>
-        <Link to="/Search">
-          <GlobalSprite id={isDarkMode ? 'icon-search-dark' : 'icon-search'} color={'transparent'}/>
+      <SearchButton aria-label="유저 찾기">
+        <Link to="/Search" aria-label="유저 찾기 페이지로 이동">
+          <GlobalSprite
+            id={isDarkMode ? 'icon-search-dark' : 'icon-search'}
+            color={'transparent'}
+          />
         </Link>
       </SearchButton>
     </Container>

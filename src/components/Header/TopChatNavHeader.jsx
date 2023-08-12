@@ -1,6 +1,6 @@
 import React from 'react';
-import { useRecoilValue } from "recoil";
-import { isDarkModeState } from '../../atoms/StylesAtom'
+import { useRecoilValue } from 'recoil';
+import { isDarkModeState } from '../../atoms/StylesAtom';
 import GlobalSprite from '../../assets/sprite/GlobalSprite';
 import Container from './HeaderContainer';
 import BackButton from './BackButton';
@@ -15,8 +15,10 @@ const TopChatNavHeader = ({ text }) => {
         <BackButton />
         <Text>{text}</Text>
       </Section>
-      <ModalButton>
-        <GlobalSprite id={isDarkMode ? 's-icon-more-vertical-dark' : 's-icon-more-vertical'} />
+      <ModalButton aria-label="모달 버튼">
+        <GlobalSprite
+          id={isDarkMode ? 's-icon-more-vertical-dark' : 's-icon-more-vertical'}
+        />
       </ModalButton>
     </Container>
   );
