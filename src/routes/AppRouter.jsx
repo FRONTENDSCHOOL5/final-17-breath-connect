@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useRecoilValue } from 'recoil';
 import { isDarkModeState } from '../atoms/StylesAtom';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { darkColors } from '../styles/Theme';
 
 import SplashPage from '../pages/SplashPage/SplashPage';
@@ -24,6 +24,15 @@ import ChatRoomPage from '../pages/ChatPage/ChatRoomPage/ChatRoomPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import UploadEditPage from '../pages/UploadPage/UploadEditPage/UploadEditPage';
 
+const isAuthenticated = () => {
+  const token = localStorage.getItem('token');
+  return !!token;
+};
+
+const PrivateRoute = ({ element: Element }) => {
+  return isAuthenticated() ? <Element /> : <Navigate to="/login" />;
+};
+
 const AppRouter = () => {
   const isDarkMode = useRecoilValue(isDarkModeState);
   const selectedTheme = isDarkMode ? { colors: darkColors } : {};
@@ -37,7 +46,7 @@ const AppRouter = () => {
           path="/signup/profile"
           element={<ProfileSettingPage theme={selectedTheme} />}
         />
-        <Route path="/home" element={<FeedPage theme={selectedTheme} />} />
+        <Route path="/home" element={<PrivateRoute element={<FeedPage />} />} />
         {/* Post */}
         <Route path="/post/:id/edit" element={<UploadEditPage />} />
         <Route path="/post" element={<PostPage theme={selectedTheme} />} />
