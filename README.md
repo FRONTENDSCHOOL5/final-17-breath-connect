@@ -6,7 +6,7 @@
 <h3>함께 달리는 즐거움을 나눌 수 있는 공간, 들숨날숨 🏃‍♀️🏃‍♂️</h3><br>
 
 
- <b>[들숨날숨 바로가기](https://teal-jalebi-251bb4.netlify.app/home/)</b> <br>
+ <b>[들숨날숨 바로가기](https://teal-jalebi-251bb4.netlify.app/)</b> <br>
   Test ID : `bc30@naver.com` <br>
   Test PW : `bc12345!`
 <br> 
