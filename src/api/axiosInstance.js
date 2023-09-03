@@ -30,12 +30,13 @@ export const authInstance = axios.create({
 authInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
-    if (!config.headers.Authorization) {
+    if (config.headers.Authorization.includes('null')) {
       config.headers = {
         ...config.headers,
         Authorization: `Bearer ${token}`,
       };
     }
+    console.log("intercepter2", config);
     return config;
   },
   (error) => {
