@@ -24,13 +24,18 @@ import ChatRoomPage from '../pages/ChatPage/ChatRoomPage/ChatRoomPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import UploadEditPage from '../pages/UploadPage/UploadEditPage/UploadEditPage';
 
-const isAuthenticated = () => {
-  const token = localStorage.getItem('token');
-  return !!token;
-};
-
 const PrivateRoute = ({ element: Element }) => {
-  return isAuthenticated() ? <Element /> : <Navigate to="/login" />;
+  const isAuthenticated = () => {
+    // 로그인 여부를 확인할 수 있는 조건을 작성합니다.
+    const token = localStorage.getItem('token');
+    return !!token;
+  };
+
+  if (isAuthenticated()) {
+    return Element;
+  } else {
+    return <Navigate to="/login" />;
+  }
 };
 
 const AppRouter = () => {
