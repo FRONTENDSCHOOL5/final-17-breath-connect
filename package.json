@@ -10,6 +10,7 @@
     "axios": "^1.4.0",
     "browser-image-compression": "^2.0.2",
     "date-fns": "^2.30.0",
+    "dotenv": "^16.3.1",
     "moment": "^2.29.4",
     "rc-time-picker": "^3.7.3",
     "react": "^18.2.0",
