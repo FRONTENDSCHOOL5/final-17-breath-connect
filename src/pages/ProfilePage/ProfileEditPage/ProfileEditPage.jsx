@@ -1,16 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Input from '../../../components/common/Input/Input';
 import Header from '../../../components/Header/TopUploadHeader';
 import Loading from '../../../components/common/Loading/Loading';
-import {
-  accountAtom,
-  profileImgAtom,
-  usernameAtom,
-  introAtom,
-  tokenAtom,
-} from '../../../atoms/UserAtom';
+import { userInfoAtom } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import { getMyInfo, editProfile } from '../../../api/profile';
 import { postAccountnameDuplicate, postUploadProfile } from '../../../api/auth';
@@ -23,9 +17,9 @@ import {
   ImageInput,
   ErrorMessage } from './ProfileEditPageStyle';
 
-const ProfileEditPage = ({theme}) => {
+const ProfileEditPage = () => {
   const URL = 'https://api.mandarin.weniv.co.kr';
-  const userToken = useRecoilValue(tokenAtom);
+  const token = localStorage.getItem('token');
   const isDarkMode = useRecoilValue(isDarkModeState);
 
   const navigate = useNavigate();
@@ -33,6 +27,7 @@ const ProfileEditPage = ({theme}) => {
   const formData = new FormData();
 
   const [isLoading, setIsLoading] = useState(true);
+
   const [username, setUsername] = useState('');
   const [accountname, setAccountname] = useState('');
   const [intro, setIntro] = useState('');
@@ -41,22 +36,21 @@ const ProfileEditPage = ({theme}) => {
   const [accountnameErrorMsg, setAccountnameErrorMsg] = useState('');
   const [usernameValid, setUsernameValid] = useState(false);
   const [accountnameValid, setAccountnameValid] = useState(false);
-  const [userIntro, setUserIntro] = useRecoilState(introAtom);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
-  const setAtomAccount = useSetRecoilState(accountAtom);
-  const setAtomIntroAtom = useSetRecoilState(introAtom);
-  const setAtomProfileImgAtom = useSetRecoilState(profileImgAtom);
-  const setAtomUsernameAtom = useSetRecoilState(usernameAtom);
 
   /* 기존 프로필 정보 불러오기 */
   useEffect(() => {
     const fetchMyInfo = async () => {
-      const response = await getMyInfo(userToken);
+      const response = await getMyInfo(token);
       setIsLoading(false);
-      setUsername(response.user.username);
-      setAccountname(response.user.accountname);
-      setIntro(response.user.intro);
-      setImage(response.user.image);
+      setUserInfo({
+        ...userInfo,
+        account: response.user.accountname,
+        profileImg: response.user.image,
+        username: response.user.username,
+        intro: response.user.intro,
+      })
     };
     fetchMyInfo();
   }, []);
@@ -140,12 +134,13 @@ const ProfileEditPage = ({theme}) => {
         intro,
         image,
       });
-      setUserIntro(intro);
-      setAtomAccount(accountname);
-      setAtomIntroAtom(intro);
-      setAtomProfileImgAtom(image);
-      setAtomUsernameAtom(username);
-
+      setUserInfo({
+        ...userInfo,
+        account: accountname,
+        profileImg: image,
+        username: username,
+        intro: intro,
+      })
       alert('프로필 수정이 완료되었습니다 🌬️');
       navigate(`/profile/${accountname}`);
     }

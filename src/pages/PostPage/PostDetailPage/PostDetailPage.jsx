@@ -14,7 +14,7 @@ import Header from '../../../components/Header/TopListNavHeader';
 import Comment from '../../FeedPage/FeedComment';
 import Post from '../PostPage';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
-import { accountAtom, tokenAtom } from '../../../atoms/UserAtom';
+import { userInfoAtom } from '../../../atoms/UserAtom';
 import { getComment, postComment } from '../../../api/comment';
 import BasicProfileImg from '../../../assets/images/basic-profile-xs.svg';
 import BasicDarkProfileImg from '../../../assets/images/basic-profile-xs-dark.svg';
@@ -29,10 +29,11 @@ import {
   Button,
 } from './PostDetailPageStyle';
 
-const PostPageDetail = ({ theme }) => {
+const PostPageDetail = () => {
   const isDarkMode = useRecoilValue(isDarkModeState);
-  const account = useRecoilValue(accountAtom);
-  const token = useRecoilValue(tokenAtom);
+    const userInfo = useRecoilValue(userInfoAtom);
+  const account = userInfo.account;
+  const token = localStorage.getItem('token');
   const location = useLocation();
   const data = location.state?.data;
   const postId = location.state?.data.id;

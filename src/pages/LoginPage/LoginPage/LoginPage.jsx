@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import Input from '../../../components/common/Input/Input';
 import ButtonContainer from '../../../components/common/Button/ButtonContainer';
 import { loginAtom } from '../../../atoms/LoginAtom';
-import {
-  tokenAtom,
-  accountAtom,
-  profileImgAtom,
-  usernameAtom,
-  introAtom,
-} from '../../../atoms/UserAtom';
+import { userInfoAtom } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import { postUserLogin } from '../../../api/auth';
 import {
@@ -22,20 +16,16 @@ import {
   ErrorMessage,
 } from './LoginPageStyle';
 
-const LoginPage = ({theme}) => {
+const LoginPage = () => {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [userToken, setUserToken] = useRecoilState(tokenAtom);
-  const [userAccount, setUserAccount] = useRecoilState(accountAtom);
-  const [userProfileImg, setUserProfileImg] = useRecoilState(profileImgAtom);
-  const [userName, setUserName] = useRecoilState(usernameAtom);
-  const [userLogin, setUserLogin] = useRecoilState(loginAtom);
-  const [userIntro, setUserIntro] = useRecoilState(introAtom);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const isDarkMode = useRecoilValue(isDarkModeState);
+  const setLogin = useSetRecoilState(loginAtom);
 
   const handleInputEmail = (e) => {
     const userEmail = e.target.value;
@@ -55,24 +45,22 @@ const LoginPage = ({theme}) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const loginData = await postUserLogin(userEmail, userPassword);
-    if (loginData.message === '이메일 또는 비밀번호가 일치하지 않습니다.') {
+    console.log(loginData);
+    if (loginData.status === 422) {
       setErrorMsg('*이메일 또는 비밀번호가 일치하지 않습니다 🥲');
       setHasError(true);
       setIsComplete(false);
     } else {
-      const token = loginData.user.token;
-      const account = loginData.user.accountname;
-      const profileImg = loginData.user.image;
-      const username = loginData.user.username;
-      const intro = loginData.user.intro;
       localStorage.setItem('token', loginData.user.token);
-      setUserToken(token);
-      setUserAccount(account);
-      setUserProfileImg(profileImg);
-      setUserName(username);
-      setUserIntro(intro);
-      setUserLogin(true);
+      setUserInfo({
+        ...userInfo,
+        account: loginData.user.accountname,
+        profileImg: loginData.user.image,
+        username: loginData.user.username,
+        intro: loginData.user.intro,
+      })
       setIsComplete(!isComplete);
+      setLogin(true);
       navigate('/home', {
         state: {
           token: loginData.user.token,
@@ -85,12 +73,6 @@ const LoginPage = ({theme}) => {
   const handleActivateButton = () => {
     return userEmail !== '' && userPassword !== '';
   };
-
-  useEffect(() => {
-    if (userLogin) {
-      navigate('/home');
-    }
-  }, [userLogin]);
 
   return (
     <Container>

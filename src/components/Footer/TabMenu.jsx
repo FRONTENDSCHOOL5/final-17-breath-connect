@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import Button from './BottomBarButton';
-import { accountAtom } from '../../atoms/UserAtom';
+import { userInfoAtom } from '../../atoms/UserAtom';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import { Container } from './TabMenuStyle';
 
@@ -10,7 +10,8 @@ const TabMenu = () => {
   const [selectedButton, setSelectedButton] = useState('icon-home');
   const navigate = useNavigate();
   const location = useLocation();
-  const myaccount = useRecoilValue(accountAtom);
+  const userInfo = useRecoilValue(userInfoAtom);
+  const myaccount = userInfo.account;
   const isDarkMode = useRecoilValue(isDarkModeState);
 
   useEffect(() => {

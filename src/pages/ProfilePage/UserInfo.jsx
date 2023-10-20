@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import Button from '../../components/common/Button/ButtonContainer';
 import FollowCount from './FollowCount';
-import { accountAtom } from '../../atoms/UserAtom';
+import { userInfoAtom } from '../../atoms/UserAtom';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import { postFollow, deleteFollow } from '../../api/follow';
 import basicProfile from '../../assets/images/basic-profile-l.svg';
@@ -23,7 +23,8 @@ import {
 
 const UserInfo = ({ data, myProfile }) => {
   const navigate = useNavigate();
-  const account = useRecoilValue(accountAtom);
+  const userInfo = useRecoilValue(userInfoAtom);
+  const account = userInfo.account;
   const isDarkMode = useRecoilValue(isDarkModeState);
   const [profile, setProfile] = useState(data);
   const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[/\w.]*$/;

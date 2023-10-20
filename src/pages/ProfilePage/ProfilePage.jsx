@@ -18,18 +18,13 @@ import PostPage from '../PostPage/PostPage';
 import { getUserProfile } from '../../api/profile';
 import { getMyPost } from '../../api/post';
 import { loginAtom } from '../../atoms/LoginAtom';
-import {
-  tokenAtom,
-  accountAtom,
-  profileImgAtom,
-  usernameAtom,
-  introAtom,
-} from '../../atoms/UserAtom';
+import { userInfoAtom } from '../../atoms/UserAtom';
 
 import { Container, Section } from './ProfilePageStyle';
+
 const UserInfo = lazy(() => import('./UserInfo'));
 
-const ProfilePage = ({ theme }) => {
+const ProfilePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -37,8 +32,9 @@ const ProfilePage = ({ theme }) => {
   const [profile, setProfile] = useState();
   const [accountName, setAccountName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const userToken = useRecoilValue(tokenAtom);
-  const account = useRecoilValue(accountAtom);
+  const userToken = localStorage.getItem('token');
+  const userInfo = useRecoilValue(userInfoAtom);
+  const account = userInfo.account;
   const setLoginState = useSetRecoilState(loginAtom);
   const [isDelete, setIsDelete] = useState(false);
   const [modalText, setModalText] = useState([]);
@@ -95,11 +91,7 @@ const ProfilePage = ({ theme }) => {
   };
 
   const handleResetState = useRecoilCallback(({ reset }) => () => {
-    reset(tokenAtom);
-    reset(accountAtom);
-    reset(profileImgAtom);
-    reset(usernameAtom);
-    reset(introAtom);
+    reset(userInfoAtom);
   });
 
   const onShowModal = (postId) => {
@@ -148,17 +140,13 @@ const ProfilePage = ({ theme }) => {
   return (
     <Container>
       <Header onButtonClick={onShowHeaderModal} />
-
       <>
         {profile && (
           <Suspense fallback={<Loading />}>
             <UserInfo
               data={profile}
-              myProfile={
-                JSON.parse(localStorage.getItem('recoil-persist'))[
-                  'accountAtom'
-                ] === accountName
-              }
+              myProfile={userInfoAtom.account === accountName}
+
             />
           </Suspense>
         )}
