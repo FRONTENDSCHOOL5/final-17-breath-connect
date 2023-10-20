@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/TopSearchNavHeader';
 import TabMenu from '../../components/Footer/TabMenu';
 import { isDarkModeState } from '../../atoms/StylesAtom';
-import { tokenAtom } from '../../atoms/UserAtom';
 import { getSearchResult } from '../../api/search'
 import profileImg from '../../assets/images/basic-profile-m.svg';
 import profileDarkImg from '../../assets/images/basic-profile-m-dark.svg';
@@ -20,9 +19,9 @@ import {
   NickName,
 } from './SearchPageStyle';
 
-const SearchPage = ({theme}) => {
+const SearchPage = () => {
   const navigate = useNavigate();
-  const token = useRecoilValue(tokenAtom);
+  const token = localStorage.getItem('token');
   const url = 'https://api.mandarin.weniv.co.kr';
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');

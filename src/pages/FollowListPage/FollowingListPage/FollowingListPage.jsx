@@ -5,7 +5,6 @@ import Following from '../../../components/common/User/Follow/Follow';
 import Header from '../../../components/Header/TopListNavHeader';
 import Footer from '../../../components/Footer/TabMenu';
 import Loading from '../../../components/common/Loading/Loading';
-import { tokenAtom } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import { getFollowingList } from '../../../api/follow';
 import Logo from '../../../assets/images/home-logo.svg';
@@ -21,12 +20,13 @@ import {
 } from '../FollowingListPage/FollowingListPageStyle';
 
 
-const FollowingListPage = ({theme}) => {
+const FollowingListPage = () => {
   const account = useParams().id;
   const isDarkMode = useRecoilValue(isDarkModeState);
-  const token = useRecoilValue(tokenAtom);
+  const token = localStorage.getItem('token');
   const [isLoading, setIsLoading] = useState(true);
   const [followings, setFollowings] = useState([]);
+
   useEffect(() => {
     const followList = async () => {
       const data = await getFollowingList(account);

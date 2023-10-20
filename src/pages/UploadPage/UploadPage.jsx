@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import TimePicker from 'rc-time-picker';
@@ -12,7 +11,6 @@ import MapDrawingManager from '../../components/Map/MapDrawingManager';
 import Map from '../../components/Map/FeedMap';
 import Header from '../../components/Header/TopUploadHeader';
 import Footer from '../../components/Footer/TabMenu';
-import { tokenAtom } from '../../atoms/UserAtom';
 import { postContentUpload, putEditPost } from '../../api/post';
 import {
   Container,
@@ -34,9 +32,9 @@ import {
   List,
 } from './UploadPageStyle';
 
-const UploadPage = ({ editData, theme }) => {
+const UploadPage = ({ editData }) => {
   const navigate = useNavigate();
-  const userToken = useRecoilValue(tokenAtom);
+  const userToken = localStorage.getItem('token');
   const [startDate, setStartDate] = useState(new Date());
   const [time, setTime] = useState(moment());
   const [text, setText] = useState('');

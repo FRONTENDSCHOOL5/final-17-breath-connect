@@ -4,7 +4,6 @@ import { useRecoilValue } from 'recoil';
 import JoinButton from '../../components/common/Button/ButtonContainer';
 import Map from '../../components/Map/FeedMap';
 import { isDarkModeState } from '../../atoms/StylesAtom';
-import { tokenAtom } from '../../atoms/UserAtom';
 import { postLike, deleteLike } from '../../api/post';
 import basicImg from '../../assets/images/basic-profile-m.svg';
 import basicDarkImg from '../../assets/images/basic-profile-m-dark.svg';
@@ -31,10 +30,11 @@ import {
 } from './PostPageStyle';
 
 const PostPage = ({ data, showModal }) => {
+
   const isDarkMode = useRecoilValue(isDarkModeState);
-  const token = useRecoilValue(tokenAtom);
-  const [startPoint, setStartPoint] = useState(''); // startPoint 상태 추가
-  const [endPoint, setEndPoint] = useState(''); // endPoint 상태 추가
+  const token = localStorage.getItem('token');
+  const [startPoint, setStartPoint] = useState('');
+  const [endPoint, setEndPoint] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
