@@ -1,21 +1,28 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyle';
-import BasicLayout from './styles/BasicLayout';
-import AppRouter from './routes/AppRouter';
+import { RecoilRoot } from 'recoil';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider } from 'styled-components';
 import Theme from './styles/Theme';
+import BasicLayout from './styles/BasicLayout';
 import DarkModeToggle from './components/common/Button/DarkModeButton';
+import AppRouter from './routes/AppRouter';
 
 const App = () => {
+  const queryClient = new QueryClient();
   return (
     <>
+      <GlobalStyle />
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={Theme}>
-        <GlobalStyle />
         <BasicLayout>
           <DarkModeToggle />
           <AppRouter />
         </BasicLayout>
-      </ThemeProvider>
+          </ThemeProvider>
+          </QueryClientProvider>
+        </RecoilRoot>
     </>
   );
 };
