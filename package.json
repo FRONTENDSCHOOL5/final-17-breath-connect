@@ -18,6 +18,7 @@
     "react-dom": "^18.2.0",
     "react-kakao-maps": "^0.0.13",
     "react-kakao-maps-sdk": "^1.1.9",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
     "recoil": "^0.7.7",
