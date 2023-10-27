@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import Theme from '../../../styles/Theme';
 
-export const Button = styled.button`
-  width: ${(props) => props.typeStyle.width};
-  height: ${(props) => props.typeStyle.height};
-  border-radius: ${(props) => props.typeStyle.radius};
-  padding: ${(props) => props.typeStyle.padding};
-  font-size: ${(props) => props.typeStyle.textSize};
+export const ButtonStyle = styled.button`
+  width: ${(props) => props.sizeStyle.width};
+  height: ${(props) => props.sizeStyle.height};
+  border-radius: ${(props) => props.sizeStyle.radius};
+  padding: ${(props) => props.sizeStyle.padding};
+  font-size: ${(props) => props.sizeStyle.textSize};
   border: ${(props) =>
     props.isClicked ? `1px solid ${props.isDarkMode ? Theme.darkColors.mainColor : Theme.colors.mainColor}` : 'none'};
   background-color: ${(props) =>
