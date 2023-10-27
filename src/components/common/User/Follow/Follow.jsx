@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userInfoAtom } from '../../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../../atoms/StylesAtom';
-import Button from '../../Button/ButtonContainer';
+import Button from '../../Button/Button';
 import basicImg from '../../../../assets/images/basic-profile-s.svg';
 import basicDarkImg from '../../../../assets/images/basic-profile-s-dark.svg';
 import {
@@ -44,15 +44,13 @@ const Follow = ({ user }) => {
         </Link>
       </UserContainer>
       {account !== accountname && isFollow === true && (
-        <ButtonContainer>
           <Button
-            type={'S'}
+            size={'S'}
             text={'취소'}
             isClicked={isFollow}
             handleClick={handleClick}
             isDarkMode={isDarkMode}
           />
-        </ButtonContainer>
       )}
       {account !== accountname && isFollow === false && (
         <ButtonContainer>

@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from "recoil";
 import imageCompression from 'browser-image-compression';
 import Input from '../../../components/common/Input/Input';
-import Button from '../../../components/common/Button/ButtonContainer';
+import Button from '../../../components/common/Button/Button';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import { postAccountnameDuplicate, postUserSignup, postUploadProfile } from '../../../api/auth';
 import BasicProfileImg from '../../../assets/images/basic-profile-l.svg'
@@ -22,7 +22,7 @@ import {
 } from './ProfileSettingPageStyle';
 
 
-const ProfileSettingPage = ({theme}) => {
+const ProfileSettingPage = () => {
   const isDarkMode = useRecoilValue(isDarkModeState);
   const URL = 'https://api.mandarin.weniv.co.kr/';
   const navigate = useNavigate();
@@ -38,7 +38,8 @@ const ProfileSettingPage = ({theme}) => {
   const [accountnameErrorMsg, setAccountnameErrorMsg] = useState('');
   const [usernameValid, setUsernameValid] = useState(false);
   const [accountnameValid, setAccountnameValid] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState(false); 
+
   const formData = new FormData();
   const blobToFile = (blob, filename) => {
   const file = new File([blob], filename);
@@ -193,7 +194,7 @@ const handleProfileSignup = async (e) => {
           required
           />
         </TextSection>
-        <Button type={'L'} text={'들숨날숨 시작하기'} isDisabled = {!handleActivateButton()} 
+        <Button type='submit' size={'L'} text={'들숨날숨 시작하기'} isDisabled = {!handleActivateButton()} 
         handleClick={handleProfileSignup}/>
           </Form>
         </Container>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import Button from '../../components/common/Button/ButtonContainer';
+import Button from '../../components/common/Button/Button';
 import FollowCount from './FollowCount';
 import { userInfoAtom } from '../../atoms/UserAtom';
 import { isDarkModeState } from '../../atoms/StylesAtom';
@@ -74,7 +74,7 @@ const UserInfo = ({ data, myProfile }) => {
       <ButtonSection>
         {!myProfile ? (
           <Button
-            type="M"
+            size="M"
             text={profile.isfollow ? '언팔로우' : '팔로우'}
             handleClick={profile.isfollow ? handleUnFollow : handleFollow}
             isClicked={profile.isfollow}
@@ -83,14 +83,14 @@ const UserInfo = ({ data, myProfile }) => {
         ) : (
           <>
             <Button
-              type="M"
+              size="M"
               text="러닝 등록"
               isClicked={true}
               isDarkMode={isDarkMode}
               handleClick={handleBtnClick}
             />
             <Button
-              type="M"
+              size="M"
               text="프로필 수정"
               isClicked={true}
               isDarkMode={isDarkMode}

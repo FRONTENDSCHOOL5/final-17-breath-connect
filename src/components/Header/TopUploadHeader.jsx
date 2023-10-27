@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { isDarkModeState } from '../../atoms/StylesAtom';
-import UploadButton from '../common/Button/ButtonContainer';
+import Button from '../common/Button/Button';
 import Container from './HeaderContainer';
 import BackButton from './BackButton';
 import { Section } from './TopUploadHeaderStyle';
@@ -12,8 +12,8 @@ const TopUploadHeader = ({ text, handleClick, isDisabled }) => {
     <Container>
       <BackButton />
       <Section>
-        <UploadButton
-          type={'MS'}
+        <Button
+          size={'MS'}
           text={text}
           isClicked={false}
           handleClick={handleClick}

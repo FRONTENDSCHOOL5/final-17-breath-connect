@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import JoinButton from '../../components/common/Button/ButtonContainer';
+import Button from '../../components/common/Button/Button';
 import Map from '../../components/Map/FeedMap';
 import { isDarkModeState } from '../../atoms/StylesAtom';
 import { postLike, deleteLike } from '../../api/post';
@@ -229,8 +229,8 @@ const PostPage = ({ data, showModal }) => {
         </Contents>
       </Post>
       {detail ? (
-        <JoinButton
-          type={'XL'}
+        <Button
+          size={'XL'}
           text={postLikeState ? '참가하기 취소' : '참가하기'}
           isClicked={postLikeState}
           handleClick={handleToggleLike}
