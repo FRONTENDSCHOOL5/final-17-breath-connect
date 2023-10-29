@@ -1,117 +1,73 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import Input from '../../../components/common/Input/Input';
-import ButtonContainer from '../../../components/common/Button/ButtonContainer';
+import styled from 'styled-components';
+import { useNavigate, Link } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { postUserLogin } from '../../../api/auth';
 import { loginAtom } from '../../../atoms/LoginAtom';
 import { userInfoAtom } from '../../../atoms/UserAtom';
-import { isDarkModeState } from '../../../atoms/StylesAtom';
-import { postUserLogin } from '../../../api/auth';
-import {
-  Container,
-  Title,
-  Form,
-  Section,
-  SignupLink,
-  ErrorMessage,
-} from './LoginPageStyle';
+import LoginForm from '../../../components/Login/LoginForm';
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-  const [isComplete, setIsComplete] = useState(false);
-  const [hasError, setHasError] = useState(false);
+  const [initData, setInitData] = useState({
+    email: 'breath_connect@test.com',
+    password: 'bc12345',
+  });
+  const [message, setMessage] = useState('');
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
-  const isDarkMode = useRecoilValue(isDarkModeState);
   const setLogin = useSetRecoilState(loginAtom);
 
-  const handleInputEmail = (e) => {
-    const userEmail = e.target.value;
-    setUserEmail(userEmail);
-    setErrorMsg('');
-    setHasError(false);
-  };
+  const navigate = useNavigate();
 
-  const handleInputPassword = (e) => {
-    const userPassword = e.target.value;
-    setUserPassword(userPassword);
-    setErrorMsg('');
-    setHasError(false);
-  };
-
-  /* 로그인 요청을 보내고 결과 반환 */
   const handleLogin = async (e) => {
     e.preventDefault();
-    const loginData = await postUserLogin(userEmail, userPassword);
-    console.log(loginData);
-    if (loginData.status === 422) {
-      setErrorMsg('*이메일 또는 비밀번호가 일치하지 않습니다 🥲');
-      setHasError(true);
-      setIsComplete(false);
-    } else {
-      localStorage.setItem('token', loginData.user.token);
-      setUserInfo({
-        ...userInfo,
-        account: loginData.user.accountname,
-        profileImg: loginData.user.image,
-        username: loginData.user.username,
-        intro: loginData.user.intro,
-      })
-      setIsComplete(!isComplete);
-      setLogin(true);
-      navigate('/home', {
-        state: {
-          token: loginData.user.token,
-        },
-      });
+    try {
+      const res = await postUserLogin(initData);
+      if (res.status === 422) {
+        setMessage(res.message);
+      } else {
+        setUserInfo({
+      ...userInfo,
+      account: res.user.accountname,
+      profileImg: res.user.image,
+      username: res.user.username,
+      intro: res.user.intro,
+    });
+    setLogin(true);
+    localStorage.setItem('token', res.user.token);
+    navigate('/home');
+      }
+    } catch (error)
+    {
+      console.error(error);
     }
-  };
-
-  /* 버튼 활성화 */
-  const handleActivateButton = () => {
-    return userEmail !== '' && userPassword !== '';
   };
 
   return (
     <Container>
       <Title>로그인</Title>
-      <Form onSubmit={handleLogin}>
-        <Section>
-          <Input
-            label="이메일"
-            placeholder="이메일 주소를 입력해주세요"
-            id="email"
-            type="email"
-            name="email"
-            value={userEmail}
-            onChange={handleInputEmail}
-            required
-            hasError={hasError}
-          />
-          <Input
-            label="비밀번호"
-            placeholder="비밀번호를 입력해주세요"
-            id="password"
-            type="password"
-            name="password"
-            value={userPassword}
-            onChange={handleInputPassword}
-            required
-            hasError={hasError}
-          />
-          {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
-        </Section>
-        <ButtonContainer
-          type={'L'}
-          text={'로그인'}
-          isDisabled={!handleActivateButton()}
-        />
-      </Form>
-      <SignupLink to="/signup">이메일로 회원가입</SignupLink>
+      <LoginForm handleLogin={handleLogin} initData={initData} setInitData={setInitData} message={message} />
+      <Signup to="/signup">이메일로 회원가입</Signup>
     </Container>
   );
 };
 
 export default LoginPage;
+
+const Container = styled.main`
+  margin: 0 auto;
+`;
+
+const Title = styled.h1`
+  margin: 2.7rem 0 4.5rem;
+  color: ${({ theme }) => theme.colors.blackText};
+  font-size: ${({ theme }) => theme.fontSize.xxlarge};
+  text-align: center;
+`;
+
+const Signup = styled(Link)`
+  display: block;
+  margin-top: 2.4rem;
+  color: ${({ theme }) => theme.colors.textColor};
+  font-size: ${({ theme }) => theme.fontSize.small};
+  text-align: center;
+`;
