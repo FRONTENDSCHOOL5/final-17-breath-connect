@@ -8,36 +8,29 @@ import { userInfoAtom } from '../../../atoms/UserAtom';
 import LoginForm from '../../../components/Login/LoginForm';
 
 const LoginPage = () => {
-  const [initData, setInitData] = useState({
-    email: 'breath_connect@test.com',
-    password: 'bc12345',
-  });
   const [message, setMessage] = useState('');
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const setLogin = useSetRecoilState(loginAtom);
-
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (formData) => {
     try {
-      const res = await postUserLogin(initData);
+      const res = await postUserLogin(formData);
       if (res.status === 422) {
         setMessage(res.message);
       } else {
         setUserInfo({
-      ...userInfo,
-      account: res.user.accountname,
-      profileImg: res.user.image,
-      username: res.user.username,
-      intro: res.user.intro,
-    });
-    setLogin(true);
-    localStorage.setItem('token', res.user.token);
-    navigate('/home');
+          ...userInfo,
+          account: res.user.accountname,
+          profileImg: res.user.image,
+          username: res.user.username,
+          intro: res.user.intro,
+        });
+        setLogin(true);
+        localStorage.setItem('token', res.user.token);
+        navigate('/home');
       }
-    } catch (error)
-    {
+    } catch (error) {
       console.error(error);
     }
   };
@@ -45,7 +38,7 @@ const LoginPage = () => {
   return (
     <Container>
       <Title>로그인</Title>
-      <LoginForm handleLogin={handleLogin} initData={initData} setInitData={setInitData} message={message} />
+      <LoginForm handleLogin={handleLogin} message={message} />
       <Signup to="/signup">이메일로 회원가입</Signup>
     </Container>
   );
