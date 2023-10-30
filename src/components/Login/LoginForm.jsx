@@ -1,49 +1,59 @@
 import React from 'react';
 import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
+import { useForm, useController } from 'react-hook-form';
 
-const LoginForm = ({ handleLogin, initData, setInitData, message }) => {
+const LoginForm = ({ handleLogin, message }) => {
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+      email: 'breath_connect@test.com',
+      password: 'bc12345',
+    }
+  });
 
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setInitData({
-      ...initData,
-      [name]: value,
-    });
+  const emailController = useController({
+    name: 'email',
+    control,
+    rules: { required: '이메일을 입력해주세요' }
+  });
+
+  const passwordController = useController({
+    name: 'password',
+    control,
+    rules: { required: '비밀번호를 입력해주세요' }
+  });
+
+  const onSubmit = (user) => {
+    handleLogin(user);
   };
 
-  const handleActivate = () => {
-    return initData.email !== '' && initData.password !== '';
-  };
+  const isValid = () => {
+    return emailController.field.value !== '' && passwordController.field.value !== '';
+  }
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Input
         label="이메일"
-        id="email"
         type="email"
-        name="email"
-        value={initData.email}
-        onChange={handleInput}
-        placeholder="이메일 주소를 입력해주세요"
+        placeHolder="이메일 주소를 입력해주세요"
+        errorMsg={errors.email?.message}
         required
+        {...emailController.field}
       />
       <Input
         label="비밀번호"
-        id="password"
         type="password"
-        name="password"
-        value={initData.password}
-        onChange={handleInput}
-        placeholder="비밀번호를 입력해주세요"
-        required
+        placeHolder="비밀번호를 입력해주세요"
         errorMsg={message}
-      />
+        required
+        {...passwordController.field}
+          />
       <Button
-        type='submit'
-        size={'L'}
-        text={'로그인'}
-        isDisabled={!handleActivate()}
+        type="submit"
+        size="L"
+        text="로그인"
+        isDisabled={!isValid()}
       />
     </form>
   );
