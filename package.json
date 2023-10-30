@@ -16,6 +16,7 @@
     "react": "^18.2.0",
     "react-datepicker": "^4.14.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.47.0",
     "react-kakao-maps": "^0.0.13",
     "react-kakao-maps-sdk": "^1.1.9",
     "react-query": "^3.39.3",
