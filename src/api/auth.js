@@ -1,14 +1,14 @@
 import { instance, imgInstance } from './axiosInstance';
 
 /* 로그인 */
-export const postUserLogin = async (email, password) => {
-  const loginData = {
-    user: {
-      email: email,
-      password: password,
-    },
+export const postUserLogin = async (formData) => {
+  const res = {
+    user: { 
+      email: formData.email,
+      password: formData.password,
+     }
   };
-  const response = await instance.post('/user/login', loginData);
+  const response = await instance.post('/user/login', res);
   return response.data;
 };
 
