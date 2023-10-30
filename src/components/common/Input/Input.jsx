@@ -1,17 +1,19 @@
-import React from 'react';
-import { Container, Label, Text } from './InputStyle';
+import React, { forwardRef } from 'react';
+import { Container, Label, Text, Message } from './InputStyle';
 
-const Input = ({
+const Input = forwardRef(({
   label,
   type,
   id,
-  placeholder,
+  placeHolder,
   onChange,
   onBlur,
   name,
   value,
-  hasError,
-}) => {
+  isValid,
+  errorMsg,
+  successMsg
+}, ref) => {
   return (
     <Container>
       <Label htmlFor={id}>{label}</Label>
@@ -20,14 +22,17 @@ const Input = ({
         id={id}
         name={name}
         value={value}
-        placeholder={placeholder}
+        placeholder={placeHolder}
         onChange={onChange}
         onBlur={onBlur}
+        isValid={isValid}
         autoComplete="off"
-        hasError={hasError} // 에러 발생 여부 prop 전달
+        ref={ref}
       />
+      {errorMsg && <Message>{errorMsg}</Message>}
+      {isValid && <Message>{successMsg}</Message>}
     </Container>
   );
-};
+});
 
 export default Input;
