@@ -4,7 +4,8 @@ import Button from '../common/Button/Button';
 import { useForm, useController } from 'react-hook-form';
 
 const LoginForm = ({ handleLogin, message }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, setError, formState: { isValid, errors } } = useForm({
+    mode: 'onChange',
     defaultValues: {
       email: 'breath_connect@test.com',
       password: 'bc12345',
@@ -25,11 +26,12 @@ const LoginForm = ({ handleLogin, message }) => {
 
   const onSubmit = (user) => {
     handleLogin(user);
+    if (message) {
+      setError('password', {
+        message: message
+      })
+    }
   };
-
-  const isValid = () => {
-    return emailController.field.value !== '' && passwordController.field.value !== '';
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -45,7 +47,7 @@ const LoginForm = ({ handleLogin, message }) => {
         label="비밀번호"
         type="password"
         placeHolder="비밀번호를 입력해주세요"
-        errorMsg={message}
+        errorMsg={errors.password?.message || message}
         required
         {...passwordController.field}
           />
@@ -53,7 +55,7 @@ const LoginForm = ({ handleLogin, message }) => {
         type="submit"
         size="L"
         text="로그인"
-        isDisabled={!isValid()}
+        isDisabled={!isValid}
       />
     </form>
   );
