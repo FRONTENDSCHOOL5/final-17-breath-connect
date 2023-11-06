@@ -1,36 +1,40 @@
 import React from 'react';
 import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
-import { useForm, useController } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { postUserLogin } from '../../api/auth';
+import { useMutation } from 'react-query';
+import { useFieldController } from '../../hook/useFieldController';
 
-const LoginForm = ({ handleLogin, message }) => {
-  const { control, handleSubmit, setError, formState: { isValid, errors } } = useForm({
-    mode: 'onChange',
+const LoginForm = ({ onLogin, message }) => {
+  const { control, setError, handleSubmit, formState: { errors } } = useForm({
+    mode: 'onBlur',
     defaultValues: {
       email: 'breath_connect@test.com',
       password: 'bc12345',
     }
   });
 
-  const emailController = useController({
-    name: 'email',
-    control,
-    rules: { required: '이메일을 입력해주세요' }
-  });
+  const emailController = useFieldController('email', control, { required: '이메일을 입력해주세요' });
+  const passwordController = useFieldController('password', control, { required: '비밀번호를 입력해주세요' });
 
-  const passwordController = useController({
-    name: 'password',
-    control,
-    rules: { required: '비밀번호를 입력해주세요' }
-  });
-
-  const onSubmit = (user) => {
-    handleLogin(user);
-    if (message) {
-      setError('password', {
-        message: message
-      })
+  const { mutate } = useMutation('login', postUserLogin, {
+    onSuccess: (res) => {
+      if (res.status === 422) {
+        setError('password', {
+          message: res.message
+        });
+      } else {
+        setError('password', {
+          message: ''
+        });
+        onLogin(res);
+      }
     }
+  })
+
+  const onSubmit = (data) => {
+    mutate(data);
   };
 
   return (
@@ -50,12 +54,12 @@ const LoginForm = ({ handleLogin, message }) => {
         errorMsg={errors.password?.message || message}
         required
         {...passwordController.field}
-          />
+      />
       <Button
         type="submit"
         size="L"
         text="로그인"
-        isDisabled={!isValid}
+        isDisabled={!emailController.field.value || !passwordController.field.value}
       />
     </form>
   );
