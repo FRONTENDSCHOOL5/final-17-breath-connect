@@ -1,44 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { postUserLogin } from '../../../api/auth';
 import { loginAtom } from '../../../atoms/LoginAtom';
 import { userInfoAtom } from '../../../atoms/UserAtom';
 import LoginForm from '../../../components/Login/LoginForm';
 
 const LoginPage = () => {
-  const [message, setMessage] = useState('');
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const setLogin = useSetRecoilState(loginAtom);
   const navigate = useNavigate();
 
-  const handleLogin = async (formData) => {
-    try {
-      const res = await postUserLogin(formData);
-      if (res.status === 422) {
-        setMessage(res.message);
-      } else {
-        setUserInfo({
-          ...userInfo,
-          account: res.user.accountname,
-          profileImg: res.user.image,
-          username: res.user.username,
-          intro: res.user.intro,
-        });
-        setLogin(true);
-        localStorage.setItem('token', res.user.token);
-        navigate('/home');
-      }
-    } catch (error) {
-      console.error(error);
+  const onLogin = (res) => {
+    if (res.status !== 422) {
+      setUserInfo({
+        ...userInfo,
+        account: res.user.accountname,
+        profileImg: res.user.image,
+        username: res.user.username,
+        intro: res.user.intro,
+      });
+      setLogin(true);
+      localStorage.setItem('token', res.user.token);
+      navigate('/home');
     }
   };
 
   return (
     <Container>
       <Title>로그인</Title>
-      <LoginForm handleLogin={handleLogin} message={message} />
+      <LoginForm onLogin={onLogin} />
       <Signup to="/signup">이메일로 회원가입</Signup>
     </Container>
   );
