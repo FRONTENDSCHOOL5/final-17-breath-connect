@@ -2,6 +2,7 @@
   "extends": ["react-app", "react-app/jest", "prettier"],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "no-unused-vars": "off"
   }
 }
