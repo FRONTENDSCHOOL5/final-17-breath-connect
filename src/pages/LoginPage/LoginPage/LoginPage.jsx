@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { loginAtom } from '../../../atoms/LoginAtom';
 import { userInfoAtom } from '../../../atoms/UserAtom';
 import LoginForm from '../../../components/Login/LoginForm';
+import { postUserLogin } from '../../../api/auth';
+import { useMutation } from 'react-query';
 
 const LoginPage = () => {
+  const [message, setMessage] = useState('');
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const setLogin = useSetRecoilState(loginAtom);
   const navigate = useNavigate();
+
+    const { mutate } = useMutation('login', postUserLogin, {
+    onSuccess: (res) => {
+      if (res.status === 422) {
+        setMessage(res.message);
+      } else {
+        onLogin(res);
+      }
+    },
+    onError: (error) => {
+      console.error(error);
+    }
+  })
 
   const onLogin = (res) => {
     if (res.status !== 422) {
@@ -29,7 +45,7 @@ const LoginPage = () => {
   return (
     <Container>
       <Title>로그인</Title>
-      <LoginForm onLogin={onLogin} />
+      <LoginForm mutate={mutate} message={message} />
       <Signup to="/signup">이메일로 회원가입</Signup>
     </Container>
   );

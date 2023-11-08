@@ -2,12 +2,10 @@ import React from 'react';
 import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
 import { useForm } from 'react-hook-form';
-import { postUserLogin } from '../../api/auth';
-import { useMutation } from 'react-query';
 import { useFieldController } from '../../hook/useFieldController';
 
-const LoginForm = ({ onLogin, message }) => {
-  const { control, setError, handleSubmit, formState: { errors } } = useForm({
+const LoginForm = ({ mutate, message }) => {
+  const { control, handleSubmit, formState: { errors } } = useForm({
     mode: 'onBlur',
     defaultValues: {
       email: 'breath_connect@test.com',
@@ -17,21 +15,6 @@ const LoginForm = ({ onLogin, message }) => {
 
   const emailController = useFieldController('email', control, { required: '이메일을 입력해주세요' });
   const passwordController = useFieldController('password', control, { required: '비밀번호를 입력해주세요' });
-
-  const { mutate } = useMutation('login', postUserLogin, {
-    onSuccess: (res) => {
-      if (res.status === 422) {
-        setError('password', {
-          message: res.message
-        });
-      } else {
-        setError('password', {
-          message: ''
-        });
-        onLogin(res);
-      }
-    }
-  })
 
   const onSubmit = (data) => {
     mutate(data);
