@@ -3,14 +3,14 @@ import { Container, Label, Text, Message } from './InputStyle';
 
 const Input = forwardRef(({
   label,
-  type,
   id,
+  type,
   placeHolder,
   onChange,
   onBlur,
   name,
   value,
-  isValid,
+  isError,
   errorMsg,
   successMsg
 }, ref) => {
@@ -18,19 +18,18 @@ const Input = forwardRef(({
     <Container>
       <Label htmlFor={id}>{label}</Label>
       <Text
-        type={type}
         id={id}
         name={name}
         value={value}
+        type={type}
         placeholder={placeHolder}
         onChange={onChange}
         onBlur={onBlur}
-        isValid={isValid}
+        isError={isError}
         autoComplete="off"
         ref={ref}
       />
-      {errorMsg && <Message>{errorMsg}</Message>}
-      {isValid && <Message>{successMsg}</Message>}
+      {isError ? <Message>{errorMsg}</Message> : <Message>{successMsg}</Message>}
     </Container>
   );
 });
