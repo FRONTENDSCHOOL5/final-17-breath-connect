@@ -23,17 +23,19 @@ const LoginForm = ({ mutate, message }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Input
-        label="이메일"
-        type="email"
-        placeHolder="이메일 주소를 입력해주세요"
+        label='이메일'
+        id='email'
+        type='email'
+        placeHolder='이메일 주소를 입력해주세요'
         errorMsg={errors.email?.message}
         required
         {...emailController.field}
       />
       <Input
-        label="비밀번호"
-        type="password"
-        placeHolder="비밀번호를 입력해주세요"
+        label='비밀번호'
+        id='password'
+        type='password'
+        placeHolder='비밀번호를 입력해주세요'
         errorMsg={errors.password?.message || message}
         required
         {...passwordController.field}
