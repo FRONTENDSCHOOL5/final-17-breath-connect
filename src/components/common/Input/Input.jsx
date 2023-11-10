@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { Container, Label, Text, Message } from './InputStyle';
+import { Container, Label, Text, ErrorMsg, SuccessMsg } from './InputStyle';
 
 const Input = forwardRef(({
   label,
@@ -29,7 +29,7 @@ const Input = forwardRef(({
         autoComplete="off"
         ref={ref}
       />
-      {isError ? <Message>{errorMsg}</Message> : <Message>{successMsg}</Message>}
+      {isError ? <ErrorMsg>{errorMsg}</ErrorMsg> : <SuccessMsg>{successMsg}</SuccessMsg>}
     </Container>
   );
 });
