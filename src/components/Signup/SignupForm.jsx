@@ -54,7 +54,7 @@ const SignupForm = ({ onSuccess, mutate, isError, message }) => {
         id='email'
         type='email'
         placeHolder='이메일 주소를 입력해주세요'
-        isError={isError}
+        isError={errors.email?.message || isError}
         errorMsg={errors.email?.message || isError && message}
         successMsg={!isError && message}
         {...emailController.field}
@@ -64,6 +64,7 @@ const SignupForm = ({ onSuccess, mutate, isError, message }) => {
         id='password'
         type='password'
         placeHolder='비밀번호를 입력해주세요'
+        isError={errors.password?.message}
         errorMsg={errors.password?.message}
         {...passwordController.field}
       />
