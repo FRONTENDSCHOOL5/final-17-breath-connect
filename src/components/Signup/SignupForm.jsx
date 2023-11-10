@@ -1,14 +1,13 @@
-
 import React from 'react';
 import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
 import { useForm } from 'react-hook-form';
 import { useFieldController } from '../../hook/useFieldController';
-import regexPattern from '../../constants/regexPattern';
+import { PATTERN, MESSAGE } from '../../constants/validation';
 
 const SignupForm = ({ onSuccess, mutate, isError, message }) => {
 
-  const { control, getValues, handleSubmit, formState: { errors, isValid } } = useForm({
+  const { control, getValues, handleSubmit, formState: { errors } } = useForm({
     mode: 'onBlur',
     defaultValues: {
       email: '',
@@ -16,14 +15,12 @@ const SignupForm = ({ onSuccess, mutate, isError, message }) => {
     }
   });
 
-  const emailRegex = regexPattern.email;
-  const passwordRegex = regexPattern.password;
 
   const emailController = useFieldController('email', control, {
-      required: '이메일을 입력해주세요',
+      required: MESSAGE.EMAIL.REQUIRED,
       pattern: {
-        value: emailRegex,
-        message: '이메일의 형식이 올바르지 않습니다 😥'
+        value: PATTERN.EMAIL,
+        message: MESSAGE.EMAIL.PATTERN
     },
       onBlur: () => {
       validation();
@@ -31,24 +28,18 @@ const SignupForm = ({ onSuccess, mutate, isError, message }) => {
   });
   
   const passwordController = useFieldController('password', control, {
-    required: '비밀번호를 입력해주세요',
+    required: MESSAGE.PASSWORD.REQUIRED,
     pattern: {
-      value: passwordRegex,
-      message: '영문+숫자+특수기호 조합으로 6자리 이상 입력해주세요'
+      value: PATTERN.PASSWORD,
+      message: MESSAGE.PASSWORD.PATTERN
     },
   });
 
   const validation = () => {
-    const emailFieldState = emailController.fieldState;
-    const emailError = emailFieldState.error;
-
-    console.log(emailError, '이메일 에러임');
-
-    if (!errors.email?.message && !emailError) {
+    if (!errors.email?.message && emailController.field.value) {
       mutate(emailController.field.value);
     }
   }
-
 
   const onSubmit = (data) => {
     if (!errors.email && !errors.password && !isError) {
@@ -80,7 +71,7 @@ const SignupForm = ({ onSuccess, mutate, isError, message }) => {
         type='submit'
         size='L'
         text='회원가입'
-        isDisabled={!getValues('email') || !getValues('password') || !isValid}
+        isDisabled={!getValues('email') || !getValues('password')}
       />
     </form>
   );
