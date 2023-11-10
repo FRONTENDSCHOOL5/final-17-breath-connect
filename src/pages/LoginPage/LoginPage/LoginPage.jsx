@@ -9,6 +9,7 @@ import { postUserLogin } from '../../../api/auth';
 import { useMutation } from 'react-query';
 
 const LoginPage = () => {
+  const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const setLogin = useSetRecoilState(loginAtom);
@@ -17,8 +18,10 @@ const LoginPage = () => {
     const { mutate } = useMutation('login', postUserLogin, {
     onSuccess: (res) => {
       if (res.status === 422) {
+        setIsError(true);
         setMessage(res.message);
       } else {
+        setIsError(false);
         onLogin(res);
       }
     },
@@ -45,7 +48,7 @@ const LoginPage = () => {
   return (
     <Container>
       <Title>로그인</Title>
-      <LoginForm mutate={mutate} message={message} />
+      <LoginForm mutate={mutate} isError={isError} message={message} />
       <Signup to="/signup">이메일로 회원가입</Signup>
     </Container>
   );
