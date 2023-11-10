@@ -3,9 +3,10 @@ import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
 import { useForm } from 'react-hook-form';
 import { useFieldController } from '../../hook/useFieldController';
+import { MESSAGE } from '../../constants/validation';
 
-const LoginForm = ({ mutate, message }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+const LoginForm = ({ mutate, isError, message }) => {
+  const { control, handleSubmit, getValues, formState: { errors } } = useForm({
     mode: 'onBlur',
     defaultValues: {
       email: 'breath_connect@test.com',
@@ -13,8 +14,12 @@ const LoginForm = ({ mutate, message }) => {
     }
   });
 
-  const emailController = useFieldController('email', control, { required: '이메일을 입력해주세요' });
-  const passwordController = useFieldController('password', control, { required: '비밀번호를 입력해주세요' });
+  const emailController = useFieldController('email', control, {
+    required: MESSAGE.EMAIL.REQUIRED
+  });
+  const passwordController = useFieldController('password', control, {
+    required: MESSAGE.PASSWORD.REQUIRED
+  });
 
   const onSubmit = (data) => {
     mutate(data);
@@ -27,8 +32,8 @@ const LoginForm = ({ mutate, message }) => {
         id='email'
         type='email'
         placeHolder='이메일 주소를 입력해주세요'
+        isError={errors.email?.message}
         errorMsg={errors.email?.message}
-        required
         {...emailController.field}
       />
       <Input
@@ -36,15 +41,15 @@ const LoginForm = ({ mutate, message }) => {
         id='password'
         type='password'
         placeHolder='비밀번호를 입력해주세요'
-        errorMsg={errors.password?.message || message}
-        required
+        isError={errors.password?.message || isError}
+        errorMsg={errors.password?.message || isError && message}
         {...passwordController.field}
       />
       <Button
-        type="submit"
-        size="L"
-        text="로그인"
-        isDisabled={!emailController.field.value || !passwordController.field.value}
+        type='submit'
+        size='L'
+        text='로그인'
+        isDisabled={!getValues('email') || !getValues('password')}
       />
     </form>
   );
