@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { Container, Title } from './EmailJoinPageStyle';
-import useValid from '../../../hook/useValid';
 import { postEmailDuplicate } from '../../../api/auth';
 import { useMutation } from 'react-query';
 import SignupForm from '../../../components/Signup/SignupForm';
 
 const SignupPage = () => {
-  const [isError, setIsError] = useState(true);
+  const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
   
   const navigate = useNavigate();
@@ -44,3 +43,15 @@ const SignupPage = () => {
 };
 
 export default SignupPage;
+
+const Container = styled.main`
+  margin: 0 auto;
+`
+
+const Title = styled.h1`
+  padding-top: 2.7rem;
+  margin-bottom: 4.5rem;
+  color: ${({ theme }) => theme.colors.blackText};
+  font-size: ${({ theme }) => theme.fontSize.xxlarge};
+  text-align: center;
+`
