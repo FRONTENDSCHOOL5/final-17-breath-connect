@@ -29,7 +29,8 @@ const SignupPage = () => {
   const onSuccess = (formData) => {
     navigate('/signup/profile', {
       state: {
-      formData
+        email: formData.email,
+        password: formData.password,
     }
     })
   }
