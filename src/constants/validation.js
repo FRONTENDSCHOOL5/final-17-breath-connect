@@ -21,5 +21,5 @@ export const MESSAGE = {
   ACCOUNTNAME: {
     REQUIRED: '계정 ID를 입력해주세요',
     PATTERN: '영문, 숫자, 특수문자 ., _ 만 입력해주세요'
-  }
+  },
 }

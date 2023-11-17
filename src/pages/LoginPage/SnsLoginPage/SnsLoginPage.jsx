@@ -22,7 +22,7 @@ const SnsLoginPage = () => {
   const isDarkMode = useRecoilValue(isDarkModeState);
   return (
     <Container>
-      <Title>Sns 로그인 페이지</Title>
+      <Title>SNS 로그인 페이지</Title>
       <Main>
         <LogoSection>
           <LogoImage src={isDarkMode ? SnsLogoDark : SnsLogo} alt="들숨날숨 로고" />

@@ -59,5 +59,8 @@
 
 <symbol id="upload-file" viewBox="0 0 50 50"><circle cx="25" cy="25" r="25" fill="#6521D3"/><path stroke="#fff" stroke-linecap="round" stroke-width="2" d="M13.889 25h21.527M25 15.278V36.11"/></symbol>
 <symbol id="upload-file-dark" viewBox="0 0 50 50"><circle cx="25" cy="25" r="25" fill="#A16FF4"/><path stroke="#3F4043" stroke-linecap="round" stroke-width="2" d="M13.889 25h21.527M25 15.278V36.11"/></symbol>
+
+
+
 </svg>
 

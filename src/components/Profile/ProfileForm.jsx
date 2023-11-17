@@ -1,13 +1,15 @@
 import React from 'react';
 import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
+import ProfileImage from './ProfileImage';
 import { useFieldController } from '../../hook/useFieldController';
 import { useForm } from 'react-hook-form';
 import { PATTERN, MESSAGE } from '../../constants/validation';
+import useImageUpload from '../../hook/useImageUpload';
 
-const ProfileForm = ({ accountname, isError, message, handleInputImage, userEmail, userPassword, signup }) => {
+const ProfileForm = ({ accountname, isError, message, userEmail, userPassword, signup }) => {
 
-  const { control, getValues, setValue, handleSubmit, formState: { errors } } = useForm({
+  const { control, getValues, handleSubmit, formState: { errors } } = useForm({
     mode:'onBlur',
     defaultValues: {
       username: '',
@@ -15,6 +17,8 @@ const ProfileForm = ({ accountname, isError, message, handleInputImage, userEmai
       intro: '',
     }
   })
+
+  const { image, previewImage, handleImage } = useImageUpload();
 
   const usernameController = useFieldController('username', control, {
     required: MESSAGE.USERNAME.REQUIRED,
@@ -40,21 +44,27 @@ const ProfileForm = ({ accountname, isError, message, handleInputImage, userEmai
   }
 
   const introController = useFieldController('intro', control, {});
-
-    const handleImage = (e) => {
-    const file = e.target.files[0];
-    setValue('image', file);
-    handleInputImage(file);
-    };
   
   const onSubmit = (data) => {
-    if(!errors.username?.message && !errors.accountname?.message && !message)
-    signup(data, userEmail, userPassword);
+    if (!errors.username?.message && !errors.accountname?.message && !message) {
+      const userData = {
+        username: data.username,
+        email: userEmail,
+        password: userPassword,
+        accountname: data.accountname,
+        intro: data.intro || '',
+        image: image || '',
+      };
+      signup(userData);
+    }
   };
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      
+      <ProfileImage
+        previewImage={previewImage} handleImage={handleImage}
+      />
         <Input
           label='사용자 이름'
           id='username'
