@@ -1,211 +1,73 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useState } from 'react';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import Input from '../../../components/common/Input/Input';
-import Header from '../../../components/Header/TopUploadHeader';
-import Loading from '../../../components/common/Loading/Loading';
-import { userInfoAtom } from '../../../atoms/UserAtom';
-import { isDarkModeState } from '../../../atoms/StylesAtom';
+import { useRecoilState } from 'recoil';
+import { useQuery, useMutation } from 'react-query';
+import { postAccountnameDuplicate } from '../../../api/auth';
 import { getMyInfo, editProfile } from '../../../api/profile';
-import { postAccountnameDuplicate, postUploadProfile } from '../../../api/auth';
-import {
-  Container,
-  ImageSection,
-  Label,
-  Form,
-  Image,
-  ImageInput,
-  ErrorMessage } from './ProfileEditPageStyle';
+import ProfileForm from '../../../components/Profile/ProfileForm';
+import { userInfoAtom } from '../../../atoms/UserAtom';
 
 const ProfileEditPage = () => {
-  const URL = 'https://api.mandarin.weniv.co.kr';
-  const token = localStorage.getItem('token');
-  const isDarkMode = useRecoilValue(isDarkModeState);
+  const [isError, setIsError] = useState(false);
+  const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
-  const fileInputRef = useRef();
-  const formData = new FormData();
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [username, setUsername] = useState('');
-  const [accountname, setAccountname] = useState('');
-  const [intro, setIntro] = useState('');
-  const [image, setImage] = useState('');
-  const [usernameErrorMsg, setUsernameErrorMsg] = useState('');
-  const [accountnameErrorMsg, setAccountnameErrorMsg] = useState('');
-  const [usernameValid, setUsernameValid] = useState(false);
-  const [accountnameValid, setAccountnameValid] = useState(false);
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
+  const { data: myInfo, isLoading } = useQuery('getProfile', getMyInfo);
 
-  /* 기존 프로필 정보 불러오기 */
-  useEffect(() => {
-    const fetchMyInfo = async () => {
-      const response = await getMyInfo(token);
-      setIsLoading(false);
-      setUserInfo({
-        ...userInfo,
-        account: response.user.accountname,
-        profileImg: response.user.image,
-        username: response.user.username,
-        intro: response.user.intro,
-      })
-    };
-    fetchMyInfo();
-  }, []);
-
-  /* 이미지 업로드 */
-  const handleInputImage = async (e) => {
-    const file = e.target.files[0];
-    formData.append('image', file);
-    const imgData = await postUploadProfile(formData);
-    setImage(URL + '/' + imgData.filename);
-  };
-
-  // username 유효성 검사
-  const handleInputUsername = (e) => {
-    const usernameInp = e.target.value;
-    const usernameRegex = /^[a-zA-Z0-9]{2,10}$/;
-    if (usernameInp === '') {
-      setUsernameErrorMsg('*입력해주세요');
-    } else if (!usernameRegex.test(usernameInp)) {
-      setUsernameErrorMsg('*영문 2~10자 이내로 입력해주세요');
-    } else {
-      setUsernameErrorMsg('');
-      setUsernameValid(true);
-      setUsername(usernameInp);
+  const { mutate: accountname } = useMutation('accountnameValid', postAccountnameDuplicate, {
+    onSuccess: (res) => {
+      if (res.message === "이미 가입된 계정ID 입니다.") {
+        setIsError(true);
+        setMessage(res.message);
+      } else {
+        setIsError(false);
+        setMessage(res.message)
+      }
+    },
+    onError: (error) => {
+      console.log(error);
     }
-  };
+  }) 
 
-  // accountname 유효성 검사
-  const handleInputAccountname = async (e) => {
-    const accountnameInp = e.target.value;
-    const accountnameRegex = /^[a-zA-Z0-9._]+$/;
-    const checkAccountname = await postAccountnameDuplicate(accountnameInp);
-    if (accountnameInp === '') {
-      setAccountnameErrorMsg('*입력해주세요');
-      setAccountnameValid(false);
-    } else if (!accountnameRegex.test(accountnameInp)) {
-      setAccountnameErrorMsg('*영문, 숫자, 특수문자 ., _ 만 입력해주세요');
-      setAccountnameValid(false);
-    } else if (checkAccountname.message === '이미 가입된 계정ID 입니다.') {
-      setAccountnameErrorMsg('*이미 존재하는 계정ID 입니다 😥');
-      setAccountnameValid(false);
-    } else {
-      setAccountnameValid(true);
-      setAccountnameErrorMsg('');
-      setAccountname(accountnameInp);
+  const { mutate: edit } = useMutation('edit', editProfile, {
+    onSuccess: (res) => {
+      if (res.status === 200) {
+        setUserInfo({
+          ...userInfo,
+        account: res.user.accountname,
+        profileImg: res.user.image,
+        username: res.user.username,
+        intro: res.user.intro,
+        })
+        navigate(`/profile/${accountname}`);
+      } else {
+        setIsError(true);
+      }
     }
-  };
+  })
 
-  const handleInputIntro = (e) => {
-    const inputValue = e.target.value;
-    const maxLength = 25;
-
-    if (inputValue.length <= maxLength) {
-      setIntro(inputValue);
-    } else {
-      e.target.value = inputValue.slice(0, maxLength);
-    }
-  };
-
-  /* 버튼 활성화 */
-  const handleActivateButton = () => {
-    return usernameValid && accountnameValid;
-  };
-
-  /* 에러 메시지 초기화 */
-  useEffect(() => {
-    setUsernameErrorMsg();
-  }, [username]);
-
-  useEffect(() => {
-    setAccountnameErrorMsg();
-  }, [accountname]);
-
-  /* 프로필 수정 */
-  const handleProfileEdit = async (e) => {
-    e.preventDefault();
-    if (usernameValid && accountnameValid) {
-      await editProfile({
-        username,
-        accountname,
-        intro,
-        image,
-      });
-      setUserInfo({
-        ...userInfo,
-        account: accountname,
-        profileImg: image,
-        username: username,
-        intro: intro,
-      })
-      alert('프로필 수정이 완료되었습니다 🌬️');
-      navigate(`/profile/${accountname}`);
-    }
-  };
-
-
+  if (isLoading) {
+    return <p>Loading...</p>; 
+  }
   return (
-    <>
-    {isLoading ? <Loading /> : (
-      <>
-    <Header
-        text="저장"
-        isDisabled={!handleActivateButton()}
-        handleClick={handleProfileEdit}
-      />
-      <Container>
-        <Form onSubmit={handleProfileEdit}>
-          <ImageSection>
-            <Label htmlFor="upload-image">
-              <Image src={image} alt="사용자 프로필 이미지" />
-            </Label>
-            <ImageInput
-              type="file"
-              accept="image/png, image/jpg, image/jpeg"
-              id="upload-image"
-              ref={fileInputRef}
-              onChange={handleInputImage}
-            />
-          </ImageSection>
-          <Input
-            label="사용자 이름"
-            placeholder="2~10자 이내여야 합니다."
-            id="username"
-            type="text"
-            name="username"
-            onChange={handleInputUsername}
-            required
-          />
-          {usernameErrorMsg && <ErrorMessage>{usernameErrorMsg}</ErrorMessage>}
-          <Input
-            label="계정 ID"
-            placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
-            id="accountname"
-            type="text"
-            name="accountname"
-            onChange={handleInputAccountname}
-            required
-          />
-          {accountnameErrorMsg && <ErrorMessage>{accountnameErrorMsg}</ErrorMessage>}
-          <Input
-            label="소개"
-            placeholder="자신에 대해 소개해 주세요!"
-            id="intro"
-            type="text"
-            name="intro"
-            onChange={handleInputIntro}
-            required
-          />
-        </Form>
-      </Container>
-      </>
-      )
-    }
-    </>
-  );
-};
+    <Container>
+    <Title>프로필 수정</Title>
+      <ProfileForm myInfo={myInfo} accountname={accountname} isError={isError} message={message} edit={edit} />
+        </Container>
+    )
+  }
 
 export default ProfileEditPage;
+
+const Container = styled.main`
+  margin: 0 auto;
+`
+const Title = styled.h1`
+  padding-top: 2.7rem;
+  color: ${({theme}) => theme.colors.blackText};
+  font-size: ${({theme}) => theme.fontSize.xxlarge};
+  text-align: center;
+`
