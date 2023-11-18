@@ -3,9 +3,9 @@ import { useMutation } from 'react-query';
 import { postUploadProfile } from '../api/auth';
 import imageCompression from 'browser-image-compression';
 
-const useImageUpload = () => {
-  const [previewImage, setPreviewImage] = useState('');
-  const [image, setImage] = useState('');
+const useImageUpload = (prevImage) => {
+  const [previewImage, setPreviewImage] = useState(prevImage || '');
+  const [image, setImage] = useState(prevImage || '');
 
   const uploadImage = useMutation('uploadImage', postUploadProfile, {
     onSuccess: (res) => {
