@@ -21,7 +21,7 @@ export const followProfile = async (accountname) => {
 };
 
 /* 나의 프로필 정보 정보 불러오기 */
-export const getMyInfo = async (token) => {
+export const getMyInfo = async () => {
   try {
     const response = await authInstance.get(`/user/myinfo`);
     return response.data;
