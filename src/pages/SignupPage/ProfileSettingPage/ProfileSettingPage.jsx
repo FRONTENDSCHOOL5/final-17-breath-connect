@@ -31,7 +31,7 @@ const ProfileSettingPage = () => {
 
   const { mutate: signup } = useMutation('signup', postUserSignup, {
     onSuccess: (res) => {
-      if (res.status === 200) {
+      if (res.message === "회원가입 성공") {
         navigate('/login');
       } else {
         setIsError(true);
