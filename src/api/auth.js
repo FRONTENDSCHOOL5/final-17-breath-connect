@@ -24,8 +24,8 @@ export const postEmailDuplicate = async (email) => {
 };
 
 /* 회원가입 */
-export const postUserSignup = async (data) => {
-  const response = await instance.post('/user/', data);
+export const postUserSignup = async (user) => {
+  const response = await instance.post('/user/', { user });
   return response.data;
 };
 
