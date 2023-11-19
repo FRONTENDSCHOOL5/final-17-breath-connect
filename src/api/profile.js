@@ -1,7 +1,7 @@
 import { authInstance } from './axiosInstance';
 
 /* 개인 프로필 정보 */
-export const getUserProfile = async (token, account) => {
+export const getUserProfile = async (account) => {
   try {
     const response = await authInstance.get(`/profile/${account}`);
     return response.data;
@@ -32,10 +32,8 @@ export const getMyInfo = async () => {
 
 /* 프로필 수정 */
 export const editProfile = async (user) => {
-  console.log('user', { user });
   try {
     const response = await authInstance.put(`/user`, { user });
-    console.log('response', response);
     return response.data;
   } catch (error) {
     console.log(error);
