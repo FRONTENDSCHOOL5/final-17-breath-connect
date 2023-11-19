@@ -15,7 +15,7 @@ const ProfileEditPage = () => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
-  const { data: myInfo, isLoading } = useQuery('getProfile', getMyInfo);
+  const { data: myInfo, isLoading} = useQuery('getProfile', getMyInfo);
 
   const { mutate: accountname } = useMutation('accountnameValid', postAccountnameDuplicate, {
     onSuccess: (res) => {
@@ -30,24 +30,23 @@ const ProfileEditPage = () => {
     onError: (error) => {
       console.log(error);
     }
-  }) 
+  })
 
   const { mutate: edit } = useMutation('edit', editProfile, {
     onSuccess: (res) => {
-      if (res.status === 200) {
         setUserInfo({
           ...userInfo,
-        account: res.user.accountname,
-        profileImg: res.user.image,
-        username: res.user.username,
-        intro: res.user.intro,
-        })
-        navigate(`/profile/${accountname}`);
-      } else {
-        setIsError(true);
-      }
+          account: res.user.accountname,
+          profileImg: res.user.image,
+          username: res.user.username,
+          intro: res.user.intro,
+        });
+      navigate(`/profile/${res.user.accountname}`);
+    },
+    onError: (error) => {
+      console.log(error);
     }
-  })
+  });
 
   if (isLoading) {
     return <p>Loading...</p>; 
@@ -66,7 +65,7 @@ const Container = styled.main`
   margin: 0 auto;
 `
 const Title = styled.h1`
-  padding-top: 2.7rem;
+  padding-top: 3.2rem;
   color: ${({theme}) => theme.colors.blackText};
   font-size: ${({theme}) => theme.fontSize.xxlarge};
   text-align: center;
