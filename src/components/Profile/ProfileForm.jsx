@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
 import ProfileImage from './ProfileImage';
@@ -7,18 +8,19 @@ import { useForm } from 'react-hook-form';
 import { PATTERN, MESSAGE } from '../../constants/validation';
 import useImageUpload from '../../hook/useImageUpload';
 
-const ProfileForm = ({ accountname, isError, message, userEmail, userPassword, signup }) => {
+const ProfileForm = ({ myInfo, accountname, isError, message, userEmail, userPassword, signup, edit }) => {
 
   const { control, getValues, handleSubmit, formState: { errors } } = useForm({
     mode:'onBlur',
     defaultValues: {
-      username: '',
-      accountname: '',
-      intro: '',
+      username: myInfo?.user?.username || '',
+      accountname: myInfo?.user?.accountname || '',
+      intro: myInfo?.user?.intro || '',
     }
   })
 
-  const { image, previewImage, handleImage } = useImageUpload();
+  const prevImage = myInfo?.user?.image;
+  const { image, previewImage, handleImage } = useImageUpload(prevImage ? prevImage : null);
 
   const usernameController = useFieldController('username', control, {
     required: MESSAGE.USERNAME.REQUIRED,
@@ -44,21 +46,24 @@ const ProfileForm = ({ accountname, isError, message, userEmail, userPassword, s
   }
 
   const introController = useFieldController('intro', control, {});
+
+  const location = useLocation();
   
-  const onSubmit = (data) => {
-    if (!errors.username?.message && !errors.accountname?.message && !message) {
+   const onSubmit = async (data) => {
       const userData = {
         username: data.username,
-        email: userEmail,
-        password: userPassword,
         accountname: data.accountname,
         intro: data.intro || '',
         image: image || '',
       };
-      signup(userData);
+      if (location.pathname === '/signup/profile') {
+        userData.email = userEmail;
+        userData.password = userPassword;
+       await signup(userData);
+      } else {
+        edit(userData);
+      }
     }
-  };
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
