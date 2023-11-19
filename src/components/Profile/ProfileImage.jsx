@@ -4,11 +4,12 @@ import AddImg from '../../assets/sprite/img-btn.svg';
 import AddDarkImg from '../../assets/sprite/img-btn-dark.svg';
 import BasicProfileImg from '../../assets/images/basic-profile-l.svg';
 
-const ProfileImage = ({ previewImage, handleImage }) => {  
+const ProfileImage = ({ prevImage, previewImage, handleImage }) => {  
   return (
     <>
       <Label htmlFor="image" >
-          <Image src={previewImage ? previewImage : BasicProfileImg} alt="사용자 프로필 이미지" />
+        <Image src={previewImage || prevImage || BasicProfileImg}
+          alt="사용자 프로필 이미지" />
         </Label>
           <ImageInput
           type="file"
