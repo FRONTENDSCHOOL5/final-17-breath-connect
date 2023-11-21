@@ -34,7 +34,7 @@ const PrivateRoute = ({ element: Element }) => {
   if (isAuthenticated()) {
     return Element;
   } else {
-    return <Navigate to="/login" />;
+    return <Navigate to='/login' />;
   }
 };
 
@@ -44,53 +44,41 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SplashPage theme={selectedTheme} />} />
-        <Route path="/login" element={<LoginPage theme={selectedTheme} />} />
-        <Route path="/signup" element={<SignupPage theme={selectedTheme} />} />
+        <Route path='/' element={<SplashPage theme={selectedTheme} />} />
+        <Route path='/login' element={<LoginPage theme={selectedTheme} />} />
+        <Route path='/signup' element={<SignupPage theme={selectedTheme} />} />
         <Route
-          path="/signup/profile"
+          path='/signup/profile'
           element={<ProfileSettingPage theme={selectedTheme} />}
         />
-        <Route path="/home" element={<PrivateRoute element={<FeedPage />} />} />
+        <Route path='/home' element={<PrivateRoute element={<FeedPage />} />} />
         {/* Post */}
-        <Route path="/post/:id/edit" element={<UploadEditPage />} />
-        <Route path="/post" element={<PostPage theme={selectedTheme} />} />
+        <Route path='/post/:id/edit' element={<UploadEditPage />} />
+        <Route path='/post' element={<PostPage theme={selectedTheme} />} />
         <Route
-          path="/post/:id"
+          path='/post/:id'
           element={<PostDetailPage theme={selectedTheme} />}
         />
         <Route
-          path="/post/upload"
+          path='/post/upload'
           element={<UploadPage theme={selectedTheme} />}
         />
+        <Route path='/post/upload/map' element={<UploadMap theme={selectedTheme} />} />
+
+        <Route path='/profile/:accountname'>
+          <Route index element={<ProfilePage theme={selectedTheme} />} />
+          <Route path='editProfile' element={<ProfileEditPage theme={selectedTheme} />} />
+          <Route path='follower' element={<FollowerListPage theme={selectedTheme} />} />
+          <Route path='follow' element={<FollowingListPage theme={selectedTheme} />} />
+        </Route>
+
+        <Route path='/search' element={<SearchPage theme={selectedTheme} />} />
+        <Route path='/chat' element={<ChatListPage theme={selectedTheme} />} />
         <Route
-          path="/post/upload/map"
-          element={<UploadMap theme={selectedTheme} />}
-        />
-        {/* Profile */}
-        <Route
-          path="/profile/:id"
-          element={<ProfilePage theme={selectedTheme} />}
-        />
-        <Route
-          path="/profile/:id/editProfile"
-          element={<ProfileEditPage theme={selectedTheme} />}
-        />
-        <Route
-          path="/profile/:id/follower"
-          element={<FollowerListPage theme={selectedTheme} />}
-        />
-        <Route
-          path="/profile/:id/follow"
-          element={<FollowingListPage theme={selectedTheme} />}
-        />
-        <Route path="/search" element={<SearchPage theme={selectedTheme} />} />
-        <Route path="/chat" element={<ChatListPage theme={selectedTheme} />} />
-        <Route
-          path="/chat/:id"
+          path='/chat/:id'
           element={<ChatRoomPage theme={selectedTheme} />}
         />
-        <Route path="*" element={<NotFoundPage theme={selectedTheme} />} />
+        <Route path='*' element={<NotFoundPage theme={selectedTheme} />} />
       </Routes>
     </BrowserRouter>
   );
