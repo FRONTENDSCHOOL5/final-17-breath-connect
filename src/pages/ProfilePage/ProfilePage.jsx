@@ -1,7 +1,10 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useRecoilCallback, useSetRecoilState } from 'recoil';
-import { isEqual } from 'lodash';
+import { useQuery } from 'react-query';
+import Header from '../../components/Header/TopBasicNavHeader';
+import Footer from '../../components/Footer/TabMenu';
 import Loading from '../../components/common/Loading/Loading';
 import Modal from '../../components/common/Modal/PostModal';
 import IconPostModal from '../../components/common/Modal/IconPostModal';
@@ -12,25 +15,18 @@ import {
   reportUserPost,
   sharePost,
 } from '../../components/common/Modal/ModalFunction';
-import Header from '../../components/Header/TopBasicNavHeader';
-import Footer from '../../components/Footer/TabMenu';
 import PostPage from '../PostPage/PostPage';
 import { getUserProfile } from '../../api/profile';
 import { getMyPost } from '../../api/post';
 import { loginAtom } from '../../atoms/LoginAtom';
 import { userInfoAtom } from '../../atoms/UserAtom';
-
-import { Container, Section } from './ProfilePageStyle';
-
-const UserInfo = lazy(() => import('./UserInfo'));
+import ProfileCard from '../../components/Profile/ProfileCard/ProfileCard';
 
 const ProfilePage = () => {
-  const location = useLocation();
+
+  const { accountname: accountName } = useParams();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  const [profile, setProfile] = useState();
-  const [accountName, setAccountName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const userToken = localStorage.getItem('token');
   const userInfo = useRecoilValue(userInfoAtom);
@@ -40,50 +36,21 @@ const ProfilePage = () => {
   const [modalText, setModalText] = useState([]);
   const [modalFunc, setModalFunc] = useState([]);
 
-  useEffect(() => {
-    setAccountName(
-      location.pathname.substring(location.pathname.lastIndexOf('/') + 1)
-    );
-  }, [location.pathname]);
-
-  useEffect(() => {
-    if (accountName) {
-      fetchData();
-    }
-  }, [accountName, isDelete]);
 
   useEffect(() => {
     setIsDelete(false);
     setIsModalOpen(false);
   }, [isDelete]);
 
-  const fetchData = async () => {
-    try {
-      await getProfile();
-      await getPost();
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-  };
+  const { data: userProfile, isLoading } = useQuery([
+    'getUserProfile', accountName],
+    () => getUserProfile(accountName));
+  
 
-  const getProfile = async () => {
-    try {
-      const profileData = await getUserProfile(userToken, accountName);
-      setProfile((prevProfile) => {
-        if (isEqual(prevProfile, profileData.profile)) {
-          return prevProfile;
-        }
-        return profileData.profile;
-      });
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-    }
-  };
-
+// 내 게시글 목록
   const getPost = async () => {
     try {
-      const postData = await getMyPost(userToken, accountName, 10, 0);
+      const postData = await getMyPost(accountName, 10, 0);
       setPosts(postData.post);
     } catch (error) {
       console.error('Error fetching user posts:', error);
@@ -137,16 +104,24 @@ const ProfilePage = () => {
     }
   };
 
+
+  if (isLoading) {
+    return (
+      <>
+      <h1>isLoading</h1>
+      </>
+    )
+  }
+
   return (
     <Container>
       <Header onButtonClick={onShowHeaderModal} />
       <>
-        {profile && (
+        {userProfile && (
           <Suspense fallback={<Loading />}>
-            <UserInfo
-              data={profile}
+            <ProfileCard
+              userProfile={userProfile.profile}
               myProfile={userInfoAtom.account === accountName}
-
             />
           </Suspense>
         )}
@@ -174,3 +149,10 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+const Container = styled.div`
+`
+
+const Section = styled.section`
+  margin-bottom: 6rem;
+`
