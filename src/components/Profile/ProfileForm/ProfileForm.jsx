@@ -1,12 +1,12 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import Input from '../common/Input/Input';
-import Button from '../common/Button/Button';
-import ProfileImage from './ProfileImage';
-import { useFieldController } from '../../hook/useFieldController';
+import Input from '../../common/Input/Input';
+import Button from '../../common/Button/Button';
+import ProfileImage from '../ProfileImage/ProfileImage';
+import { useFieldController } from '../../../hook/useFieldController';
 import { useForm } from 'react-hook-form';
-import { PATTERN, MESSAGE } from '../../constants/validation';
-import useImageUpload from '../../hook/useImageUpload';
+import { PATTERN, MESSAGE } from '../../../constants/validation';
+import useImageUpload from '../../../hook/useImageUpload';
 
 const ProfileForm = ({ myInfo, accountname, isError, message, userEmail, userPassword, signup, edit }) => {
 

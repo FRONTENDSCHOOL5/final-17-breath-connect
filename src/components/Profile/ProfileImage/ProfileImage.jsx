@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import AddImg from '../../assets/sprite/img-btn.svg';
-import AddDarkImg from '../../assets/sprite/img-btn-dark.svg';
-import BasicProfileImg from '../../assets/images/basic-profile-l.svg';
+import AddImg from '../../../assets/sprite/img-btn.svg';
+import AddDarkImg from '../../../assets/sprite/img-btn-dark.svg';
+import BasicProfileImg from '../../../assets/images/basic-profile-l.svg';
 
 const ProfileImage = ({ prevImage, previewImage, handleImage }) => {  
   return (
