@@ -24,10 +24,10 @@ export const getFollowFeed = async (limit, skip, token) => {
 };
 
 /* 나의 게시글 목록 */
-export const getMyPost = async (token, accountname) => {
+export const getMyPost = async (accountname, limit, skip) => {
   try {
     const response = await authInstance.get(
-      `/post/${accountname}/userpost/?limit=Number&skip=Number`
+      `/post/${accountname}/userpost/?limit=${limit}&skip=${skip}`
     );
     return response.data;
   } catch (error) {
@@ -76,7 +76,7 @@ export const reportPost = async (token, postId) => {
 };
 
 /* 개인 게시물 정보 */
-export const getUserPosts = async (token, accountname, limit, skip) => {
+export const getUserPosts = async (accountname, limit, skip) => {
   try {
     const response = await authInstance.get(
       `/post/${accountname}/userpost/?limit=${limit}&skip=${skip}`
