@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { useQuery, useMutation } from 'react-query';
 import { postAccountnameDuplicate } from '../../../api/auth';
 import { getMyInfo, editProfile } from '../../../api/profile';
-import ProfileForm from '../../../components/Profile/ProfileForm';
+import ProfileForm from '../../../components/Profile/ProfileForm/ProfileForm';
 import { userInfoAtom } from '../../../atoms/UserAtom';
 
 const ProfileEditPage = () => {
