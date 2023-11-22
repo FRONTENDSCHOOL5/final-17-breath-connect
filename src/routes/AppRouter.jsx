@@ -12,7 +12,7 @@ import ProfileSettingPage from '../pages/SignupPage/ProfileSettingPage/ProfileSe
 import FeedPage from '../pages/FeedPage/FeedPage';
 import PostPage from '../pages/PostPage/PostPage';
 import PostDetailPage from '../pages/PostPage/PostDetailPage/PostDetailPage';
-import ProfilePage from '../pages/ProfilePage/ProfilePage';
+import ProfilePage from '../pages/ProfilePage/ProfilePage/ProfilePage';
 import ProfileEditPage from '../pages/ProfilePage/ProfileEditPage/ProfileEditPage';
 import FollowerListPage from '../pages/FollowListPage/FollowerListPage/FollowerListPage';
 import FollowingListPage from '../pages/FollowListPage/FollowingListPage/FollowingListPage';
