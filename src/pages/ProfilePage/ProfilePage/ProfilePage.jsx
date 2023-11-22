@@ -2,31 +2,29 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useRecoilCallback, useSetRecoilState } from 'recoil';
-import { useQuery } from 'react-query';
-import Header from '../../components/Header/TopBasicNavHeader';
-import Footer from '../../components/Footer/TabMenu';
-import Loading from '../../components/common/Loading/Loading';
-import Modal from '../../components/common/Modal/PostModal';
-import IconPostModal from '../../components/common/Modal/IconPostModal';
+import { useQuery, useInfiniteQuery } from 'react-query';
+import Header from '../../../components/Header/TopBasicNavHeader';
+import Footer from '../../../components/Footer/TabMenu';
+import Loading from '../../../components/common/Loading/Loading';
+import Modal from '../../../components/common/Modal/PostModal';
+import IconPostModal from '../../../components/common/Modal/IconPostModal';
 import {
   deletePostData,
   resetProfile,
   logOut,
   reportUserPost,
   sharePost,
-} from '../../components/common/Modal/ModalFunction';
-import PostPage from '../PostPage/PostPage';
-import { getUserProfile } from '../../api/profile';
-import { getMyPost } from '../../api/post';
-import { loginAtom } from '../../atoms/LoginAtom';
-import { userInfoAtom } from '../../atoms/UserAtom';
-import ProfileCard from '../../components/Profile/ProfileCard/ProfileCard';
+} from '../../../components/common/Modal/ModalFunction';
+import PostPage from '../../PostPage/PostPage';
+import { getUserProfile } from '../../../api/profile';
+import { getMyPost } from '../../../api/post';
+import { loginAtom } from '../../../atoms/LoginAtom';
+import { userInfoAtom } from '../../../atoms/UserAtom';
+import ProfileCard from '../../../components/Profile/ProfileCard/ProfileCard';
 
 const ProfilePage = () => {
-
   const { accountname: accountName } = useParams();
   const navigate = useNavigate();
-  const [posts, setPosts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const userToken = localStorage.getItem('token');
   const userInfo = useRecoilValue(userInfoAtom);
@@ -36,26 +34,23 @@ const ProfilePage = () => {
   const [modalText, setModalText] = useState([]);
   const [modalFunc, setModalFunc] = useState([]);
 
-
   useEffect(() => {
     setIsDelete(false);
     setIsModalOpen(false);
   }, [isDelete]);
 
-  const { data: userProfile, isLoading } = useQuery([
-    'getUserProfile', accountName],
-    () => getUserProfile(accountName));
-  
+  const { data: userProfile, isLoading } = useQuery(['getUserProfile', accountName], () => getUserProfile(accountName));
 
-// 내 게시글 목록
-  const getPost = async () => {
-    try {
-      const postData = await getMyPost(accountName, 10, 0);
-      setPosts(postData.post);
-    } catch (error) {
-      console.error('Error fetching user posts:', error);
+  // Infinite scroll
+  const { data: postData, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+    ['getMyPost', accountName],
+    ({ pageParam = 0 }) => getMyPost(accountName, 5, pageParam),
+    {
+      getNextPageParam: (lastPage, pages) => lastPage.hasMore ? pages.length : undefined,
     }
-  };
+  );
+
+  const posts = postData ? postData.pages.flatMap(page => page.post) : [];
 
   const handleResetState = useRecoilCallback(({ reset }) => () => {
     reset(userInfoAtom);
@@ -104,13 +99,12 @@ const ProfilePage = () => {
     }
   };
 
-
   if (isLoading) {
     return (
       <>
-      <h1>isLoading</h1>
+        <h1>isLoading</h1>
       </>
-    )
+    );
   }
 
   return (
@@ -130,6 +124,11 @@ const ProfilePage = () => {
             posts.map((post, index) => (
               <PostPage key={index} data={post} showModal={onShowModal} />
             ))}
+          {hasNextPage && (
+            <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+              {isFetchingNextPage ? 'Loading more...' : 'Load More'}
+            </button>
+          )}
         </Section>
         {isModalOpen && (
           <Modal setIsModalOpen={setIsModalOpen}>
@@ -150,9 +149,8 @@ const ProfilePage = () => {
 
 export default ProfilePage;
 
-const Container = styled.div`
-`
+const Container = styled.div``;
 
 const Section = styled.section`
   margin-bottom: 6rem;
-`
+`;

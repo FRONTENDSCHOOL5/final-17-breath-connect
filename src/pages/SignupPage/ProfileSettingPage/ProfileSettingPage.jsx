@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { postAccountnameDuplicate, postUserSignup } from '../../../api/auth';
-import ProfileForm from '../../../components/Profile/ProfileForm';
+import ProfileForm from '../../../components/Profile/ProfileForm/ProfileForm';
 
 const ProfileSettingPage = () => {
   const [isError, setIsError] = useState(false);
