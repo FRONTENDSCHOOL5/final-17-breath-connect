@@ -21,7 +21,7 @@ import {
 
 
 const FollowingListPage = () => {
-  const account = useParams().id;
+  const { accountname: accountName } = useParams();
   const isDarkMode = useRecoilValue(isDarkModeState);
   const token = localStorage.getItem('token');
   const [isLoading, setIsLoading] = useState(true);
@@ -29,12 +29,12 @@ const FollowingListPage = () => {
 
   useEffect(() => {
     const followList = async () => {
-      const data = await getFollowingList(account);
+      const data = await getFollowingList(accountName);
       setFollowings(data);
       setIsLoading(false);
     };
     followList();
-  }, [account, token]);
+  }, [accountName, token]);
 
   return (
     <>

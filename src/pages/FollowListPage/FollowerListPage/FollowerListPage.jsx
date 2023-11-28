@@ -20,19 +20,19 @@ import {
 } from './FollowerListPageStyle';
 
 const FollowerListPage = () => {
-  const account = useParams().id;
+  const { accountname: accountName } = useParams();
   const isDarkMode = useRecoilValue(isDarkModeState);
   const [isLoading, setIsLoading] = useState(true);
   const [followings, setFollowings] = useState([]);
 
   useEffect(() => {
     const followList = async () => {
-      const data = await getFollowerList(account);
+      const data = await getFollowerList(accountName);
       setFollowings(data);
       setIsLoading(false);
     };
     followList();
-  }, [account]);
+  }, [accountName]);
 
   return (
     <>
