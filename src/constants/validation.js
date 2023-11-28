@@ -2,7 +2,8 @@ export const PATTERN = {
   EMAIL: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zAZ0-9-.]+$/,
   PASSWORD: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/,
   USERNAME: /^[a-zA-Z0-9]{2,10}$/,
-  ACCOUNTNAME: /^[a-zA-Z0-9._]+$/
+  ACCOUNTNAME: /^[a-zA-Z0-9._]+$/,
+  PROFILEIMG: /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[/\w.]*$/
 };
 
 export const MESSAGE = {
