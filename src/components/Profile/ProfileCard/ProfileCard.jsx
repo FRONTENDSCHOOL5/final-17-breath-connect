@@ -1,14 +1,15 @@
-import useState from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import Button from '../../common/Button/Button';
-import ProfileFollow from './ProfileFollow';
+import FollowCount from './FollowCount';
 import { userInfoAtom } from '../../../atoms/UserAtom';
 import { isDarkModeState } from '../../../atoms/StylesAtom';
 import { postFollow, deleteFollow } from '../../../api/follow';
 import basicProfile from '../../../assets/images/basic-profile-l.svg';
 import basicDarkProfile from '../../../assets/images/basic-profile-l-dark.svg';
+import { PATTERN } from '../../../constants/validation';
 
 const ProfileCard = ({ userProfile, myProfile }) => {
   const navigate = useNavigate();
@@ -16,7 +17,6 @@ const ProfileCard = ({ userProfile, myProfile }) => {
   const account = userInfo.account;
   const isDarkMode = useRecoilValue(isDarkModeState);
   const [profile, setProfile] = useState(userProfile);
-  const numberRegex = /^https:\/\/api\.mandarin\.weniv\.co\.kr\/[/\w.]*$/;
 
   const handleFollow = async (e) => {
     const followResult = await postFollow(profile.accountname);
@@ -42,10 +42,10 @@ const ProfileCard = ({ userProfile, myProfile }) => {
   return (
     <Container>
       <ProfileSection>
-        <ProfileFollow follow="Follower" userProfile={profile} />
+        <FollowCount followType="Followers" userProfile={profile} />
         <Image
           src={
-            numberRegex.test(userProfile.image)
+            PATTERN.PROFILEIMG.test(userProfile.image)
               ? userProfile.image
               : isDarkMode
                 ? basicDarkProfile
@@ -53,7 +53,7 @@ const ProfileCard = ({ userProfile, myProfile }) => {
           }
           alt="유저 이미지"
         />
-      <ProfileFollow follow="Follower" userProfile={profile} />
+      <FollowCount followType="Followings" userProfile={profile} />
       </ProfileSection>
       <UserSection>
         <UserName>{userProfile.username}</UserName>
@@ -89,7 +89,7 @@ const ProfileCard = ({ userProfile, myProfile }) => {
         )}
       </ButtonSection>
       <PostSection>
-        <Text>{userProfile.username}</Text>가 올린 글
+        <UserPost>{userProfile.username}</UserPost>가 올린 글
       </PostSection>
     </Container>
   )
@@ -98,7 +98,7 @@ const ProfileCard = ({ userProfile, myProfile }) => {
 export default ProfileCard;
 
 const Container = styled.div`
-background-color: ${({theme}) => theme.colors.backgroundColor};
+background-color: ${({ theme }) => theme.colors.backgroundColor};
 text-align: center;
 `;
 
@@ -159,6 +159,6 @@ const PostSection = styled.section`
   text-align: center;
 `;
 
-const Text = styled.strong`
-  color: ${({theme}) => theme.colors.mainColor};
+const UserPost = styled.strong`
+  color: ${({ theme }) => theme.colors.mainColor};
 `
