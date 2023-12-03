@@ -69,7 +69,7 @@ const AppRouter = () => {
           <Route index element={<ProfilePage theme={selectedTheme} />} />
           <Route path='editProfile' element={<ProfileEditPage theme={selectedTheme} />} />
           <Route path='follower' element={<FollowerListPage theme={selectedTheme} />} />
-          <Route path='follow' element={<FollowingListPage theme={selectedTheme} />} />
+          <Route path='following' element={<FollowingListPage theme={selectedTheme} />} />
         </Route>
 
         <Route path='/search' element={<SearchPage theme={selectedTheme} />} />
