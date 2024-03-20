@@ -1,0 +1,28 @@
+name: Front Deployment
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: react build & deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout Github Action
+        uses: actions/checkout@v3
+	  
+      # .env에 있던 환경변수들을 등록해주는 단계
+      - name: .env setting
+        run: |
+          echo "REACT_APP_KAKAOMAP=${{ secrets.REACT_APP_KAKAOMAP }}" >> .env
+
+      - name: install npm dependencies
+        run: npm install
+
+      - name: react build
+        run: npm run build

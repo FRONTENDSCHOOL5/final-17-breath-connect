@@ -3,16 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@tanstack/react-query": "^4.29.12",
+    "@tanstack/react-query": "^4.36.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "browser-image-compression": "^2.0.2",
+    "date-fns": "^2.30.0",
+    "dotenv": "^16.3.1",
+    "moment": "^2.29.4",
+    "rc-time-picker": "^3.7.3",
     "react": "^18.2.0",
+    "react-datepicker": "^4.14.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.12.1",
+    "react-hook-form": "^7.47.0",
+    "react-kakao-maps": "^0.0.13",
+    "react-kakao-maps-sdk": "^1.1.9",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
     "recoil": "^0.7.7",
+    "recoil-persist": "^4.2.0",
     "styled-components": "^5.3.10",
     "styled-reset": "^4.4.7",
     "web-vitals": "^2.1.4"
@@ -44,6 +55,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
+    "@babel/preset-react": "^7.22.5",
+    "babel-loader": "^9.1.3",
     "eslint": "^8.42.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
@@ -52,9 +67,13 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "html-webpack-plugin": "^5.5.3",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
-    "prettier": "2.8.8"
+    "prettier": "2.8.8",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "lint-staged": {
     "*.js": [
